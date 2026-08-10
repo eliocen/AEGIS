@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.10.0",
+        "version": "0.11.0",
         "device": "auto",
         "seed": 42,
     },
@@ -61,4 +61,11 @@ DEFAULT_CONFIG = {
         "threat_weight": 1.0,
     },
     },
+    "context": {
+    "domain_dimension": 32,
+    "auxiliary_dimension": 32,
+    "context_dimension": 128,
+    "content_dimension": 512,
+    "output_dimension": 512,
+  },
 }

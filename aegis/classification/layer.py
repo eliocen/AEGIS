@@ -2,15 +2,14 @@
 AEGIS Hierarchical Information Integrity
 Classification Layer.
 
-Version: 0.10.0
+Version: 0.11.0
 """
 
 import torch
 from torch.nn import functional as F
 
-from aegis.alignment import (
-    MultimodalRepresentation,
-)
+from aegis.alignment import MultimodalRepresentation
+from aegis.context import ContextualizedRepresentation
 from aegis.pipeline import AEGISLayer
 
 from .labels import (
@@ -18,20 +17,33 @@ from .labels import (
     THREAT_INDEX_TO_LABEL,
     IntegrityStatus,
 )
+
 from .model import (
     HierarchicalInformationIntegrityClassifier,
 )
+
 from .output import (
     HierarchicalClassificationOutput,
 )
 
 
-class HierarchicalClassificationLayer(
-    AEGISLayer
-):
+class HierarchicalClassificationLayer(AEGISLayer):
     """
     AEGIS hierarchical Information Integrity
     inference layer.
+
+    Accepts either:
+    - MultimodalRepresentation
+    - ContextualizedRepresentation
+
+    Stage 1:
+        True vs Harmful
+
+    Stage 2:
+        Misinformation
+        Disinformation
+        Malinformation
+        Hate Speech
     """
 
     layer_name = (
@@ -40,8 +52,7 @@ class HierarchicalClassificationLayer(
 
     def __init__(
         self,
-        model:
-        HierarchicalInformationIntegrityClassifier,
+        model: HierarchicalInformationIntegrityClassifier,
         config=None,
         device: str = "cpu",
     ):
@@ -63,26 +74,50 @@ class HierarchicalClassificationLayer(
             self.device
         )
 
-    def process(
-        self,
-        data: MultimodalRepresentation,
-    ):
-        if not isinstance(
+    def process(self, data):
+        """
+        Perform hierarchical Information Integrity
+        classification.
+
+        Parameters
+        ----------
+        data:
+            Either a MultimodalRepresentation or
+            ContextualizedRepresentation.
+
+        Returns
+        -------
+        HierarchicalClassificationOutput
+        """
+
+        if isinstance(
             data,
             MultimodalRepresentation,
         ):
+            sample_id = data.sample_id
+            embedding = data.fused_embedding
+            input_source = "multimodal"
+
+        elif isinstance(
+            data,
+            ContextualizedRepresentation,
+        ):
+            sample_id = data.sample_id
+            embedding = data.fused_embedding
+            input_source = "contextualized"
+
+        else:
             raise TypeError(
-                "HierarchicalClassificationLayer "
-                "expects MultimodalRepresentation."
+                "HierarchicalClassificationLayer expects "
+                "MultimodalRepresentation or "
+                "ContextualizedRepresentation."
             )
 
-        if data.fused_embedding is None:
+        if embedding is None:
             raise ValueError(
-                "MultimodalRepresentation "
-                "does not contain a fused embedding."
+                "Input representation does not contain "
+                "a fused embedding."
             )
-
-        embedding = data.fused_embedding
 
         if not isinstance(
             embedding,
@@ -96,9 +131,7 @@ class HierarchicalClassificationLayer(
         embedding = embedding.float()
 
         if embedding.ndim == 1:
-            embedding = (
-                embedding.unsqueeze(0)
-            )
+            embedding = embedding.unsqueeze(0)
 
         if embedding.ndim != 2:
             raise ValueError(
@@ -109,8 +142,18 @@ class HierarchicalClassificationLayer(
 
         if embedding.shape[0] != 1:
             raise ValueError(
-                "ClassificationLayer.process currently "
-                "supports single-sample inference."
+                "HierarchicalClassificationLayer.process "
+                "currently supports single-sample inference."
+            )
+
+        if (
+            embedding.shape[-1]
+            != self.model.input_dim
+        ):
+            raise ValueError(
+                f"Expected fused embedding dimension "
+                f"{self.model.input_dim}, "
+                f"received {embedding.shape[-1]}."
             )
 
         embedding = embedding.to(
@@ -189,50 +232,54 @@ class HierarchicalClassificationLayer(
                 ].item()
             )
 
-        return (
-            HierarchicalClassificationOutput(
-                sample_id=data.sample_id,
+        return HierarchicalClassificationOutput(
+            sample_id=sample_id,
 
-                integrity_status=(
-                    integrity_status
+            integrity_status=(
+                integrity_status
+            ),
+
+            integrity_confidence=(
+                integrity_confidence
+            ),
+
+            threat_type=(
+                threat_type
+            ),
+
+            threat_confidence=(
+                threat_confidence
+            ),
+
+            integrity_probabilities=(
+                integrity_probs
+                .squeeze(0)
+                .detach()
+                .cpu()
+            ),
+
+            threat_probabilities=(
+                threat_probs
+                .squeeze(0)
+                .detach()
+                .cpu()
+            ),
+
+            metadata={
+                "classification": (
+                    "hierarchical"
                 ),
 
-                integrity_confidence=(
-                    integrity_confidence
+                "input_source": (
+                    input_source
                 ),
 
-                threat_type=(
-                    threat_type
+                "input_dimension": (
+                    self.model.input_dim
                 ),
 
-                threat_confidence=(
-                    threat_confidence
+                "device": (
+                    self.device
                 ),
-
-                integrity_probabilities=(
-                    integrity_probs
-                    .squeeze(0)
-                    .detach()
-                    .cpu()
-                ),
-
-                threat_probabilities=(
-                    threat_probs
-                    .squeeze(0)
-                    .detach()
-                    .cpu()
-                ),
-
-                metadata={
-                    "classification": (
-                        "hierarchical"
-                    ),
-                    "input_dimension": (
-                        self.model.input_dim
-                    ),
-                    "device": (
-                        self.device
-                    ),
-                },
-            )
+            },
         )

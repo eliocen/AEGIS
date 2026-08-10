@@ -1,5 +1,5 @@
 """
-Tests for AEGIS v0.10.0:
+Tests for AEGIS v0.11.0:
 Hierarchical Information Integrity Classification.
 """
 
@@ -12,10 +12,15 @@ from aegis.alignment import (
 )
 
 from aegis.classification import (
+    CognitiveThreatType,
     HierarchicalClassificationLayer,
     HierarchicalInformationIntegrityClassifier,
     IntegrityStatus,
     WeightedHierarchicalLoss,
+)
+
+from aegis.context import (
+    ContextualizedRepresentation,
 )
 
 
@@ -72,29 +77,22 @@ class TestWeightedHierarchicalLoss(
             WeightedHierarchicalLoss()
         )
 
-        integrity_logits = (
-            torch.randn(
-                5,
-                2,
-                requires_grad=True,
-            )
+        integrity_logits = torch.randn(
+            5,
+            2,
+            requires_grad=True,
         )
 
-        threat_logits = (
-            torch.randn(
-                5,
-                4,
-                requires_grad=True,
-            )
+        threat_logits = torch.randn(
+            5,
+            4,
+            requires_grad=True,
         )
 
-        # TRUE, harmful, harmful,
-        # TRUE, harmful
         integrity_targets = torch.tensor(
             [0, 1, 1, 0, 1]
         )
 
-        # -1 ignored for TRUE samples
         threat_targets = torch.tensor(
             [-1, 0, 1, -1, 3]
         )
@@ -197,9 +195,7 @@ class TestClassificationLayer(
         representation = (
             MultimodalRepresentation(
                 sample_id="CCT-001",
-                fused_embedding=(
-                    torch.randn(512)
-                ),
+                fused_embedding=torch.randn(512),
                 shared_dimension=512,
                 text_available=True,
                 vision_available=True,
@@ -254,7 +250,6 @@ class TestClassificationLayer(
             )
         )
 
-        # Force Stage 1 to predict TRUE.
         with torch.no_grad():
 
             model.integrity_head.weight.zero_()
@@ -300,10 +295,6 @@ class TestClassificationLayer(
 
     def test_harmful_output_has_threat_type(self):
 
-        from aegis.classification import (
-            CognitiveThreatType,
-        )
-
         model = (
             HierarchicalInformationIntegrityClassifier(
                 input_dim=512,
@@ -312,8 +303,6 @@ class TestClassificationLayer(
             )
         )
 
-        # Force Stage 1 to predict HARMFUL
-        # and Stage 2 to predict DISINFORMATION.
         with torch.no_grad():
 
             model.integrity_head.weight.zero_()
@@ -362,3 +351,60 @@ class TestClassificationLayer(
         self.assertIsNotNone(
             result.threat_confidence
         )
+
+    def test_contextualized_representation_input(self):
+
+        model = (
+            HierarchicalInformationIntegrityClassifier(
+                input_dim=512,
+                hidden_dim=256,
+                dropout=0.0,
+            )
+        )
+
+        layer = (
+            HierarchicalClassificationLayer(
+                model=model,
+                device="cpu",
+            )
+        )
+
+        representation = (
+            ContextualizedRepresentation(
+                sample_id="CTX-CLASS-001",
+                content_embedding=torch.randn(512),
+                context_embedding=torch.randn(128),
+                fused_embedding=torch.randn(512),
+                content_dimension=512,
+                context_dimension=128,
+                fused_dimension=512,
+            )
+        )
+
+        result = layer.process(
+            representation
+        )
+
+        self.assertEqual(
+            result.sample_id,
+            "CTX-CLASS-001",
+        )
+
+        self.assertEqual(
+            result.metadata[
+                "input_source"
+            ],
+            "contextualized",
+        )
+
+        self.assertIn(
+            result.integrity_status,
+            [
+                IntegrityStatus.TRUE,
+                IntegrityStatus.HARMFUL,
+            ],
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()
