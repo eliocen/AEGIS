@@ -1,6 +1,6 @@
 framework:
   name: AEGIS
-  version: "0.6.0"
+  version: "0.7.0"
   device: auto
   seed: 42
 
@@ -15,3 +15,9 @@ pipeline:
   enable_attribution: true
   enable_explainability: true
   enable_decision_support: true
+
+representation:
+  text:
+    model_name: FacebookAI/xlm-roberta-base
+    max_length: 256
+    pooling: masked_mean
