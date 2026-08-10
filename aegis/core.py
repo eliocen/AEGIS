@@ -1,42 +1,56 @@
 """
 AEGIS Core Framework
 
-Author:
-Eli Haggai Ocen
-
-Version:
-0.2.0
+Version: 0.4.0
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
+
+from aegis.config import AEGISConfig
+from aegis.pipeline import AEGISPipeline
+from aegis.utils import get_logger
 
 
 class AEGIS:
     """
-    Core orchestrator for the AEGIS framework.
-
-    All framework components are initialized and coordinated
-    through this class.
+    Central orchestrator for the AEGIS framework.
     """
 
-    def __init__(self):
+    def __init__(
+        self,
+        config: AEGISConfig | None = None,
+        pipeline: AEGISPipeline | None = None,
+    ):
+        self.config = config or AEGISConfig()
+        self.pipeline = pipeline or AEGISPipeline()
 
-        self.version = "0.2.0"
-
-        self.name = "Artificial Intelligence Framework for Evaluating and Guarding Information Integrity and Security"
+        self.logger = get_logger("aegis.core")
 
     def info(self) -> Dict[str, Any]:
-
         return {
-            "framework": self.name,
-            "version": self.version,
-            "author": "Eli Haggai Ocen",
-            "status": "Development",
-            "research_area": "AI for Information Integrity and Cognitive Cyber Threat Intelligence",
+            "framework": self.config.get("framework.name"),
+            "version": self.config.get("framework.version"),
+            "device": self.config.get("framework.device"),
+            "research_area": (
+                "AI for Information Integrity and "
+                "Cognitive Cyber Threat Intelligence"
+            ),
+            "pipeline_layers": self.pipeline.describe(),
         }
 
-    def analyze(self, sample):
+    def add_layer(self, layer) -> None:
+        self.pipeline.add_layer(layer)
 
-        raise NotImplementedError(
-            "Analysis pipeline will be implemented in later milestones."
+        self.logger.info(
+            "Registered AEGIS layer: %s",
+            layer.layer_name,
         )
+
+    def analyze(self, sample: Any) -> Any:
+        self.logger.info("Starting AEGIS analysis pipeline.")
+
+        result = self.pipeline.run(sample)
+
+        self.logger.info("AEGIS analysis pipeline completed.")
+
+        return result

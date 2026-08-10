@@ -1,0 +1,17 @@
+framework:
+  name: AEGIS
+  version: "0.4.0"
+  device: auto
+  seed: 42
+
+data:
+  language: auto
+  max_text_length: 512
+  image_size: 224
+
+pipeline:
+  enable_context: true
+  enable_intelligence: true
+  enable_attribution: true
+  enable_explainability: true
+  enable_decision_support: true

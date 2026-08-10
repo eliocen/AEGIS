@@ -1,0 +1,42 @@
+# Virtual environments
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Test/cache
+.pytest_cache/
+.coverage
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Logs
+*.log
+
+# Model checkpoints
+checkpoints/
+*.pt
+*.pth
+
+# Generated outputs
+outputs/
+
+# Operating system
+.DS_Store
+Thumbs.db
