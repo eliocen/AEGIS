@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.8.0",
+        "version": "0.9.0",
         "device": "auto",
         "seed": 42,
     },
@@ -31,10 +31,19 @@ DEFAULT_CONFIG = {
         "max_length": 256,
         "pooling": "masked_mean",
          },
-    },
+
     "vision": {
-        "model_name": (
-            "openai/clip-vit-base-patch32"
-        ),
+            "model_name": (
+                "openai/clip-vit-base-patch32"
+            ),
+        },
+    },
+    "alignment": {
+    "text_dimension": 768,
+    "vision_dimension": 512,
+    "shared_dimension": 512,
+    "dropout": 0.1,
+    "temperature": 0.07,
+    "fusion": "gated",
     },
 }
