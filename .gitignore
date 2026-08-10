@@ -56,3 +56,6 @@ data/benchmark/*
 
 data/external/*
 !data/external/.gitkeep
+
+# Generated test data
+data/test/

@@ -8,6 +8,10 @@ from .pooling import masked_mean_pooling
 from .text_encoder import (
     TransformerTextEncoder,
 )
+from .vision_base import VisionEncoder
+from .vision_encoder import TransformerVisionEncoder
+from .vision_layer import VisionRepresentationLayer
+from .vision_output import VisionRepresentation
 
 
 __all__ = [
@@ -17,4 +21,9 @@ __all__ = [
     "MultilingualRepresentationLayer",
     "masked_mean_pooling",
     "resolve_device",
+
+    "VisionEncoder",
+    "VisionRepresentation",
+    "TransformerVisionEncoder",
+    "VisionRepresentationLayer",
 ]

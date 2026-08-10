@@ -1,6 +1,6 @@
 framework:
   name: AEGIS
-  version: "0.7.0"
+  version: "0.8.0"
   device: auto
   seed: 42
 
@@ -21,3 +21,5 @@ representation:
     model_name: FacebookAI/xlm-roberta-base
     max_length: 256
     pooling: masked_mean
+  vision:
+    model_name: openai/clip-vit-base-patch32

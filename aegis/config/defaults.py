@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.6.0",
+        "version": "0.8.0",
         "device": "auto",
         "seed": 42,
     },
@@ -22,5 +22,19 @@ DEFAULT_CONFIG = {
         "enable_attribution": True,
         "enable_explainability": True,
         "enable_decision_support": True,
+    },
+    "representation": {
+    "text": {
+        "model_name": (
+            "FacebookAI/xlm-roberta-base"
+        ),
+        "max_length": 256,
+        "pooling": "masked_mean",
+         },
+    },
+    "vision": {
+        "model_name": (
+            "openai/clip-vit-base-patch32"
+        ),
     },
 }
