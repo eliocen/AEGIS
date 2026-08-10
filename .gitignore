@@ -40,3 +40,19 @@ outputs/
 # Operating system
 .DS_Store
 Thumbs.db
+
+# Research datasets
+data/raw/*
+!data/raw/.gitkeep
+
+data/interim/*
+!data/interim/.gitkeep
+
+data/processed/*
+!data/processed/.gitkeep
+
+data/benchmark/*
+!data/benchmark/.gitkeep
+
+data/external/*
+!data/external/.gitkeep
