@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.9.0",
+        "version": "0.10.0",
         "device": "auto",
         "seed": 42,
     },
@@ -45,5 +45,20 @@ DEFAULT_CONFIG = {
     "dropout": 0.1,
     "temperature": 0.07,
     "fusion": "gated",
+    },
+    "classification": {
+    "input_dimension": 512,
+    "hidden_dimension": 256,
+    "dropout": 0.2,
+
+    "hierarchy": {
+        "integrity_classes": 2,
+        "threat_classes": 4,
+    },
+
+    "loss": {
+        "integrity_weight": 1.0,
+        "threat_weight": 1.0,
+    },
     },
 }
