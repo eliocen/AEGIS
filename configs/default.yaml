@@ -1,6 +1,6 @@
 framework:
   name: AEGIS
-  version: "0.18.0"
+  version: "0.19.0"
   device: auto
   seed: 42
 
@@ -150,4 +150,14 @@ experiment:
     save_best: true
     save_last: true
     directory: checkpoints
+
+experiment_management:
+  root_directory: experiments
+
+  save_config_snapshot: true
+  save_metadata_snapshot: true
+
+  checkpoint_format: aegis_experiment_v1
+
+  resume_enabled: true
 

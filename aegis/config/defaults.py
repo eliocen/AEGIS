@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.18.0",
+        "version": "0.19.0",
         "device": "auto",
         "seed": 42,
     },

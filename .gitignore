@@ -67,3 +67,7 @@ checkpoints/*
 *.pt
 *.pth
 *.ckpt
+
+# AEGIS experiment runs
+experiments/*
+!experiments/.gitkeep
