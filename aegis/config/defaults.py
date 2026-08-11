@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.21.0",
+        "version": "0.22.0",
         "device": "auto",
         "seed": 42,
     },
@@ -222,5 +222,24 @@ DEFAULT_CONFIG = {
     "primary_metric": (
         "five_class_macro_f1"
     ),
+    },
+
+    "multilingual_evaluation": {
+    "enabled": True,
+
+    "languages": [
+        "en",
+        "zh",
+    ],
+
+    "primary_metric": (
+        "five_class_macro_f1"
+    ),
+
+    "cross_lingual_transfer": True,
+
+    "language_gap_analysis": True,
+
+    "require_fixed_test_sets": True,
     },
 }

@@ -1,0 +1,46 @@
+study:
+  name: aegis_multilingual_crosslingual_evaluation
+
+languages:
+  - en
+  - zh
+
+evaluation:
+  primary_metric: five_class_macro_f1
+
+  report:
+    integrity_metrics: true
+    threat_metrics: true
+    five_class_metrics: true
+    confusion_matrix: true
+    language_gap: true
+    transfer_matrix: true
+
+cross_lingual:
+  enabled: true
+
+  experiments:
+    - train: en
+      test: en
+
+    - train: en
+      test: zh
+
+    - train: zh
+      test: en
+
+    - train: zh
+      test: zh
+
+controls:
+  same_label_taxonomy: true
+  same_evaluation_protocol: true
+  fixed_test_sets: true
+  preserve_language_metadata: true
+
+seeds:
+  - 42
+  - 123
+  - 456
+  - 789
+  - 2026

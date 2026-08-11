@@ -1,6 +1,6 @@
 framework:
   name: AEGIS
-  version: "0.21.0"
+  version: "0.22.0"
   device: auto
   seed: 42
 
@@ -194,4 +194,18 @@ ablation:
     - no_alignment_loss
     - reduced_alignment
     - reduced_classification
+
+multilingual_evaluation:
+  enabled: true
+
+  languages:
+    - en
+    - zh
+
+  primary_metric: five_class_macro_f1
+
+  cross_lingual_transfer: true
+  language_gap_analysis: true
+
+  require_fixed_test_sets: true
 
