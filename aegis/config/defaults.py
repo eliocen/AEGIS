@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.12.0",
+        "version": "0.13.0",
         "device": "auto",
         "seed": 42,
     },
@@ -85,4 +85,14 @@ DEFAULT_CONFIG = {
         "high": 0.80,
     },
    },
+
+   "attribution": {
+    "minimum_confidence": 0.50,
+
+    "enable_source_provenance": True,
+    "enable_coordination_analysis": True,
+    "enable_synthetic_indicators": True,
+
+    "definitive_attribution": False,
+    },
 }
