@@ -1,6 +1,6 @@
 framework:
   name: AEGIS
-  version: "0.20.0"
+  version: "0.21.0"
   device: auto
   seed: 42
 
@@ -177,3 +177,21 @@ evaluation:
     source_dataset: true
 
   error_analysis: true
+
+ablation:
+  enabled: true
+
+  baseline: baseline
+
+  controlled_seed: 42
+
+  primary_metric: five_class_macro_f1
+
+  variants:
+    - baseline
+    - text_only
+    - vision_only
+    - no_alignment_loss
+    - reduced_alignment
+    - reduced_classification
+

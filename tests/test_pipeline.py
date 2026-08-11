@@ -30,7 +30,7 @@ class TestAEGISConfig(unittest.TestCase):
 
         self.assertEqual(
             config.get("framework.version"),
-            "0.20.0",
+            "0.21.0",
         )
 
         self.assertEqual(

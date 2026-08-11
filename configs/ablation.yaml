@@ -1,0 +1,70 @@
+study:
+  name: aegis_component_ablation
+  baseline: baseline
+
+seeds:
+  - 42
+  - 123
+  - 456
+  - 789
+  - 2026
+
+control:
+  same_dataset_split: true
+  same_split_manifest: true
+  same_batch_size: true
+  same_optimizer: true
+  same_epochs: true
+  same_evaluation_protocol: true
+
+statistics:
+  aggregation: mean_std
+  standard_deviation: sample
+  report_minimum: true
+  report_maximum: true
+  report_baseline_delta: true
+
+primary_metrics:
+  - five_class_macro_f1
+  - five_class_weighted_f1
+  - hierarchical_exact_accuracy
+  - integrity_macro_f1
+  - threat_macro_f1
+
+variants:
+
+  baseline:
+    use_text: true
+    use_vision: true
+    alignment_loss_weight: 1.0
+    classification_loss_weight: 1.0
+
+  text_only:
+    use_text: true
+    use_vision: false
+    alignment_loss_weight: 1.0
+    classification_loss_weight: 1.0
+
+  vision_only:
+    use_text: false
+    use_vision: true
+    alignment_loss_weight: 1.0
+    classification_loss_weight: 1.0
+
+  no_alignment_loss:
+    use_text: true
+    use_vision: true
+    alignment_loss_weight: 0.0
+    classification_loss_weight: 1.0
+
+  reduced_alignment:
+    use_text: true
+    use_vision: true
+    alignment_loss_weight: 0.5
+    classification_loss_weight: 1.0
+
+  reduced_classification:
+    use_text: true
+    use_vision: true
+    alignment_loss_weight: 1.0
+    classification_loss_weight: 0.5

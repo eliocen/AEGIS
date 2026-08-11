@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.20.0",
+        "version": "0.21.0",
         "device": "auto",
         "seed": 42,
     },
@@ -201,6 +201,26 @@ DEFAULT_CONFIG = {
     },
 
     "error_analysis": True,
-},
+    },
 
+    "ablation": {
+    "enabled": True,
+
+    "baseline": "baseline",
+
+    "controlled_seed": 42,
+
+    "variants": [
+        "baseline",
+        "text_only",
+        "vision_only",
+        "no_alignment_loss",
+        "reduced_alignment",
+        "reduced_classification",
+    ],
+
+    "primary_metric": (
+        "five_class_macro_f1"
+    ),
+    },
 }
