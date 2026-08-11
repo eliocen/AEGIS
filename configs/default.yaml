@@ -1,6 +1,6 @@
 framework:
   name: AEGIS
-  version: "0.14.0"
+  version: "0.15.0"
   device: auto
   seed: 42
 
@@ -84,4 +84,18 @@ explainability:
   low_confidence_threshold: 0.60
 
   neural_feature_attribution: false
+
+decision:
+  enabled: true
+
+  human_supervision_required: true
+
+  autonomous_enforcement: false
+
+  low_confidence_threshold: 0.60
+
+  allow_monitoring_recommendation: true
+  allow_verification_recommendation: true
+  allow_fact_check_recommendation: true
+  allow_escalation_recommendation: true
 

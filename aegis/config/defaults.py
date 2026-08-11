@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.14.0",
+        "version": "0.15.0",
         "device": "auto",
         "seed": 42,
     },
@@ -106,5 +106,20 @@ DEFAULT_CONFIG = {
 
     "neural_feature_attribution": False,
     },
-    
+
+    "decision": {
+    "enabled": True,
+
+    "human_supervision_required": True,
+
+    "autonomous_enforcement": False,
+
+    "low_confidence_threshold": 0.60,
+
+    "allow_monitoring_recommendation": True,
+    "allow_verification_recommendation": True,
+    "allow_fact_check_recommendation": True,
+    "allow_escalation_recommendation": True,
+    },
+
 }
