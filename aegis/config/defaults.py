@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.11.0",
+        "version": "0.12.0",
         "device": "auto",
         "seed": 42,
     },
@@ -67,5 +67,22 @@ DEFAULT_CONFIG = {
     "context_dimension": 128,
     "content_dimension": 512,
     "output_dimension": 512,
-  },
+    },
+
+    "intelligence": {
+    "risk_weights": {
+        "classification": 0.30,
+        "propagation": 0.20,
+        "synthetic_content": 0.15,
+        "coordination": 0.15,
+        "context": 0.20,
+    },
+
+    "risk_thresholds": {
+        "minimal": 0.20,
+        "low": 0.40,
+        "moderate": 0.60,
+        "high": 0.80,
+    },
+   },
 }
