@@ -1,6 +1,6 @@
 framework:
   name: AEGIS
-  version: "0.15.0"
+  version: "0.16.0"
   device: auto
   seed: 42
 
@@ -98,4 +98,23 @@ decision:
   allow_verification_recommendation: true
   allow_fact_check_recommendation: true
   allow_escalation_recommendation: true
+
+training:
+  seed: 42
+
+  batch_size: 16
+
+  epochs: 10
+
+  learning_rate: 0.0001
+
+  weight_decay: 0.0001
+
+  gradient_clip_norm: 1.0
+
+  alignment_loss_weight: 1.0
+
+  classification_loss_weight: 1.0
+
+  checkpoint_directory: checkpoints
 

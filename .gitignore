@@ -59,3 +59,11 @@ data/external/*
 
 # Generated test data
 data/test/
+
+# Training checkpoints
+checkpoints/*
+!checkpoints/.gitkeep
+
+*.pt
+*.pth
+*.ckpt

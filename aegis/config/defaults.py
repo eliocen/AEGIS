@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.15.0",
+        "version": "0.16.0",
         "device": "auto",
         "seed": 42,
     },
@@ -120,6 +120,26 @@ DEFAULT_CONFIG = {
     "allow_verification_recommendation": True,
     "allow_fact_check_recommendation": True,
     "allow_escalation_recommendation": True,
+    },
+
+    "training": {
+    "seed": 42,
+
+    "batch_size": 16,
+
+    "epochs": 10,
+
+    "learning_rate": 0.0001,
+
+    "weight_decay": 0.0001,
+
+    "gradient_clip_norm": 1.0,
+
+    "alignment_loss_weight": 1.0,
+
+    "classification_loss_weight": 1.0,
+
+    "checkpoint_directory": "checkpoints",
     },
 
 }
