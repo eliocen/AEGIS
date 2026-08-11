@@ -1,6 +1,6 @@
 framework:
   name: AEGIS
-  version: "0.22.0"
+  version: "0.23.0"
   device: auto
   seed: 42
 
@@ -208,4 +208,40 @@ multilingual_evaluation:
   language_gap_analysis: true
 
   require_fixed_test_sets: true
+
+robustness_evaluation:
+  enabled: true
+
+  calibration:
+    enabled: true
+    bins: 10
+    brier_score: true
+    negative_log_likelihood: true
+    ece: true
+    mce: true
+
+  uncertainty:
+    enabled: true
+    predictive_entropy: true
+    normalized_entropy: true
+    confidence_margin: true
+    hierarchical: true
+
+  robustness:
+    enabled: true
+
+    text_perturbations:
+      - whitespace
+      - lowercase
+      - punctuation
+      - word_deletion
+      - character_noise
+
+    prediction_consistency: true
+    performance_degradation: true
+    confidence_degradation: true
+
+  confidence_analysis:
+    enabled: true
+    high_confidence_threshold: 0.80
 

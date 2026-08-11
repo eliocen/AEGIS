@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.22.0",
+        "version": "0.23.0",
         "device": "auto",
         "seed": 42,
     },
@@ -241,5 +241,47 @@ DEFAULT_CONFIG = {
     "language_gap_analysis": True,
 
     "require_fixed_test_sets": True,
+    },
+
+    "robustness_evaluation": {
+    "enabled": True,
+
+    "calibration": {
+        "enabled": True,
+        "bins": 10,
+        "brier_score": True,
+        "negative_log_likelihood": True,
+        "ece": True,
+        "mce": True,
+    },
+
+    "uncertainty": {
+        "enabled": True,
+        "predictive_entropy": True,
+        "normalized_entropy": True,
+        "confidence_margin": True,
+        "hierarchical": True,
+    },
+
+    "robustness": {
+        "enabled": True,
+
+        "text_perturbations": [
+            "whitespace",
+            "lowercase",
+            "punctuation",
+            "word_deletion",
+            "character_noise",
+        ],
+
+        "prediction_consistency": True,
+        "performance_degradation": True,
+        "confidence_degradation": True,
+    },
+
+    "confidence_analysis": {
+        "enabled": True,
+        "high_confidence_threshold": 0.80,
+    },
     },
 }

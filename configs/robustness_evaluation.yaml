@@ -1,0 +1,47 @@
+study:
+  name: aegis_robustness_calibration_uncertainty
+
+evaluation:
+  calibration:
+    bins: 10
+
+  confidence:
+    high_confidence_threshold: 0.80
+
+  uncertainty:
+    low_threshold: 0.33
+    high_threshold: 0.66
+
+perturbations:
+
+  whitespace:
+    enabled: true
+
+  lowercase:
+    enabled: true
+
+  punctuation:
+    enabled: true
+
+  word_deletion:
+    enabled: true
+    probability: 0.10
+
+  character_noise:
+    enabled: true
+    probability: 0.05
+
+metrics:
+  - five_class_macro_f1
+  - prediction_consistency
+  - confidence_degradation
+  - expected_calibration_error
+  - maximum_calibration_error
+  - brier_score
+  - negative_log_likelihood
+
+controls:
+  fixed_test_set: true
+  same_model_checkpoint: true
+  same_seed: true
+  same_label_taxonomy: true
