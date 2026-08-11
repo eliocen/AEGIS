@@ -3,7 +3,7 @@ experiment:
   seed: 42
 
 training:
-  epochs: 10
+  max_epochs: 20
   batch_size: 16
 
 optimizer:
@@ -15,6 +15,11 @@ loss:
   alignment_weight: 1.0
   classification_weight: 1.0
 
+early_stopping:
+  enabled: true
+  patience: 5
+  min_delta: 0.0001
+
 checkpoint:
   directory: checkpoints
   save_best: true
@@ -24,5 +29,4 @@ model:
   text_dimension: 768
   vision_dimension: 512
   shared_dimension: 512
-
   classifier_hidden_dimension: 256

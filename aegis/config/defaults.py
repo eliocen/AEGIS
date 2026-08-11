@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.17.0",
+        "version": "0.18.0",
         "device": "auto",
         "seed": 42,
     },
@@ -162,6 +162,24 @@ DEFAULT_CONFIG = {
         "group_attribute": "group_id",
 
         "seed": 42,
+    },
+    },
+
+    "experiment": {
+    "name": "aegis_baseline",
+
+    "max_epochs": 20,
+
+    "early_stopping": {
+        "enabled": True,
+        "patience": 5,
+        "min_delta": 0.0001,
+    },
+
+    "checkpoint": {
+        "save_best": True,
+        "save_last": True,
+        "directory": "checkpoints",
     },
     },
 

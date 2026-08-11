@@ -1,6 +1,6 @@
 framework:
   name: AEGIS
-  version: "0.17.0"
+  version: "0.18.0"
   device: auto
   seed: 42
 
@@ -135,4 +135,19 @@ dataset:
     group_attribute: group_id
 
     seed: 42
+
+experiment:
+  name: aegis_baseline
+
+  max_epochs: 20
+
+  early_stopping:
+    enabled: true
+    patience: 5
+    min_delta: 0.0001
+
+  checkpoint:
+    save_best: true
+    save_last: true
+    directory: checkpoints
 

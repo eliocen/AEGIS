@@ -7,6 +7,24 @@ from .checkpoint import (
     save_checkpoint,
 )
 
+from .early_stopping import (
+    EarlyStoppingState,
+)
+
+from .epoch import (
+    run_training_epoch,
+    run_validation_epoch,
+)
+
+from .experiment import (
+    AEGISExperimentRunner,
+)
+
+from .history import (
+    EpochRecord,
+    ExperimentHistory,
+)
+
 from .metrics import (
     compute_hierarchical_metrics,
 )
@@ -28,8 +46,14 @@ __all__ = [
     "TrainingBatch",
     "TrainingState",
     "AEGISTrainer",
+    "EarlyStoppingState",
+    "EpochRecord",
+    "ExperimentHistory",
+    "AEGISExperimentRunner",
     "set_global_seed",
     "compute_hierarchical_metrics",
+    "run_training_epoch",
+    "run_validation_epoch",
     "save_checkpoint",
     "load_checkpoint",
 ]
