@@ -1,6 +1,6 @@
 framework:
   name: AEGIS
-  version: "0.16.0"
+  version: "0.17.0"
   device: auto
   seed: 42
 
@@ -117,4 +117,22 @@ training:
   classification_loss_weight: 1.0
 
   checkpoint_directory: checkpoints
+
+dataset:
+  text_dimension: 768
+  vision_dimension: 512
+
+  batch_size: 16
+  num_workers: 0
+
+  split:
+    strategy: group_aware
+
+    train_ratio: 0.70
+    validation_ratio: 0.15
+    test_ratio: 0.15
+
+    group_attribute: group_id
+
+    seed: 42
 
