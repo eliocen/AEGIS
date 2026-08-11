@@ -7,7 +7,7 @@ Version: 0.4.0
 DEFAULT_CONFIG = {
     "framework": {
         "name": "AEGIS",
-        "version": "0.19.0",
+        "version": "0.20.0",
         "device": "auto",
         "seed": 42,
     },
@@ -182,5 +182,25 @@ DEFAULT_CONFIG = {
         "directory": "checkpoints",
     },
     },
+
+    "evaluation": {
+    "macro_f1": True,
+    "weighted_f1": True,
+    "per_class_metrics": True,
+    "confusion_matrix": True,
+
+    "calibration": {
+        "enabled": True,
+        "bins": 10,
+    },
+
+    "stratified": {
+        "language": True,
+        "domain": True,
+        "source_dataset": True,
+    },
+
+    "error_analysis": True,
+},
 
 }
