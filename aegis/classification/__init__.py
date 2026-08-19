@@ -1,3 +1,7 @@
+from .binary_loss import (
+    BinaryIntegrityLoss,
+)
+
 from .labels import (
     CognitiveThreatType,
     IntegrityStatus,
@@ -26,5 +30,6 @@ __all__ = [
     "HierarchicalClassificationOutput",
     "HierarchicalInformationIntegrityClassifier",
     "WeightedHierarchicalLoss",
+    "BinaryIntegrityLoss",
     "HierarchicalClassificationLayer",
 ]

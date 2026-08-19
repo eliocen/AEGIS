@@ -2,6 +2,18 @@ from .batch import (
     TrainingBatch,
 )
 
+from .binary_batch import (
+    BinaryIntegrityBatch,
+)
+
+from .binary_metrics import (
+    compute_binary_integrity_metrics,
+)
+
+from .binary_trainer import (
+    BinaryIntegrityTrainer,
+)
+
 from .checkpoint import (
     load_checkpoint,
     save_checkpoint,
@@ -37,6 +49,10 @@ from .state import (
     TrainingState,
 )
 
+from .task import (
+    TrainingTask,
+)
+
 from .trainer import (
     AEGISTrainer,
 )
@@ -44,14 +60,18 @@ from .trainer import (
 
 __all__ = [
     "TrainingBatch",
+    "BinaryIntegrityBatch",
+    "TrainingTask",
     "TrainingState",
     "AEGISTrainer",
+    "BinaryIntegrityTrainer",
     "EarlyStoppingState",
     "EpochRecord",
     "ExperimentHistory",
     "AEGISExperimentRunner",
     "set_global_seed",
     "compute_hierarchical_metrics",
+    "compute_binary_integrity_metrics",
     "run_training_epoch",
     "run_validation_epoch",
     "save_checkpoint",
