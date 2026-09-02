@@ -4,18 +4,24 @@ AEGIS Deterministic Fakeddit Sampling
 
 Version: 0.24.0
 
-Provides reproducible class-stratified sample selection for empirical
-Fakeddit experiments.
+Provides reproducible class-stratified sampling for empirical Fakeddit
+experiments.
 
-Two sampling strategies are provided:
+Supported modes
+---------------
+1. In-memory stratified sampling.
+2. Streaming stratified reservoir sampling.
+3. Streaming stratified reservoir sampling with image-decodability
+   eligibility filtering and deterministic same-class replacement.
 
-1. In-memory deterministic stratified sampling
-2. Streaming deterministic reservoir sampling
+The decodability-aware sampler is intended for empirical cache
+generation.
 
-The streaming strategy is intended for large empirical splits such as
-the 564,000-sample Fakeddit training partition.
+Important
+---------
+Sampling operates on Fakeddit's native 2-way labels.
 
-Sampling uses only the native Fakeddit 2-way label.
+No Fakeddit label is interpreted as an AEGIS threat subtype.
 """
 
 from __future__ import annotations
@@ -23,17 +29,51 @@ from __future__ import annotations
 import random
 
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from typing import (
     Dict,
     Iterable,
     List,
+    Optional,
+    Tuple,
 )
 
 from aegis.data.adapters.empirical import (
     EmpiricalSample,
 )
+
+from aegis.data.image_validation import (
+    validate_decodable_image,
+)
+
+
+@dataclass(frozen=True)
+class FakedditSampleExclusion:
+    """
+    One sample rejected during empirical eligibility validation.
+    """
+
+    sample_id: str
+    native_label: int
+    image_path: Optional[str]
+
+    reason: str
+    message: Optional[str]
+
+    replacement_required: bool = True
+
+    def as_dict(self) -> dict:
+        return {
+            "sample_id": self.sample_id,
+            "native_label": self.native_label,
+            "image_path": self.image_path,
+            "reason": self.reason,
+            "message": self.message,
+            "replacement_required": (
+                self.replacement_required
+            ),
+        }
 
 
 @dataclass(frozen=True)
@@ -58,15 +98,33 @@ class FakedditSampleSelection:
 
     population_seen: int = 0
 
+    candidate_count: int = 0
+
+    valid_candidate_count: int = 0
+
+    exclusions: Tuple[
+        FakedditSampleExclusion,
+        ...,
+    ] = field(
+        default_factory=tuple
+    )
+
     @property
     def sample_ids(
         self,
     ) -> List[str]:
-
         return [
             sample.sample_id
             for sample in self.samples
         ]
+
+    @property
+    def exclusion_count(
+        self,
+    ) -> int:
+        return len(
+            self.exclusions
+        )
 
 
 def _native_binary_label(
@@ -103,9 +161,20 @@ def _native_binary_label(
             "has missing 2_way_label."
         )
 
-    label = int(
-        value
-    )
+    try:
+        label = int(
+            value
+        )
+
+    except (
+        TypeError,
+        ValueError,
+    ) as exc:
+        raise ValueError(
+            f"Invalid Fakeddit 2_way_label "
+            f"{value!r} for sample "
+            f"{sample.sample_id}."
+        ) from exc
 
     if label not in {
         0,
@@ -125,6 +194,14 @@ def _target_counts(
 ) -> Dict[int, int]:
     """
     Calculate approximately balanced binary targets.
+
+    Even:
+        half label 0
+        half label 1
+
+    Odd:
+        floor(N/2) label 0
+        ceil(N/2) label 1
     """
 
     sample_count = int(
@@ -146,24 +223,72 @@ def _target_counts(
     }
 
 
+def _reserve_counts(
+    targets: Dict[int, int],
+    reserve_fraction: float,
+    min_reserve_per_class: int,
+) -> Dict[int, int]:
+    """
+    Calculate additional deterministic candidate capacity per class.
+    """
+
+    reserve_fraction = float(
+        reserve_fraction
+    )
+
+    min_reserve_per_class = int(
+        min_reserve_per_class
+    )
+
+    if reserve_fraction < 0:
+        raise ValueError(
+            "reserve_fraction must be >= 0."
+        )
+
+    if min_reserve_per_class < 0:
+        raise ValueError(
+            "min_reserve_per_class must be >= 0."
+        )
+
+    result = {}
+
+    for label, target in (
+        targets.items()
+    ):
+
+        proportional = int(
+            round(
+                target
+                * reserve_fraction
+            )
+        )
+
+        reserve = max(
+            proportional,
+            min_reserve_per_class,
+        )
+
+        result[
+            label
+        ] = reserve
+
+    return result
+
+
 def select_stratified_fakeddit_samples(
     samples: Iterable[
         EmpiricalSample
     ],
-
     sample_count: int,
-
     seed: int = 42,
-
 ) -> FakedditSampleSelection:
     """
-    Select a deterministic approximately balanced binary subset.
+    Deterministic approximately balanced sampling.
 
-    This implementation collects the supplied population in memory.
+    This implementation stores the full supplied population in memory.
 
-    For large Fakeddit splits, prefer:
-
-        select_streaming_stratified_fakeddit_samples()
+    For large Fakeddit partitions prefer one of the streaming
+    alternatives.
     """
 
     sample_count = int(
@@ -272,78 +397,65 @@ def select_stratified_fakeddit_samples(
         for sample in selected
     )
 
-    return (
-        FakedditSampleSelection(
-            samples=selected,
+    return FakedditSampleSelection(
+        samples=selected,
 
-            requested_count=(
-                sample_count
-            ),
+        requested_count=(
+            sample_count
+        ),
 
-            actual_count=len(
-                selected
-            ),
+        actual_count=len(
+            selected
+        ),
 
-            seed=seed,
+        seed=seed,
 
-            native_label_counts={
-                int(label): int(
-                    count
-                )
-                for label, count
-                in sorted(
-                    counts.items()
-                )
-            },
+        native_label_counts={
+            int(label): int(
+                count
+            )
+            for label, count
+            in sorted(
+                counts.items()
+            )
+        },
 
-            strategy=(
-                "stratified_binary"
-            ),
+        strategy=(
+            "stratified_binary"
+        ),
 
-            population_seen=(
-                population_seen
-            ),
-        )
+        population_seen=(
+            population_seen
+        ),
+
+        candidate_count=len(
+            selected
+        ),
+
+        valid_candidate_count=len(
+            selected
+        ),
     )
 
 
-def select_streaming_stratified_fakeddit_samples(
+def _stream_reservoir(
     samples: Iterable[
         EmpiricalSample
     ],
-
-    sample_count: int,
-
-    seed: int = 42,
-
-) -> FakedditSampleSelection:
+    reservoir_targets: Dict[
+        int,
+        int,
+    ],
+    seed: int,
+):
     """
-    Deterministic class-stratified reservoir sampling.
+    Build deterministic class-specific reservoirs.
 
-    Memory complexity is O(sample_count), rather than O(dataset_size).
-
-    Separate reservoirs are maintained for Fakeddit native labels
-    0 and 1.
-
-    For a fixed:
-        - source sample order
-        - sample_count
-        - seed
-
-    the result is deterministic.
+    Returns:
+        reservoirs,
+        class_seen,
+        population_seen
     """
-
-    sample_count = int(
-        sample_count
-    )
-
-    seed = int(
-        seed
-    )
-
-    targets = _target_counts(
-        sample_count
-    )
 
     reservoirs = {
         0: [],
@@ -370,7 +482,7 @@ def select_streaming_stratified_fakeddit_samples(
         if sample.sample_id in seen_ids:
             raise ValueError(
                 "Duplicate sample ID encountered "
-                f"during streaming sampling: "
+                "during streaming sampling: "
                 f"{sample.sample_id}"
             )
 
@@ -388,16 +500,20 @@ def select_streaming_stratified_fakeddit_samples(
             label
         ] += 1
 
-        required = targets[
-            label
-        ]
+        required = (
+            reservoir_targets[
+                label
+            ]
+        )
 
-        if required == 0:
+        if required <= 0:
             continue
 
-        reservoir = reservoirs[
-            label
-        ]
+        reservoir = (
+            reservoirs[
+                label
+            ]
+        )
 
         if len(
             reservoir
@@ -409,12 +525,6 @@ def select_streaming_stratified_fakeddit_samples(
 
             continue
 
-        # Reservoir sampling:
-        #
-        # Given the n-th item in a class stream,
-        # replace one existing reservoir item
-        # with probability required / n.
-
         candidate_index = (
             rng.randrange(
                 class_seen[
@@ -423,22 +533,69 @@ def select_streaming_stratified_fakeddit_samples(
             )
         )
 
-        if candidate_index < required:
+        if (
+            candidate_index
+            < required
+        ):
 
             reservoir[
                 candidate_index
             ] = sample
 
+    return (
+        reservoirs,
+        class_seen,
+        population_seen,
+    )
+
+
+def select_streaming_stratified_fakeddit_samples(
+    samples: Iterable[
+        EmpiricalSample
+    ],
+    sample_count: int,
+    seed: int = 42,
+) -> FakedditSampleSelection:
+    """
+    Deterministic binary class-stratified reservoir sampling.
+
+    Memory complexity:
+        O(sample_count)
+    """
+
+    sample_count = int(
+        sample_count
+    )
+
+    seed = int(
+        seed
+    )
+
+    targets = _target_counts(
+        sample_count
+    )
+
+    (
+        reservoirs,
+        class_seen,
+        population_seen,
+    ) = _stream_reservoir(
+        samples=samples,
+        reservoir_targets=targets,
+        seed=seed,
+    )
+
     for label, required in (
         targets.items()
     ):
 
-        available = class_seen[
-            label
-        ]
+        available = (
+            class_seen[
+                label
+            ]
+        )
 
         if available < required:
-
             raise ValueError(
                 f"Not enough samples for "
                 f"native label {label}: "
@@ -448,16 +605,22 @@ def select_streaming_stratified_fakeddit_samples(
 
     selected = (
         list(
-            reservoirs[0]
+            reservoirs[
+                0
+            ]
         )
         +
         list(
-            reservoirs[1]
+            reservoirs[
+                1
+            ]
         )
     )
 
-    # Final deterministic shuffle so the returned
-    # subset is not grouped by class.
+    rng = random.Random(
+        seed
+        + 1
+    )
 
     rng.shuffle(
         selected
@@ -470,36 +633,411 @@ def select_streaming_stratified_fakeddit_samples(
         for sample in selected
     )
 
-    return (
-        FakedditSampleSelection(
-            samples=selected,
+    return FakedditSampleSelection(
+        samples=selected,
 
-            requested_count=(
-                sample_count
-            ),
+        requested_count=(
+            sample_count
+        ),
 
-            actual_count=len(
-                selected
-            ),
+        actual_count=len(
+            selected
+        ),
 
-            seed=seed,
+        seed=seed,
 
-            native_label_counts={
-                int(label): int(
-                    count
-                )
-                for label, count
-                in sorted(
-                    counts.items()
-                )
-            },
+        native_label_counts={
+            int(label): int(
+                count
+            )
+            for label, count
+            in sorted(
+                counts.items()
+            )
+        },
 
-            strategy=(
-                "streaming_stratified_reservoir"
-            ),
+        strategy=(
+            "streaming_stratified_reservoir"
+        ),
 
-            population_seen=(
-                population_seen
-            ),
+        population_seen=(
+            population_seen
+        ),
+
+        candidate_count=len(
+            selected
+        ),
+
+        valid_candidate_count=len(
+            selected
+        ),
+    )
+
+
+def select_streaming_decodable_fakeddit_samples(
+    samples: Iterable[
+        EmpiricalSample
+    ],
+    sample_count: int,
+    seed: int = 42,
+    reserve_fraction: float = 0.10,
+    min_reserve_per_class: int = 32,
+) -> FakedditSampleSelection:
+    """
+    Deterministic stratified reservoir sampling with image eligibility.
+
+    Algorithm
+    ---------
+    1. Determine target count for each native binary class.
+    2. Build a bounded-memory reservoir containing:
+           target + deterministic reserve
+       candidates for each class.
+    3. Validate image decodability only for those candidates.
+    4. Reject invalid images.
+    5. Fill the final class quota from valid candidates.
+    6. Deterministically shuffle the final balanced selection.
+
+    This prevents expensive XLM-R/CLIP representation generation from
+    starting before all selected empirical images are known to be
+    decodable.
+
+    Source dataset files are never modified.
+    """
+
+    sample_count = int(
+        sample_count
+    )
+
+    seed = int(
+        seed
+    )
+
+    targets = _target_counts(
+        sample_count
+    )
+
+    reserves = _reserve_counts(
+        targets=targets,
+        reserve_fraction=(
+            reserve_fraction
+        ),
+        min_reserve_per_class=(
+            min_reserve_per_class
+        ),
+    )
+
+    candidate_targets = {
+        label: (
+            targets[
+                label
+            ]
+            +
+            reserves[
+                label
+            ]
         )
+        for label in (
+            0,
+            1,
+        )
+    }
+
+    (
+        reservoirs,
+        class_seen,
+        population_seen,
+    ) = _stream_reservoir(
+        samples=samples,
+        reservoir_targets=(
+            candidate_targets
+        ),
+        seed=seed,
+    )
+
+    for label in (
+        0,
+        1,
+    ):
+
+        required = (
+            targets[
+                label
+            ]
+        )
+
+        population_available = (
+            class_seen[
+                label
+            ]
+        )
+
+        if (
+            population_available
+            < required
+        ):
+            raise ValueError(
+                f"Not enough source samples for "
+                f"native label {label}: "
+                f"required {required}, "
+                f"available "
+                f"{population_available}."
+            )
+
+    exclusions: List[
+        FakedditSampleExclusion
+    ] = []
+
+    valid_by_class = {
+        0: [],
+        1: [],
+    }
+
+    candidate_count = 0
+
+    for label in (
+        0,
+        1,
+    ):
+
+        for sample in (
+            reservoirs[
+                label
+            ]
+        ):
+
+            candidate_count += 1
+
+            if (
+                sample.image_path
+                is None
+            ):
+
+                exclusions.append(
+                    FakedditSampleExclusion(
+                        sample_id=(
+                            sample.sample_id
+                        ),
+                        native_label=(
+                            label
+                        ),
+                        image_path=None,
+                        reason=(
+                            "missing_image_path"
+                        ),
+                        message=(
+                            "Empirical sample does "
+                            "not contain a local "
+                            "image path."
+                        ),
+                    )
+                )
+
+                continue
+
+            result = (
+                validate_decodable_image(
+                    sample.image_path
+                )
+            )
+
+            if not result.valid:
+
+                exclusions.append(
+                    FakedditSampleExclusion(
+                        sample_id=(
+                            sample.sample_id
+                        ),
+                        native_label=(
+                            label
+                        ),
+                        image_path=(
+                            str(
+                                sample.image_path
+                            )
+                        ),
+                        reason=(
+                            result.error_type
+                            or
+                            "image_validation_failed"
+                        ),
+                        message=(
+                            result.error_message
+                        ),
+                    )
+                )
+
+                continue
+
+            valid_by_class[
+                label
+            ].append(
+                sample
+            )
+
+    for label in (
+        0,
+        1,
+    ):
+
+        required = (
+            targets[
+                label
+            ]
+        )
+
+        valid_available = len(
+            valid_by_class[
+                label
+            ]
+        )
+
+        if (
+            valid_available
+            < required
+        ):
+
+            raise RuntimeError(
+                "Decodability-aware candidate pool "
+                "was insufficient for native label "
+                f"{label}: required {required}, "
+                f"valid candidates "
+                f"{valid_available}. "
+                "Increase reserve_fraction or "
+                "min_reserve_per_class."
+            )
+
+    selected = []
+
+    for label in (
+        0,
+        1,
+    ):
+
+        # Reservoir positions are already
+        # deterministically generated.
+        # Preserve that candidate order and
+        # take the first eligible quota.
+        selected.extend(
+            valid_by_class[
+                label
+            ][
+                : targets[
+                    label
+                ]
+            ]
+        )
+
+    final_rng = random.Random(
+        seed
+        + 2
+    )
+
+    final_rng.shuffle(
+        selected
+    )
+
+    ids = [
+        sample.sample_id
+        for sample in selected
+    ]
+
+    if (
+        len(
+            ids
+        )
+        != len(
+            set(
+                ids
+            )
+        )
+    ):
+        raise RuntimeError(
+            "Duplicate sample IDs detected "
+            "after eligibility filtering."
+        )
+
+    counts = Counter(
+        _native_binary_label(
+            sample
+        )
+        for sample in selected
+    )
+
+    expected = {
+        int(label): int(
+            count
+        )
+        for label, count
+        in sorted(
+            targets.items()
+        )
+    }
+
+    actual = {
+        int(label): int(
+            count
+        )
+        for label, count
+        in sorted(
+            counts.items()
+        )
+    }
+
+    if actual != expected:
+        raise RuntimeError(
+            "Final decodable Fakeddit selection "
+            "does not preserve requested "
+            f"class balance. Expected {expected}, "
+            f"received {actual}."
+        )
+
+    valid_candidate_count = sum(
+        len(
+            valid_by_class[
+                label
+            ]
+        )
+        for label in (
+            0,
+            1,
+        )
+    )
+
+    return FakedditSampleSelection(
+        samples=selected,
+
+        requested_count=(
+            sample_count
+        ),
+
+        actual_count=len(
+            selected
+        ),
+
+        seed=seed,
+
+        native_label_counts=(
+            actual
+        ),
+
+        strategy=(
+            "streaming_stratified_reservoir_"
+            "decodable"
+        ),
+
+        population_seen=(
+            population_seen
+        ),
+
+        candidate_count=(
+            candidate_count
+        ),
+
+        valid_candidate_count=(
+            valid_candidate_count
+        ),
+
+        exclusions=tuple(
+            exclusions
+        ),
     )

@@ -4,9 +4,11 @@ Real Fakeddit Frozen Representation Cache Builder
 =================================================
 
 Creates a deterministic class-stratified Fakeddit subset using
-bounded-memory streaming reservoir sampling, generates real frozen
-XLM-R and CLIP representations, and writes them into the AEGIS
-sharded representation cache.
+bounded-memory streaming reservoir sampling with image-decodability
+eligibility validation.
+
+Only after the final sample population has passed eligibility
+validation are frozen XLM-R and CLIP representations generated.
 
 This script performs representation extraction only.
 
@@ -37,7 +39,7 @@ from aegis.data.cache import (
 )
 
 from aegis.data.sampling import (
-    select_streaming_stratified_fakeddit_samples,
+    select_streaming_decodable_fakeddit_samples,
 )
 
 from aegis.representation import (
@@ -68,10 +70,9 @@ def parse_args():
 
     parser = argparse.ArgumentParser(
         description=(
-            "Build a deterministic real "
-            "Fakeddit representation cache "
-            "using streaming stratified "
-            "reservoir sampling."
+            "Build a deterministic, "
+            "decodability-aware real Fakeddit "
+            "representation cache."
         )
     )
 
@@ -101,6 +102,18 @@ def parse_args():
         "--shard-size",
         type=int,
         default=1000,
+    )
+
+    parser.add_argument(
+        "--reserve-fraction",
+        type=float,
+        default=0.10,
+    )
+
+    parser.add_argument(
+        "--min-reserve-per-class",
+        type=int,
+        default=32,
     )
 
     parser.add_argument(
@@ -157,6 +170,21 @@ def validate_arguments(
             "greater than zero."
         )
 
+    if args.reserve_fraction < 0:
+        raise ValueError(
+            "--reserve-fraction must "
+            "be >= 0."
+        )
+
+    if (
+        args.min_reserve_per_class
+        < 0
+    ):
+        raise ValueError(
+            "--min-reserve-per-class "
+            "must be >= 0."
+        )
+
     if not args.dataset_root.exists():
         raise FileNotFoundError(
             "Fakeddit dataset root "
@@ -201,6 +229,16 @@ def print_environment(
     print(
         "Shard size:",
         args.shard_size,
+    )
+
+    print(
+        "Reserve fraction:",
+        args.reserve_fraction,
+    )
+
+    print(
+        "Minimum reserve per class:",
+        args.min_reserve_per_class,
     )
 
     print(
@@ -277,19 +315,27 @@ def select_samples(
     separator()
 
     print(
-        "STREAMING DETERMINISTIC "
-        "STRATIFIED SAMPLING"
+        "DECODABILITY-AWARE "
+        "DETERMINISTIC SAMPLING"
     )
 
     separator()
 
     print(
         "Streaming full Fakeddit split "
-        "with bounded-memory reservoir sampling..."
+        "with bounded-memory reservoir "
+        "sampling..."
     )
 
+    print(
+        "Candidate images will be "
+        "validated before neural encoding."
+    )
+
+    print()
+
     selection = (
-        select_streaming_stratified_fakeddit_samples(
+        select_streaming_decodable_fakeddit_samples(
             adapter.iter_samples(
                 split=args.split
             ),
@@ -299,12 +345,33 @@ def select_samples(
             seed=(
                 args.seed
             ),
+            reserve_fraction=(
+                args.reserve_fraction
+            ),
+            min_reserve_per_class=(
+                args.min_reserve_per_class
+            ),
         )
     )
 
     print(
         "Population scanned:",
         selection.population_seen,
+    )
+
+    print(
+        "Candidate samples checked:",
+        selection.candidate_count,
+    )
+
+    print(
+        "Valid candidates:",
+        selection.valid_candidate_count,
+    )
+
+    print(
+        "Invalid candidates excluded:",
+        selection.exclusion_count,
     )
 
     print(
@@ -324,8 +391,29 @@ def select_samples(
 
     print()
 
+    if selection.exclusions:
+
+        print(
+            "EXCLUDED CANDIDATES"
+        )
+
+        for exclusion in (
+            selection.exclusions
+        ):
+
+            print(
+                " ",
+                exclusion.sample_id,
+                "| label=",
+                exclusion.native_label,
+                "| reason=",
+                exclusion.reason,
+            )
+
+        print()
+
     print(
-        "Selected sample IDs:"
+        "FINAL SELECTED SAMPLE IDS:"
     )
 
     for sample in (
@@ -342,6 +430,164 @@ def select_samples(
     return selection
 
 
+def build_cache_root(
+    args,
+) -> Path:
+
+    return (
+        args.cache_base
+        / cache_name(
+            split=args.split,
+            samples=args.samples,
+            seed=args.seed,
+        )
+    )
+
+
+def write_pre_encoding_provenance(
+    cache_root: Path,
+    selection,
+    args,
+):
+    """
+    Persist selection and exclusions BEFORE GPU representation work.
+
+    This means the empirical population is known and auditable even
+    if representation extraction later fails.
+    """
+
+    cache_root.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    selection_path = (
+        cache_root
+        / "selection.json"
+    )
+
+    exclusions_path = (
+        cache_root
+        / "excluded_samples.jsonl"
+    )
+
+    selection_metadata = {
+        "dataset": "Fakeddit",
+
+        "split": (
+            args.split
+        ),
+
+        "requested_sample_count": (
+            args.samples
+        ),
+
+        "actual_sample_count": (
+            selection.actual_count
+        ),
+
+        "population_seen": (
+            selection.population_seen
+        ),
+
+        "candidate_count": (
+            selection.candidate_count
+        ),
+
+        "valid_candidate_count": (
+            selection.valid_candidate_count
+        ),
+
+        "excluded_candidate_count": (
+            selection.exclusion_count
+        ),
+
+        "sampling_strategy": (
+            selection.strategy
+        ),
+
+        "sampling_seed": (
+            selection.seed
+        ),
+
+        "reserve_fraction": (
+            args.reserve_fraction
+        ),
+
+        "min_reserve_per_class": (
+            args.min_reserve_per_class
+        ),
+
+        "selected_sample_ids": (
+            selection.sample_ids
+        ),
+
+        "native_label_counts": (
+            selection.native_label_counts
+        ),
+
+        "text_model": (
+            TEXT_MODEL
+        ),
+
+        "vision_model": (
+            VISION_MODEL
+        ),
+
+        "eligibility": {
+            "requires_text": True,
+            "requires_local_image": True,
+            "requires_decodable_image": True,
+        },
+    }
+
+    with selection_path.open(
+        "w",
+        encoding="utf-8",
+    ) as handle:
+
+        json.dump(
+            selection_metadata,
+            handle,
+            indent=2,
+            ensure_ascii=False,
+        )
+
+    with exclusions_path.open(
+        "w",
+        encoding="utf-8",
+    ) as handle:
+
+        for exclusion in (
+            selection.exclusions
+        ):
+
+            handle.write(
+                json.dumps(
+                    exclusion.as_dict(),
+                    ensure_ascii=False,
+                )
+                + "\n"
+            )
+
+    print(
+        "Selection provenance:",
+        selection_path,
+    )
+
+    print(
+        "Exclusion provenance:",
+        exclusions_path,
+    )
+
+    print()
+
+    return (
+        selection_path,
+        exclusions_path,
+    )
+
+
 def initialize_encoders():
 
     separator()
@@ -352,6 +598,13 @@ def initialize_encoders():
     )
 
     separator()
+
+    print(
+        "All final samples have passed "
+        "image-decodability validation."
+    )
+
+    print()
 
     print(
         "Loading text encoder:",
@@ -470,20 +723,6 @@ def generate_representations(
     return representations
 
 
-def build_cache_root(
-    args,
-) -> Path:
-
-    return (
-        args.cache_base
-        / cache_name(
-            split=args.split,
-            samples=args.samples,
-            seed=args.seed,
-        )
-    )
-
-
 def write_cache(
     cache_root: Path,
     selection,
@@ -571,7 +810,6 @@ def verify_cache(
         cache.sample_count
         != args.samples
     ):
-
         raise RuntimeError(
             "Reloaded cache sample count "
             "does not match requested count."
@@ -610,7 +848,6 @@ def verify_cache(
     )
 
     if loaded_ids != selected_ids:
-
         raise RuntimeError(
             "Cache verification failed: "
             "sample IDs changed."
@@ -635,7 +872,6 @@ def verify_cache(
         loaded_targets
         != expected_targets
     ):
-
         raise RuntimeError(
             "Cache verification failed: "
             "integrity targets changed."
@@ -687,67 +923,39 @@ def verify_cache(
     )
 
 
-def write_selection_metadata(
+def update_selection_metadata(
     cache_root: Path,
-    selection,
     target_counts,
-    args,
 ):
-
-    metadata = {
-        "dataset": (
-            "Fakeddit"
-        ),
-
-        "split": (
-            args.split
-        ),
-
-        "requested_sample_count": (
-            args.samples
-        ),
-
-        "actual_sample_count": (
-            selection.actual_count
-        ),
-
-        "population_seen": (
-            selection.population_seen
-        ),
-
-        "sampling_strategy": (
-            selection.strategy
-        ),
-
-        "sampling_seed": (
-            selection.seed
-        ),
-
-        "selected_sample_ids": (
-            selection.sample_ids
-        ),
-
-        "native_label_counts": (
-            selection.native_label_counts
-        ),
-
-        "integrity_target_counts": (
-            target_counts
-        ),
-
-        "text_model": (
-            TEXT_MODEL
-        ),
-
-        "vision_model": (
-            VISION_MODEL
-        ),
-    }
 
     selection_path = (
         cache_root
         / "selection.json"
     )
+
+    with selection_path.open(
+        "r",
+        encoding="utf-8",
+    ) as handle:
+
+        metadata = (
+            json.load(
+                handle
+            )
+        )
+
+    metadata[
+        "integrity_target_counts"
+    ] = (
+        target_counts
+    )
+
+    metadata[
+        "cache_verification"
+    ] = {
+        "sample_ids": "passed",
+        "targets": "passed",
+    }
 
     with selection_path.open(
         "w",
@@ -760,15 +968,6 @@ def write_selection_metadata(
             indent=2,
             ensure_ascii=False,
         )
-
-    print(
-        "Selection metadata:",
-        selection_path,
-    )
-
-    print()
-
-    return selection_path
 
 
 def print_cuda_memory():
@@ -818,6 +1017,32 @@ def main():
         )
     )
 
+    if (
+        selection.actual_count
+        != args.samples
+    ):
+        raise RuntimeError(
+            "Eligibility-aware sampling "
+            "did not return the requested "
+            "number of samples."
+        )
+
+    cache_root = (
+        build_cache_root(
+            args
+        )
+    )
+
+    write_pre_encoding_provenance(
+        cache_root=(
+            cache_root
+        ),
+        selection=(
+            selection
+        ),
+        args=args,
+    )
+
     (
         text_encoder,
         vision_encoder,
@@ -832,12 +1057,6 @@ def main():
             vision_encoder=(
                 vision_encoder
             ),
-        )
-    )
-
-    cache_root = (
-        build_cache_root(
-            args
         )
     )
 
@@ -869,17 +1088,13 @@ def main():
         args=args,
     )
 
-    write_selection_metadata(
+    update_selection_metadata(
         cache_root=(
             cache_root
-        ),
-        selection=(
-            selection
         ),
         target_counts=(
             target_counts
         ),
-        args=args,
     )
 
     print_cuda_memory()
@@ -910,6 +1125,16 @@ def main():
     print(
         "Population scanned:",
         selection.population_seen,
+    )
+
+    print(
+        "Candidate samples checked:",
+        selection.candidate_count,
+    )
+
+    print(
+        "Invalid candidates excluded:",
+        selection.exclusion_count,
     )
 
     print(
