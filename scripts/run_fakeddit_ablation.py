@@ -1,12 +1,12 @@
-﻿"""
-AEGIS v0.24.0
-Fakeddit Controlled Modality Ablation Runner
+"""
+AEGIS v0.25.5
+Fakeddit Controlled Modality and Fusion-Architecture Ablation Runner
 ============================================
 
 Purpose
 -------
-Run controlled modality and alignment ablations using the same
-empirical protocol as scripts.run_fakeddit_generalization.
+Run controlled modality, alignment, and fusion-architecture ablations using
+the same empirical protocol as scripts.run_fakeddit_generalization.
 
 Supported modes
 ---------------
@@ -23,7 +23,8 @@ Supported modes
 3. multimodal
        Frozen XLM-R + CLIP representations
        -> trainable modality projections
-       -> gated multimodal fusion
+       -> selected fusion architecture:
+          legacy gated fusion OR interaction-only fusion OR gated-interaction fusion OR reliability-only residual fusion OR interaction-conditioned reliability residual fusion OR evidence-aware adaptive fusion
        -> AEGIS integrity classifier
 
        Optional symmetric contrastive alignment loss is controlled
@@ -37,6 +38,45 @@ Scientific constraints
 * Fakeddit Stage-1 binary integrity supervision only is used.
 * Threat subtype labels are not fabricated.
 * The official Fakeddit test split remains sealed.
+
+Fusion architectures
+--------------------
+legacy:
+    Validated v0.24 gated multimodal fusion.
+
+interaction_only:
+    v0.25.2 explicit cross-modal evidence interaction
+    -> interaction-conditioned fusion without reliability estimation.
+
+    This architecture is valid only for --mode multimodal.
+
+gated_interaction:
+    v0.25.3 validated gated multimodal fusion
+    -> explicit cross-modal interaction residual
+    -> deterministic 1/sqrt(d) interaction scaling.
+
+    This architecture is valid only for --mode multimodal.
+
+reliability_only:
+    v0.25.4 legacy gated fusion
+    -> modality-only reliability estimation
+    -> reliability-aware adaptive residual fusion.
+
+    This architecture is valid only for --mode multimodal.
+
+interaction_reliability:
+    v0.25.5 legacy gated fusion
+    -> interaction-conditioned reliability estimation
+    -> reliability-aware adaptive residual fusion.
+
+    This architecture is valid only for --mode multimodal.
+
+evidence_aware:
+    v0.25 cross-modal evidence interaction
+    -> modality reliability estimation
+    -> reliability-aware adaptive fusion.
+
+    This architecture is valid only for --mode multimodal.
 
 Recommended controlled conditions
 ---------------------------------
@@ -52,8 +92,34 @@ Multimodal fusion without contrastive alignment:
     --mode multimodal
     --alignment-weight 0.0
 
-Full AEGIS:
+Legacy full AEGIS v0.24 (M0):
     --mode multimodal
+    --fusion-architecture legacy
+    --alignment-weight 0.5
+
+Interaction-only AEGIS v0.25.2 (M1):
+    --mode multimodal
+    --fusion-architecture interaction_only
+    --alignment-weight 0.5
+
+Gated-interaction AEGIS v0.25.3 (M1b):
+    --mode multimodal
+    --fusion-architecture gated_interaction
+    --alignment-weight 0.5
+
+Reliability-only AEGIS v0.25.4 (M2):
+    --mode multimodal
+    --fusion-architecture reliability_only
+    --alignment-weight 0.5
+
+Interaction-conditioned reliability residual AEGIS v0.25.5 (M2b):
+    --mode multimodal
+    --fusion-architecture interaction_reliability
+    --alignment-weight 0.5
+
+Evidence-aware AEGIS v0.25 (M3):
+    --mode multimodal
+    --fusion-architecture evidence_aware
     --alignment-weight 0.5
 
 Checkpoint selection
@@ -68,6 +134,7 @@ Tie-break:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import platform
 import random
@@ -162,7 +229,38 @@ def parse_args():
             "Ablation representation pathway. "
             "text_only bypasses visual projection and fusion; "
             "vision_only bypasses textual projection and fusion; "
-            "multimodal uses standard AEGIS gated fusion."
+            "multimodal uses the architecture selected by "
+            "--fusion-architecture."
+        ),
+    )
+
+    parser.add_argument(
+        "--fusion-architecture",
+        type=str,
+        default="legacy",
+        choices=[
+            "legacy",
+            "interaction_only",
+            "gated_interaction",
+            "reliability_only",
+            "interaction_reliability",
+            "evidence_aware",
+        ],
+        help=(
+            "Multimodal fusion architecture. legacy preserves the "
+            "validated v0.24 gated-fusion pathway; interaction_only "
+            "enables explicit cross-modal interaction with "
+            "interaction-conditioned fusion but no reliability "
+            "estimation; gated_interaction preserves the legacy gate "
+            "and adds a deterministic scaled interaction residual; "
+            "reliability_only preserves the legacy gate and adds "
+            "modality-only reliability with a deterministic scaled "
+            "adaptive-fusion residual; interaction_reliability preserves "
+            "the legacy gate and adds interaction-conditioned reliability "
+            "with a deterministic scaled adaptive-fusion residual; evidence_aware enables v0.25 interaction, reliability "
+            "estimation, and reliability-aware adaptive fusion. "
+            "Non-legacy architectures are valid only with "
+            "--mode multimodal."
         ),
     )
 
@@ -400,6 +498,24 @@ def validate_args(
         )
 
     if (
+        args.fusion_architecture
+        in {
+            "interaction_only",
+            "gated_interaction",
+            "reliability_only",
+            "interaction_reliability",
+            "evidence_aware",
+        }
+        and args.mode != "multimodal"
+    ):
+
+        raise ValueError(
+            "--fusion-architecture "
+            f"{args.fusion_architecture} requires "
+            "--mode multimodal. Unimodal ablations bypass fusion."
+        )
+
+    if (
         args.mode
         in {
             "text_only",
@@ -429,26 +545,49 @@ def separator():
 
 def mode_description(
     mode: str,
+    fusion_architecture: str,
 ) -> str:
 
-    descriptions = {
-        "text_only": (
-            "XLM-R -> text projection -> classifier"
-        ),
+    if mode == "text_only":
+        return "XLM-R -> text projection -> classifier"
 
-        "vision_only": (
-            "CLIP -> vision projection -> classifier"
-        ),
+    if mode == "vision_only":
+        return "CLIP -> vision projection -> classifier"
 
-        "multimodal": (
-            "XLM-R + CLIP -> projections -> "
-            "gated fusion -> classifier"
-        ),
-    }
+    if fusion_architecture == "interaction_only":
+        return (
+            "XLM-R + CLIP -> projections -> evidence interaction -> "
+            "interaction-conditioned fusion -> classifier"
+        )
 
-    return descriptions[
-        mode
-    ]
+    if fusion_architecture == "gated_interaction":
+        return (
+            "XLM-R + CLIP -> projections -> legacy gated fusion + "
+            "explicit evidence interaction residual -> classifier"
+        )
+
+    if fusion_architecture == "reliability_only":
+        return (
+            "XLM-R + CLIP -> projections -> legacy gated fusion + "
+            "modality-only reliability adaptive residual -> classifier"
+        )
+
+    if fusion_architecture == "interaction_reliability":
+        return (
+            "XLM-R + CLIP -> projections -> legacy gated fusion + "
+            "interaction-conditioned reliability adaptive residual -> classifier"
+        )
+
+    if fusion_architecture == "evidence_aware":
+        return (
+            "XLM-R + CLIP -> projections -> evidence interaction -> "
+            "reliability estimation -> adaptive fusion -> classifier"
+        )
+
+    return (
+        "XLM-R + CLIP -> projections -> "
+        "legacy gated fusion -> classifier"
+    )
 
 
 # =====================================================================
@@ -478,9 +617,13 @@ class FakedditAblationTrainer(
         self,
         *args,
         mode: str = "multimodal",
+        fusion_architecture: str = "legacy",
         **kwargs,
     ):
 
+        # Consume ablation-runner-specific arguments here instead of
+        # forwarding them to BinaryIntegrityTrainer, whose constructor
+        # intentionally knows nothing about fusion-architecture choices.
         super().__init__(
             *args,
             **kwargs,
@@ -496,6 +639,99 @@ class FakedditAblationTrainer(
             )
 
         self.mode = mode
+
+        if fusion_architecture not in {
+            "legacy",
+            "interaction_only",
+            "gated_interaction",
+            "reliability_only",
+            "interaction_reliability",
+            "evidence_aware",
+        }:
+            raise ValueError(
+                "Unsupported fusion architecture: "
+                f"{fusion_architecture!r}. Expected one of "
+                "['evidence_aware', 'gated_interaction', "
+                "'interaction_only', 'interaction_reliability', 'legacy', 'reliability_only']."
+            )
+
+        if (
+            self.mode != "multimodal"
+            and fusion_architecture != "legacy"
+        ):
+            raise ValueError(
+                "Non-legacy fusion architectures are valid only for "
+                "multimodal ablations."
+            )
+
+        expected_evidence_aware = (
+            self.mode == "multimodal"
+            and fusion_architecture == "evidence_aware"
+        )
+
+        expected_interaction_only = (
+            self.mode == "multimodal"
+            and fusion_architecture == "interaction_only"
+        )
+
+        expected_gated_interaction = (
+            self.mode == "multimodal"
+            and fusion_architecture == "gated_interaction"
+        )
+
+        expected_reliability_only = (
+            self.mode == "multimodal"
+            and fusion_architecture == "reliability_only"
+        )
+
+        expected_interaction_reliability = (
+            self.mode == "multimodal"
+            and fusion_architecture == "interaction_reliability"
+        )
+
+        if bool(self.alignment_model.evidence_aware) != expected_evidence_aware:
+            raise ValueError(
+                "fusion_architecture is inconsistent with "
+                "alignment_model.evidence_aware."
+            )
+
+        if (
+            bool(self.alignment_model.interaction_only)
+            != expected_interaction_only
+        ):
+            raise ValueError(
+                "fusion_architecture is inconsistent with "
+                "alignment_model.interaction_only."
+            )
+
+        if (
+            bool(self.alignment_model.gated_interaction)
+            != expected_gated_interaction
+        ):
+            raise ValueError(
+                "fusion_architecture is inconsistent with "
+                "alignment_model.gated_interaction."
+            )
+
+        if (
+            bool(self.alignment_model.reliability_only)
+            != expected_reliability_only
+        ):
+            raise ValueError(
+                "fusion_architecture is inconsistent with "
+                "alignment_model.reliability_only."
+            )
+
+        if (
+            bool(self.alignment_model.interaction_reliability)
+            != expected_interaction_reliability
+        ):
+            raise ValueError(
+                "fusion_architecture is inconsistent with "
+                "alignment_model.interaction_reliability."
+            )
+
+        self.fusion_architecture = fusion_architecture
 
         if (
             self.mode
@@ -1126,6 +1362,13 @@ def save_checkpoint(
                 trainer.mode
             ),
 
+            "fusion_architecture": (
+                configuration.get(
+                    "fusion_architecture",
+                    "legacy",
+                )
+            ),
+
             "alignment_model_state_dict": (
                 trainer
                 .alignment_model
@@ -1165,6 +1408,167 @@ def save_checkpoint(
 
 
 # =====================================================================
+# Reproducibility / initialization audit helpers
+# =====================================================================
+
+def module_state_fingerprint(module) -> str:
+    """Return a deterministic SHA-256 fingerprint of a module state_dict."""
+
+    digest = hashlib.sha256()
+
+    for name, tensor in sorted(module.state_dict().items()):
+        digest.update(name.encode("utf-8"))
+        digest.update(str(tuple(tensor.shape)).encode("utf-8"))
+        digest.update(str(tensor.dtype).encode("utf-8"))
+
+        value = (
+            tensor
+            .detach()
+            .cpu()
+            .contiguous()
+        )
+
+        digest.update(
+            value.numpy().tobytes()
+        )
+
+    return digest.hexdigest()
+
+
+def collect_component_fingerprints(
+    alignment_model,
+    classification_model,
+    mode: str,
+    fusion_architecture: str,
+) -> Dict[str, str]:
+    """Fingerprint common and architecture-specific trainable components."""
+
+    fingerprints = {
+        "text_projection": module_state_fingerprint(
+            alignment_model.text_projection
+        ),
+        "vision_projection": module_state_fingerprint(
+            alignment_model.vision_projection
+        ),
+        "classifier": module_state_fingerprint(
+            classification_model
+        ),
+    }
+
+    if mode == "multimodal":
+
+        if fusion_architecture == "legacy":
+            fingerprints["legacy_fusion"] = (
+                module_state_fingerprint(
+                    alignment_model.fusion
+                )
+            )
+
+        elif fusion_architecture == "interaction_only":
+
+            if alignment_model.interaction_fusion is None:
+                raise RuntimeError(
+                    "Interaction-only fingerprint requested, but "
+                    "the interaction fusion block is unavailable."
+                )
+
+            fingerprints["interaction_fusion"] = (
+                module_state_fingerprint(
+                    alignment_model.interaction_fusion
+                )
+            )
+
+        elif fusion_architecture == "gated_interaction":
+
+            if alignment_model.gated_interaction_fusion is None:
+                raise RuntimeError(
+                    "Gated-interaction fingerprint requested, but "
+                    "the gated interaction fusion block is unavailable."
+                )
+
+            fingerprints["gated_interaction_fusion"] = (
+                module_state_fingerprint(
+                    alignment_model.gated_interaction_fusion
+                )
+            )
+
+            fingerprints["gated_base_fusion"] = (
+                module_state_fingerprint(
+                    alignment_model
+                    .gated_interaction_fusion
+                    .gated_fusion
+                )
+            )
+
+        elif fusion_architecture == "reliability_only":
+
+            if alignment_model.reliability_only_fusion is None:
+                raise RuntimeError(
+                    "Reliability-only fingerprint requested, but "
+                    "the reliability-only fusion block is unavailable."
+                )
+
+            fingerprints["reliability_only_fusion"] = (
+                module_state_fingerprint(
+                    alignment_model.reliability_only_fusion
+                )
+            )
+
+            fingerprints["legacy_fusion"] = (
+                module_state_fingerprint(
+                    alignment_model.fusion
+                )
+            )
+
+        elif fusion_architecture == "interaction_reliability":
+
+            if alignment_model.interaction_reliability_fusion is None:
+                raise RuntimeError(
+                    "Interaction-reliability fingerprint requested, but "
+                    "the interaction reliability fusion block is unavailable."
+                )
+
+            fingerprints["interaction_reliability_fusion"] = (
+                module_state_fingerprint(
+                    alignment_model.interaction_reliability_fusion
+                )
+            )
+            fingerprints["legacy_fusion"] = (
+                module_state_fingerprint(alignment_model.fusion)
+            )
+
+        elif fusion_architecture == "evidence_aware":
+
+            if alignment_model.evidence_integration is None:
+                raise RuntimeError(
+                    "Evidence-aware fingerprint requested, but "
+                    "the evidence integration block is unavailable."
+                )
+
+            fingerprints["evidence_integration"] = (
+                module_state_fingerprint(
+                    alignment_model.evidence_integration
+                )
+            )
+
+    return fingerprints
+
+
+def compare_fingerprints(
+    initial: Dict[str, str],
+    final: Dict[str, str],
+) -> Dict[str, bool]:
+    """Report whether each tracked component changed during training."""
+
+    return {
+        key: initial.get(key) != final.get(key)
+        for key in sorted(
+            set(initial) | set(final)
+        )
+    }
+
+
+# =====================================================================
 # Parameter accounting
 # =====================================================================
 
@@ -1172,6 +1576,7 @@ def effective_parameter_counts(
     alignment_model,
     classification_model,
     mode: str,
+    fusion_architecture: str,
 ) -> Dict[str, int]:
     """
     Count parameters actually participating in the selected pathway.
@@ -1209,9 +1614,84 @@ def effective_parameter_counts(
 
         representation_count = (
             count_parameters(
-                alignment_model
+                alignment_model.text_projection
+            )
+            + count_parameters(
+                alignment_model.vision_projection
             )
         )
+
+        if fusion_architecture == "legacy":
+
+            representation_count += count_parameters(
+                alignment_model.fusion
+            )
+
+        elif fusion_architecture == "interaction_only":
+
+            if alignment_model.interaction_fusion is None:
+                raise RuntimeError(
+                    "Interaction-only parameter accounting requires "
+                    "alignment_model.interaction_fusion."
+                )
+
+            representation_count += count_parameters(
+                alignment_model.interaction_fusion
+            )
+
+        elif fusion_architecture == "gated_interaction":
+
+            if alignment_model.gated_interaction_fusion is None:
+                raise RuntimeError(
+                    "Gated-interaction parameter accounting requires "
+                    "alignment_model.gated_interaction_fusion."
+                )
+
+            representation_count += count_parameters(
+                alignment_model.gated_interaction_fusion
+            )
+
+        elif fusion_architecture == "reliability_only":
+
+            if alignment_model.reliability_only_fusion is None:
+                raise RuntimeError(
+                    "Reliability-only parameter accounting requires "
+                    "alignment_model.reliability_only_fusion."
+                )
+
+            representation_count += count_parameters(
+                alignment_model.fusion
+            )
+
+            representation_count += count_parameters(
+                alignment_model.reliability_only_fusion
+            )
+
+        elif fusion_architecture == "interaction_reliability":
+
+            if alignment_model.interaction_reliability_fusion is None:
+                raise RuntimeError(
+                    "Interaction-reliability parameter accounting requires "
+                    "alignment_model.interaction_reliability_fusion."
+                )
+
+            representation_count += count_parameters(alignment_model.fusion)
+            representation_count += count_parameters(
+                alignment_model.interaction_reliability_fusion
+            )
+
+        else:
+
+            if alignment_model.evidence_integration is None:
+
+                raise RuntimeError(
+                    "Evidence-aware parameter accounting requires "
+                    "alignment_model.evidence_integration."
+                )
+
+            representation_count += count_parameters(
+                alignment_model.evidence_integration
+            )
 
     return {
         "representation": (
@@ -1314,7 +1794,8 @@ def main():
     print(
         "Architecture:",
         mode_description(
-            args.mode
+            args.mode,
+            args.fusion_architecture,
         ),
     )
 
@@ -1345,11 +1826,10 @@ def main():
     )
 
     print(
-        "Gated multimodal fusion:",
+        "Fusion architecture:",
         (
-            "ENABLED"
-            if args.mode
-            == "multimodal"
+            args.fusion_architecture
+            if args.mode == "multimodal"
             else "BYPASSED"
         ),
     )
@@ -1576,7 +2056,73 @@ def main():
             temperature=(
                 args.temperature
             ),
+
+            evidence_aware=(
+                args.fusion_architecture
+                == "evidence_aware"
+            ),
+
+            interaction_only=(
+                args.fusion_architecture
+                == "interaction_only"
+            ),
+
+            gated_interaction=(
+                args.fusion_architecture
+                == "gated_interaction"
+            ),
+
+            reliability_only=(
+                args.fusion_architecture
+                == "reliability_only"
+            ),
+
+            interaction_reliability=(
+                args.fusion_architecture
+                == "interaction_reliability"
+            ),
         )
+    )
+
+    # M1b gate-initialization control:
+    # copy the historical M0 gate state into M1b's active gated base so
+    # M0 and M1b begin with exactly the same gated-fusion parameters.
+    if args.fusion_architecture == "gated_interaction":
+
+        if alignment_model.gated_interaction_fusion is None:
+            raise RuntimeError(
+                "Gated-interaction architecture was requested but "
+                "alignment_model.gated_interaction_fusion is unavailable."
+            )
+
+        alignment_model.gated_interaction_fusion.gated_fusion.load_state_dict(
+            alignment_model.fusion.state_dict()
+        )
+
+    # M2 gate-initialization control:
+    # M2 directly reuses alignment_model.fusion as its active legacy gated
+    # base. No copied gate is created, so M0 and M2 share the exact same
+    # parent-gate initialization under the paired experiment seed.
+
+    # M2b gate-initialization control:
+    # M2b also directly reuses alignment_model.fusion as its active legacy
+    # gated base; no duplicate gate is created.
+
+    # Paired-initialization control:
+    # non-legacy alignment models contain additional modules that consume
+    # RNG state. Re-seeding immediately before classifier creation guarantees
+    # identical classifier initialization across M0/M1/M1b/M2/M2b/M3 for the same
+    # experiment seed.
+    classifier_initialization_seed = (
+        args.seed + 1_000_003
+    )
+
+    set_global_seed(
+        classifier_initialization_seed
+    )
+
+    random.seed(
+        classifier_initialization_seed
     )
 
     classification_model = (
@@ -1591,6 +2137,34 @@ def main():
 
             dropout=(
                 args.dropout
+            ),
+        )
+    )
+
+    # Reset the stochastic training protocol to the experiment seed so that
+    # data-order/randomized training behaviour is anchored to --seed rather
+    # than to architecture-dependent model-construction RNG consumption.
+    set_global_seed(
+        args.seed
+    )
+
+    random.seed(
+        args.seed
+    )
+
+    initial_state_fingerprints = (
+        collect_component_fingerprints(
+            alignment_model=(
+                alignment_model
+            ),
+            classification_model=(
+                classification_model
+            ),
+            mode=(
+                args.mode
+            ),
+            fusion_architecture=(
+                args.fusion_architecture
             ),
         )
     )
@@ -1617,10 +2191,107 @@ def main():
 
     else:
 
-        representation_parameters = list(
-            alignment_model
-            .parameters()
+        representation_parameters = (
+            list(
+                alignment_model
+                .text_projection
+                .parameters()
+            )
+            + list(
+                alignment_model
+                .vision_projection
+                .parameters()
+            )
         )
+
+        if args.fusion_architecture == "legacy":
+
+            representation_parameters += list(
+                alignment_model
+                .fusion
+                .parameters()
+            )
+
+        elif args.fusion_architecture == "interaction_only":
+
+            if alignment_model.interaction_fusion is None:
+
+                raise RuntimeError(
+                    "Interaction-only fusion was requested but the "
+                    "AEGIS interaction fusion block is unavailable."
+                )
+
+            representation_parameters += list(
+                alignment_model
+                .interaction_fusion
+                .parameters()
+            )
+
+        elif args.fusion_architecture == "gated_interaction":
+
+            if alignment_model.gated_interaction_fusion is None:
+
+                raise RuntimeError(
+                    "Gated-interaction fusion was requested but the "
+                    "AEGIS gated interaction fusion block is unavailable."
+                )
+
+            representation_parameters += list(
+                alignment_model
+                .gated_interaction_fusion
+                .parameters()
+            )
+
+        elif args.fusion_architecture == "reliability_only":
+
+            if alignment_model.reliability_only_fusion is None:
+
+                raise RuntimeError(
+                    "Reliability-only fusion was requested but the "
+                    "AEGIS reliability-only fusion block is unavailable."
+                )
+
+            representation_parameters += list(
+                alignment_model
+                .fusion
+                .parameters()
+            )
+
+            representation_parameters += list(
+                alignment_model
+                .reliability_only_fusion
+                .parameters()
+            )
+
+        elif args.fusion_architecture == "interaction_reliability":
+
+            if alignment_model.interaction_reliability_fusion is None:
+                raise RuntimeError(
+                    "Interaction-reliability fusion was requested but the "
+                    "AEGIS interaction reliability residual block is unavailable."
+                )
+
+            representation_parameters += list(
+                alignment_model.fusion.parameters()
+            )
+            representation_parameters += list(
+                alignment_model.interaction_reliability_fusion.parameters()
+            )
+
+        else:
+
+            if alignment_model.evidence_integration is None:
+
+                raise RuntimeError(
+                    "Evidence-aware fusion was requested but the "
+                    "AEGIS evidence integration block is unavailable."
+                )
+
+            representation_parameters += list(
+                alignment_model
+                .evidence_integration
+                .parameters()
+            )
 
     trainable_parameters = (
         representation_parameters
@@ -1678,6 +2349,10 @@ def main():
             mode=(
                 args.mode
             ),
+
+            fusion_architecture=(
+                args.fusion_architecture
+            ),
         )
     )
 
@@ -1693,6 +2368,10 @@ def main():
 
             mode=(
                 args.mode
+            ),
+
+            fusion_architecture=(
+                args.fusion_architecture
             ),
         )
     )
@@ -1779,6 +2458,42 @@ def main():
             args.mode
         ),
 
+        "fusion_architecture": (
+            args.fusion_architecture
+            if args.mode == "multimodal"
+            else "bypassed"
+        ),
+
+        "evidence_aware": (
+            args.mode == "multimodal"
+            and args.fusion_architecture
+            == "evidence_aware"
+        ),
+
+        "interaction_only": (
+            args.mode == "multimodal"
+            and args.fusion_architecture
+            == "interaction_only"
+        ),
+
+        "gated_interaction": (
+            args.mode == "multimodal"
+            and args.fusion_architecture
+            == "gated_interaction"
+        ),
+
+        "reliability_only": (
+            args.mode == "multimodal"
+            and args.fusion_architecture
+            == "reliability_only"
+        ),
+
+        "interaction_reliability": (
+            args.mode == "multimodal"
+            and args.fusion_architecture
+            == "interaction_reliability"
+        ),
+
         "uses_text": (
             args.mode
             in {
@@ -1808,6 +2523,39 @@ def main():
         ),
 
         "seed": (
+            args.seed
+        ),
+
+        "initialization_protocol": (
+            "paired_common_components_v1"
+        ),
+
+        "m1b_gate_initialization_control": (
+            "copy_legacy_gate_state_v1"
+            if args.fusion_architecture
+            == "gated_interaction"
+            else None
+        ),
+
+        "m2_gate_initialization_control": (
+            "shared_parent_legacy_gate_v1"
+            if args.fusion_architecture
+            == "reliability_only"
+            else None
+        ),
+
+        "m2b_gate_initialization_control": (
+            "shared_parent_legacy_gate_v1"
+            if args.fusion_architecture
+            == "interaction_reliability"
+            else None
+        ),
+
+        "classifier_initialization_seed": (
+            classifier_initialization_seed
+        ),
+
+        "training_rng_reset_seed": (
             args.seed
         ),
 
@@ -1881,6 +2629,12 @@ def main():
             args.mode
         ),
 
+        "fusion_architecture": (
+            args.fusion_architecture
+            if args.mode == "multimodal"
+            else "bypassed"
+        ),
+
         "task": (
             "binary_integrity"
         ),
@@ -1949,6 +2703,10 @@ def main():
 
         "trainable_parameters": (
             parameter_counts
+        ),
+
+        "initial_state_fingerprints": (
+            initial_state_fingerprints
         ),
 
         "environment": {
@@ -2256,6 +3014,12 @@ def main():
                             args.mode
                         ),
 
+                        "fusion_architecture": (
+                            args.fusion_architecture
+                            if args.mode == "multimodal"
+                            else "bypassed"
+                        ),
+
                         "sample_ids": (
                             validation_metrics[
                                 "sample_ids"
@@ -2293,6 +3057,12 @@ def main():
 
                 "ablation_mode": (
                     args.mode
+                ),
+
+                "fusion_architecture": (
+                    args.fusion_architecture
+                    if args.mode == "multimodal"
+                    else "bypassed"
                 ),
 
                 "global_step": (
@@ -2544,6 +3314,34 @@ def main():
         }
     }
 
+    final_state_fingerprints = (
+        collect_component_fingerprints(
+            alignment_model=(
+                alignment_model
+            ),
+            classification_model=(
+                classification_model
+            ),
+            mode=(
+                args.mode
+            ),
+            fusion_architecture=(
+                args.fusion_architecture
+            ),
+        )
+    )
+
+    parameter_update_audit = (
+        compare_fingerprints(
+            initial=(
+                initial_state_fingerprints
+            ),
+            final=(
+                final_state_fingerprints
+            ),
+        )
+    )
+
     summary = {
         "experiment": (
             "AEGIS-Fakeddit-modality-ablation"
@@ -2555,6 +3353,12 @@ def main():
 
         "ablation_mode": (
             args.mode
+        ),
+
+        "fusion_architecture": (
+            args.fusion_architecture
+            if args.mode == "multimodal"
+            else "bypassed"
         ),
 
         "status": (
@@ -2609,6 +3413,18 @@ def main():
 
         "trainable_parameters": (
             parameter_counts
+        ),
+
+        "initial_state_fingerprints": (
+            initial_state_fingerprints
+        ),
+
+        "final_state_fingerprints": (
+            final_state_fingerprints
+        ),
+
+        "parameter_update_audit": (
+            parameter_update_audit
         ),
 
         "elapsed_seconds": (
@@ -2693,6 +3509,15 @@ def main():
     print(
         "Ablation mode:",
         args.mode,
+    )
+
+    print(
+        "Fusion architecture:",
+        (
+            args.fusion_architecture
+            if args.mode == "multimodal"
+            else "BYPASSED"
+        ),
     )
 
     print(
@@ -2795,6 +3620,13 @@ def main():
             elapsed_seconds,
             2,
         ),
+    )
+
+    print()
+
+    print(
+        "Parameter update audit:",
+        parameter_update_audit,
     )
 
     print()
