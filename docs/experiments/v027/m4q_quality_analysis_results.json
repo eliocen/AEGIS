@@ -1,0 +1,296 @@
+{
+  "h1_q": {
+    "all_curves": [
+      {
+        "corrupted_modality": "text",
+        "corruption_family": "gaussian_noise",
+        "model_seed": 42,
+        "spearman_rho": -1.0
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_family": "gaussian_noise",
+        "model_seed": 42,
+        "spearman_rho": -1.0
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_family": "attenuation",
+        "model_seed": 42,
+        "spearman_rho": -1.0
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_family": "attenuation",
+        "model_seed": 42,
+        "spearman_rho": -1.0
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_family": "gaussian_noise",
+        "model_seed": 43,
+        "spearman_rho": -1.0
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_family": "gaussian_noise",
+        "model_seed": 43,
+        "spearman_rho": -1.0
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_family": "attenuation",
+        "model_seed": 43,
+        "spearman_rho": -1.0
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_family": "attenuation",
+        "model_seed": 43,
+        "spearman_rho": -1.0
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_family": "gaussian_noise",
+        "model_seed": 44,
+        "spearman_rho": -1.0
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_family": "gaussian_noise",
+        "model_seed": 44,
+        "spearman_rho": -1.0
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_family": "attenuation",
+        "model_seed": 44,
+        "spearman_rho": -1.0
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_family": "attenuation",
+        "model_seed": 44,
+        "spearman_rho": -1.0
+      }
+    ],
+    "family_stratification": {
+      "attenuation": {
+        "curve_count": 6,
+        "mean_spearman_rho": -1.0,
+        "negative_curve_count": 6,
+        "negative_curve_proportion": 1.0
+      },
+      "gaussian_noise": {
+        "curve_count": 6,
+        "mean_spearman_rho": -1.0,
+        "negative_curve_count": 6,
+        "negative_curve_proportion": 1.0
+      }
+    },
+    "interpretation": "Perfect monotonic ordering was observed for both continuous corruption families and both modalities, but Spearman rho measures rank ordering rather than response magnitude.",
+    "modality_stratification": {
+      "text": {
+        "curve_count": 6,
+        "mean_spearman_rho": -1.0,
+        "negative_curve_count": 6,
+        "negative_curve_proportion": 1.0
+      },
+      "vision": {
+        "curve_count": 6,
+        "mean_spearman_rho": -1.0,
+        "negative_curve_count": 6,
+        "negative_curve_proportion": 1.0
+      }
+    }
+  },
+  "h2_q": {
+    "family_stratification": {
+      "attenuation": {
+        "condition_count": 24,
+        "mean_selectivity": 0.5025075148649791,
+        "median_selectivity": 0.5411125960201024,
+        "positive_selectivity_count": 24,
+        "positive_selectivity_proportion": 1.0
+      },
+      "gaussian_noise": {
+        "condition_count": 24,
+        "mean_selectivity": 0.009268808650473762,
+        "median_selectivity": 0.004544301182031696,
+        "positive_selectivity_count": 24,
+        "positive_selectivity_proportion": 1.0
+      },
+      "zero_dropout": {
+        "condition_count": 6,
+        "mean_selectivity": 0.9463711934650652,
+        "median_selectivity": 0.9479446258619428,
+        "positive_selectivity_count": 6,
+        "positive_selectivity_proportion": 1.0
+      }
+    },
+    "interpretation": "Selectivity is positive in every eligible condition, with substantially smaller magnitude under Gaussian noise than under attenuation or zero dropout.",
+    "modality_stratification": {
+      "text": {
+        "condition_count": 27,
+        "mean_selectivity": 0.33864611229493663,
+        "median_selectivity": 0.04895018738508228,
+        "positive_selectivity_count": 27,
+        "positive_selectivity_proportion": 1.0
+      },
+      "vision": {
+        "condition_count": 27,
+        "mean_selectivity": 0.3265708849332582,
+        "median_selectivity": 0.03964900305867192,
+        "positive_selectivity_count": 27,
+        "positive_selectivity_proportion": 1.0
+      }
+    }
+  },
+  "h3_q": {
+    "conditions": [
+      {
+        "intact_modality_quality": 0.9638560742139817,
+        "model_seed": 42,
+        "zeroed_modality": "text",
+        "zeroed_modality_quality": 0.01815716177225113
+      },
+      {
+        "intact_modality_quality": 0.9678482128381729,
+        "model_seed": 42,
+        "zeroed_modality": "vision",
+        "zeroed_modality_quality": 0.014710024930536747
+      },
+      {
+        "intact_modality_quality": 0.939673302590847,
+        "model_seed": 43,
+        "zeroed_modality": "text",
+        "zeroed_modality_quality": 0.024081267416477203
+      },
+      {
+        "intact_modality_quality": 0.9726789152026176,
+        "model_seed": 43,
+        "zeroed_modality": "vision",
+        "zeroed_modality_quality": 0.0003786149900406599
+      },
+      {
+        "intact_modality_quality": 0.9442063855528832,
+        "model_seed": 44,
+        "zeroed_modality": "text",
+        "zeroed_modality_quality": 0.029278961941599846
+      },
+      {
+        "intact_modality_quality": 0.976570565879345,
+        "model_seed": 44,
+        "zeroed_modality": "vision",
+        "zeroed_modality_quality": 2.644365508785995e-07
+      }
+    ],
+    "modality_stratification": {
+      "text": {
+        "condition_count": 3,
+        "mean_intact_quality": 0.9492452541192373,
+        "mean_zeroed_quality": 0.02383913037677606
+      },
+      "vision": {
+        "condition_count": 3,
+        "mean_intact_quality": 0.9723658979733785,
+        "mean_zeroed_quality": 0.005029634785709429
+      }
+    }
+  },
+  "h6_cls": {
+    "delta": -0.0010366992568159317,
+    "formal_noninferiority_test": false,
+    "m1b_reference_mean": 0.8736,
+    "m4q_mean": 0.8725633007431841,
+    "m4q_seed_values": {
+      "42": 0.872978533,
+      "43": 0.877741301,
+      "44": 0.866970068
+    },
+    "minimum_delta": -0.01,
+    "official_test_result": false,
+    "supported": true
+  },
+  "interpretation_boundaries": {
+    "next_stage": "M4qc cross-modal compatibility implementation and evaluation",
+    "not_established": [
+      "factual truth verification",
+      "human-calibrated trustworthiness",
+      "source credibility",
+      "misinformation/disinformation/malinformation subtype classification",
+      "hate-speech classification",
+      "intent detection",
+      "cross-modal compatibility discrimination",
+      "permutation/mismatch detection",
+      "raw-image corruption generalization",
+      "raw-text corruption generalization",
+      "real-world degradation generalization",
+      "universal evidence reliability",
+      "reliability-informed fusion utility",
+      "causal factual verification"
+    ]
+  },
+  "primary_decisions": {
+    "H1-Q": {
+      "criterion": "negative_curve_count >= 9 AND mean_spearman_rho < 0",
+      "curve_count": 12,
+      "mean_spearman_rho": -1.0,
+      "negative_curve_count": 12,
+      "negative_curve_proportion": 1.0,
+      "supported": true
+    },
+    "H2-Q": {
+      "criterion": "positive_selectivity_count >= 41",
+      "denominator": 54,
+      "positive_selectivity_count": 54,
+      "positive_selectivity_proportion": 1.0,
+      "supported": true
+    },
+    "H3-Q": {
+      "aggregate_mean_intact_quality": 0.9608055760663078,
+      "aggregate_mean_zeroed_quality": 0.014434382581242917,
+      "criterion": "mean_zeroed_quality <= 0.20 AND mean_intact_quality >= 0.80",
+      "maximum_mean_zeroed_quality": 0.2,
+      "minimum_mean_intact_quality": 0.8,
+      "supported": true
+    },
+    "H6-CLS": {
+      "criterion": "delta >= -0.01",
+      "delta": -0.0010366992568159317,
+      "formal_noninferiority_test": false,
+      "interpretation": "descriptive_preregistered_validation_margin",
+      "m1b_reference_mean": 0.8736,
+      "m4q_mean": 0.8725633007431841,
+      "metric": "Macro-F1",
+      "minimum_delta": -0.01,
+      "supported": true
+    }
+  },
+  "record": {
+    "analysis_protocol_version": "0.27.0-step10a",
+    "analyzer_version": "0.27.5-dev",
+    "model_variant": "M4q",
+    "name": "AEGIS v0.27 M4q Quality Analysis Results",
+    "scientific_status": "validation-only formal analysis under frozen Step 10A operationalization",
+    "stage": "Step 10C",
+    "status": "FROZEN_SCIENTIFIC_RESULTS_RECORD"
+  },
+  "reproducibility": {
+    "conditions_per_checkpoint": 19,
+    "h1_curve_count": 12,
+    "h2_condition_count": 54,
+    "h3_condition_count": 6,
+    "model_seeds": [
+      42,
+      43,
+      44
+    ],
+    "official_test_samples_accessed": 0,
+    "step9_condition_evaluations": 57,
+    "thresholds_modified_during_analysis": false,
+    "training_performed_during_analysis": false,
+    "validation_samples": 1000
+  },
+  "supported_claim": "Explicit corruption-aware supervision enables AEGIS M4q to learn modality-specific intrinsic-quality scores that respond monotonically and selectively to controlled representation-level degradation while preserving clean validation classification performance within the frozen descriptive margin."
+}
