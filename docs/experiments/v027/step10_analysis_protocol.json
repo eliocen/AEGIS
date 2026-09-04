@@ -1,0 +1,206 @@
+{
+  "protocol": {
+    "name": "AEGIS v0.27 Step 10 M4q Analysis Operationalization",
+    "version": "0.27.0-step10a",
+    "status": "FROZEN_BEFORE_FORMAL_STEP10_HYPOTHESIS_COMPUTATION",
+    "scope": "M4q corruption-aware intrinsic modality-quality evaluation",
+    "original_preregistration_relation": {
+      "broad_hypotheses_and_thresholds_already_frozen": true,
+      "step10a_purpose": "Resolve previously unspecified computational denominators and aggregation semantics before formal hypothesis computation.",
+      "claim_lower_level_rules_were_in_original_preregistration": false
+    }
+  },
+  "inputs": {
+    "step9_directory": "experiments/fakeddit/v027_m4q_quality_diagnostics",
+    "model_seeds": [
+      42,
+      43,
+      44
+    ],
+    "validation_samples": 1000,
+    "conditions_per_seed": 19,
+    "total_condition_evaluations": 57,
+    "official_test_access_permitted": false,
+    "training_permitted": false,
+    "checkpoint_selection_permitted": false
+  },
+  "h1_q": {
+    "name": "Monotonic intrinsic-quality sensitivity",
+    "continuous_corruption_families": [
+      "gaussian_noise",
+      "attenuation"
+    ],
+    "corrupted_modalities": [
+      "text",
+      "vision"
+    ],
+    "severities": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "severity_zero_source": "clean_condition_same_model_seed",
+    "response_variable": "predicted_quality_of_corrupted_modality",
+    "statistic": "spearman_rank_correlation",
+    "expected_direction": "rho < 0",
+    "zero_correlation_counts_as_negative": false,
+    "curve_definition": "model_seed x corrupted_modality x continuous_corruption_family",
+    "curve_count": 12,
+    "minimum_negative_curve_count": 9,
+    "minimum_negative_curve_proportion": 0.75,
+    "mean_rho_requirement": "mean_rho < 0",
+    "decision_operator": "AND",
+    "zero_dropout_included": false,
+    "permutation_included": false
+  },
+  "h2_q": {
+    "name": "Modality selectivity",
+    "clean_relative_delta_definition": "condition_quality - clean_quality_same_model_seed",
+    "text_corruption": {
+      "corrupted_delta": "delta_qT",
+      "intact_delta": "delta_qV"
+    },
+    "vision_corruption": {
+      "corrupted_delta": "delta_qV",
+      "intact_delta": "delta_qT"
+    },
+    "selectivity_definition": "delta_q_intact - delta_q_corrupted",
+    "expected_direction": "selectivity > 0",
+    "zero_selectivity_counts_as_positive": false,
+    "included_conditions_per_modality_per_seed": {
+      "gaussian_noise": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "attenuation": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "zero_dropout": [
+        1.0
+      ]
+    },
+    "conditions_per_modality_per_seed": 9,
+    "model_seed_count": 3,
+    "modality_count": 2,
+    "denominator": 54,
+    "minimum_positive_proportion": 0.75,
+    "minimum_positive_count": 41,
+    "zero_dropout_included": true,
+    "permutation_included": false
+  },
+  "h3_q": {
+    "name": "Zero-dropout endpoint behavior",
+    "corruption_family": "zero_dropout",
+    "severity": 1.0,
+    "model_seed_count": 3,
+    "corrupted_modalities": [
+      "text",
+      "vision"
+    ],
+    "condition_count": 6,
+    "aggregation": "arithmetic_mean_across_all_six_conditions",
+    "zeroed_quality_statistic": "quality_of_corrupted_modality",
+    "intact_quality_statistic": "quality_of_intact_modality",
+    "maximum_mean_zeroed_quality": 0.2,
+    "minimum_mean_intact_quality": 0.8,
+    "decision_operator": "AND",
+    "require_every_individual_condition_to_pass": false
+  },
+  "h6_cls": {
+    "name": "Clean classification preservation",
+    "source": "frozen_step8_results",
+    "metric": "Macro-F1",
+    "m4q_seed_values": {
+      "42": 0.872978533,
+      "43": 0.877741301,
+      "44": 0.866970068
+    },
+    "m4q_mean": 0.8725633007431841,
+    "m1b_reference_mean": 0.8736,
+    "delta_definition": "m4q_mean - m1b_reference_mean",
+    "delta": -0.0010366992568159317,
+    "minimum_delta": -0.01,
+    "criterion": "delta >= -0.01",
+    "interpretation": "descriptive_preregistered_validation_margin",
+    "formal_noninferiority_test": false,
+    "official_test_result": false
+  },
+  "required_reporting": {
+    "h1_q": [
+      "all_curve_rhos",
+      "negative_curve_count",
+      "negative_curve_proportion",
+      "mean_rho",
+      "family_stratification",
+      "modality_stratification",
+      "decision"
+    ],
+    "h2_q": [
+      "positive_selectivity_count",
+      "denominator",
+      "positive_selectivity_proportion",
+      "mean_selectivity",
+      "median_selectivity",
+      "family_stratification",
+      "modality_stratification",
+      "decision"
+    ],
+    "h3_q": [
+      "all_zeroed_quality_values",
+      "all_intact_quality_values",
+      "aggregate_mean_zeroed_quality",
+      "aggregate_mean_intact_quality",
+      "modality_stratification",
+      "decision"
+    ],
+    "h6_cls": [
+      "m4q_seed_values",
+      "m4q_mean",
+      "m1b_reference_mean",
+      "delta",
+      "minimum_delta",
+      "decision"
+    ]
+  },
+  "analysis_constraints": {
+    "no_retraining": true,
+    "no_test_access": true,
+    "no_threshold_tuning": true,
+    "no_posthoc_primary_denominator_changes": true,
+    "no_selective_family_exclusion": true,
+    "missing_conditions_must_fail": true,
+    "duplicate_conditions_must_fail": true,
+    "machine_readable_outputs_required": true,
+    "stratified_descriptive_reporting_required": true
+  },
+  "interpretation_boundaries": {
+    "supported_scope_if_successful": "Explicitly supervised intrinsic modality-quality estimation under the frozen controlled representation-corruption validation protocol.",
+    "not_supported_by_m4q_step10_alone": [
+      "factual_truth_verification",
+      "human_calibrated_trustworthiness",
+      "source_credibility_estimation",
+      "intent_detection",
+      "misinformation_disinformation_malinformation_classification",
+      "hate_speech_classification",
+      "raw_image_corruption_generalization",
+      "raw_text_corruption_generalization",
+      "real_world_sensor_degradation_generalization",
+      "cross_modal_compatibility_discrimination",
+      "permutation_mismatch_detection",
+      "universal_evidence_reliability",
+      "causal_factual_verification"
+    ]
+  },
+  "freeze": {
+    "formal_step10_analyzer_implemented_before_this_freeze": false,
+    "formal_step10_hypothesis_computation_executed_before_this_freeze": false,
+    "changes_require_versioned_amendment": true
+  }
+}
