@@ -1,0 +1,173 @@
+{
+  "record_version": "0.27.0-step11e",
+  "stage": "Step11E",
+  "experiment": "AEGIS v0.27 M4qc formal multi-seed training",
+  "status": "COMPLETE_AND_FROZEN",
+  "created_at_utc": "2026-09-04T08:52:37.973120+00:00",
+  "scientific_scope": {
+    "architecture": "M4qc",
+    "description": "M1b gated-interaction backbone with diagnostic intrinsic-modality quality supervision and diagnostic cross-modal compatibility supervision.",
+    "quality_affects_primary_fusion": false,
+    "compatibility_affects_primary_fusion": false,
+    "formal_validation_split_only": true,
+    "official_test_accessed": false
+  },
+  "frozen_protocol": {
+    "source_protocol_version": "0.27.0-step11a",
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "quality_weight": 1.0,
+    "compatibility_weight": 1.0,
+    "checkpoint_selection": "clean validation Macro-F1, then validation classification loss"
+  },
+  "seed_results": [
+    {
+      "seed": 42,
+      "experiment_directory": "experiments/fakeddit/v027_m4qc_seed42",
+      "status": "completed",
+      "epochs_completed": 13,
+      "stop_reason": "early_stopping",
+      "best_epoch": 5,
+      "best_validation": {
+        "accuracy": 0.863,
+        "macro_f1": 0.8627462177566321,
+        "classification_loss": 0.3524647297859192
+      },
+      "test_split_status": "sealed_not_accessed",
+      "selection_metric": "validation_macro_f1",
+      "selection_tie_breaker": "validation_classification_loss",
+      "quality_weight": 1.0,
+      "compatibility_weight": 1.0,
+      "protocol_version": "0.27.0-step11a",
+      "diagnostic_only": true,
+      "affects_primary_fusion": false,
+      "parameter_update_audit": {
+        "classifier": true,
+        "compatibility_estimator": true,
+        "gated_base_fusion": true,
+        "gated_interaction_fusion": true,
+        "text_projection": true,
+        "text_quality_estimator": true,
+        "vision_projection": true,
+        "vision_quality_estimator": true
+      },
+      "auxiliary_metric_persistence_audit": "PASS",
+      "formal_h4_computed": false,
+      "formal_h5_computed": false,
+      "official_test_accessed": false
+    },
+    {
+      "seed": 43,
+      "experiment_directory": "experiments/fakeddit/v027_m4qc_seed43",
+      "status": "completed",
+      "epochs_completed": 14,
+      "stop_reason": "early_stopping",
+      "best_epoch": 6,
+      "best_validation": {
+        "accuracy": 0.866,
+        "macro_f1": 0.8659865986598659,
+        "classification_loss": 0.33841112780570987
+      },
+      "test_split_status": "sealed_not_accessed",
+      "selection_metric": "validation_macro_f1",
+      "selection_tie_breaker": "validation_classification_loss",
+      "quality_weight": 1.0,
+      "compatibility_weight": 1.0,
+      "protocol_version": "0.27.0-step11a",
+      "diagnostic_only": true,
+      "affects_primary_fusion": false,
+      "parameter_update_audit": {
+        "classifier": true,
+        "compatibility_estimator": true,
+        "gated_base_fusion": true,
+        "gated_interaction_fusion": true,
+        "text_projection": true,
+        "text_quality_estimator": true,
+        "vision_projection": true,
+        "vision_quality_estimator": true
+      },
+      "auxiliary_metric_persistence_audit": "PASS",
+      "formal_h4_computed": false,
+      "formal_h5_computed": false,
+      "official_test_accessed": false
+    },
+    {
+      "seed": 44,
+      "experiment_directory": "experiments/fakeddit/v027_m4qc_seed44",
+      "status": "completed",
+      "epochs_completed": 13,
+      "stop_reason": "early_stopping",
+      "best_epoch": 5,
+      "best_validation": {
+        "accuracy": 0.866,
+        "macro_f1": 0.8657852564102564,
+        "classification_loss": 0.33807002782821655
+      },
+      "test_split_status": "sealed_not_accessed",
+      "selection_metric": "validation_macro_f1",
+      "selection_tie_breaker": "validation_classification_loss",
+      "quality_weight": 1.0,
+      "compatibility_weight": 1.0,
+      "protocol_version": "0.27.0-step11a",
+      "diagnostic_only": true,
+      "affects_primary_fusion": false,
+      "parameter_update_audit": {
+        "classifier": true,
+        "compatibility_estimator": true,
+        "gated_base_fusion": true,
+        "gated_interaction_fusion": true,
+        "text_projection": true,
+        "text_quality_estimator": true,
+        "vision_projection": true,
+        "vision_quality_estimator": true
+      },
+      "auxiliary_metric_persistence_audit": "PASS",
+      "formal_h4_computed": false,
+      "formal_h5_computed": false,
+      "official_test_accessed": false
+    }
+  ],
+  "classification_preservation_gate": {
+    "reference_model": "M1b",
+    "reference_macro_f1": 0.8736,
+    "m4qc_seed_macro_f1": [
+      0.8627462177566321,
+      0.8659865986598659,
+      0.8657852564102564
+    ],
+    "m4qc_mean_macro_f1": 0.8648393576089181,
+    "delta_vs_m1b": -0.008760642391081985,
+    "frozen_margin": -0.01,
+    "criterion": "delta_vs_m1b >= -0.01",
+    "passed": true,
+    "interpretation": "Descriptive held-out validation-margin preservation criterion; not a formal statistical noninferiority test."
+  },
+  "pending_hypotheses": {
+    "H4-C": {
+      "status": "PENDING_NOT_COMPUTED",
+      "description": "Matched-versus-class-preserving-mismatched compatibility discrimination."
+    },
+    "H5-C": {
+      "status": "PENDING_NOT_COMPUTED",
+      "description": "Intrinsic-quality stability under mismatch plus positive compatibility drop."
+    }
+  },
+  "next_stage": {
+    "name": "Step12B",
+    "description": "Deterministic class-preserving compatibility diagnostics on the frozen validation split using the three best M4qc checkpoints.",
+    "training_allowed": false,
+    "checkpoint_reselection_allowed": false,
+    "official_test_access_allowed": false
+  },
+  "interpretation_boundaries": [
+    "Step11E establishes formal M4qc training completion and the frozen classification-preservation result only.",
+    "Step11E does not establish H4-C or H5-C.",
+    "No claim of factual verification, factual truth, source credibility, intent inference, human trust, or universal semantic consistency is supported by Step11E.",
+    "Compatibility remains a controlled learned pairwise diagnostic under the v0.27 protocol.",
+    "The official Fakeddit test split remained sealed and was not accessed.",
+    "M4qcf remains blocked pending Step12B/Step12C/Step12D and the separate decision gate."
+  ]
+}
