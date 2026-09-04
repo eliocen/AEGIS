@@ -1,0 +1,201 @@
+{
+  "aegis_version": "0.27.0",
+  "protocol_status": "pre_registered_frozen_before_model_implementation",
+  "dataset": "Fakeddit",
+  "official_test_split_accessed": false,
+  "research_question": "Can AEGIS learn modality-quality and cross-modal compatibility scores that respond correctly to controlled evidence degradation and mismatch when explicitly supervised?",
+  "backbone": "M1b_gated_interaction",
+  "variants": {
+    "M1b": {
+      "quality_supervision": false,
+      "compatibility_supervision": false,
+      "affects_primary_fusion": false
+    },
+    "M4q": {
+      "quality_supervision": true,
+      "compatibility_supervision": false,
+      "affects_primary_fusion": false
+    },
+    "M4qc": {
+      "quality_supervision": true,
+      "compatibility_supervision": true,
+      "affects_primary_fusion": false
+    },
+    "M4qcf": {
+      "quality_supervision": true,
+      "compatibility_supervision": true,
+      "affects_primary_fusion": true,
+      "implementation_blocked_until_protocol_amendment": true
+    }
+  },
+  "representation_level": "frozen_encoder_embeddings_before_aegis_projection_heads",
+  "training_cache": {
+    "path": "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+    "expected_samples": 5000
+  },
+  "validation_cache": {
+    "path": "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42",
+    "expected_samples": 1000
+  },
+  "training_corruption_sampling": {
+    "clean": 0.4,
+    "text_quality": 0.2,
+    "vision_quality": 0.2,
+    "mismatch": 0.2,
+    "quality_family_probabilities": {
+      "gaussian_noise": 0.4,
+      "attenuation": 0.4,
+      "zero_dropout": 0.2
+    },
+    "continuous_severities": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "simultaneous_bimodal_corruption": false
+  },
+  "quality_targets": {
+    "clean": 1.0,
+    "continuous_rule": "1-severity",
+    "zero_dropout": 0.0,
+    "intact_modality_under_single_modality_corruption": 1.0,
+    "permutation_text_quality": 1.0,
+    "permutation_vision_quality": 1.0
+  },
+  "compatibility_targets": {
+    "matched": 1.0,
+    "permuted": 0.0,
+    "quality_corruption_without_permutation": "not_used_for_primary_compatibility_loss"
+  },
+  "quality_estimator": {
+    "separate_per_modality": true,
+    "input": "own_projected_modality_embedding_only",
+    "hidden_dims": [
+      256,
+      64
+    ],
+    "activation": "GELU",
+    "dropout": 0.1,
+    "output": "sigmoid_scalar"
+  },
+  "compatibility_estimator": {
+    "input": "[h_text,h_vision,abs_diff,elementwise_product,cosine]",
+    "hidden_dims": [
+      256,
+      64
+    ],
+    "activation": "GELU",
+    "dropout": 0.1,
+    "output": "sigmoid_scalar"
+  },
+  "losses": {
+    "classification": "existing_binary_classification_loss",
+    "alignment": "existing_alignment_loss_unchanged",
+    "quality": "mean_of_text_and_vision_MSE",
+    "compatibility": "BCE_on_defined_compatibility_targets",
+    "lambda_quality": 1.0,
+    "lambda_compatibility": 1.0,
+    "lambda_alignment": "preserve_controlled_M1b_value"
+  },
+  "training_seeds": [
+    42,
+    43,
+    44
+  ],
+  "validation_corruptions": {
+    "continuous": [
+      "gaussian_noise",
+      "attenuation"
+    ],
+    "discrete": [
+      "permutation",
+      "zero_dropout"
+    ],
+    "severities": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "corruption_seed_independent_of_model_seed": true
+  },
+  "hypotheses": {
+    "H1_Q": {
+      "description": "Increasing corruption severity reduces corrupted-modality quality.",
+      "success": {
+        "negative_curve_direction_rate_min": 0.75,
+        "mean_spearman_severity_quality": "<0"
+      }
+    },
+    "H2_Q": {
+      "description": "Quality response is selective to the corrupted modality.",
+      "success": {
+        "positive_selectivity_rate_min": 0.75
+      }
+    },
+    "H3_Q": {
+      "description": "Zeroed modality is recognized as low quality while intact modality remains high quality.",
+      "success": {
+        "zeroed_modality_mean_quality_max": 0.2,
+        "intact_modality_mean_quality_min": 0.8
+      }
+    },
+    "H4_C": {
+      "description": "Compatibility discriminates matched from permuted pairs.",
+      "success": {
+        "roc_auc_min": 0.8
+      }
+    },
+    "H5_C": {
+      "description": "Permutation lowers compatibility without large intrinsic-quality change.",
+      "success": {
+        "mean_abs_delta_text_quality_max": 0.1,
+        "mean_abs_delta_vision_quality_max": 0.1
+      }
+    },
+    "H6_CLS": {
+      "description": "Auxiliary supervision does not substantially damage clean classification.",
+      "success": {
+        "paired_mean_macro_f1_delta_min": -0.01
+      },
+      "formal_noninferiority_test": false
+    }
+  },
+  "checkpoint_selection": {
+    "primary_metric": "clean_validation_macro_f1",
+    "quality_metrics_used_for_selection": false,
+    "compatibility_metrics_used_for_selection": false
+  },
+  "implementation_order": [
+    "freeze_protocol",
+    "corruption_utils_and_tests",
+    "quality_target_utils_and_tests",
+    "permutation_compatibility_utils_and_tests",
+    "quality_estimator",
+    "integrate_M4q",
+    "M4q_tests",
+    "train_M4q_seeds_42_43_44",
+    "M4q_diagnostics",
+    "analyse_H1Q_H2Q_H3Q_H6CLS",
+    "compatibility_estimator",
+    "integrate_M4qc",
+    "M4qc_tests",
+    "train_M4qc_seeds_42_43_44",
+    "M4qc_diagnostics",
+    "analyse_H4C_H5C_H6CLS",
+    "freeze_M4q_M4qc_findings",
+    "decide_if_M4qcf_justified",
+    "freeze_M4qcf_protocol_amendment_if_justified",
+    "implement_M4qcf_only_after_amendment"
+  ],
+  "m4qcf_status": "blocked_pending_M4q_M4qc_behavioral_validation_and_protocol_amendment",
+  "scientific_limitations": [
+    "representation-level corruption is not equivalent to real-world raw-input corruption",
+    "validation diagnostics are not independent test generalization",
+    "quality and compatibility scores do not establish factual truth",
+    "no intent inference from binary fake labels",
+    "official test split remains sealed"
+  ]
+}
