@@ -75,6 +75,11 @@ quality_supervised:
     v0.27 M4q exact M1b fusion plus separate intrinsic-quality heads.
     Quality heads are auxiliary/diagnostic and never feed the fusion equation.
 
+quality_compatibility_supervised:
+    v0.27 M4qc exact M1b fusion plus separate intrinsic-quality heads and
+    a separate text-image compatibility head. All three diagnostic scores are
+    auxiliary and never feed the fusion equation.
+
 evidence_aware:
     v0.25 cross-modal evidence interaction
     -> modality reliability estimation
@@ -126,6 +131,13 @@ Quality-supervised AEGIS v0.27 (M4q):
     --fusion-architecture quality_supervised
     --alignment-weight 0.5
     --quality-weight 1.0
+
+Quality + compatibility-supervised AEGIS v0.27 (M4qc):
+    --mode multimodal
+    --fusion-architecture quality_compatibility_supervised
+    --alignment-weight 0.5
+    --quality-weight 1.0
+    --compatibility-weight 1.0
 
 Evidence-aware AEGIS v0.25 (M3):
     --mode multimodal
@@ -266,6 +278,7 @@ def parse_args():
             "reliability_only",
             "interaction_reliability",
             "quality_supervised",
+            "quality_compatibility_supervised",
             "evidence_aware",
         ],
         help=(
@@ -282,7 +295,10 @@ def parse_args():
             "with a deterministic scaled adaptive-fusion residual; "
             "quality_supervised enables v0.27 M4q: the exact M1b fusion "
             "path plus diagnostic intrinsic-quality heads trained with "
-            "explicit corruption-aware supervision; evidence_aware enables "
+            "explicit corruption-aware supervision; "
+            "quality_compatibility_supervised enables v0.27 M4qc: the exact "
+            "M1b path plus diagnostic quality and compatibility heads; "
+            "evidence_aware enables "
             "v0.25 interaction, reliability "
             "estimation, and reliability-aware adaptive fusion. "
             "Non-legacy architectures are valid only with "
@@ -381,6 +397,17 @@ def parse_args():
         help=(
             "M4q intrinsic-quality auxiliary loss coefficient. Frozen "
             "v0.27 default: 1.0. Ignored outside quality_supervised."
+        ),
+    )
+
+    parser.add_argument(
+        "--compatibility-weight",
+        type=float,
+        default=1.0,
+        help=(
+            "M4qc cross-modal compatibility auxiliary BCE coefficient. "
+            "Frozen Step 11A default: 1.0. Ignored outside "
+            "quality_compatibility_supervised."
         ),
     )
 
@@ -515,6 +542,31 @@ def validate_args(
             "quality_supervised requires --quality-weight > 0."
         )
 
+    if args.compatibility_weight < 0:
+
+        raise ValueError(
+            "--compatibility-weight must be >= 0."
+        )
+
+    if (
+        args.fusion_architecture == "quality_compatibility_supervised"
+        and args.quality_weight <= 0
+    ):
+
+        raise ValueError(
+            "quality_compatibility_supervised requires --quality-weight > 0."
+        )
+
+    if (
+        args.fusion_architecture == "quality_compatibility_supervised"
+        and args.compatibility_weight <= 0
+    ):
+
+        raise ValueError(
+            "quality_compatibility_supervised requires "
+            "--compatibility-weight > 0."
+        )
+
     if args.gradient_clip <= 0:
 
         raise ValueError(
@@ -553,6 +605,7 @@ def validate_args(
             "reliability_only",
             "interaction_reliability",
             "quality_supervised",
+            "quality_compatibility_supervised",
             "evidence_aware",
         }
         and args.mode != "multimodal"
@@ -633,6 +686,12 @@ def mode_description(
             "diagnostic intrinsic-quality heads -> classifier"
         )
 
+    if fusion_architecture == "quality_compatibility_supervised":
+        return (
+            "XLM-R + CLIP -> projections -> M1b gated-interaction fusion + "
+            "diagnostic intrinsic-quality and compatibility heads -> classifier"
+        )
+
     if fusion_architecture == "evidence_aware":
         return (
             "XLM-R + CLIP -> projections -> evidence interaction -> "
@@ -702,13 +761,16 @@ class FakedditAblationTrainer(
             "reliability_only",
             "interaction_reliability",
             "quality_supervised",
+            "quality_compatibility_supervised",
             "evidence_aware",
         }:
             raise ValueError(
                 "Unsupported fusion architecture: "
                 f"{fusion_architecture!r}. Expected one of "
                 "['evidence_aware', 'gated_interaction', "
-                "'interaction_only', 'interaction_reliability', 'legacy', 'quality_supervised', 'reliability_only']."
+                "'interaction_only', 'interaction_reliability', 'legacy', "
+                "'quality_compatibility_supervised', 'quality_supervised', "
+                "'reliability_only']."
             )
 
         if (
@@ -801,6 +863,20 @@ class FakedditAblationTrainer(
                 "alignment_model.quality_supervised."
             )
 
+        expected_quality_compatibility_supervised = (
+            self.mode == "multimodal"
+            and fusion_architecture == "quality_compatibility_supervised"
+        )
+
+        if (
+            bool(self.alignment_model.quality_compatibility_supervised)
+            != expected_quality_compatibility_supervised
+        ):
+            raise ValueError(
+                "fusion_architecture is inconsistent with "
+                "alignment_model.quality_compatibility_supervised."
+            )
+
         self.fusion_architecture = fusion_architecture
 
         if (
@@ -835,6 +911,7 @@ class FakedditAblationTrainer(
                 "fused_embedding": None,
                 "text_quality": None,
                 "vision_quality": None,
+                "compatibility_score": None,
             }
 
         if self.mode == "vision_only":
@@ -850,6 +927,7 @@ class FakedditAblationTrainer(
                 "fused_embedding": None,
                 "text_quality": None,
                 "vision_quality": None,
+                "compatibility_score": None,
             }
 
         alignment_outputs = self.alignment_model(
@@ -871,6 +949,7 @@ class FakedditAblationTrainer(
             "fused_embedding": alignment_outputs["fused_embedding"],
             "text_quality": alignment_outputs.get("text_quality"),
             "vision_quality": alignment_outputs.get("vision_quality"),
+            "compatibility_score": alignment_outputs.get("compatibility_score"),
         }
 
     def forward_batch(
@@ -879,14 +958,16 @@ class FakedditAblationTrainer(
         compute_alignment_loss: bool = True,
         quality_targets: Optional[tuple[torch.Tensor, torch.Tensor]] = None,
         quality_loss_weight: float = 0.0,
+        compatibility_targets: Optional[torch.Tensor] = None,
+        compatibility_loss_weight: float = 0.0,
     ) -> Dict:
         """
         Forward one binary-integrity batch.
 
-        For M4q, ``quality_targets`` is a pair of [B,1] tensors containing
-        intrinsic text/vision quality supervision. The quality predictions do
-        not enter fusion; only the auxiliary MSE term is added to the training
-        objective.
+        For M4q/M4qc, ``quality_targets`` contains [B,1] intrinsic
+        text/vision quality supervision. For M4qc, ``compatibility_targets``
+        contains [B,1] matched/mismatched supervision. None of q_T, q_V, or
+        c_TV enters primary fusion; only auxiliary loss terms are added.
         """
         batch.validate(
             text_dim=self.alignment_model.text_dim,
@@ -917,11 +998,16 @@ class FakedditAblationTrainer(
         quality_loss = classification_losses["loss"] * 0.0
         text_quality_loss = classification_losses["loss"] * 0.0
         vision_quality_loss = classification_losses["loss"] * 0.0
+        compatibility_loss = classification_losses["loss"] * 0.0
 
         if quality_targets is not None:
-            if self.fusion_architecture != "quality_supervised":
+            if self.fusion_architecture not in {
+                "quality_supervised",
+                "quality_compatibility_supervised",
+            }:
                 raise ValueError(
-                    "quality_targets are valid only for quality_supervised M4q."
+                    "quality_targets are valid only for M4q/M4qc quality "
+                    "supervision architectures."
                 )
             text_quality = representation_outputs["text_quality"]
             vision_quality = representation_outputs["vision_quality"]
@@ -951,10 +1037,35 @@ class FakedditAblationTrainer(
             )
             quality_loss = 0.5 * (text_quality_loss + vision_quality_loss)
 
+        if compatibility_targets is not None:
+            if self.fusion_architecture != "quality_compatibility_supervised":
+                raise ValueError(
+                    "compatibility_targets are valid only for M4qc "
+                    "quality_compatibility_supervised."
+                )
+            compatibility_score = representation_outputs["compatibility_score"]
+            if compatibility_score is None:
+                raise RuntimeError("M4qc compatibility prediction is unavailable.")
+            compatibility_target = compatibility_targets.to(
+                device=compatibility_score.device,
+                dtype=compatibility_score.dtype,
+            )
+            if compatibility_target.shape != compatibility_score.shape:
+                raise ValueError(
+                    "compatibility target shape mismatch: "
+                    f"{tuple(compatibility_target.shape)} != "
+                    f"{tuple(compatibility_score.shape)}."
+                )
+            compatibility_loss = nn.functional.binary_cross_entropy(
+                compatibility_score,
+                compatibility_target,
+            )
+
         total_loss = (
             self.alignment_loss_weight * alignment_loss
             + self.classification_loss_weight * classification_losses["loss"]
             + float(quality_loss_weight) * quality_loss
+            + float(compatibility_loss_weight) * compatibility_loss
         )
 
         metrics = compute_binary_integrity_metrics(
@@ -970,6 +1081,7 @@ class FakedditAblationTrainer(
             "alignment_loss": alignment_loss,
             "text_quality": representation_outputs["text_quality"],
             "vision_quality": representation_outputs["vision_quality"],
+            "compatibility_score": representation_outputs["compatibility_score"],
         }
 
         return {
@@ -979,6 +1091,7 @@ class FakedditAblationTrainer(
             "quality_loss": quality_loss,
             "text_quality_loss": text_quality_loss,
             "vision_quality_loss": vision_quality_loss,
+            "compatibility_loss": compatibility_loss,
             "integrity_loss": classification_losses["integrity_loss"],
             "threat_loss": None,
             "alignment_outputs": alignment_outputs,
@@ -992,8 +1105,10 @@ class FakedditAblationTrainer(
         *,
         quality_targets: Optional[tuple[torch.Tensor, torch.Tensor]] = None,
         quality_loss_weight: float = 0.0,
+        compatibility_targets: Optional[torch.Tensor] = None,
+        compatibility_loss_weight: float = 0.0,
     ) -> Dict[str, float]:
-        """Execute one optimization step, including M4q loss when supplied."""
+        """Execute one optimization step, including M4q/M4qc auxiliaries."""
         self.alignment_model.train()
         self.classification_model.train()
         self.optimizer.zero_grad(set_to_none=True)
@@ -1003,6 +1118,8 @@ class FakedditAblationTrainer(
             compute_alignment_loss=True,
             quality_targets=quality_targets,
             quality_loss_weight=quality_loss_weight,
+            compatibility_targets=compatibility_targets,
+            compatibility_loss_weight=compatibility_loss_weight,
         )
         loss = outputs["loss"]
         if not torch.isfinite(loss):
@@ -1033,6 +1150,9 @@ class FakedditAblationTrainer(
             ),
             "vision_quality_loss": float(
                 outputs["vision_quality_loss"].detach().cpu().item()
+            ),
+            "compatibility_loss": float(
+                outputs["compatibility_loss"].detach().cpu().item()
             ),
             "integrity_loss": float(outputs["integrity_loss"].detach().cpu().item()),
         }
@@ -1195,6 +1315,174 @@ def prepare_m4q_training_batch(
     corrupted_batch.vision_embeddings = vision
 
     return corrupted_batch, (text_targets, vision_targets), counts
+
+
+def prepare_m4qc_training_batch(
+    batch: BinaryIntegrityBatch,
+    *,
+    text_feature_std: torch.Tensor,
+    vision_feature_std: torch.Tensor,
+    seed: int,
+) -> tuple[
+    BinaryIntegrityBatch,
+    tuple[torch.Tensor, torch.Tensor],
+    torch.Tensor,
+    Dict[str, int],
+]:
+    """
+    Apply the frozen Step 11A M4qc training mixture per sample.
+
+    The primary condition probabilities and intrinsic-quality corruption
+    families are identical to M4q. Compatibility supervision is defined for
+    every sample:
+
+        clean / text-quality / vision-quality -> c* = 1
+        mismatch                            -> c* = 0
+
+    Mismatch construction follows Step 11A: text remains in original order,
+    while mismatched rows receive vision donors from one deterministic cyclic
+    batch derangement using a single non-zero offset k.
+    """
+    if batch.batch_size < 1:
+        raise ValueError("M4qc training batch must contain at least one sample.")
+
+    text = batch.text_embeddings.clone()
+    vision = batch.vision_embeddings.clone()
+    batch_size = batch.batch_size
+
+    text_targets = torch.ones(
+        (batch_size, 1),
+        dtype=text.dtype,
+        device=text.device,
+    )
+    vision_targets = torch.ones(
+        (batch_size, 1),
+        dtype=vision.dtype,
+        device=vision.device,
+    )
+    compatibility_targets = torch.ones(
+        (batch_size, 1),
+        dtype=text.dtype,
+        device=text.device,
+    )
+
+    generator = _local_generator(seed)
+    condition_draw = torch.rand(batch_size, generator=generator)
+    family_draw = torch.rand(batch_size, generator=generator)
+    severity_index = torch.randint(
+        low=0,
+        high=len(M4Q_SEVERITIES),
+        size=(batch_size,),
+        generator=generator,
+    )
+
+    clean_mask = condition_draw < 0.40
+    text_mask = (condition_draw >= 0.40) & (condition_draw < 0.60)
+    vision_mask = (condition_draw >= 0.60) & (condition_draw < 0.80)
+    mismatch_mask = condition_draw >= 0.80
+
+    counts = {
+        "clean": int(clean_mask.sum().item()),
+        "text_quality": int(text_mask.sum().item()),
+        "vision_quality": int(vision_mask.sum().item()),
+        "mismatch": int(mismatch_mask.sum().item()),
+        "gaussian_noise": 0,
+        "attenuation": 0,
+        "zero_dropout": 0,
+    }
+
+    def apply_quality_corruption(
+        representation: torch.Tensor,
+        target: torch.Tensor,
+        mask: torch.Tensor,
+        feature_std: torch.Tensor,
+        seed_offset: int,
+    ) -> None:
+        indices = torch.nonzero(mask, as_tuple=False).reshape(-1)
+        for local_order, index_cpu in enumerate(indices.tolist()):
+            index = int(index_cpu)
+            row = representation[index:index + 1]
+            family_value = float(family_draw[index].item())
+            severity = M4Q_SEVERITIES[int(severity_index[index].item())]
+
+            if family_value < 0.40:
+                result = gaussian_noise(
+                    row,
+                    feature_std,
+                    severity=severity,
+                    seed=int(seed) + seed_offset + local_order,
+                )
+                target[index, 0] = 1.0 - severity
+                counts["gaussian_noise"] += 1
+            elif family_value < 0.80:
+                result = attenuation(row, severity=severity)
+                target[index, 0] = 1.0 - severity
+                counts["attenuation"] += 1
+            else:
+                result = zero_dropout(row)
+                target[index, 0] = 0.0
+                counts["zero_dropout"] += 1
+
+            representation[index:index + 1] = result.corrupted
+
+    apply_quality_corruption(
+        text,
+        text_targets,
+        text_mask,
+        text_feature_std,
+        10_000,
+    )
+    apply_quality_corruption(
+        vision,
+        vision_targets,
+        vision_mask,
+        vision_feature_std,
+        20_000,
+    )
+
+    if mismatch_mask.any():
+        if batch_size < 2:
+            raise ValueError(
+                "M4qc cyclic mismatch requires batch_size >= 2 whenever "
+                "the sampled batch contains a mismatch condition."
+            )
+
+        offset = int(
+            torch.randint(
+                low=1,
+                high=batch_size,
+                size=(1,),
+                generator=generator,
+            ).item()
+        )
+        all_indices = torch.arange(batch_size, dtype=torch.long)
+        donors = (all_indices + offset) % batch_size
+        receivers_cpu = torch.nonzero(
+            mismatch_mask,
+            as_tuple=False,
+        ).reshape(-1)
+
+        receivers = receivers_cpu.to(vision.device)
+        donor_indices = donors[receivers_cpu].to(vision.device)
+        vision[receivers] = batch.vision_embeddings.index_select(
+            0,
+            donor_indices,
+        )
+        compatibility_targets[
+            receivers.to(compatibility_targets.device),
+            0,
+        ] = 0.0
+
+    corrupted_batch = copy.copy(batch)
+    corrupted_batch.text_embeddings = text
+    corrupted_batch.vision_embeddings = vision
+
+    return (
+        corrupted_batch,
+        (text_targets, vision_targets),
+        compatibility_targets,
+        counts,
+    )
 
 
 # =====================================================================
@@ -1416,6 +1704,7 @@ def train_one_epoch(
     seed: int,
     *,
     quality_loss_weight: float = 0.0,
+    compatibility_loss_weight: float = 0.0,
     text_feature_std: Optional[torch.Tensor] = None,
     vision_feature_std: Optional[torch.Tensor] = None,
 ) -> Dict:
@@ -1425,6 +1714,7 @@ def train_one_epoch(
     weighted_quality_loss = 0.0
     weighted_text_quality_loss = 0.0
     weighted_vision_quality_loss = 0.0
+    weighted_compatibility_loss = 0.0
     total_samples = 0
     batch_count = 0
     corruption_counts = Counter()
@@ -1436,12 +1726,17 @@ def train_one_epoch(
         seed=seed,
     )):
         quality_targets = None
+        compatibility_targets = None
         training_batch = batch
 
-        if trainer.fusion_architecture == "quality_supervised":
+        if trainer.fusion_architecture in {
+            "quality_supervised",
+            "quality_compatibility_supervised",
+        }:
             if text_feature_std is None or vision_feature_std is None:
                 raise RuntimeError(
-                    "M4q training requires training-cache feature statistics."
+                    "M4q/M4qc training requires training-cache feature "
+                    "statistics."
                 )
             corruption_seed = (
                 int(seed)
@@ -1449,12 +1744,30 @@ def train_one_epoch(
                 + int(epoch) * 100_000
                 + int(batch_index)
             )
-            training_batch, quality_targets, counts = prepare_m4q_training_batch(
-                batch,
-                text_feature_std=text_feature_std,
-                vision_feature_std=vision_feature_std,
-                seed=corruption_seed,
-            )
+
+            if trainer.fusion_architecture == "quality_supervised":
+                (
+                    training_batch,
+                    quality_targets,
+                    counts,
+                ) = prepare_m4q_training_batch(
+                    batch,
+                    text_feature_std=text_feature_std,
+                    vision_feature_std=vision_feature_std,
+                    seed=corruption_seed,
+                )
+            else:
+                (
+                    training_batch,
+                    quality_targets,
+                    compatibility_targets,
+                    counts,
+                ) = prepare_m4qc_training_batch(
+                    batch,
+                    text_feature_std=text_feature_std,
+                    vision_feature_std=vision_feature_std,
+                    seed=corruption_seed,
+                )
             corruption_counts.update(counts)
 
         result = trainer.train_step(
@@ -1462,7 +1775,17 @@ def train_one_epoch(
             quality_targets=quality_targets,
             quality_loss_weight=(
                 quality_loss_weight
-                if trainer.fusion_architecture == "quality_supervised"
+                if trainer.fusion_architecture in {
+                    "quality_supervised",
+                    "quality_compatibility_supervised",
+                }
+                else 0.0
+            ),
+            compatibility_targets=compatibility_targets,
+            compatibility_loss_weight=(
+                compatibility_loss_weight
+                if trainer.fusion_architecture
+                == "quality_compatibility_supervised"
                 else 0.0
             ),
         )
@@ -1482,6 +1805,9 @@ def train_one_epoch(
         weighted_vision_quality_loss += (
             result["vision_quality_loss"] * current_batch_size
         )
+        weighted_compatibility_loss += (
+            result["compatibility_loss"] * current_batch_size
+        )
 
     if total_samples == 0:
         raise RuntimeError("Training epoch contained zero samples.")
@@ -1495,6 +1821,7 @@ def train_one_epoch(
         "quality_loss": weighted_quality_loss / total_samples,
         "text_quality_loss": weighted_text_quality_loss / total_samples,
         "vision_quality_loss": weighted_vision_quality_loss / total_samples,
+        "compatibility_loss": weighted_compatibility_loss / total_samples,
         "corruption_counts": dict(sorted(corruption_counts.items())),
     }
 
@@ -1726,6 +2053,36 @@ def collect_component_fingerprints(
                 alignment_model.vision_quality_estimator
             )
 
+        elif fusion_architecture == "quality_compatibility_supervised":
+
+            if alignment_model.gated_interaction_fusion is None:
+                raise RuntimeError(
+                    "M4qc fingerprint requested, but the gated-interaction "
+                    "fusion block is unavailable."
+                )
+            if alignment_model.text_quality_estimator is None:
+                raise RuntimeError("M4qc text quality estimator is unavailable.")
+            if alignment_model.vision_quality_estimator is None:
+                raise RuntimeError("M4qc vision quality estimator is unavailable.")
+            if alignment_model.compatibility_estimator is None:
+                raise RuntimeError("M4qc compatibility estimator is unavailable.")
+
+            fingerprints["gated_interaction_fusion"] = module_state_fingerprint(
+                alignment_model.gated_interaction_fusion
+            )
+            fingerprints["gated_base_fusion"] = module_state_fingerprint(
+                alignment_model.gated_interaction_fusion.gated_fusion
+            )
+            fingerprints["text_quality_estimator"] = module_state_fingerprint(
+                alignment_model.text_quality_estimator
+            )
+            fingerprints["vision_quality_estimator"] = module_state_fingerprint(
+                alignment_model.vision_quality_estimator
+            )
+            fingerprints["compatibility_estimator"] = module_state_fingerprint(
+                alignment_model.compatibility_estimator
+            )
+
         elif fusion_architecture == "evidence_aware":
 
             if alignment_model.evidence_integration is None:
@@ -1892,6 +2249,38 @@ def effective_parameter_counts(
             )
             representation_count += count_parameters(
                 alignment_model.vision_quality_estimator
+            )
+
+        elif fusion_architecture == "quality_compatibility_supervised":
+
+            if alignment_model.gated_interaction_fusion is None:
+                raise RuntimeError(
+                    "M4qc parameter accounting requires "
+                    "alignment_model.gated_interaction_fusion."
+                )
+            if alignment_model.text_quality_estimator is None:
+                raise RuntimeError(
+                    "M4qc parameter accounting requires text_quality_estimator."
+                )
+            if alignment_model.vision_quality_estimator is None:
+                raise RuntimeError(
+                    "M4qc parameter accounting requires vision_quality_estimator."
+                )
+            if alignment_model.compatibility_estimator is None:
+                raise RuntimeError(
+                    "M4qc parameter accounting requires compatibility_estimator."
+                )
+            representation_count += count_parameters(
+                alignment_model.gated_interaction_fusion
+            )
+            representation_count += count_parameters(
+                alignment_model.text_quality_estimator
+            )
+            representation_count += count_parameters(
+                alignment_model.vision_quality_estimator
+            )
+            representation_count += count_parameters(
+                alignment_model.compatibility_estimator
             )
 
         else:
@@ -2300,13 +2689,22 @@ def main():
                 args.fusion_architecture
                 == "quality_supervised"
             ),
+
+            quality_compatibility_supervised=(
+                args.fusion_architecture
+                == "quality_compatibility_supervised"
+            ),
         )
     )
 
     # M1b gate-initialization control:
     # copy the historical M0 gate state into M1b's active gated base so
     # M0 and M1b begin with exactly the same gated-fusion parameters.
-    if args.fusion_architecture in {"gated_interaction", "quality_supervised"}:
+    if args.fusion_architecture in {
+        "gated_interaction",
+        "quality_supervised",
+        "quality_compatibility_supervised",
+    }:
 
         if alignment_model.gated_interaction_fusion is None:
             raise RuntimeError(
@@ -2374,7 +2772,10 @@ def main():
     text_feature_std = None
     vision_feature_std = None
 
-    if args.fusion_architecture == "quality_supervised":
+    if args.fusion_architecture in {
+        "quality_supervised",
+        "quality_compatibility_supervised",
+    }:
         text_feature_std = compute_feature_std(
             train_data.text_embeddings,
             unbiased=False,
@@ -2384,9 +2785,14 @@ def main():
             unbiased=False,
         )
 
-        print("M4q corruption-aware quality supervision: ENABLED")
-        print("M4q quality loss weight:", args.quality_weight)
-        print("M4q Gaussian feature scale: training-cache population std")
+        if args.fusion_architecture == "quality_supervised":
+            print("M4q corruption-aware quality supervision: ENABLED")
+            print("M4q quality loss weight:", args.quality_weight)
+        else:
+            print("M4qc quality + compatibility supervision: ENABLED")
+            print("M4qc quality loss weight:", args.quality_weight)
+            print("M4qc compatibility loss weight:", args.compatibility_weight)
+        print("v0.27 Gaussian feature scale: training-cache population std")
         print()
 
     initial_state_fingerprints = (
@@ -2517,6 +2923,30 @@ def main():
             )
             representation_parameters += list(
                 alignment_model.vision_quality_estimator.parameters()
+            )
+
+        elif args.fusion_architecture == "quality_compatibility_supervised":
+
+            if alignment_model.gated_interaction_fusion is None:
+                raise RuntimeError("M4qc gated-interaction fusion is unavailable.")
+            if alignment_model.text_quality_estimator is None:
+                raise RuntimeError("M4qc text quality estimator is unavailable.")
+            if alignment_model.vision_quality_estimator is None:
+                raise RuntimeError("M4qc vision quality estimator is unavailable.")
+            if alignment_model.compatibility_estimator is None:
+                raise RuntimeError("M4qc compatibility estimator is unavailable.")
+
+            representation_parameters += list(
+                alignment_model.gated_interaction_fusion.parameters()
+            )
+            representation_parameters += list(
+                alignment_model.text_quality_estimator.parameters()
+            )
+            representation_parameters += list(
+                alignment_model.vision_quality_estimator.parameters()
+            )
+            representation_parameters += list(
+                alignment_model.compatibility_estimator.parameters()
             )
 
         elif args.fusion_architecture == "interaction_reliability":
@@ -2687,7 +3117,23 @@ def main():
 
     print(
         "Quality weight:",
-        (args.quality_weight if args.fusion_architecture == "quality_supervised" else 0.0),
+        (
+            args.quality_weight
+            if args.fusion_architecture in {
+                "quality_supervised",
+                "quality_compatibility_supervised",
+            }
+            else 0.0
+        ),
+    )
+
+    print(
+        "Compatibility weight:",
+        (
+            args.compatibility_weight
+            if args.fusion_architecture == "quality_compatibility_supervised"
+            else 0.0
+        ),
     )
 
     print(
@@ -2761,9 +3207,32 @@ def main():
             == "quality_supervised"
         ),
 
+        "quality_compatibility_supervised": (
+            args.mode == "multimodal"
+            and args.fusion_architecture
+            == "quality_compatibility_supervised"
+        ),
+
+        "quality_supervision_enabled": (
+            args.mode == "multimodal"
+            and args.fusion_architecture in {
+                "quality_supervised",
+                "quality_compatibility_supervised",
+            }
+        ),
+
         "quality_weight": (
             args.quality_weight
-            if args.fusion_architecture == "quality_supervised"
+            if args.fusion_architecture in {
+                "quality_supervised",
+                "quality_compatibility_supervised",
+            }
+            else 0.0
+        ),
+
+        "compatibility_weight": (
+            args.compatibility_weight
+            if args.fusion_architecture == "quality_compatibility_supervised"
             else 0.0
         ),
 
@@ -2784,7 +3253,26 @@ def main():
                 "quality_target_rule": "1_minus_severity",
                 "permutation_quality_targets": [1.0, 1.0],
             }
-            if args.fusion_architecture == "quality_supervised"
+            if args.fusion_architecture in {
+                "quality_supervised",
+                "quality_compatibility_supervised",
+            }
+            else None
+        ),
+
+        "m4qc_compatibility_protocol": (
+            {
+                "protocol_version": "0.27.0-step11a",
+                "diagnostic_only": True,
+                "matched_target": 1.0,
+                "mismatch_target": 0.0,
+                "quality_corruption_compatibility_target": 1.0,
+                "training_mismatch": "deterministic_cyclic_vision_derangement",
+                "lambda_c": args.compatibility_weight,
+                "affects_primary_fusion": False,
+                "official_test_accessed": False,
+            }
+            if args.fusion_architecture == "quality_compatibility_supervised"
             else None
         ),
 
@@ -2827,7 +3315,11 @@ def main():
         "m1b_gate_initialization_control": (
             "copy_legacy_gate_state_v1"
             if args.fusion_architecture
-            in {"gated_interaction", "quality_supervised"}
+            in {
+                "gated_interaction",
+                "quality_supervised",
+                "quality_compatibility_supervised",
+            }
             else None
         ),
 
@@ -3188,7 +3680,17 @@ def main():
 
                     quality_loss_weight=(
                         args.quality_weight
-                        if args.fusion_architecture == "quality_supervised"
+                        if args.fusion_architecture in {
+                            "quality_supervised",
+                            "quality_compatibility_supervised",
+                        }
+                        else 0.0
+                    ),
+
+                    compatibility_loss_weight=(
+                        args.compatibility_weight
+                        if args.fusion_architecture
+                        == "quality_compatibility_supervised"
                         else 0.0
                     ),
 
@@ -3407,30 +3909,6 @@ def main():
                     "classification_loss": (
                         training_metrics[
                             "classification_loss"
-                        ]
-                    ),
-
-                    "quality_loss": (
-                        training_metrics[
-                            "quality_loss"
-                        ]
-                    ),
-
-                    "text_quality_loss": (
-                        training_metrics[
-                            "text_quality_loss"
-                        ]
-                    ),
-
-                    "vision_quality_loss": (
-                        training_metrics[
-                            "vision_quality_loss"
-                        ]
-                    ),
-
-                    "corruption_counts": (
-                        training_metrics[
-                            "corruption_counts"
                         ]
                     ),
                 },

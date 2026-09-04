@@ -1,10 +1,11 @@
 """
 AEGIS cross-modal semantic alignment model.
 
-Version: 0.27.2-dev
+Version: 0.27.6-dev
 
 This module preserves the validated v0.24/v0.25 cross-modal alignment paths
-while introducing the v0.27 M4q diagnostic-only modality-quality pathway.
+while introducing the v0.27 M4q/M4qc diagnostic-only quality and
+cross-modal compatibility pathways.
 
 Fusion pathways
 ---------------
@@ -34,16 +35,20 @@ M4q / quality-supervised:
     projections -> M1b gated-interaction fusion
                 -> separate text/vision intrinsic-quality estimators
 
-M4q invariant
--------------
-The modality-quality estimators are diagnostic-only with respect to the
-forward fusion equation:
+M4qc / quality-compatibility-supervised:
+    projections -> exact M1b gated-interaction fusion
+                -> separate text/vision intrinsic-quality estimators
+                -> separate text-image compatibility estimator
 
-    z_M4q = z_M1b
+M4q/M4qc invariants
+-------------------
+The quality and compatibility estimators are diagnostic-only with respect to
+the forward fusion equation:
 
-The predicted quality scores do not enter the gated-interaction fusion path.
-They may receive their own auxiliary supervision during training in a later
-runner integration step.
+    z_M4q = z_M4qc = z_M1b
+
+The predicted q_T, q_V, and c_TV scores never enter the gated-interaction
+fusion path. Their supervision is auxiliary only.
 
 Compatibility invariant
 -----------------------
@@ -56,6 +61,7 @@ from __future__ import annotations
 import torch
 from torch import nn
 
+from ..reliability.compatibility_estimator import CrossModalCompatibilityEstimator
 from ..reliability.quality_estimator import ModalityQualityEstimator
 from .evidence_integration import AEGISEvidenceIntegrationBlock
 from .fusion import GatedMultimodalFusion
@@ -85,12 +91,16 @@ class CrossModalAlignmentModel(nn.Module):
         reliability_only: bool = False,
         interaction_reliability: bool = False,
         quality_supervised: bool = False,
+        quality_compatibility_supervised: bool = False,
         evidence_reliability_hidden_dim: int = 256,
         evidence_interaction_dropout: float = 0.1,
         evidence_reliability_dropout: float = 0.1,
         evidence_fusion_temperature: float = 1.0,
         quality_hidden_dims: tuple[int, int] = (256, 64),
         quality_dropout: float = 0.1,
+        compatibility_hidden_dims: tuple[int, int] = (256, 64),
+        compatibility_dropout: float = 0.1,
+        compatibility_cosine_eps: float = 1e-8,
     ):
         super().__init__()
 
@@ -101,6 +111,7 @@ class CrossModalAlignmentModel(nn.Module):
             ("reliability_only", reliability_only),
             ("interaction_reliability", interaction_reliability),
             ("quality_supervised", quality_supervised),
+            ("quality_compatibility_supervised", quality_compatibility_supervised),
         ):
             if not isinstance(value, bool):
                 raise TypeError(f"{name} must be a bool.")
@@ -147,12 +158,26 @@ class CrossModalAlignmentModel(nn.Module):
                 "experimental fusion flag."
             )
 
+        if quality_compatibility_supervised and any((
+            evidence_aware,
+            interaction_only,
+            gated_interaction,
+            reliability_only,
+            interaction_reliability,
+            quality_supervised,
+        )):
+            raise ValueError(
+                "quality_compatibility_supervised cannot be combined with "
+                "another experimental fusion flag."
+            )
+
         if quality_supervised and any((
             evidence_aware,
             interaction_only,
             gated_interaction,
             reliability_only,
             interaction_reliability,
+            quality_compatibility_supervised,
         )):
             raise ValueError(
                 "quality_supervised cannot be combined with another "
@@ -169,6 +194,7 @@ class CrossModalAlignmentModel(nn.Module):
         self.reliability_only = reliability_only
         self.interaction_reliability = interaction_reliability
         self.quality_supervised = quality_supervised
+        self.quality_compatibility_supervised = quality_compatibility_supervised
 
         if self.evidence_aware:
             self.fusion_architecture = "evidence_aware"
@@ -180,6 +206,8 @@ class CrossModalAlignmentModel(nn.Module):
             self.fusion_architecture = "reliability_only"
         elif self.interaction_reliability:
             self.fusion_architecture = "interaction_reliability"
+        elif self.quality_compatibility_supervised:
+            self.fusion_architecture = "quality_compatibility_supervised"
         elif self.quality_supervised:
             self.fusion_architecture = "quality_supervised"
         else:
@@ -219,7 +247,11 @@ class CrossModalAlignmentModel(nn.Module):
                 dimension=shared_dim,
                 interaction_dropout=evidence_interaction_dropout,
             )
-            if (self.gated_interaction or self.quality_supervised)
+            if (
+                self.gated_interaction
+                or self.quality_supervised
+                or self.quality_compatibility_supervised
+            )
             else None
         )
 
@@ -281,7 +313,10 @@ class CrossModalAlignmentModel(nn.Module):
                 hidden_dims=quality_hidden_dims,
                 dropout=quality_dropout,
             )
-            if self.quality_supervised
+            if (
+                self.quality_supervised
+                or self.quality_compatibility_supervised
+            )
             else None
         )
 
@@ -291,7 +326,23 @@ class CrossModalAlignmentModel(nn.Module):
                 hidden_dims=quality_hidden_dims,
                 dropout=quality_dropout,
             )
-            if self.quality_supervised
+            if (
+                self.quality_supervised
+                or self.quality_compatibility_supervised
+            )
+            else None
+        )
+
+        # M4qc compatibility head is instantiated after all M1b and M4q
+        # components. This preserves common-component initialization order.
+        self.compatibility_estimator = (
+            CrossModalCompatibilityEstimator(
+                shared_dim=shared_dim,
+                hidden_dims=compatibility_hidden_dims,
+                dropout=compatibility_dropout,
+                cosine_eps=compatibility_cosine_eps,
+            )
+            if self.quality_compatibility_supervised
             else None
         )
 
@@ -418,6 +469,57 @@ class CrossModalAlignmentModel(nn.Module):
                 "interaction_scale": out[
                     "interaction_scale"
                 ],
+            }
+
+        elif self.quality_compatibility_supervised:
+            if self.gated_interaction_fusion is None:
+                raise RuntimeError(
+                    "M4qc mode is enabled but the M1b gated interaction "
+                    "fusion block is not initialized."
+                )
+            if self.text_quality_estimator is None:
+                raise RuntimeError(
+                    "M4qc mode is enabled but the text quality estimator "
+                    "is not initialized."
+                )
+            if self.vision_quality_estimator is None:
+                raise RuntimeError(
+                    "M4qc mode is enabled but the vision quality estimator "
+                    "is not initialized."
+                )
+            if self.compatibility_estimator is None:
+                raise RuntimeError(
+                    "M4qc mode is enabled but the compatibility estimator "
+                    "is not initialized."
+                )
+
+            # Exact M1b fusion equation. q_T, q_V, and c_TV are computed
+            # diagnostically and are never passed into the fusion module.
+            out = self.gated_interaction_fusion(
+                aligned_text,
+                aligned_vision,
+            )
+            text_quality = self.text_quality_estimator(aligned_text)
+            vision_quality = self.vision_quality_estimator(aligned_vision)
+            compatibility_score = self.compatibility_estimator(
+                aligned_text,
+                aligned_vision,
+            )
+
+            result = {
+                "aligned_text": aligned_text,
+                "aligned_vision": aligned_vision,
+                "fused_embedding": out["fused_embedding"],
+                "evidence_difference": out["difference"],
+                "evidence_product": out["product"],
+                "cosine_similarity": out["cosine_similarity"],
+                "interaction_embedding": out["interaction_embedding"],
+                "gated_interaction_base_fusion": out["gated_base_fusion"],
+                "scaled_interaction": out["scaled_interaction"],
+                "interaction_scale": out["interaction_scale"],
+                "text_quality": text_quality,
+                "vision_quality": vision_quality,
+                "compatibility_score": compatibility_score,
             }
 
         elif self.quality_supervised:
