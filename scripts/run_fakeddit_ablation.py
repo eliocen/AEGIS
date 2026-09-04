@@ -1826,6 +1826,44 @@ def train_one_epoch(
     }
 
 
+def build_persisted_training_metrics(training_metrics: dict) -> dict:
+    """
+    Build the training section written to each metrics.jsonl epoch record.
+
+    This is intentionally a serialization-only helper. It must not alter,
+    aggregate, recompute, or reinterpret any training metric.
+    """
+    required_keys = (
+        "sample_count",
+        "batch_count",
+        "total_loss",
+        "alignment_loss",
+        "classification_loss",
+        "quality_loss",
+        "text_quality_loss",
+        "vision_quality_loss",
+        "compatibility_loss",
+        "corruption_counts",
+    )
+
+    missing_keys = [
+        key
+        for key in required_keys
+        if key not in training_metrics
+    ]
+
+    if missing_keys:
+        raise KeyError(
+            "Missing required training metrics for epoch serialization: "
+            + ", ".join(missing_keys)
+        )
+
+    return {
+        key: training_metrics[key]
+        for key in required_keys
+    }
+
+
 # =====================================================================
 # Checkpointing
 # =====================================================================
@@ -3881,37 +3919,9 @@ def main():
                     .global_step
                 ),
 
-                "train": {
-                    "sample_count": (
-                        training_metrics[
-                            "sample_count"
-                        ]
-                    ),
-
-                    "batch_count": (
-                        training_metrics[
-                            "batch_count"
-                        ]
-                    ),
-
-                    "total_loss": (
-                        training_metrics[
-                            "total_loss"
-                        ]
-                    ),
-
-                    "alignment_loss": (
-                        training_metrics[
-                            "alignment_loss"
-                        ]
-                    ),
-
-                    "classification_loss": (
-                        training_metrics[
-                            "classification_loss"
-                        ]
-                    ),
-                },
+                "train": build_persisted_training_metrics(
+                    training_metrics
+                ),
 
                 "validation": {
                     key: value
