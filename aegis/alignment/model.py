@@ -1,10 +1,10 @@
 """
 AEGIS cross-modal semantic alignment model.
 
-Version: 0.25.6
+Version: 0.27.2-dev
 
-This module preserves the validated v0.24 cross-modal alignment path while
-supporting controlled v0.25 mechanism-isolation experiments.
+This module preserves the validated v0.24/v0.25 cross-modal alignment paths
+while introducing the v0.27 M4q diagnostic-only modality-quality pathway.
 
 Fusion pathways
 ---------------
@@ -30,6 +30,21 @@ M3 / evidence-aware:
                 -> interaction-conditioned reliability
                 -> adaptive fusion
 
+M4q / quality-supervised:
+    projections -> M1b gated-interaction fusion
+                -> separate text/vision intrinsic-quality estimators
+
+M4q invariant
+-------------
+The modality-quality estimators are diagnostic-only with respect to the
+forward fusion equation:
+
+    z_M4q = z_M1b
+
+The predicted quality scores do not enter the gated-interaction fusion path.
+They may receive their own auxiliary supervision during training in a later
+runner integration step.
+
 Compatibility invariant
 -----------------------
 With all experimental flags False, the model uses exactly the historical
@@ -41,6 +56,7 @@ from __future__ import annotations
 import torch
 from torch import nn
 
+from ..reliability.quality_estimator import ModalityQualityEstimator
 from .evidence_integration import AEGISEvidenceIntegrationBlock
 from .fusion import GatedMultimodalFusion
 from .gated_interaction_fusion import GatedInteractionEvidenceFusion
@@ -68,10 +84,13 @@ class CrossModalAlignmentModel(nn.Module):
         gated_interaction: bool = False,
         reliability_only: bool = False,
         interaction_reliability: bool = False,
+        quality_supervised: bool = False,
         evidence_reliability_hidden_dim: int = 256,
         evidence_interaction_dropout: float = 0.1,
         evidence_reliability_dropout: float = 0.1,
         evidence_fusion_temperature: float = 1.0,
+        quality_hidden_dims: tuple[int, int] = (256, 64),
+        quality_dropout: float = 0.1,
     ):
         super().__init__()
 
@@ -81,6 +100,7 @@ class CrossModalAlignmentModel(nn.Module):
             ("gated_interaction", gated_interaction),
             ("reliability_only", reliability_only),
             ("interaction_reliability", interaction_reliability),
+            ("quality_supervised", quality_supervised),
         ):
             if not isinstance(value, bool):
                 raise TypeError(f"{name} must be a bool.")
@@ -117,10 +137,25 @@ class CrossModalAlignmentModel(nn.Module):
             )
 
         if interaction_reliability and any((
-            evidence_aware, interaction_only, gated_interaction, reliability_only
+            evidence_aware,
+            interaction_only,
+            gated_interaction,
+            reliability_only,
         )):
             raise ValueError(
                 "interaction_reliability cannot be combined with another "
+                "experimental fusion flag."
+            )
+
+        if quality_supervised and any((
+            evidence_aware,
+            interaction_only,
+            gated_interaction,
+            reliability_only,
+            interaction_reliability,
+        )):
+            raise ValueError(
+                "quality_supervised cannot be combined with another "
                 "experimental fusion flag."
             )
 
@@ -133,6 +168,7 @@ class CrossModalAlignmentModel(nn.Module):
         self.gated_interaction = gated_interaction
         self.reliability_only = reliability_only
         self.interaction_reliability = interaction_reliability
+        self.quality_supervised = quality_supervised
 
         if self.evidence_aware:
             self.fusion_architecture = "evidence_aware"
@@ -144,6 +180,8 @@ class CrossModalAlignmentModel(nn.Module):
             self.fusion_architecture = "reliability_only"
         elif self.interaction_reliability:
             self.fusion_architecture = "interaction_reliability"
+        elif self.quality_supervised:
+            self.fusion_architecture = "quality_supervised"
         else:
             self.fusion_architecture = "legacy"
 
@@ -174,12 +212,14 @@ class CrossModalAlignmentModel(nn.Module):
             else None
         )
 
+        # M4q deliberately reuses the exact M1b fusion module class and
+        # forward equation. This is the structural basis of z_M4q = z_M1b.
         self.gated_interaction_fusion = (
             GatedInteractionEvidenceFusion(
                 dimension=shared_dim,
                 interaction_dropout=evidence_interaction_dropout,
             )
-            if self.gated_interaction
+            if (self.gated_interaction or self.quality_supervised)
             else None
         )
 
@@ -229,6 +269,29 @@ class CrossModalAlignmentModel(nn.Module):
                 ),
             )
             if self.evidence_aware
+            else None
+        )
+
+        # Instantiate quality heads only after all historical fusion modules.
+        # Consequently, adding M4q does not perturb initialization order of
+        # common M1b components under paired common-component seeding.
+        self.text_quality_estimator = (
+            ModalityQualityEstimator(
+                input_dim=shared_dim,
+                hidden_dims=quality_hidden_dims,
+                dropout=quality_dropout,
+            )
+            if self.quality_supervised
+            else None
+        )
+
+        self.vision_quality_estimator = (
+            ModalityQualityEstimator(
+                input_dim=shared_dim,
+                hidden_dims=quality_hidden_dims,
+                dropout=quality_dropout,
+            )
+            if self.quality_supervised
             else None
         )
 
@@ -355,6 +418,65 @@ class CrossModalAlignmentModel(nn.Module):
                 "interaction_scale": out[
                     "interaction_scale"
                 ],
+            }
+
+        elif self.quality_supervised:
+            if self.gated_interaction_fusion is None:
+                raise RuntimeError(
+                    "Quality-supervised mode is enabled but the M1b "
+                    "gated interaction fusion block is not initialized."
+                )
+
+            if self.text_quality_estimator is None:
+                raise RuntimeError(
+                    "Quality-supervised mode is enabled but the text "
+                    "quality estimator is not initialized."
+                )
+
+            if self.vision_quality_estimator is None:
+                raise RuntimeError(
+                    "Quality-supervised mode is enabled but the vision "
+                    "quality estimator is not initialized."
+                )
+
+            # Exact M1b fusion equation. Quality scores are computed only
+            # after the fused representation has been produced and are never
+            # passed into the fusion module.
+            out = self.gated_interaction_fusion(
+                aligned_text,
+                aligned_vision,
+            )
+
+            text_quality = self.text_quality_estimator(
+                aligned_text
+            )
+            vision_quality = self.vision_quality_estimator(
+                aligned_vision
+            )
+
+            result = {
+                "aligned_text": aligned_text,
+                "aligned_vision": aligned_vision,
+                "fused_embedding": out["fused_embedding"],
+                "evidence_difference": out["difference"],
+                "evidence_product": out["product"],
+                "cosine_similarity": out[
+                    "cosine_similarity"
+                ],
+                "interaction_embedding": out[
+                    "interaction_embedding"
+                ],
+                "gated_interaction_base_fusion": out[
+                    "gated_base_fusion"
+                ],
+                "scaled_interaction": out[
+                    "scaled_interaction"
+                ],
+                "interaction_scale": out[
+                    "interaction_scale"
+                ],
+                "text_quality": text_quality,
+                "vision_quality": vision_quality,
             }
 
         elif self.interaction_reliability:
