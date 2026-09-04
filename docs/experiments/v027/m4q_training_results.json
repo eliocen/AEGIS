@@ -1,0 +1,150 @@
+{
+  "experiment": "AEGIS-v0.27-M4q-multiseed-training",
+  "step": 8,
+  "variant": "M4q",
+  "status": "completed",
+  "evaluation_scope": "held_out_validation_development_protocol",
+  "dataset": "Fakeddit",
+  "task": "binary_integrity",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "runs": [
+    {
+      "seed": 42,
+      "best_epoch": 12,
+      "epochs_completed": 20,
+      "stop_reason": "early_stopping",
+      "best_validation_macro_f1": 0.8729785333721398,
+      "best_validation_accuracy": 0.873,
+      "best_validation_precision": 0.8829568788501027,
+      "best_validation_recall": 0.86,
+      "best_validation_f1": 0.8713272543059777,
+      "best_validation_classification_loss": 0.32497685396671294,
+      "best_validation_alignment_loss": 2.490877317428589,
+      "best_validation_confusion_matrix": {
+        "tn": 443,
+        "fp": 57,
+        "fn": 70,
+        "tp": 430
+      },
+      "parameter_update_audit": {
+        "classifier": true,
+        "gated_base_fusion": true,
+        "gated_interaction_fusion": true,
+        "text_projection": true,
+        "text_quality_estimator": true,
+        "vision_projection": true,
+        "vision_quality_estimator": true
+      },
+      "test_split_status": "sealed_not_accessed",
+      "best_checkpoint": "D:\\Research\\AEGIS\\experiments\\fakeddit\\v027_m4q_seed42\\best_model.pt",
+      "summary_path": "experiments\\fakeddit\\v027_m4q_seed42\\summary.json",
+      "experiment_path": "experiments\\fakeddit\\v027_m4q_seed42\\experiment.json"
+    },
+    {
+      "seed": 43,
+      "best_epoch": 8,
+      "epochs_completed": 16,
+      "stop_reason": "early_stopping",
+      "best_validation_macro_f1": 0.8777413005920528,
+      "best_validation_accuracy": 0.878,
+      "best_validation_precision": 0.9162995594713657,
+      "best_validation_recall": 0.832,
+      "best_validation_f1": 0.8721174004192872,
+      "best_validation_classification_loss": 0.311323203086853,
+      "best_validation_alignment_loss": 2.431906090736389,
+      "best_validation_confusion_matrix": {
+        "tn": 462,
+        "fp": 38,
+        "fn": 84,
+        "tp": 416
+      },
+      "parameter_update_audit": {
+        "classifier": true,
+        "gated_base_fusion": true,
+        "gated_interaction_fusion": true,
+        "text_projection": true,
+        "text_quality_estimator": true,
+        "vision_projection": true,
+        "vision_quality_estimator": true
+      },
+      "test_split_status": "sealed_not_accessed",
+      "best_checkpoint": "D:\\Research\\AEGIS\\experiments\\fakeddit\\v027_m4q_seed43\\best_model.pt",
+      "summary_path": "experiments\\fakeddit\\v027_m4q_seed43\\summary.json",
+      "experiment_path": "experiments\\fakeddit\\v027_m4q_seed43\\experiment.json"
+    },
+    {
+      "seed": 44,
+      "best_epoch": 7,
+      "epochs_completed": 15,
+      "stop_reason": "early_stopping",
+      "best_validation_macro_f1": 0.8669700682653597,
+      "best_validation_accuracy": 0.867,
+      "best_validation_precision": 0.8783505154639175,
+      "best_validation_recall": 0.852,
+      "best_validation_f1": 0.8649746192893402,
+      "best_validation_classification_loss": 0.3136821460723877,
+      "best_validation_alignment_loss": 2.4536676692962645,
+      "best_validation_confusion_matrix": {
+        "tn": 441,
+        "fp": 59,
+        "fn": 74,
+        "tp": 426
+      },
+      "parameter_update_audit": {
+        "classifier": true,
+        "gated_base_fusion": true,
+        "gated_interaction_fusion": true,
+        "text_projection": true,
+        "text_quality_estimator": true,
+        "vision_projection": true,
+        "vision_quality_estimator": true
+      },
+      "test_split_status": "sealed_not_accessed",
+      "best_checkpoint": "D:\\Research\\AEGIS\\experiments\\fakeddit\\v027_m4q_seed44\\best_model.pt",
+      "summary_path": "experiments\\fakeddit\\v027_m4q_seed44\\summary.json",
+      "experiment_path": "experiments\\fakeddit\\v027_m4q_seed44\\experiment.json"
+    }
+  ],
+  "aggregate": {
+    "n_seeds": 3,
+    "macro_f1_values": [
+      0.8729785333721398,
+      0.8777413005920528,
+      0.8669700682653597
+    ],
+    "mean_macro_f1": 0.8725633007431841,
+    "sample_std_macro_f1": 0.0053976082722824205,
+    "population_std_macro_f1": 0.004407128699505806
+  },
+  "m1b_reference": {
+    "mean_macro_f1": 0.8736,
+    "sample_std_macro_f1": 0.0029,
+    "source": "frozen_v0.25_controlled_ablation"
+  },
+  "h6_cls": {
+    "criterion": "mean_delta_macro_f1_M4q_minus_M1b >= -0.01",
+    "margin": -0.01,
+    "m4q_mean_macro_f1": 0.8725633007431841,
+    "m1b_reference_mean_macro_f1": 0.8736,
+    "delta_macro_f1": -0.0010366992568159317,
+    "satisfied_on_validation_protocol": true,
+    "interpretation": "M4q preserves clean validation classification performance within the preregistered descriptive H6-CLS margin."
+  },
+  "test_split": {
+    "status": "sealed_not_accessed",
+    "final_test_claim": false
+  },
+  "scientific_scope": {
+    "quality_semantics_validated": false,
+    "h1_q_evaluated": false,
+    "h2_q_evaluated": false,
+    "h3_q_evaluated": false,
+    "compatibility_evaluated": false,
+    "factual_verification_claim": false
+  },
+  "recorded_at_utc": "2026-09-04T02:48:12.281866+00:00"
+}
