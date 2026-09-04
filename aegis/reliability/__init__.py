@@ -27,6 +27,10 @@ from .corruption import (
     validate_feature_std,
     zero_dropout,
 )
+from .quality_estimator import (
+    ModalityQualityEstimator,
+    QualityEstimatorConfig,
+)
 from .targets import (
     ModalityName,
     QualityCondition,
@@ -42,8 +46,10 @@ __all__ = [
     "CorruptionFamily",
     "CorruptionResult",
     "ModalityName",
+    "ModalityQualityEstimator",
     "PermutationMismatchPlan",
     "QualityCondition",
+    "QualityEstimatorConfig",
     "QualityTargets",
     "apply_permutation_mismatch_plan",
     "attenuation",
