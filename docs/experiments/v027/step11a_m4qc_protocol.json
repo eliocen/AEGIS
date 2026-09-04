@@ -1,0 +1,132 @@
+{
+  "protocol": {
+    "name": "AEGIS v0.27 Step 11A M4qc Compatibility Implementation and Evaluation Protocol",
+    "version": "0.27.0-step11a",
+    "status": "FROZEN BEFORE M4qc IMPLEMENTATION AND RESULT EXPOSURE",
+    "model_stage": "M4qc",
+    "official_test_access_allowed": false
+  },
+  "architecture": {
+    "diagnostic_only": true,
+    "fusion_changes_allowed": false,
+    "m4qcf_allowed": false,
+    "compatibility_feature": [
+      "h_text",
+      "h_vision",
+      "abs(h_text-h_vision)",
+      "h_text*h_vision",
+      "cosine(h_text,h_vision)"
+    ],
+    "feature_dimension": "4d+1",
+    "mlp_layers": [
+      "4d+1",
+      256,
+      64,
+      1
+    ],
+    "hidden_activation": "GELU",
+    "dropout": 0.1,
+    "output_activation": "sigmoid"
+  },
+  "loss": {
+    "compatibility_loss": "binary_cross_entropy",
+    "lambda_q": 1.0,
+    "lambda_c": 1.0,
+    "alignment_and_classification_coefficients": "unchanged_from_M4q"
+  },
+  "training_mixture": {
+    "clean": 0.4,
+    "text_quality_corruption": 0.2,
+    "vision_quality_corruption": 0.2,
+    "mismatch": 0.2,
+    "quality_family_probabilities": {
+      "gaussian_noise": 0.4,
+      "attenuation": 0.4,
+      "zero_dropout": 0.2
+    },
+    "continuous_severities": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "quality_corruption_implies_incompatibility": false
+  },
+  "training_mismatch": {
+    "method": "deterministic_cyclic_derangement_within_batch",
+    "offset_domain": "1..B-1",
+    "self_pairs_allowed": false,
+    "class_constrained": false,
+    "batch_size_less_than_2": "fail_loudly",
+    "rng": "existing_frozen_deterministic_batch_corruption_rng_stream"
+  },
+  "validation": {
+    "dataset": "Fakeddit",
+    "split": "validation",
+    "sample_count": 1000,
+    "model_seeds": [
+      42,
+      43,
+      44
+    ],
+    "official_test_samples_accessed": 0,
+    "primary_mismatch": {
+      "method": "deterministic_class_preserving_derangement",
+      "base_seed": 27110000,
+      "class_seed_rule": "27110000 + class_id",
+      "same_mapping_across_model_seeds": true,
+      "independent_of_training_rng": true,
+      "self_pairs_allowed": false,
+      "same_stage1_class_required": true,
+      "vision_usage_per_class": "exactly_once",
+      "persist_mapping": true
+    }
+  },
+  "h4_c": {
+    "matched_observations_per_seed": 1000,
+    "mismatched_observations_per_seed": 1000,
+    "total_observations_per_seed": 2000,
+    "metric": "ROC-AUC",
+    "primary_aggregate": "arithmetic_mean_across_3_seeds",
+    "threshold": 0.8,
+    "comparison": ">=",
+    "per_seed_minimum": null
+  },
+  "h5_c": {
+    "quality_alignment": "representation_identity",
+    "text_quality_change": {
+      "metric": "mean_absolute_change_per_seed_then_arithmetic_mean_across_seeds",
+      "threshold": 0.1,
+      "comparison": "<"
+    },
+    "vision_quality_change": {
+      "metric": "mean_absolute_change_per_seed_then_arithmetic_mean_across_seeds",
+      "threshold": 0.1,
+      "comparison": "<"
+    },
+    "compatibility_drop": {
+      "per_seed_definition": "mean_matched_compatibility - mean_mismatched_compatibility",
+      "primary_aggregate": "arithmetic_mean_across_3_seeds",
+      "threshold": 0.0,
+      "comparison": ">"
+    },
+    "decision": "all_three_conditions_must_hold"
+  },
+  "classification_preservation_gate": {
+    "metric": "Macro-F1",
+    "primary_aggregate": "arithmetic_mean_across_3_seeds",
+    "m1b_reference_mean": 0.8736,
+    "minimum_delta": -0.01,
+    "comparison": ">=",
+    "formal_noninferiority_test": false
+  },
+  "checkpoint_selection": {
+    "metric": "clean_validation_Macro-F1_only",
+    "compatibility_metrics_allowed_for_selection": false,
+    "official_test_allowed_for_selection": false
+  },
+  "m4qcf": {
+    "blocked": true,
+    "requires_separate_protocol": true
+  }
+}
