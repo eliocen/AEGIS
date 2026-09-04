@@ -1,0 +1,97 @@
+{
+  "record_version": "0.27.0-step12d",
+  "stage": "Step12D",
+  "status": "COMPLETE_AND_FROZEN",
+  "scientific_object": "M4qc diagnostic-only intrinsic-quality plus pairwise-compatibility supervision",
+  "source_protocol_version": "0.27.0-step11a",
+  "provenance": {
+    "step12c_analysis_commit": "2f7560c",
+    "step12b_diagnostics_commit": "56dcf45",
+    "step11e_training_results_commit": "dfcbea9",
+    "step12c_analysis_source": "experiments/fakeddit/v027_m4qc_compatibility_analysis/formal_analysis.json",
+    "step12c_summary_source": "experiments/fakeddit/v027_m4qc_compatibility_analysis/summary.json"
+  },
+  "formal_seeds": [
+    42,
+    43,
+    44
+  ],
+  "validation_samples_per_seed": 1000,
+  "H4-C": {
+    "status": "SUPPORTED",
+    "seed_roc_auc": {
+      "42": 0.810778,
+      "43": 0.802873,
+      "44": 0.800905
+    },
+    "mean_roc_auc": 0.804852,
+    "threshold": 0.8,
+    "criterion": "mean_roc_auc >= 0.80",
+    "margin_above_threshold": 0.004852,
+    "interpretation": "Controlled compatibility discrimination is supported, with a modest margin above the frozen threshold."
+  },
+  "H5-C": {
+    "status": "SUPPORTED",
+    "quality_alignment_rule": "representation_identity",
+    "seed_mean_abs_text_quality_change": {
+      "42": 0.0,
+      "43": 0.0,
+      "44": 0.0
+    },
+    "seed_mean_abs_vision_quality_change": {
+      "42": 0.0,
+      "43": 0.0,
+      "44": 0.0
+    },
+    "seed_compatibility_drop": {
+      "42": 0.26725397946743756,
+      "43": 0.36174791764054687,
+      "44": 0.2996782720899209
+    },
+    "aggregate": {
+      "mean_abs_text_quality_change": 0.0,
+      "mean_abs_vision_quality_change": 0.0,
+      "mean_compatibility_drop": 0.3095600563993018
+    },
+    "criteria": {
+      "text_quality": "mean_abs_text_quality_change < 0.10",
+      "vision_quality": "mean_abs_vision_quality_change < 0.10",
+      "compatibility_drop": "mean_compatibility_drop > 0"
+    },
+    "interpretation": "Intrinsic modality-quality outputs are invariant under representation-identity comparison while pairwise compatibility decreases under controlled mismatch."
+  },
+  "classification_preservation": {
+    "status": "PASS",
+    "reference_model": "M1b",
+    "reference_macro_f1": 0.8736,
+    "m4qc_mean_macro_f1": 0.8648393576089181,
+    "delta_vs_m1b": -0.008760642391081985,
+    "frozen_margin": -0.01,
+    "criterion": "delta_vs_m1b >= -0.01",
+    "interpretation": "Descriptive held-out validation-margin preservation criterion; not a formal statistical noninferiority test."
+  },
+  "scientific_conclusion": {
+    "m4qc_complete": true,
+    "all_frozen_gates_satisfied": true,
+    "official_test_accessed": false,
+    "quality_affects_primary_fusion": false,
+    "compatibility_affects_primary_fusion": false,
+    "m4qcf_computed": false
+  },
+  "interpretation_boundaries": [
+    "No factual truth or factual verification claim.",
+    "No source-credibility claim.",
+    "No intent inference claim.",
+    "No human-trust claim.",
+    "No universal semantic-consistency claim.",
+    "No external-world evidence claim.",
+    "No raw-world or cross-dataset generalization claim.",
+    "No temporal/geographic verification claim.",
+    "No reliability-informed fusion-benefit claim."
+  ],
+  "next_phase_gate": {
+    "m4qc_block_cleared": true,
+    "m4qcf_implementation_authorized_by_this_record": false,
+    "required_before_m4qcf_implementation": "Separate pre-result M4qcf protocol/amendment freeze."
+  }
+}
