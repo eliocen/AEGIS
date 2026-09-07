@@ -1,5 +1,5 @@
 """
-AEGIS v0.27.3-dev
+AEGIS v0.27.7-dev
 Fakeddit Controlled Modality, Fusion, and M4q Quality-Supervision Runner
 ============================================
 
@@ -79,6 +79,11 @@ quality_compatibility_supervised:
     v0.27 M4qc exact M1b fusion plus separate intrinsic-quality heads and
     a separate text-image compatibility head. All three diagnostic scores are
     auxiliary and never feed the fusion equation.
+
+quality_compatibility_fusion:
+    v0.27 M4qcf reliability-informed fusion. Intrinsic quality and compatibility
+    are explicitly supervised as in M4qc, while detached q_T/q_V/c_TV signals
+    deterministically control modality weighting and interaction suppression.
 
 evidence_aware:
     v0.25 cross-modal evidence interaction
@@ -279,6 +284,7 @@ def parse_args():
             "interaction_reliability",
             "quality_supervised",
             "quality_compatibility_supervised",
+            "quality_compatibility_fusion",
             "evidence_aware",
         ],
         help=(
@@ -298,6 +304,8 @@ def parse_args():
             "explicit corruption-aware supervision; "
             "quality_compatibility_supervised enables v0.27 M4qc: the exact "
             "M1b path plus diagnostic quality and compatibility heads; "
+            "quality_compatibility_fusion enables v0.27 M4qcf: supervised "
+            "quality and compatibility signals control reliability-informed fusion; "
             "evidence_aware enables "
             "v0.25 interaction, reliability "
             "estimation, and reliability-aware adaptive fusion. "
@@ -406,8 +414,8 @@ def parse_args():
         default=1.0,
         help=(
             "M4qc cross-modal compatibility auxiliary BCE coefficient. "
-            "Frozen Step 11A default: 1.0. Ignored outside "
-            "quality_compatibility_supervised."
+            "Frozen Step 11A/Step 13A default: 1.0. Ignored outside "
+            "M4qc/M4qcf architectures."
         ),
     )
 
@@ -549,22 +557,27 @@ def validate_args(
         )
 
     if (
-        args.fusion_architecture == "quality_compatibility_supervised"
+        args.fusion_architecture in {
+            "quality_compatibility_supervised",
+            "quality_compatibility_fusion",
+        }
         and args.quality_weight <= 0
     ):
 
         raise ValueError(
-            "quality_compatibility_supervised requires --quality-weight > 0."
+            "M4qc/M4qcf requires --quality-weight > 0."
         )
 
     if (
-        args.fusion_architecture == "quality_compatibility_supervised"
+        args.fusion_architecture in {
+            "quality_compatibility_supervised",
+            "quality_compatibility_fusion",
+        }
         and args.compatibility_weight <= 0
     ):
 
         raise ValueError(
-            "quality_compatibility_supervised requires "
-            "--compatibility-weight > 0."
+            "M4qc/M4qcf requires --compatibility-weight > 0."
         )
 
     if args.gradient_clip <= 0:
@@ -606,6 +619,7 @@ def validate_args(
             "interaction_reliability",
             "quality_supervised",
             "quality_compatibility_supervised",
+            "quality_compatibility_fusion",
             "evidence_aware",
         }
         and args.mode != "multimodal"
@@ -692,6 +706,12 @@ def mode_description(
             "diagnostic intrinsic-quality and compatibility heads -> classifier"
         )
 
+    if fusion_architecture == "quality_compatibility_fusion":
+        return (
+            "XLM-R + CLIP -> projections -> supervised q/c reliability controller + "
+            "reliability-weighted evidence + compatibility-scaled interaction -> classifier"
+        )
+
     if fusion_architecture == "evidence_aware":
         return (
             "XLM-R + CLIP -> projections -> evidence interaction -> "
@@ -762,6 +782,7 @@ class FakedditAblationTrainer(
             "interaction_reliability",
             "quality_supervised",
             "quality_compatibility_supervised",
+            "quality_compatibility_fusion",
             "evidence_aware",
         }:
             raise ValueError(
@@ -769,7 +790,7 @@ class FakedditAblationTrainer(
                 f"{fusion_architecture!r}. Expected one of "
                 "['evidence_aware', 'gated_interaction', "
                 "'interaction_only', 'interaction_reliability', 'legacy', "
-                "'quality_compatibility_supervised', 'quality_supervised', "
+                "'quality_compatibility_fusion', 'quality_compatibility_supervised', 'quality_supervised', "
                 "'reliability_only']."
             )
 
@@ -875,6 +896,20 @@ class FakedditAblationTrainer(
             raise ValueError(
                 "fusion_architecture is inconsistent with "
                 "alignment_model.quality_compatibility_supervised."
+            )
+
+        expected_quality_compatibility_fusion = (
+            self.mode == "multimodal"
+            and fusion_architecture == "quality_compatibility_fusion"
+        )
+
+        if (
+            bool(self.alignment_model.quality_compatibility_fusion)
+            != expected_quality_compatibility_fusion
+        ):
+            raise ValueError(
+                "fusion_architecture is inconsistent with "
+                "alignment_model.quality_compatibility_fusion."
             )
 
         self.fusion_architecture = fusion_architecture
@@ -1004,6 +1039,7 @@ class FakedditAblationTrainer(
             if self.fusion_architecture not in {
                 "quality_supervised",
                 "quality_compatibility_supervised",
+                "quality_compatibility_fusion",
             }:
                 raise ValueError(
                     "quality_targets are valid only for M4q/M4qc quality "
@@ -1038,10 +1074,12 @@ class FakedditAblationTrainer(
             quality_loss = 0.5 * (text_quality_loss + vision_quality_loss)
 
         if compatibility_targets is not None:
-            if self.fusion_architecture != "quality_compatibility_supervised":
+            if self.fusion_architecture not in {
+                "quality_compatibility_supervised",
+                "quality_compatibility_fusion",
+            }:
                 raise ValueError(
-                    "compatibility_targets are valid only for M4qc "
-                    "quality_compatibility_supervised."
+                    "compatibility_targets are valid only for M4qc/M4qcf."
                 )
             compatibility_score = representation_outputs["compatibility_score"]
             if compatibility_score is None:
@@ -1732,6 +1770,7 @@ def train_one_epoch(
         if trainer.fusion_architecture in {
             "quality_supervised",
             "quality_compatibility_supervised",
+            "quality_compatibility_fusion",
         }:
             if text_feature_std is None or vision_feature_std is None:
                 raise RuntimeError(
@@ -1778,6 +1817,7 @@ def train_one_epoch(
                 if trainer.fusion_architecture in {
                     "quality_supervised",
                     "quality_compatibility_supervised",
+                    "quality_compatibility_fusion",
                 }
                 else 0.0
             ),
@@ -1785,7 +1825,7 @@ def train_one_epoch(
             compatibility_loss_weight=(
                 compatibility_loss_weight
                 if trainer.fusion_architecture
-                == "quality_compatibility_supervised"
+                in {"quality_compatibility_supervised", "quality_compatibility_fusion"}
                 else 0.0
             ),
         )
@@ -1823,44 +1863,6 @@ def train_one_epoch(
         "vision_quality_loss": weighted_vision_quality_loss / total_samples,
         "compatibility_loss": weighted_compatibility_loss / total_samples,
         "corruption_counts": dict(sorted(corruption_counts.items())),
-    }
-
-
-def build_persisted_training_metrics(training_metrics: dict) -> dict:
-    """
-    Build the training section written to each metrics.jsonl epoch record.
-
-    This is intentionally a serialization-only helper. It must not alter,
-    aggregate, recompute, or reinterpret any training metric.
-    """
-    required_keys = (
-        "sample_count",
-        "batch_count",
-        "total_loss",
-        "alignment_loss",
-        "classification_loss",
-        "quality_loss",
-        "text_quality_loss",
-        "vision_quality_loss",
-        "compatibility_loss",
-        "corruption_counts",
-    )
-
-    missing_keys = [
-        key
-        for key in required_keys
-        if key not in training_metrics
-    ]
-
-    if missing_keys:
-        raise KeyError(
-            "Missing required training metrics for epoch serialization: "
-            + ", ".join(missing_keys)
-        )
-
-    return {
-        key: training_metrics[key]
-        for key in required_keys
     }
 
 
@@ -2091,7 +2093,10 @@ def collect_component_fingerprints(
                 alignment_model.vision_quality_estimator
             )
 
-        elif fusion_architecture == "quality_compatibility_supervised":
+        elif fusion_architecture in {
+            "quality_compatibility_supervised",
+            "quality_compatibility_fusion",
+        }:
 
             if alignment_model.gated_interaction_fusion is None:
                 raise RuntimeError(
@@ -2289,7 +2294,10 @@ def effective_parameter_counts(
                 alignment_model.vision_quality_estimator
             )
 
-        elif fusion_architecture == "quality_compatibility_supervised":
+        elif fusion_architecture in {
+            "quality_compatibility_supervised",
+            "quality_compatibility_fusion",
+        }:
 
             if alignment_model.gated_interaction_fusion is None:
                 raise RuntimeError(
@@ -2729,8 +2737,11 @@ def main():
             ),
 
             quality_compatibility_supervised=(
-                args.fusion_architecture
-                == "quality_compatibility_supervised"
+                args.fusion_architecture == "quality_compatibility_supervised"
+            ),
+
+            quality_compatibility_fusion=(
+                args.fusion_architecture == "quality_compatibility_fusion"
             ),
         )
     )
@@ -2742,6 +2753,7 @@ def main():
         "gated_interaction",
         "quality_supervised",
         "quality_compatibility_supervised",
+        "quality_compatibility_fusion",
     }:
 
         if alignment_model.gated_interaction_fusion is None:
@@ -2813,6 +2825,7 @@ def main():
     if args.fusion_architecture in {
         "quality_supervised",
         "quality_compatibility_supervised",
+        "quality_compatibility_fusion",
     }:
         text_feature_std = compute_feature_std(
             train_data.text_embeddings,
@@ -2826,10 +2839,14 @@ def main():
         if args.fusion_architecture == "quality_supervised":
             print("M4q corruption-aware quality supervision: ENABLED")
             print("M4q quality loss weight:", args.quality_weight)
-        else:
+        elif args.fusion_architecture == "quality_compatibility_supervised":
             print("M4qc quality + compatibility supervision: ENABLED")
             print("M4qc quality loss weight:", args.quality_weight)
             print("M4qc compatibility loss weight:", args.compatibility_weight)
+        else:
+            print("M4qcf reliability-informed fusion supervision: ENABLED")
+            print("M4qcf quality loss weight:", args.quality_weight)
+            print("M4qcf compatibility loss weight:", args.compatibility_weight)
         print("v0.27 Gaussian feature scale: training-cache population std")
         print()
 
@@ -2963,7 +2980,10 @@ def main():
                 alignment_model.vision_quality_estimator.parameters()
             )
 
-        elif args.fusion_architecture == "quality_compatibility_supervised":
+        elif args.fusion_architecture in {
+            "quality_compatibility_supervised",
+            "quality_compatibility_fusion",
+        }:
 
             if alignment_model.gated_interaction_fusion is None:
                 raise RuntimeError("M4qc gated-interaction fusion is unavailable.")
@@ -3160,6 +3180,7 @@ def main():
             if args.fusion_architecture in {
                 "quality_supervised",
                 "quality_compatibility_supervised",
+                "quality_compatibility_fusion",
             }
             else 0.0
         ),
@@ -3169,7 +3190,10 @@ def main():
         "Compatibility weight:",
         (
             args.compatibility_weight
-            if args.fusion_architecture == "quality_compatibility_supervised"
+            if args.fusion_architecture in {
+                "quality_compatibility_supervised",
+                "quality_compatibility_fusion",
+            }
             else 0.0
         ),
     )
@@ -3251,11 +3275,17 @@ def main():
             == "quality_compatibility_supervised"
         ),
 
+        "quality_compatibility_fusion": (
+            args.mode == "multimodal"
+            and args.fusion_architecture == "quality_compatibility_fusion"
+        ),
+
         "quality_supervision_enabled": (
             args.mode == "multimodal"
             and args.fusion_architecture in {
                 "quality_supervised",
                 "quality_compatibility_supervised",
+                "quality_compatibility_fusion",
             }
         ),
 
@@ -3264,13 +3294,17 @@ def main():
             if args.fusion_architecture in {
                 "quality_supervised",
                 "quality_compatibility_supervised",
+                "quality_compatibility_fusion",
             }
             else 0.0
         ),
 
         "compatibility_weight": (
             args.compatibility_weight
-            if args.fusion_architecture == "quality_compatibility_supervised"
+            if args.fusion_architecture in {
+                "quality_compatibility_supervised",
+                "quality_compatibility_fusion",
+            }
             else 0.0
         ),
 
@@ -3294,6 +3328,7 @@ def main():
             if args.fusion_architecture in {
                 "quality_supervised",
                 "quality_compatibility_supervised",
+                "quality_compatibility_fusion",
             }
             else None
         ),
@@ -3311,6 +3346,25 @@ def main():
                 "official_test_accessed": False,
             }
             if args.fusion_architecture == "quality_compatibility_supervised"
+            else None
+        ),
+
+        "m4qcf_reliability_fusion_protocol": (
+            {
+                "protocol_version": "0.27.0-step13a",
+                "epsilon": 0.10,
+                "gamma": 1.0,
+                "controller_parameter_free": True,
+                "stop_gradient_reliability_signals": True,
+                "affects_primary_fusion": True,
+                "training_mixture": "same_as_m4qc_step11a",
+                "training_mismatch": "deterministic_cyclic_vision_derangement",
+                "lambda_q": args.quality_weight,
+                "lambda_c": args.compatibility_weight,
+                "formal_hypotheses_computed": False,
+                "official_test_accessed": False,
+            }
+            if args.fusion_architecture == "quality_compatibility_fusion"
             else None
         ),
 
@@ -3357,6 +3411,7 @@ def main():
                 "gated_interaction",
                 "quality_supervised",
                 "quality_compatibility_supervised",
+                "quality_compatibility_fusion",
             }
             else None
         ),
@@ -3721,14 +3776,17 @@ def main():
                         if args.fusion_architecture in {
                             "quality_supervised",
                             "quality_compatibility_supervised",
+                            "quality_compatibility_fusion",
                         }
                         else 0.0
                     ),
 
                     compatibility_loss_weight=(
                         args.compatibility_weight
-                        if args.fusion_architecture
-                        == "quality_compatibility_supervised"
+                        if args.fusion_architecture in {
+                            "quality_compatibility_supervised",
+                            "quality_compatibility_fusion",
+                        }
                         else 0.0
                     ),
 
@@ -3919,9 +3977,37 @@ def main():
                     .global_step
                 ),
 
-                "train": build_persisted_training_metrics(
-                    training_metrics
-                ),
+                "train": {
+                    "sample_count": (
+                        training_metrics[
+                            "sample_count"
+                        ]
+                    ),
+
+                    "batch_count": (
+                        training_metrics[
+                            "batch_count"
+                        ]
+                    ),
+
+                    "total_loss": (
+                        training_metrics[
+                            "total_loss"
+                        ]
+                    ),
+
+                    "alignment_loss": (
+                        training_metrics[
+                            "alignment_loss"
+                        ]
+                    ),
+
+                    "classification_loss": (
+                        training_metrics[
+                            "classification_loss"
+                        ]
+                    ),
+                },
 
                 "validation": {
                     key: value

@@ -1,0 +1,75 @@
+@'
+{
+  "record_version": "0.27.0-step13d",
+  "protocol_version": "0.27.0-step13a",
+  "status": "COMPLETE_AND_FROZEN",
+  "architecture": "quality_compatibility_fusion",
+  "provenance": {
+    "step13a_protocol_commit": "822c913",
+    "step13b_controller_commit": "ec0909e",
+    "step13c_integration_commit": "4bfab57"
+  },
+  "gradient_causality_audit": {
+    "seed": 42,
+    "batch_size": 8,
+    "shared_dim": 128,
+    "device": "cuda",
+    "status": "PASS",
+    "controller_parameter_count": 0,
+    "fusion_equation_exact": true,
+    "weights_strictly_bounded": true,
+    "weights_sum_to_one": true,
+    "weight_sum_max_abs_error": 5.960464477539063e-08,
+    "interaction_suppression_monotonic": true,
+    "classification_side_gradients": {
+      "text_quality_estimator": 0.0,
+      "vision_quality_estimator": 0.0,
+      "compatibility_estimator": 0.0,
+      "text_projection": 0.012759046134306118,
+      "vision_projection": 0.01008395773533266,
+      "interaction_pathway": 0.009812770033022389
+    },
+    "auxiliary_side_gradients": {
+      "text_quality_estimator": 0.4060462233610451,
+      "vision_quality_estimator": 0.4354357193224132,
+      "compatibility_estimator": 0.8509499356150627
+    }
+  },
+  "smoke_training": {
+    "seed": 42,
+    "epochs": 1,
+    "training_samples": 5000,
+    "validation_samples": 1000,
+    "train_validation_overlap": 0,
+    "train_total_loss": 2.8115,
+    "train_classification_loss": 0.5420,
+    "validation_classification_loss": 0.398469,
+    "validation_accuracy": 0.818,
+    "validation_f1": 0.8022,
+    "validation_macro_f1": 0.8168,
+    "scientific_result": false
+  },
+  "parameter_accounting": {
+    "representation": 511235,
+    "classification": 17542,
+    "effective_total": 528777,
+    "controller": 0
+  },
+  "regression": {
+    "tests_passed": 806,
+    "tests_failed": 0
+  },
+  "formal_hypotheses": {
+    "H7_F": "NOT_COMPUTED",
+    "H8_F": "NOT_COMPUTED",
+    "H9_F": "NOT_COMPUTED",
+    "H10_F": "NOT_COMPUTED"
+  },
+  "official_test_accessed": false,
+  "official_test_status": "SEALED_NOT_ACCESSED",
+  "decision": "PASS",
+  "next_step": "Step13E formal preregistered M4qcf three-seed training"
+}
+'@ | Set-Content `
+    docs\experiments\v027\step13d_m4qcf_smoke_audit.json `
+    -Encoding UTF8
