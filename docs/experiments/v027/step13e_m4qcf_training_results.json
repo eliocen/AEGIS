@@ -1,0 +1,140 @@
+{
+  "record_version": "0.27.0-step13e",
+  "protocol_version": "0.27.0-step13a",
+  "status": "COMPLETE_AND_FROZEN",
+  "experiment": "AEGIS v0.27 M4qcf formal three-seed training",
+  "architecture": "quality_compatibility_fusion",
+  "scientific_scope": "Clean held-out Fakeddit validation classification preservation for reliability-informed fusion.",
+  "provenance": {
+    "step13a_protocol_commit": "822c913",
+    "step13c_integration_commit": "4bfab57",
+    "step13d_validation_commit": "7211249",
+    "step13d_json_repair_commit": "41d7b3a",
+    "formal_training_seeds": [
+      42,
+      43,
+      44
+    ]
+  },
+  "frozen_training_configuration": {
+    "alignment_weight": 0.5,
+    "classification_weight": 1.0,
+    "quality_weight": 1.0,
+    "compatibility_weight": 1.0,
+    "epsilon": 0.1,
+    "gamma": 1.0,
+    "batch_size": 32,
+    "maximum_epochs": 50,
+    "minimum_epochs": 5,
+    "early_stopping_patience": 8,
+    "checkpoint_selection": "validation Macro-F1, then validation classification loss"
+  },
+  "per_seed_results": [
+    {
+      "seed": 42,
+      "source_summary": "experiments/fakeddit/v027_m4qcf_seed42/summary.json",
+      "best_epoch": 14,
+      "best_validation_macro_f1": 0.8659093547237933,
+      "best_validation_accuracy": 0.866,
+      "best_validation_f1": 0.8624229979466119,
+      "best_validation_classification_loss": 0.3508504779338837,
+      "epochs_completed": 22,
+      "stop_reason": "early_stopping",
+      "test_split_status": "sealed_not_accessed",
+      "parameter_update_audit": {
+        "classifier": true,
+        "compatibility_estimator": true,
+        "gated_base_fusion": false,
+        "gated_interaction_fusion": true,
+        "text_projection": true,
+        "text_quality_estimator": true,
+        "vision_projection": true,
+        "vision_quality_estimator": true
+      }
+    },
+    {
+      "seed": 43,
+      "source_summary": "experiments/fakeddit/v027_m4qcf_seed43/summary.json",
+      "best_epoch": 9,
+      "best_validation_macro_f1": 0.8697702747646849,
+      "best_validation_accuracy": 0.87,
+      "best_validation_f1": 0.8643006263048018,
+      "best_validation_classification_loss": 0.34784842205047606,
+      "epochs_completed": 17,
+      "stop_reason": "early_stopping",
+      "test_split_status": "sealed_not_accessed",
+      "parameter_update_audit": {
+        "classifier": true,
+        "compatibility_estimator": true,
+        "gated_base_fusion": false,
+        "gated_interaction_fusion": true,
+        "text_projection": true,
+        "text_quality_estimator": true,
+        "vision_projection": true,
+        "vision_quality_estimator": true
+      }
+    },
+    {
+      "seed": 44,
+      "source_summary": "experiments/fakeddit/v027_m4qcf_seed44/summary.json",
+      "best_epoch": 14,
+      "best_validation_macro_f1": 0.8665664744755712,
+      "best_validation_accuracy": 0.867,
+      "best_validation_f1": 0.8589607635206787,
+      "best_validation_classification_loss": 0.37738130235671996,
+      "epochs_completed": 22,
+      "stop_reason": "early_stopping",
+      "test_split_status": "sealed_not_accessed",
+      "parameter_update_audit": {
+        "classifier": true,
+        "compatibility_estimator": true,
+        "gated_base_fusion": false,
+        "gated_interaction_fusion": true,
+        "text_projection": true,
+        "text_quality_estimator": true,
+        "vision_projection": true,
+        "vision_quality_estimator": true
+      }
+    }
+  ],
+  "aggregate": {
+    "macro_f1_values": [
+      0.8659093547237933,
+      0.8697702747646849,
+      0.8665664744755712
+    ],
+    "mean_macro_f1": 0.8674153679880164,
+    "sample_std_macro_f1": 0.002065705941595623,
+    "m1b_reference_macro_f1": 0.8736,
+    "delta_vs_m1b": -0.006184632011983604
+  },
+  "hypotheses": {
+    "H7_F": {
+      "name": "clean classification preservation",
+      "criterion": "delta_vs_m1b >= -0.01",
+      "frozen_margin": -0.01,
+      "supported": true,
+      "decision": "SUPPORTED",
+      "interpretation": "Descriptive held-out validation-margin preservation only; this is not a formal statistical noninferiority test."
+    },
+    "H8_F": {
+      "decision": "NOT_COMPUTED"
+    },
+    "H9_F": {
+      "decision": "NOT_COMPUTED"
+    },
+    "H10_F": {
+      "decision": "NOT_COMPUTED"
+    }
+  },
+  "official_test_status": "SEALED_NOT_ACCESSED",
+  "official_test_samples_accessed": 0,
+  "interpretation_boundaries": [
+    "H7-F does not establish that M4qcf improves clean classification over M1b.",
+    "The observed mean clean Macro-F1 is lower than the M1b reference but remains within the frozen descriptive preservation margin.",
+    "H8-F, H9-F, and H10-F require the separately specified Step14 robustness diagnostics.",
+    "No claim of open-world factual verification, source credibility, intent inference, or real-world robustness is supported by Step13E."
+  ],
+  "next_step": "Step14A frozen M4qcf robustness diagnostic runner",
+  "generated_at_utc": "2026-09-07T03:15:26.326913+00:00"
+}
