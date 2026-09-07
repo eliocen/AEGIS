@@ -1,0 +1,92 @@
+{
+  "protocol_version": "0.27.0-step14a",
+  "parent_protocol_version": "0.27.0-step13a",
+  "status": "FROZEN_BEFORE_STEP14A_FORMAL_DIAGNOSTIC_RESULT_EXPOSURE",
+  "evaluation_only": true,
+  "formal_seeds": [42, 43, 44],
+  "architectures": {
+    "M1b": {
+      "fusion_architecture": "gated_interaction",
+      "checkpoint_pattern": "experiments/fakeddit/v025_m1b_gated_interaction_seed{seed}/best_model.pt"
+    },
+    "M4qc": {
+      "fusion_architecture": "quality_compatibility_supervised",
+      "checkpoint_pattern": "experiments/fakeddit/v027_m4qc_seed{seed}/best_model.pt"
+    },
+    "M4qcf": {
+      "fusion_architecture": "quality_compatibility_fusion",
+      "checkpoint_pattern": "experiments/fakeddit/v027_m4qcf_seed{seed}/best_model.pt"
+    }
+  },
+  "validation": {
+    "expected_samples": 1000,
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0
+  },
+  "quality_matrix": {
+    "clean": true,
+    "families": {
+      "gaussian_noise": {
+        "modalities": ["text", "vision"],
+        "severities": [0.25, 0.5, 0.75, 1.0]
+      },
+      "attenuation": {
+        "modalities": ["text", "vision"],
+        "severities": [0.25, 0.5, 0.75, 1.0]
+      },
+      "zero_dropout": {
+        "modalities": ["text", "vision"],
+        "severities": [1.0]
+      }
+    },
+    "conditions_per_architecture_seed": 19,
+    "formal_condition_level_evaluations": 171,
+    "simultaneous_bimodal_quality_corruption": false,
+    "gaussian_scale_source": "training_cache_only",
+    "corruption_realization_shared_across_architectures": true,
+    "corruption_realization_shared_across_model_seeds": true
+  },
+  "mismatch": {
+    "construction": "deterministic_class_preserving_validation_derangement",
+    "no_self_pairs": true,
+    "class_preserving": true,
+    "vision_used_once_within_class": true,
+    "mapping_identical_across_model_seeds": true,
+    "independent_of_training_rng": true
+  },
+  "m4qcf_controller": {
+    "epsilon": 0.1,
+    "gamma": 1.0,
+    "parameter_free": true,
+    "stop_gradient_reliability_signals": true,
+    "use_model_emitted_controller_outputs": true
+  },
+  "hypotheses": {
+    "H8_F": {
+      "decision": "NOT_COMPUTED",
+      "positive_condition_fraction_threshold": 0.8,
+      "aggregate_mean_downweighting_strictly_positive": true
+    },
+    "H9_F": {
+      "decision": "NOT_COMPUTED",
+      "mean_macro_f1_improvement_threshold": 0.01,
+      "positive_condition_fraction_threshold": 0.7,
+      "principal_comparison": "M4qcf_vs_M1b",
+      "causal_control": "M4qc"
+    },
+    "H10_F": {
+      "decision": "NOT_COMPUTED",
+      "interaction_drop_positive_each_seed": true,
+      "aggregate_mean_mismatch_gap_improvement_strictly_positive": true,
+      "principal_comparison": "M4qcf_vs_M1b",
+      "causal_control": "M4qc"
+    }
+  },
+  "checkpoint_reselection_permitted": false,
+  "training_permitted": false,
+  "threshold_tuning_permitted": false,
+  "official_test_access_permitted": false,
+  "formal_hypothesis_decisions_permitted_in_step14a": false,
+  "output_root": "experiments/fakeddit/v027_m4qcf_robustness_diagnostics",
+  "next_step": "Step14A deterministic runner implementation and invariant tests"
+}
