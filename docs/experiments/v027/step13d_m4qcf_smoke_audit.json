@@ -1,4 +1,3 @@
-@'
 {
   "record_version": "0.27.0-step13d",
   "protocol_version": "0.27.0-step13a",
@@ -70,6 +69,3 @@
   "decision": "PASS",
   "next_step": "Step13E formal preregistered M4qcf three-seed training"
 }
-'@ | Set-Content `
-    docs\experiments\v027\step13d_m4qcf_smoke_audit.json `
-    -Encoding UTF8
