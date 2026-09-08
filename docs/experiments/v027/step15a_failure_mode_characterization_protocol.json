@@ -1,0 +1,240 @@
+{
+  "analysis_type": "exploratory_post_hoc_characterization",
+  "completion_rule": "Step15 is complete only after the H9 decomposition, H8-to-H9 mechanism characterization, H10 mismatch decomposition, and exploratory scientific synthesis are recorded without modifying the frozen Step14 formal results.",
+  "data_boundary": {
+    "architectures": [
+      "M1b",
+      "M4qc",
+      "M4qcf"
+    ],
+    "checkpoint_reselection_permitted": false,
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "new_corruption_generation_permitted": false,
+    "new_mismatch_generation_permitted": false,
+    "new_training_permitted": false,
+    "official_test_access_permitted": false,
+    "primary_inputs": [
+      "experiments/fakeddit/v027_m4qcf_robustness_diagnostics",
+      "experiments/fakeddit/v027_m4qcf_robustness_analysis"
+    ],
+    "validation_samples": 1000
+  },
+  "experiment": "m4qcf_exploratory_robustness_failure_mode_characterization",
+  "frozen_quality_condition_space": {
+    "attenuation_severities": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "clean_reference": "clean",
+    "corruption_families": [
+      "gaussian",
+      "attenuation",
+      "zero_dropout"
+    ],
+    "gaussian_severities": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "modalities": [
+      "text",
+      "vision"
+    ],
+    "non_clean_conditions_per_seed": 18,
+    "seed_condition_observations": 54,
+    "simultaneous_bimodal_corruption": false,
+    "zero_dropout_severities": [
+      1.0
+    ]
+  },
+  "frozen_step14_decisions": {
+    "H10_F": "NOT_SUPPORTED",
+    "H8_F": "SUPPORTED",
+    "H9_F": "NOT_SUPPORTED"
+  },
+  "interpretation_boundary": [
+    "Results apply to the frozen controlled Fakeddit validation representation-corruption and class-preserving mismatch setting.",
+    "Step15 is exploratory and post-hoc.",
+    "Step15 does not establish statistical significance.",
+    "Step15 does not establish causal effects.",
+    "Step15 does not establish robustness to arbitrary real-world corruption.",
+    "Step15 does not establish open-world factual verification.",
+    "Step15 does not establish source credibility.",
+    "Step15 does not establish author intent.",
+    "Step15 does not establish human trust.",
+    "Step15 does not establish universal semantic consistency.",
+    "Step15 does not establish external evidence verification.",
+    "Step15 does not establish temporal or geographic reasoning."
+  ],
+  "next_stage": "After Step15 completion, Step16 will synthesize and close AEGIS v0.27. No v0.28 architecture is to be implemented inside Step15.",
+  "permitted_actions": [
+    "descriptive_statistics",
+    "condition_level_stratification",
+    "severity_trajectory_analysis",
+    "modality_level_decomposition",
+    "corruption_family_decomposition",
+    "descriptive_pearson_correlation",
+    "descriptive_spearman_correlation",
+    "prediction_transition_analysis",
+    "confidence_change_analysis",
+    "mechanism_diagnostic_analysis",
+    "tables",
+    "figures",
+    "generation_of_candidate_v028_hypotheses"
+  ],
+  "prohibited_actions": [
+    "official_test_access",
+    "new_model_training",
+    "checkpoint_reselection",
+    "threshold_tuning",
+    "epsilon_tuning",
+    "gamma_tuning",
+    "loss_weight_tuning",
+    "fusion_architecture_modification",
+    "quality_estimator_modification",
+    "compatibility_estimator_modification",
+    "corruption_policy_modification",
+    "mismatch_policy_modification",
+    "new_corruption_conditions",
+    "new_mismatch_conditions",
+    "dropping_unfavorable_conditions",
+    "dropping_unfavorable_seeds",
+    "reweighting_conditions_to_improve_aggregate_results",
+    "changing_H8_H9_H10_criteria",
+    "relabeling_exploratory_findings_as_preregistered"
+  ],
+  "protocol_version": "0.27.0-step15a",
+  "provenance": {
+    "branch": "feature/v0.27-corruption-aware-reliability",
+    "formal_analysis_sha256": "82179d5c7eaa60db4f5a188f0625087c2a85479edb78bb5f897dee8bf71dd2b4",
+    "step14a_diagnostic_implementation_commit": "8b0fb7e",
+    "step14a_protocol_commit": "5883d52",
+    "step14b_analyzer_commit": "aaba6e9",
+    "step14b_operationalization_commit": "8ac69d5",
+    "step14c_results_commit": "7ff0ce9",
+    "summary_sha256": "2c71db7d513157a580e2d902f12d2461a47e4f725544683b09bb95778a45decd"
+  },
+  "purpose": "Characterize why the frozen M4qcf reliability-informed fusion mechanism demonstrated consistent corrupted-modality down-weighting under H8-F while failing the preregistered downstream consistency criterion under H9-F and the mismatch-robustness criterion under H10-F.",
+  "scientific_boundary": {
+    "generated_hypotheses_status": "Any mechanism or architectural hypothesis generated from Step15 must be treated as exploratory and prospectively frozen before confirmatory testing in v0.28.",
+    "new_confirmatory_hypotheses": false,
+    "post_hoc_hypotheses_may_be_generated_for_v028": true,
+    "step15_role": "Step15 is explanatory and exploratory. It does not retest, replace, modify, overturn, or reinterpret the frozen Step14 formal hypothesis decisions."
+  },
+  "status": "FROZEN_BEFORE_STEP15_CONDITION_LEVEL_CHARACTERIZATION",
+  "step15b_h9_decomposition": {
+    "interpretation_rule": "The previously frozen H9-F decision remains NOT_SUPPORTED regardless of any favorable subgroup.",
+    "primary_quantity": "R_i = MacroF1_M4qcf_i - MacroF1_M1b_i",
+    "question": "Where do the heterogeneous M4qcf-minus-M1b robustness gains and losses underlying H9-F occur?",
+    "required_outputs": [
+      "all_54_seed_condition_R_i_values",
+      "positive_negative_zero_counts",
+      "mean_median_min_max_R_i",
+      "grouped_mean_R_i",
+      "grouped_positive_proportion",
+      "severity_trajectories",
+      "largest_positive_observations",
+      "largest_negative_observations"
+    ],
+    "required_stratifications": [
+      "seed",
+      "corrupted_modality",
+      "corruption_family",
+      "severity",
+      "corrupted_modality_x_corruption_family",
+      "corruption_family_x_severity",
+      "corrupted_modality_x_severity"
+    ]
+  },
+  "step15c_h8_to_h9_mechanism": {
+    "causal_claim_permitted": false,
+    "interpretation_rule": "Correlation or association between down-weighting and classification benefit is descriptive and cannot establish that fusion-weight changes caused classification changes.",
+    "quadrants": [
+      "D_m_positive_R_i_positive",
+      "D_m_positive_R_i_nonpositive",
+      "D_m_nonpositive_R_i_positive",
+      "D_m_nonpositive_R_i_nonpositive"
+    ],
+    "question": "How is corrupted-modality down-weighting associated with downstream classification change?",
+    "required_analyses": [
+      "paired_D_m_and_R_i_table_for_all_54_observations",
+      "pearson_correlation_descriptive",
+      "spearman_rank_correlation_descriptive",
+      "grouped_association_by_modality",
+      "grouped_association_by_corruption_family",
+      "grouped_association_by_severity",
+      "quadrant_characterization"
+    ],
+    "significance_claim_permitted": false,
+    "variables": {
+      "D_m": "mean corrupted-modality fusion weight under clean minus mean corrupted-modality fusion weight under corruption",
+      "R_i": "MacroF1_M4qcf_i - MacroF1_M1b_i"
+    }
+  },
+  "step15d_h10_mismatch_decomposition": {
+    "architectures": [
+      "M1b",
+      "M4qc",
+      "M4qcf"
+    ],
+    "causal_control_status": "M4qc remains a descriptive causal-control architecture only; Step15 does not promote it to a new confirmatory comparison.",
+    "question": "Why does compatibility-informed interaction suppression occur under mismatch without reducing mismatch-induced classification degradation relative to M1b?",
+    "required_architecture_level_metrics": [
+      "matched_macro_f1",
+      "mismatched_macro_f1",
+      "matched_minus_mismatched_macro_f1",
+      "matched_accuracy",
+      "mismatched_accuracy"
+    ],
+    "required_comparisons": [
+      "M1b_vs_M4qcf_mismatch_degradation",
+      "M4qc_vs_M4qcf_mismatch_degradation_descriptive",
+      "per_seed_G",
+      "mean_G"
+    ],
+    "required_m4qcf_mechanism_metrics": [
+      "matched_compatibility_score",
+      "mismatched_compatibility_score",
+      "compatibility_drop",
+      "matched_interaction_multiplier",
+      "mismatched_interaction_multiplier",
+      "interaction_suppression_D_I",
+      "matched_text_weight",
+      "mismatched_text_weight",
+      "matched_vision_weight",
+      "mismatched_vision_weight",
+      "matched_effective_text_reliability",
+      "mismatched_effective_text_reliability",
+      "matched_effective_vision_reliability",
+      "mismatched_effective_vision_reliability"
+    ],
+    "required_sample_level_characterization": [
+      "matched_correct_to_mismatched_correct",
+      "matched_correct_to_mismatched_incorrect",
+      "matched_incorrect_to_mismatched_correct",
+      "matched_incorrect_to_mismatched_incorrect",
+      "prediction_flip_rate",
+      "confidence_change_by_transition_group"
+    ]
+  },
+  "step15e_synthesis": {
+    "architecture_selection_permitted": false,
+    "hyperparameter_selection_permitted": false,
+    "purpose": "Produce evidence-grounded design questions for v0.28 without selecting or validating a new architecture using Step15 data.",
+    "required_categories": [
+      "directly_observed_findings",
+      "descriptive_associations",
+      "candidate_mechanistic_explanations",
+      "unsupported_explanations",
+      "limitations",
+      "candidate_v028_hypotheses"
+    ]
+  }
+}
