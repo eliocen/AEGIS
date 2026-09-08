@@ -1,0 +1,136 @@
+{
+  "H10_F": {
+    "criterion_components": {
+      "classification_mismatch_reduction_gate": "FAIL",
+      "interaction_suppression_gate": "PASS"
+    },
+    "decision": "NOT_SUPPORTED",
+    "frozen_criterion": {
+      "interaction_suppression_D_I": "> 0 for all 3 seeds",
+      "mean_G": "> 0"
+    },
+    "interaction_suppression_positive_seed_count": 3,
+    "interpretation": "Not supported under the frozen conjunctive criterion. M4qcf reduced the learned interaction multiplier under mismatch in all three seeds, but this internal suppression did not reduce mismatch-induced classification degradation relative to M1b because aggregate mean G was negative.",
+    "mean_G": -0.007623939063888622,
+    "mean_interaction_suppression_D_I": 0.42031526107986356,
+    "scientific_question": "Does compatibility-informed interaction suppression reduce classification sensitivity to deterministic class-preserving text-vision mismatch relative to M1b?",
+    "seed_results": [
+      {
+        "D_I": 0.44859058644578154,
+        "G": -0.01181790586303455,
+        "seed": 42
+      },
+      {
+        "D_I": 0.3957444092315855,
+        "G": -0.005975861711120856,
+        "seed": 43
+      },
+      {
+        "D_I": 0.41661078756222375,
+        "G": -0.005078049617510461,
+        "seed": 44
+      }
+    ]
+  },
+  "H8_F": {
+    "decision": "SUPPORTED",
+    "eligible_observations": 54,
+    "frozen_criterion": {
+      "aggregate_mean_down_weighting": "> 0",
+      "minimum_positive_count_for_54": 44,
+      "minimum_positive_proportion": 0.8
+    },
+    "interpretation": "Supported under the frozen controlled Fakeddit representation-corruption setting. The reliability-informed fusion mechanism consistently shifted fusion weight away from the corrupted modality.",
+    "mean_down_weighting": 0.1333673901324747,
+    "scientific_question": "Does M4qcf down-weight the corrupted modality under controlled single-modality representation corruption?",
+    "strict_positive_count": 54,
+    "strict_positive_proportion": 1.0
+  },
+  "H9_F": {
+    "criterion_components": {
+      "coverage_gate": "FAIL",
+      "mean_improvement_gate": "PASS"
+    },
+    "decision": "NOT_SUPPORTED",
+    "eligible_observations": 54,
+    "frozen_criterion": {
+      "minimum_mean_macro_f1_improvement": 0.01,
+      "minimum_positive_count_for_54": 38,
+      "minimum_positive_proportion": 0.7
+    },
+    "interpretation": "Not supported under the frozen conjunctive criterion. Although the equal-weight aggregate mean M4qcf-minus-M1b Macro-F1 difference was positive and exceeded 0.01, only 29 of 54 seed-condition observations were strictly positive, below the preregistered 70 percent coverage requirement. The result therefore indicates heterogeneous rather than sufficiently consistent robustness gains.",
+    "mean_macro_f1_improvement": 0.051111288731590224,
+    "scientific_question": "Does M4qcf improve non-clean robustness over M1b across the preregistered single-modality corruption conditions?",
+    "strict_positive_count": 29,
+    "strict_positive_proportion": 0.5370370370370371
+  },
+  "evidence_audit": {
+    "independent_formal_result_audit": "STEP14B_INDEPENDENT_FORMAL_RESULT_AUDIT_PASS",
+    "m4qcf_reliability_rows": 63000,
+    "max_weight_sum_error": 1.4901161193847656e-07,
+    "mismatch_sample_rows": 18000,
+    "quality_sample_rows": 171000,
+    "status": "PASS"
+  },
+  "experiment": "fakeddit_m4qcf_robustness_formal_analysis_v027",
+  "formal_analysis_artifacts": {
+    "formal_analysis_json": {
+      "path": "experiments/fakeddit/v027_m4qcf_robustness_analysis/formal_analysis.json",
+      "sha256": "82179d5c7eaa60db4f5a188f0625087c2a85479edb78bb5f897dee8bf71dd2b4"
+    },
+    "git_tracking": "ignored_by_repository_policy",
+    "root": "experiments/fakeddit/v027_m4qcf_robustness_analysis",
+    "summary_json": {
+      "path": "experiments/fakeddit/v027_m4qcf_robustness_analysis/summary.json",
+      "sha256": "2c71db7d513157a580e2d902f12d2461a47e4f725544683b09bb95778a45decd"
+    }
+  },
+  "formal_decisions": {
+    "H10_F": "NOT_SUPPORTED",
+    "H8_F": "SUPPORTED",
+    "H9_F": "NOT_SUPPORTED"
+  },
+  "provenance": {
+    "analyzer_version": "0.27.0-step14b",
+    "architectures": [
+      "M1b",
+      "M4qc",
+      "M4qcf"
+    ],
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "input_protocol_version": "0.27.0-step14a",
+    "step14a_diagnostic_implementation_commit": "8b0fb7e",
+    "step14a_protocol_commit": "5883d52",
+    "step14b_analyzer_commit": "aaba6e9",
+    "step14b_operationalization_commit": "8ac69d5"
+  },
+  "record_version": "0.27.0-step14c",
+  "safety_and_scope": {
+    "checkpoint_reselection_performed": false,
+    "interpretation_boundary": [
+      "controlled Fakeddit validation representations only",
+      "controlled single-modality representation corruptions only",
+      "controlled deterministic class-preserving mismatch only",
+      "no open-world factual verification claim",
+      "no source-credibility claim",
+      "no author-intent claim",
+      "no human-trust claim",
+      "no universal semantic-consistency claim",
+      "no arbitrary real-world robustness claim",
+      "no external-evidence verification claim",
+      "no temporal or geographic reasoning claim"
+    ],
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0,
+    "post_exposure_hyperparameter_tuning_performed": false,
+    "result_retention_policy": "All supported and unsupported formal outcomes retained without post-exposure criterion modification.",
+    "threshold_tuning_performed": false,
+    "training_performed_during_step14b": false
+  },
+  "scientific_conclusion": "Within the frozen controlled Fakeddit validation setting, M4qcf demonstrated consistent reliability-informed fusion adaptation to single-modality degradation (H8-F supported). However, this mechanistic adaptation did not satisfy the preregistered consistency requirement for robustness improvement over M1b across corruption conditions (H9-F not supported), and compatibility-driven interaction suppression did not reduce mismatch-induced classification degradation relative to M1b under the preregistered H10-F criterion (H10-F not supported). These findings distinguish successful internal reliability adaptation from demonstrated downstream robustness benefit.",
+  "status": "STEP14C_SCIENTIFIC_RESULTS_FROZEN"
+}
