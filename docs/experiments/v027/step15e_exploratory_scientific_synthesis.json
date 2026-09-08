@@ -1,0 +1,161 @@
+{
+  "analysis_type": "exploratory_post_hoc_scientific_synthesis",
+  "architecture_selection_performed": false,
+  "branch": "feature/v0.27-corruption-aware-reliability",
+  "closure_rule": "Do not expand v0.27 after Step16; formally tag/freeze v0.27 and move to a prospectively specified v0.28.",
+  "confirmatory_claim_made": false,
+  "frozen_formal_decisions": {
+    "H10_F": "NOT_SUPPORTED",
+    "H8_F": "SUPPORTED",
+    "H9_F": "NOT_SUPPORTED"
+  },
+  "hyperparameter_selection_performed": false,
+  "interpretation_boundary": [
+    "Results apply to the frozen controlled Fakeddit validation representation-corruption and class-preserving mismatch setting.",
+    "Step15 is exploratory and post-hoc.",
+    "Step15 does not establish statistical significance.",
+    "Step15 does not establish causal effects.",
+    "Step15 does not establish robustness to arbitrary real-world corruption.",
+    "Step15 does not establish open-world factual verification.",
+    "Step15 does not establish source credibility.",
+    "Step15 does not establish author intent.",
+    "Step15 does not establish human trust.",
+    "Step15 does not establish universal semantic consistency.",
+    "Step15 does not establish external evidence verification.",
+    "Step15 does not establish temporal or geographic reasoning."
+  ],
+  "new_experiment_performed": false,
+  "next_step": "Step16 \u2014 v0.27 scientific synthesis and closure",
+  "official_test_accessed": false,
+  "official_test_samples_accessed": 0,
+  "record_version": "0.27.0-step15e",
+  "source_document_sha256": {
+    "docs/experiments/v027/step15a_failure_mode_characterization_protocol.json": "0c87544611beb989930e895fd9a2045bf32e6ea2e8bfff18810e91fe5211a77c",
+    "docs/experiments/v027/step15b_h9_failure_decomposition_results.json": "de869b01efba99c1b65888646163d17237f9407c68c3db47f8eb6cb2216f7133",
+    "docs/experiments/v027/step15b_h9_failure_decomposition_results.md": "5674e2ba3b556bdd21ead5f04d36fbe108f98b03ee903fe407d44baedef9ea50",
+    "docs/experiments/v027/step15c_h8_h9_mechanism_characterization_results.json": "e08395143424e23184d0e8fe5d6d00d0f1de8104078b896b2a095f968fbc8ce5",
+    "docs/experiments/v027/step15c_h8_h9_mechanism_characterization_results.md": "e359a512bbc2addfc8286626250665b0ad41b583af846dcd0e6ff1ce4999cfbd",
+    "docs/experiments/v027/step15d_h10_mismatch_pathway_decomposition_results.json": "cae41b0715dff4a4006530e3fc5d2a0ae6314852a16386f7c810282ffc381954",
+    "docs/experiments/v027/step15d_h10_mismatch_pathway_decomposition_results.md": "ba075efaab0cd4f692913fba56f39920aa8e8fb691e137d2ce7d59ee9c46a22e"
+  },
+  "status": "STEP15_COMPLETE_FROZEN_EXPLORATORY_SYNTHESIS",
+  "step15_completion": {
+    "Step15A_protocol": "COMPLETE_AND_FROZEN",
+    "Step15B_H9_failure_decomposition": "COMPLETE_AND_FROZEN",
+    "Step15C_H8_to_H9_mechanism_characterization": "COMPLETE_AND_FROZEN",
+    "Step15D_H10_mismatch_pathway_decomposition": "COMPLETE_AND_FROZEN",
+    "Step15E_exploratory_scientific_synthesis": "COMPLETE_PENDING_THIS_RECORD_FREEZE"
+  },
+  "step15d_results_commit": "6cdb929",
+  "synthesis": {
+    "candidate_mechanistic_explanations": [
+      "The reliability pathway may correctly detect unusable modalities yet lack sufficient selectivity to improve decisions under mild or distributed corruption.",
+      "Down-weighting may be helpful but insufficient when the retained modality lacks adequate decision-relevant information or when downstream fusion/classifier geometry remains unfavorable.",
+      "Compatibility suppression may remove both harmful and useful cross-modal interactions, reducing total changes without improving their harmful-to-beneficial balance.",
+      "The current mechanism appears better suited to catastrophic modality loss than to consistently graded robustness across corruption regimes."
+    ],
+    "candidate_v028_hypotheses": [
+      {
+        "hypothesis": "A prospectively specified reliability mechanism can improve positive-condition coverage under mild and graded corruptions while preserving catastrophic modality-loss robustness.",
+        "id": "V28-H1-CANDIDATE",
+        "status": "EXPLORATORY_CANDIDATE_REQUIRING_PROSPECTIVE_V028_FREEZE"
+      },
+      {
+        "hypothesis": "A prospectively specified mismatch mechanism can improve the harmful-to-beneficial transition balance rather than merely reduce total prediction flips.",
+        "id": "V28-H2-CANDIDATE",
+        "status": "EXPLORATORY_CANDIDATE_REQUIRING_PROSPECTIVE_V028_FREEZE"
+      },
+      {
+        "hypothesis": "Separating interaction suppression from modality-weight reallocation can yield more selective mismatch responses under a preregistered evaluation.",
+        "id": "V28-H3-CANDIDATE",
+        "status": "EXPLORATORY_CANDIDATE_REQUIRING_PROSPECTIVE_V028_FREEZE"
+      },
+      {
+        "hypothesis": "A prospectively defined text-side reliability objective can improve robustness to text Gaussian perturbation without degrading other frozen regimes.",
+        "id": "V28-H4-CANDIDATE",
+        "status": "EXPLORATORY_CANDIDATE_REQUIRING_PROSPECTIVE_V028_FREEZE"
+      }
+    ],
+    "descriptive_associations": [
+      "Down-weighting magnitude and robustness benefit moved together descriptively in the pooled conditions, but this relationship varied by modality, corruption family, and severity.",
+      "Strongest positive gains occurred when vision information was completely removed; mild corruptions frequently showed no benefit.",
+      "Text Gaussian noise remained a specific unfavorable regime, with negative R_i in 10/12 observations.",
+      "Mismatch suppression substantially reduced effective reliabilities while average text/vision fusion weights remained nearly unchanged.",
+      "Lower total prediction-flip rate did not imply lower mismatch degradation; the direction and balance of flips mattered."
+    ],
+    "directly_observed_findings": [
+      {
+        "evidence": {
+          "H8_F": "SUPPORTED",
+          "mean_D_m": 0.1333673901324747,
+          "positive_D_m": "54/54"
+        },
+        "finding": "M4qcf consistently down-weighted the corrupted modality in all 54 frozen seed-condition observations.",
+        "id": "O1"
+      },
+      {
+        "evidence": {
+          "H9_F": "NOT_SUPPORTED",
+          "mean_R_i": 0.051111288731590224,
+          "median_R_i": 0.001426187266855894,
+          "negative_R_i": "25/54",
+          "positive_R_i": "29/54"
+        },
+        "finding": "Downstream robustness benefit was heterogeneous and failed the frozen cross-condition coverage criterion.",
+        "id": "O2"
+      },
+      {
+        "evidence": {
+          "remaining_48_mean_R_i": 0.003532432832697198,
+          "six_severe_vision_rows_share_of_total_R_i": 0.938566599010638
+        },
+        "finding": "The positive H9 aggregate was highly concentrated in catastrophic vision-loss conditions.",
+        "id": "O3"
+      },
+      {
+        "evidence": {
+          "D_m_positive_R_i_nonpositive": 25,
+          "pearson_r": 0.6245231009919004,
+          "spearman_rho": 0.6953753478973655
+        },
+        "finding": "Larger down-weighting was positively associated with larger R_i in the pooled exploratory observations, but 25 observations combined positive D_m with nonpositive R_i.",
+        "id": "O4"
+      },
+      {
+        "evidence": {
+          "H10_F": "NOT_SUPPORTED",
+          "mean_D_I": 0.42031526107986356,
+          "mean_G": -0.007623939063888622,
+          "negative_G_seeds": "3/3"
+        },
+        "finding": "M4qcf strongly suppressed compatibility-informed interaction under mismatch in every seed without reducing mismatch degradation relative to M1b.",
+        "id": "O5"
+      },
+      {
+        "evidence": {
+          "M1b_flip_rate": 0.18466666666666667,
+          "M1b_net_harmful": 44,
+          "M4qcf_flip_rate": 0.119,
+          "M4qcf_net_harmful": 67
+        },
+        "finding": "M4qcf reduced total mismatch-induced prediction flips relative to M1b but retained a worse harmful-versus-beneficial flip balance.",
+        "id": "O6"
+      }
+    ],
+    "limitations": [
+      "All analyses use the frozen 1,000-sample Fakeddit validation subset and three formal seeds.",
+      "Corruptions act on frozen representations rather than raw real-world inputs.",
+      "Only controlled single-modality corruption and deterministic class-preserving mismatch were examined.",
+      "Severity-1 attenuation and zero dropout are operationally equivalent but remain separately retained under the frozen protocol.",
+      "Exploratory subgroup correlations combine small group sizes, repeated seed-condition structure, and no inferential uncertainty quantification.",
+      "M4qc is only a descriptive control; Step15 does not promote it to a selected architecture."
+    ],
+    "unsupported_explanations": [
+      "Step15 does not establish that down-weighting caused improvements or failures in R_i.",
+      "Step15 does not establish that compatibility suppression caused the mismatch transition imbalance.",
+      "Step15 does not identify a uniquely responsible module, estimator, representation, or classifier component.",
+      "Step15 does not establish statistical significance, calibration improvement, real-world robustness, factual verification, source credibility, or author intent.",
+      "No Step15 result can be presented as preregistered confirmatory evidence."
+    ]
+  }
+}
