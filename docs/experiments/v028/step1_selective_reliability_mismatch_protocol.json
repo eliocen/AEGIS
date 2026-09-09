@@ -1,0 +1,460 @@
+{
+  "accelerated_execution_plan": {
+    "Step1": "Freeze combined scientific protocol, architecture contract, hypotheses, gates, training rules, evaluation matrix, and interpretation boundary.",
+    "Step2": "Implement M4qcs variants, unified runners, invariant tests, and smoke validation; freeze implementation.",
+    "Step3": "Run locked three-seed training and freeze checkpoint selection and training records.",
+    "Step4": "Run unified clean, corruption, mismatch, ablation, and text-Gaussian evaluation.",
+    "Step5": "Compute and freeze formal decisions before conducting clearly separated exploratory characterization.",
+    "Step6": "Produce scientific synthesis, run the full regression suite, close v0.28, and create an annotated release tag."
+  },
+  "branch": "feature/v0.28-selective-reliability-and-mismatch-control",
+  "clean_performance_safeguard": {
+    "comparators": [
+      "M1b",
+      "M4qcf"
+    ],
+    "failure_consequence": "The v0.28 architecture cannot be recommended as a successor even if one or more robustness hypotheses are supported.",
+    "metric": "mean_clean_validation_macro_f1",
+    "minimum_delta_vs_each_comparator": -0.01,
+    "primary_architecture": "M4qcs"
+  },
+  "data_boundary": {
+    "dataset": "Fakeddit",
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "new_dataset_selection_permitted": false,
+    "official_test_access_permitted": false,
+    "official_test_samples_accessed": 0,
+    "representation_level": "frozen_text_and_vision_embeddings",
+    "sample_exclusion_after_result_exposure_permitted": false,
+    "training_cache": {
+      "expected_samples": 5000,
+      "path": "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42"
+    },
+    "validation_cache": {
+      "expected_samples": 1000,
+      "path": "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42",
+      "previously_exposed": true
+    }
+  },
+  "evaluation_matrix": {
+    "architectures": [
+      "M1b",
+      "M4qc",
+      "M4qcf",
+      "M4qcs-w",
+      "M4qcs-i",
+      "M4qcs"
+    ],
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "mismatch": {
+      "class_preserving": true,
+      "construction": "deterministic_class_preserving_validation_derangement",
+      "independent_of_training_rng": true,
+      "mapping_identical_across_architectures": true,
+      "mapping_identical_across_model_seeds": true,
+      "no_self_pairs": true,
+      "vision_used_once_within_class": true
+    },
+    "quality_conditions": {
+      "clean": true,
+      "conditions_per_architecture_seed": 19,
+      "corruption_realization_shared_across_architectures": true,
+      "corruption_realization_shared_across_model_seeds": true,
+      "families": {
+        "attenuation": {
+          "modalities": [
+            "text",
+            "vision"
+          ],
+          "severities": [
+            0.25,
+            0.5,
+            0.75,
+            1.0
+          ]
+        },
+        "gaussian_noise": {
+          "modalities": [
+            "text",
+            "vision"
+          ],
+          "severities": [
+            0.25,
+            0.5,
+            0.75,
+            1.0
+          ]
+        },
+        "zero_dropout": {
+          "modalities": [
+            "text",
+            "vision"
+          ],
+          "severities": [
+            1.0
+          ]
+        }
+      },
+      "gaussian_scale_source": "training_cache_only",
+      "nonclean_conditions_per_architecture_seed": 18,
+      "simultaneous_bimodal_corruption": false
+    },
+    "required_metrics": [
+      "accuracy",
+      "f1",
+      "macro_f1",
+      "text_quality",
+      "vision_quality",
+      "compatibility",
+      "text_weight",
+      "vision_weight",
+      "interaction_multiplier",
+      "matched_macro_f1",
+      "mismatched_macro_f1",
+      "prediction_flip_count",
+      "prediction_flip_rate",
+      "harmful_flip_count",
+      "beneficial_flip_count",
+      "harmful_minus_beneficial_flip_count"
+    ],
+    "validation_samples": 1000
+  },
+  "evidence_classification": {
+    "classification": "CONTROLLED_VALIDATION_DEVELOPMENT_EVIDENCE",
+    "future_confirmation_requirement": "Independent confirmation requires a separately frozen and demonstrably unexposed dataset or holdout.",
+    "independent_external_confirmation": false,
+    "prohibited_claims": [
+      "independent_external_confirmation",
+      "official_test_performance",
+      "real_world_generalization",
+      "cross_dataset_generalization",
+      "statistical_significance_without_a_frozen_test",
+      "causal_identification_beyond_frozen_ablations"
+    ],
+    "prospective_components": [
+      "hypotheses",
+      "architecture_contract",
+      "formal_comparisons",
+      "success_and_failure_gates",
+      "evaluation_matrix",
+      "decision_rules"
+    ],
+    "prospective_relative_to_v028": true,
+    "reason": "The frozen 1,000-sample Fakeddit validation subset was previously used for v0.27 formal evaluation and exploratory characterization and therefore is not an unexposed confirmation set."
+  },
+  "experiment": "aegis_v028_selective_reliability_and_mismatch_control",
+  "formal_decision_policy": {
+    "aggregate_mean_may_override_failed_coverage_gate": false,
+    "all_hypothesis_gates_conjunctive": true,
+    "allowed_decisions": [
+      "SUPPORTED",
+      "NOT_SUPPORTED"
+    ],
+    "condition_exclusion_after_result_exposure_permitted": false,
+    "formal_decisions_must_precede_exploratory_analysis": true,
+    "seed_exclusion_after_result_exposure_permitted": false,
+    "threshold_change_after_result_exposure_permitted": false
+  },
+  "formal_hypotheses": {
+    "V28_H1": {
+      "catastrophic_condition_set": {
+        "conditions": [
+          "text_attenuation_severity_1.0",
+          "vision_attenuation_severity_1.0",
+          "text_zero_dropout_severity_1.0",
+          "vision_zero_dropout_severity_1.0"
+        ],
+        "observations": 12
+      },
+      "decision_rule": "all_gates_must_pass",
+      "graded_condition_set": {
+        "families": [
+          "gaussian_noise",
+          "attenuation"
+        ],
+        "modalities": [
+          "text",
+          "vision"
+        ],
+        "observations": 36,
+        "severities": [
+          0.25,
+          0.5,
+          0.75
+        ]
+      },
+      "hypothesis": "M4qcs improves positive-condition coverage under mild and graded corruptions relative to M1b while preserving catastrophic modality-loss robustness relative to M4qcf.",
+      "origin": "V28-H1-CANDIDATE",
+      "principal_comparisons": {
+        "catastrophic_preservation": "M4qcs_vs_M4qcf",
+        "graded": "M4qcs_vs_M1b"
+      },
+      "status": "PROSPECTIVELY_SPECIFIED_NOT_COMPUTED",
+      "support_gates": {
+        "catastrophic_mean_delta_vs_M4qcf_min": -0.01,
+        "graded_mean_macro_f1_improvement_min": 0.01,
+        "graded_minimum_positive_count_for_36": 26,
+        "graded_positive_fraction_min": 0.7
+      }
+    },
+    "V28_H2": {
+      "decision_rule": "all_gates_must_pass",
+      "hypothesis": "M4qcs improves mismatch-induced harmful-to-beneficial transition balance relative to both M1b and M4qcf rather than merely reducing total prediction flips.",
+      "origin": "V28-H2-CANDIDATE",
+      "principal_comparisons": [
+        "M4qcs_vs_M1b",
+        "M4qcs_vs_M4qcf"
+      ],
+      "status": "PROSPECTIVELY_SPECIFIED_NOT_COMPUTED",
+      "support_gates": {
+        "aggregate_harmful_to_beneficial_ratio_lower_than_M1b": true,
+        "aggregate_harmful_to_beneficial_ratio_lower_than_M4qcf": true,
+        "aggregate_net_harmful_flips_lower_than_M1b": true,
+        "aggregate_net_harmful_flips_lower_than_M4qcf": true,
+        "mean_mismatch_gap_improvement_vs_M1b_strictly_positive": true,
+        "total_flip_rate_not_above_M1b": true
+      }
+    },
+    "V28_H3": {
+      "causal_scope": "The frozen ablations support component-level mechanistic attribution within this controlled implementation only.",
+      "decision_rule": "all_gates_must_pass",
+      "formal_variants": [
+        "M4qcs-w",
+        "M4qcs-i",
+        "M4qcs"
+      ],
+      "hypothesis": "Separating interaction suppression from modality-weight reallocation yields a more selective mismatch response.",
+      "origin": "V28-H3-CANDIDATE",
+      "status": "PROSPECTIVELY_SPECIFIED_NOT_COMPUTED",
+      "support_gates": {
+        "M4qcs_mismatch_macro_f1_at_least_M4qcs-i": true,
+        "M4qcs_mismatch_macro_f1_at_least_M4qcs-w": true,
+        "M4qcs_net_harmful_flips_lower_than_M4qcs-i": true,
+        "M4qcs_net_harmful_flips_lower_than_M4qcs-w": true,
+        "weight_and_interaction_controls_verified_independent": true
+      }
+    },
+    "V28_H4": {
+      "decision_rule": "all_gates_must_pass",
+      "hypothesis": "The text-side reliability objective improves robustness to text Gaussian perturbation without degrading the other frozen corruption regimes.",
+      "origin": "V28-H4-CANDIDATE",
+      "other_condition_set": {
+        "nonclean_observations": 42
+      },
+      "principal_comparisons": {
+        "other_regime_preservation": "M4qcs_vs_M4qcf",
+        "text_gaussian_improvement": "M4qcs_vs_M4qcf"
+      },
+      "status": "PROSPECTIVELY_SPECIFIED_NOT_COMPUTED",
+      "support_gates": {
+        "clean_macro_f1_delta_vs_M4qcf_min": -0.01,
+        "other_conditions_mean_macro_f1_delta_min": -0.01,
+        "text_gaussian_mean_macro_f1_delta_min": 0.01,
+        "text_gaussian_minimum_positive_count_for_12": 9,
+        "text_gaussian_positive_fraction_min": 0.75
+      },
+      "text_gaussian_condition_set": {
+        "observations": 12,
+        "severities": [
+          0.25,
+          0.5,
+          0.75,
+          1.0
+        ]
+      }
+    }
+  },
+  "implementation_entry_condition": "The JSON and Markdown Step1 protocol documents must be validated, committed, and pushed before implementation of M4qcs begins.",
+  "inherited_frozen_baselines": {
+    "M1b": {
+      "checkpoint_pattern": "experiments/fakeddit/v025_m1b_gated_interaction_seed{seed}/best_model.pt",
+      "fusion_architecture": "gated_interaction",
+      "retraining_permitted": false,
+      "role": "principal architecture baseline for absolute robustness and mismatch comparisons"
+    },
+    "M4qc": {
+      "checkpoint_pattern": "experiments/fakeddit/v027_m4qc_seed{seed}/best_model.pt",
+      "fusion_architecture": "quality_compatibility_supervised",
+      "retraining_permitted": false,
+      "role": "descriptive compatibility-supervision control"
+    },
+    "M4qcf": {
+      "checkpoint_pattern": "experiments/fakeddit/v027_m4qcf_seed{seed}/best_model.pt",
+      "controller": {
+        "epsilon": 0.1,
+        "gamma": 1.0,
+        "parameter_free": true,
+        "stop_gradient_reliability_signals": true
+      },
+      "fusion_architecture": "quality_compatibility_fusion",
+      "retraining_permitted": false,
+      "role": "frozen immediate predecessor and principal incremental baseline"
+    }
+  },
+  "next_step": "Step2 ? implement M4qcs variants, unified runners, invariant tests, and smoke validation",
+  "prohibited_actions": [
+    "official_test_access",
+    "post_exposure_threshold_tuning",
+    "post_exposure_checkpoint_reselection",
+    "post_exposure_architecture_modification",
+    "dropping_failed_conditions",
+    "dropping_failed_seeds",
+    "presenting_validation_development_evidence_as_independent_confirmation",
+    "changing_v027_frozen_decisions",
+    "retrospectively_modifying_v027_records"
+  ],
+  "protocol_version": "0.28.0-step1",
+  "research_programme": {
+    "completion_rule": "v0.28 is complete only after implementation, locked training, unified evaluation, formal analysis, exploratory characterization, scientific closure, regression verification, and annotated release tagging.",
+    "motivation_boundary": "The hypotheses originate from frozen exploratory v0.27 Step15 findings, but all v0.28 mechanisms, comparisons, gates, and decisions are specified before v0.28 implementation, training, or result exposure.",
+    "primary_question": "Can a prospectively specified selective reliability controller translate corruption detection into consistently improved downstream classification while improving mismatch-transition quality?",
+    "title": "Selective Reliability and Mismatch Control"
+  },
+  "source_release": {
+    "commit": "1f302db86def3f97ce8f2f1a317e241cb144fe5f",
+    "release_status": "FORMALLY_TAGGED_FROZEN_AND_PUBLISHED",
+    "tag": "v0.27.2",
+    "v027_additional_changes_permitted": false
+  },
+  "status": "FROZEN_PROSPECTIVE_V028_PROTOCOL_BEFORE_IMPLEMENTATION_TRAINING_AND_RESULT_EXPOSURE",
+  "training_protocol": {
+    "checkpoint_selection": {
+      "compatibility_metrics_used": false,
+      "mismatch_metrics_used": false,
+      "primary_metric": "clean_validation_macro_f1",
+      "quality_metrics_used": false,
+      "reselection_after_robustness_exposure": false,
+      "robustness_metrics_used": false
+    },
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "formal_training_order": [
+      "M4qcs-w",
+      "M4qcs-i",
+      "M4qcs"
+    ],
+    "hyperparameter_search_permitted": false,
+    "post_protocol_architecture_search_permitted": false,
+    "smoke_rule": {
+      "formal_evidence": false,
+      "hypothesis_decisions_permitted": false,
+      "purpose": "implementation integrity and numerical stability only",
+      "seed": 42
+    },
+    "training_cache_fixed": true,
+    "training_corruption_sampling": {
+      "clean_probability": 0.4,
+      "continuous_severities": [
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "mismatch_probability": 0.2,
+      "quality_family_probabilities": {
+        "attenuation": 0.4,
+        "gaussian_noise": 0.4,
+        "zero_dropout": 0.2
+      },
+      "simultaneous_bimodal_corruption": false,
+      "text_quality_probability": 0.2,
+      "vision_quality_probability": 0.2
+    },
+    "training_samples": 5000
+  },
+  "v028_architecture_contract": {
+    "architecture_expansion_beyond_contract_permitted": false,
+    "controller_equations": {
+      "allocation_weights": {
+        "required_sum": 1.0,
+        "text": "s_t / (s_t + s_v)",
+        "vision": "s_v / (s_t + s_v)"
+      },
+      "constants": {
+        "allocation_exponent_beta": 2.0,
+        "epsilon": 0.1,
+        "interaction_exponent_gamma": 1.0
+      },
+      "inputs": {
+        "c": "model-emitted cross-modal compatibility in [0,1]",
+        "q_t": "model-emitted text quality in [0,1]",
+        "q_v": "model-emitted vision quality in [0,1]"
+      },
+      "interaction_multiplier": "epsilon + (1 - epsilon) * (c ** gamma)",
+      "parameter_free_controller": true,
+      "selective_scores": {
+        "text": "(epsilon + q_t) ** beta",
+        "vision": "(epsilon + q_v) ** beta"
+      },
+      "separation_constraint": "Compatibility may affect the interaction multiplier but must not enter modality-weight allocation; modality quality may affect allocation but must not enter the compatibility interaction multiplier.",
+      "stop_gradient_controller_inputs": true
+    },
+    "family_name": "M4qcs",
+    "fusion_architecture": "quality_compatibility_selective_fusion",
+    "inherited_components": [
+      "text_projection",
+      "vision_projection",
+      "quality_estimators",
+      "compatibility_estimator",
+      "classification_head",
+      "frozen_embedding_inputs"
+    ],
+    "primary_architecture": "M4qcs",
+    "required_model_outputs": [
+      "text_quality",
+      "vision_quality",
+      "compatibility",
+      "text_weight",
+      "vision_weight",
+      "interaction_multiplier",
+      "effective_text_reliability",
+      "effective_vision_reliability"
+    ],
+    "required_variants": {
+      "M4qcs": {
+        "description": "Combined selective modality-weight reallocation, independent interaction suppression, and text-Gaussian reliability supervision.",
+        "formal_role": "primary_v028_architecture",
+        "interaction_suppression": true,
+        "selective_weight_reallocation": true,
+        "text_gaussian_objective": true
+      },
+      "M4qcs-i": {
+        "description": "Independent compatibility-derived interaction suppression with equal modality allocation.",
+        "formal_role": "interaction_pathway_ablation",
+        "interaction_suppression": true,
+        "selective_weight_reallocation": false,
+        "text_gaussian_objective": false
+      },
+      "M4qcs-w": {
+        "description": "Selective modality-weight reallocation with the compatibility interaction multiplier fixed at one.",
+        "formal_role": "weight_pathway_ablation",
+        "interaction_suppression": false,
+        "selective_weight_reallocation": true,
+        "text_gaussian_objective": true
+      }
+    },
+    "text_gaussian_objective": {
+      "enabled_for": [
+        "M4qcs-w",
+        "M4qcs"
+      ],
+      "loss": "mean_squared_error",
+      "other_quality_example_multiplier": 1.0,
+      "post_exposure_weight_change_permitted": false,
+      "target": "1.0 - severity for text Gaussian examples; existing frozen quality targets for all other training examples",
+      "target_source": "the same deterministic text Gaussian corruption severity used to construct each training example",
+      "text_gaussian_example_multiplier": 2.0
+    }
+  }
+}
