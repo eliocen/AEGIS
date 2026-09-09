@@ -1,0 +1,309 @@
+{
+  "audit_requirements": [
+    "verify all 18 checkpoints are frozen best_model.pt artifacts",
+    "verify all 342 quality-condition summaries and 342000 sample rows",
+    "verify all 36 mismatch summaries and 36000 sample rows",
+    "verify shared corruption tensor hashes across architectures and seeds",
+    "verify one shared deterministic mismatch mapping",
+    "verify model fingerprints remain unchanged",
+    "verify selective-controller path invariants",
+    "verify official test samples accessed equals zero"
+  ],
+  "branch": "feature/v0.28-selective-reliability-and-mismatch-control",
+  "checkpoint_matrix": [
+    {
+      "architecture": "M1b",
+      "checkpoint_pattern": "experiments/fakeddit/v025_m1b_gated_interaction_seed{seed}/best_model.pt",
+      "fusion_architecture": "gated_interaction",
+      "retraining_permitted": false,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "source": "frozen_inherited_baseline"
+    },
+    {
+      "architecture": "M4qc",
+      "checkpoint_pattern": "experiments/fakeddit/v027_m4qc_seed{seed}/best_model.pt",
+      "fusion_architecture": "quality_compatibility_supervised",
+      "retraining_permitted": false,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "source": "frozen_inherited_baseline"
+    },
+    {
+      "architecture": "M4qcf",
+      "checkpoint_pattern": "experiments/fakeddit/v027_m4qcf_seed{seed}/best_model.pt",
+      "fusion_architecture": "quality_compatibility_fusion",
+      "retraining_permitted": false,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "source": "frozen_inherited_baseline"
+    },
+    {
+      "architecture": "M4qcs-w",
+      "checkpoint_pattern": "experiments/fakeddit/v028_m4qcs_w_seed{seed}/best_model.pt",
+      "controller_mode": "weights_only",
+      "fusion_architecture": "quality_compatibility_selective_weights",
+      "retraining_permitted": false,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "source": "frozen_step3_training_result"
+    },
+    {
+      "architecture": "M4qcs-i",
+      "checkpoint_pattern": "experiments/fakeddit/v028_m4qcs_i_seed{seed}/best_model.pt",
+      "controller_mode": "interaction_only",
+      "fusion_architecture": "quality_compatibility_selective_interaction",
+      "retraining_permitted": false,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "source": "frozen_step3_training_result"
+    },
+    {
+      "architecture": "M4qcs",
+      "checkpoint_pattern": "experiments/fakeddit/v028_m4qcs_seed{seed}/best_model.pt",
+      "controller_mode": "combined",
+      "fusion_architecture": "quality_compatibility_selective_fusion",
+      "retraining_permitted": false,
+      "seeds": [
+        42,
+        43,
+        44
+      ],
+      "source": "frozen_step3_training_result"
+    }
+  ],
+  "controller_invariants": {
+    "M4qcs": {
+      "controller_mode": "combined",
+      "interaction_multiplier_compatibility_controlled": true,
+      "weights_sum_to_one": true
+    },
+    "M4qcs-i": {
+      "controller_mode": "interaction_only",
+      "interaction_multiplier_compatibility_controlled": true,
+      "text_weight_fixed_to_half": true,
+      "vision_weight_fixed_to_half": true
+    },
+    "M4qcs-w": {
+      "controller_mode": "weights_only",
+      "interaction_multiplier_fixed_to_one": true,
+      "weights_sum_to_one": true
+    },
+    "all_selective_variants": {
+      "controller_inputs_stop_gradient": true,
+      "controller_parameter_free": true,
+      "model_state_unchanged_during_evaluation": true,
+      "weight_interaction_path_separation_preserved": true
+    }
+  },
+  "data_boundary": {
+    "new_data_selection_permitted": false,
+    "official_test_access_permitted": false,
+    "official_test_samples_accessed": 0,
+    "sample_exclusion_permitted": false,
+    "training_cache": {
+      "expected_samples": 5000,
+      "path": "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42"
+    },
+    "validation_cache": {
+      "expected_samples": 1000,
+      "path": "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42",
+      "previously_exposed": true
+    }
+  },
+  "evaluation_matrix": {
+    "architectures": [
+      "M1b",
+      "M4qc",
+      "M4qcf",
+      "M4qcs-w",
+      "M4qcs-i",
+      "M4qcs"
+    ],
+    "mismatch_sample_rows": 36000,
+    "mismatch_states": [
+      "matched",
+      "class_preserving_mismatched"
+    ],
+    "mismatch_summary_rows": 36,
+    "quality_condition_summary_rows": 342,
+    "quality_conditions": [
+      {
+        "corrupted_modality": null,
+        "corruption_type": "clean",
+        "severity": 0.0
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_type": "attenuation",
+        "severity": 0.25
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_type": "attenuation",
+        "severity": 0.5
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_type": "attenuation",
+        "severity": 0.75
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_type": "attenuation",
+        "severity": 1.0
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_type": "gaussian_noise",
+        "severity": 0.25
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_type": "gaussian_noise",
+        "severity": 0.5
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_type": "gaussian_noise",
+        "severity": 0.75
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_type": "gaussian_noise",
+        "severity": 1.0
+      },
+      {
+        "corrupted_modality": "text",
+        "corruption_type": "zero_dropout",
+        "severity": 1.0
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_type": "attenuation",
+        "severity": 0.25
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_type": "attenuation",
+        "severity": 0.5
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_type": "attenuation",
+        "severity": 0.75
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_type": "attenuation",
+        "severity": 1.0
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_type": "gaussian_noise",
+        "severity": 0.25
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_type": "gaussian_noise",
+        "severity": 0.5
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_type": "gaussian_noise",
+        "severity": 0.75
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_type": "gaussian_noise",
+        "severity": 1.0
+      },
+      {
+        "corrupted_modality": "vision",
+        "corruption_type": "zero_dropout",
+        "severity": 1.0
+      }
+    ],
+    "quality_conditions_per_architecture_seed": 19,
+    "quality_sample_rows": 342000,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "validation_samples_per_evaluation": 1000
+  },
+  "evidence_classification": "CONTROLLED_VALIDATION_DEVELOPMENT_EVIDENCE",
+  "execution_contract": {
+    "architecture_modification_performed": false,
+    "checkpoint_reselection_performed": false,
+    "condition_or_seed_dropping_permitted": false,
+    "evaluation_only": true,
+    "formal_decision_step": "Step5",
+    "formal_hypothesis_decisions_computed": false,
+    "output_root": "experiments/fakeddit/v028_unified_evaluation",
+    "threshold_tuning_performed": false,
+    "training_performed": false
+  },
+  "experiment": "fakeddit_v028_unified_selective_reliability_evaluation",
+  "formal_hypothesis_status": {
+    "V28_H1": "NOT_COMPUTED",
+    "V28_H2": "NOT_COMPUTED",
+    "V28_H3": "NOT_COMPUTED",
+    "V28_H4": "NOT_COMPUTED"
+  },
+  "next_step": "Step4B \u2014 implement, test, freeze, and run the unified evaluator; Step5 alone computes formal decisions",
+  "operationalization_version": "0.28.0-step4a",
+  "parent_commit": "e1e8e2be7d56de451d8d8f139b84c3ffd7712df1",
+  "required_metrics": [
+    "accuracy",
+    "f1",
+    "macro_f1",
+    "text_quality",
+    "vision_quality",
+    "compatibility",
+    "text_weight",
+    "vision_weight",
+    "interaction_multiplier",
+    "matched_macro_f1",
+    "mismatched_macro_f1",
+    "prediction_flip_count",
+    "prediction_flip_rate",
+    "harmful_flip_count",
+    "beneficial_flip_count",
+    "harmful_minus_beneficial_flip_count"
+  ],
+  "shared_realization_contract": {
+    "corruption_tensors_identical_across_architectures": true,
+    "corruption_tensors_identical_across_model_seeds": true,
+    "corruption_tensors_precomputed_once": true,
+    "mismatch_construction": "deterministic_class_preserving_validation_derangement",
+    "mismatch_mapping_identical_across_architectures": true,
+    "mismatch_mapping_identical_across_model_seeds": true,
+    "mismatch_mapping_independent_of_training_rng": true,
+    "no_self_pairs": true,
+    "training_cache_feature_std_used_for_gaussian_scale": true,
+    "vision_used_once_within_class": true
+  },
+  "source_document_sha256": {
+    "docs/experiments/v028/step1_selective_reliability_mismatch_protocol.json": "92bd206c8aae6933421a586e522b006d991f59ef9049f9fb5b4295f229539f48",
+    "docs/experiments/v028/step3_formal_training_results.json": "07d3e895620fb9b2099ecb79e1c2113fbd2a0adfc6c3e77d15eb0b5cf9d2e7d1",
+    "docs/experiments/v028/step3_locked_training_operationalization.json": "ba715e61553a80119a868cee4dea99cae2ff52d3aa3cd6398ce8a56b5f5e8d88"
+  },
+  "status": "FROZEN_BEFORE_UNIFIED_V028_EVALUATION"
+}
