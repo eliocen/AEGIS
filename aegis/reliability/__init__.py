@@ -31,6 +31,11 @@ from .quality_estimator import (
     ModalityQualityEstimator,
     QualityEstimatorConfig,
 )
+from .reliability_controller import (
+    DeterministicReliabilityController,
+    ReliabilityControllerOutput,
+    SelectiveReliabilityController,
+)
 from .targets import (
     ModalityName,
     QualityCondition,
@@ -47,10 +52,13 @@ __all__ = [
     "CorruptionResult",
     "ModalityName",
     "ModalityQualityEstimator",
+    "DeterministicReliabilityController",
     "PermutationMismatchPlan",
     "QualityCondition",
     "QualityEstimatorConfig",
     "QualityTargets",
+    "ReliabilityControllerOutput",
+    "SelectiveReliabilityController",
     "apply_permutation_mismatch_plan",
     "attenuation",
     "compute_feature_std",

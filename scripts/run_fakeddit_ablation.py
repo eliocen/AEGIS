@@ -285,6 +285,9 @@ def parse_args():
             "quality_supervised",
             "quality_compatibility_supervised",
             "quality_compatibility_fusion",
+            "quality_compatibility_selective_weights",
+            "quality_compatibility_selective_interaction",
+            "quality_compatibility_selective_fusion",
             "evidence_aware",
         ],
         help=(
@@ -560,6 +563,9 @@ def validate_args(
         args.fusion_architecture in {
             "quality_compatibility_supervised",
             "quality_compatibility_fusion",
+            "quality_compatibility_selective_weights",
+            "quality_compatibility_selective_interaction",
+            "quality_compatibility_selective_fusion",
         }
         and args.quality_weight <= 0
     ):
@@ -572,6 +578,9 @@ def validate_args(
         args.fusion_architecture in {
             "quality_compatibility_supervised",
             "quality_compatibility_fusion",
+            "quality_compatibility_selective_weights",
+            "quality_compatibility_selective_interaction",
+            "quality_compatibility_selective_fusion",
         }
         and args.compatibility_weight <= 0
     ):
@@ -620,6 +629,9 @@ def validate_args(
             "quality_supervised",
             "quality_compatibility_supervised",
             "quality_compatibility_fusion",
+            "quality_compatibility_selective_weights",
+            "quality_compatibility_selective_interaction",
+            "quality_compatibility_selective_fusion",
             "evidence_aware",
         }
         and args.mode != "multimodal"
@@ -712,6 +724,15 @@ def mode_description(
             "reliability-weighted evidence + compatibility-scaled interaction -> classifier"
         )
 
+    if fusion_architecture == "quality_compatibility_selective_weights":
+        return "M4qcs-w selective quality allocation with unsuppressed interaction"
+
+    if fusion_architecture == "quality_compatibility_selective_interaction":
+        return "M4qcs-i equal allocation with selective interaction suppression"
+
+    if fusion_architecture == "quality_compatibility_selective_fusion":
+        return "M4qcs combined selective allocation and interaction suppression"
+
     if fusion_architecture == "evidence_aware":
         return (
             "XLM-R + CLIP -> projections -> evidence interaction -> "
@@ -783,6 +804,9 @@ class FakedditAblationTrainer(
             "quality_supervised",
             "quality_compatibility_supervised",
             "quality_compatibility_fusion",
+            "quality_compatibility_selective_weights",
+            "quality_compatibility_selective_interaction",
+            "quality_compatibility_selective_fusion",
             "evidence_aware",
         }:
             raise ValueError(
@@ -912,6 +936,20 @@ class FakedditAblationTrainer(
                 "alignment_model.quality_compatibility_fusion."
             )
 
+        expected_selective_mode = {
+            "quality_compatibility_selective_weights": "weights_only",
+            "quality_compatibility_selective_interaction": "interaction_only",
+            "quality_compatibility_selective_fusion": "combined",
+        }.get(fusion_architecture)
+        if (
+            self.alignment_model.quality_compatibility_selective_fusion
+            != expected_selective_mode
+        ):
+            raise ValueError(
+                "fusion_architecture is inconsistent with alignment_model."
+                "quality_compatibility_selective_fusion."
+            )
+
         self.fusion_architecture = fusion_architecture
 
         if (
@@ -993,6 +1031,9 @@ class FakedditAblationTrainer(
         compute_alignment_loss: bool = True,
         quality_targets: Optional[tuple[torch.Tensor, torch.Tensor]] = None,
         quality_loss_weight: float = 0.0,
+        quality_sample_weights: Optional[
+            tuple[torch.Tensor, torch.Tensor]
+        ] = None,
         compatibility_targets: Optional[torch.Tensor] = None,
         compatibility_loss_weight: float = 0.0,
     ) -> Dict:
@@ -1040,6 +1081,9 @@ class FakedditAblationTrainer(
                 "quality_supervised",
                 "quality_compatibility_supervised",
                 "quality_compatibility_fusion",
+                "quality_compatibility_selective_weights",
+                "quality_compatibility_selective_interaction",
+                "quality_compatibility_selective_fusion",
             }:
                 raise ValueError(
                     "quality_targets are valid only for M4q/M4qc quality "
@@ -1067,16 +1111,47 @@ class FakedditAblationTrainer(
                     "vision quality target shape mismatch: "
                     f"{tuple(vision_target.shape)} != {tuple(vision_quality.shape)}."
                 )
-            text_quality_loss = nn.functional.mse_loss(text_quality, text_target)
-            vision_quality_loss = nn.functional.mse_loss(
-                vision_quality, vision_target
-            )
+            if quality_sample_weights is None:
+                text_quality_loss = nn.functional.mse_loss(
+                    text_quality, text_target
+                )
+                vision_quality_loss = nn.functional.mse_loss(
+                    vision_quality, vision_target
+                )
+            else:
+                text_sample_weight, vision_sample_weight = (
+                    quality_sample_weights
+                )
+                text_sample_weight = text_sample_weight.to(
+                    device=text_quality.device, dtype=text_quality.dtype
+                )
+                vision_sample_weight = vision_sample_weight.to(
+                    device=vision_quality.device, dtype=vision_quality.dtype
+                )
+                if text_sample_weight.shape != text_quality.shape:
+                    raise ValueError("text quality sample-weight shape mismatch.")
+                if vision_sample_weight.shape != vision_quality.shape:
+                    raise ValueError("vision quality sample-weight shape mismatch.")
+                if torch.any(text_sample_weight <= 0.0) or torch.any(
+                    vision_sample_weight <= 0.0
+                ):
+                    raise ValueError("quality sample weights must be positive.")
+                text_quality_loss = (
+                    (text_quality - text_target).pow(2) * text_sample_weight
+                ).mean()
+                vision_quality_loss = (
+                    (vision_quality - vision_target).pow(2)
+                    * vision_sample_weight
+                ).mean()
             quality_loss = 0.5 * (text_quality_loss + vision_quality_loss)
 
         if compatibility_targets is not None:
             if self.fusion_architecture not in {
                 "quality_compatibility_supervised",
                 "quality_compatibility_fusion",
+                "quality_compatibility_selective_weights",
+                "quality_compatibility_selective_interaction",
+                "quality_compatibility_selective_fusion",
             }:
                 raise ValueError(
                     "compatibility_targets are valid only for M4qc/M4qcf."
@@ -1143,6 +1218,9 @@ class FakedditAblationTrainer(
         *,
         quality_targets: Optional[tuple[torch.Tensor, torch.Tensor]] = None,
         quality_loss_weight: float = 0.0,
+        quality_sample_weights: Optional[
+            tuple[torch.Tensor, torch.Tensor]
+        ] = None,
         compatibility_targets: Optional[torch.Tensor] = None,
         compatibility_loss_weight: float = 0.0,
     ) -> Dict[str, float]:
@@ -1156,6 +1234,7 @@ class FakedditAblationTrainer(
             compute_alignment_loss=True,
             quality_targets=quality_targets,
             quality_loss_weight=quality_loss_weight,
+            quality_sample_weights=quality_sample_weights,
             compatibility_targets=compatibility_targets,
             compatibility_loss_weight=compatibility_loss_weight,
         )
@@ -1523,6 +1602,57 @@ def prepare_m4qc_training_batch(
     )
 
 
+def prepare_m4qcs_training_batch(
+    batch: BinaryIntegrityBatch,
+    *,
+    text_feature_std: torch.Tensor,
+    vision_feature_std: torch.Tensor,
+    seed: int,
+) -> tuple[
+    BinaryIntegrityBatch,
+    tuple[torch.Tensor, torch.Tensor],
+    torch.Tensor,
+    tuple[torch.Tensor, torch.Tensor],
+    Dict[str, int],
+]:
+    """Prepare the frozen v0.28 mixture and text-Gaussian loss weights."""
+    prepared, quality_targets, compatibility_targets, counts = (
+        prepare_m4qc_training_batch(
+            batch,
+            text_feature_std=text_feature_std,
+            vision_feature_std=vision_feature_std,
+            seed=seed,
+        )
+    )
+    generator = _local_generator(seed)
+    condition_draw = torch.rand(batch.batch_size, generator=generator)
+    family_draw = torch.rand(batch.batch_size, generator=generator)
+    # Consume the same severity draw used by prepare_m4qc_training_batch.
+    torch.randint(
+        low=0,
+        high=len(M4Q_SEVERITIES),
+        size=(batch.batch_size,),
+        generator=generator,
+    )
+    text_gaussian = (
+        (condition_draw >= 0.40)
+        & (condition_draw < 0.60)
+        & (family_draw < 0.40)
+    )
+    text_weights = torch.ones_like(quality_targets[0])
+    text_weights[text_gaussian.to(text_weights.device), 0] = 2.0
+    vision_weights = torch.ones_like(quality_targets[1])
+    counts = dict(counts)
+    counts["text_gaussian_weight_2"] = int(text_gaussian.sum().item())
+    return (
+        prepared,
+        quality_targets,
+        compatibility_targets,
+        (text_weights, vision_weights),
+        counts,
+    )
+
+
 # =====================================================================
 # Evaluation
 # =====================================================================
@@ -1764,6 +1894,7 @@ def train_one_epoch(
         seed=seed,
     )):
         quality_targets = None
+        quality_sample_weights = None
         compatibility_targets = None
         training_batch = batch
 
@@ -1771,6 +1902,9 @@ def train_one_epoch(
             "quality_supervised",
             "quality_compatibility_supervised",
             "quality_compatibility_fusion",
+            "quality_compatibility_selective_weights",
+            "quality_compatibility_selective_interaction",
+            "quality_compatibility_selective_fusion",
         }:
             if text_feature_std is None or vision_feature_std is None:
                 raise RuntimeError(
@@ -1790,6 +1924,22 @@ def train_one_epoch(
                     quality_targets,
                     counts,
                 ) = prepare_m4q_training_batch(
+                    batch,
+                    text_feature_std=text_feature_std,
+                    vision_feature_std=vision_feature_std,
+                    seed=corruption_seed,
+                )
+            elif trainer.fusion_architecture in {
+                "quality_compatibility_selective_weights",
+                "quality_compatibility_selective_fusion",
+            }:
+                (
+                    training_batch,
+                    quality_targets,
+                    compatibility_targets,
+                    quality_sample_weights,
+                    counts,
+                ) = prepare_m4qcs_training_batch(
                     batch,
                     text_feature_std=text_feature_std,
                     vision_feature_std=vision_feature_std,
@@ -1818,14 +1968,24 @@ def train_one_epoch(
                     "quality_supervised",
                     "quality_compatibility_supervised",
                     "quality_compatibility_fusion",
+                    "quality_compatibility_selective_weights",
+                    "quality_compatibility_selective_interaction",
+                    "quality_compatibility_selective_fusion",
                 }
                 else 0.0
             ),
+            quality_sample_weights=quality_sample_weights,
             compatibility_targets=compatibility_targets,
             compatibility_loss_weight=(
                 compatibility_loss_weight
                 if trainer.fusion_architecture
-                in {"quality_compatibility_supervised", "quality_compatibility_fusion"}
+                in {
+                    "quality_compatibility_supervised",
+                    "quality_compatibility_fusion",
+                    "quality_compatibility_selective_weights",
+                    "quality_compatibility_selective_interaction",
+                    "quality_compatibility_selective_fusion",
+                }
                 else 0.0
             ),
         )
@@ -2096,6 +2256,9 @@ def collect_component_fingerprints(
         elif fusion_architecture in {
             "quality_compatibility_supervised",
             "quality_compatibility_fusion",
+            "quality_compatibility_selective_weights",
+            "quality_compatibility_selective_interaction",
+            "quality_compatibility_selective_fusion",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -2297,6 +2460,9 @@ def effective_parameter_counts(
         elif fusion_architecture in {
             "quality_compatibility_supervised",
             "quality_compatibility_fusion",
+            "quality_compatibility_selective_weights",
+            "quality_compatibility_selective_interaction",
+            "quality_compatibility_selective_fusion",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -2743,6 +2909,12 @@ def main():
             quality_compatibility_fusion=(
                 args.fusion_architecture == "quality_compatibility_fusion"
             ),
+
+            quality_compatibility_selective_fusion={
+                "quality_compatibility_selective_weights": "weights_only",
+                "quality_compatibility_selective_interaction": "interaction_only",
+                "quality_compatibility_selective_fusion": "combined",
+            }.get(args.fusion_architecture),
         )
     )
 
@@ -2983,6 +3155,9 @@ def main():
         elif args.fusion_architecture in {
             "quality_compatibility_supervised",
             "quality_compatibility_fusion",
+            "quality_compatibility_selective_weights",
+            "quality_compatibility_selective_interaction",
+            "quality_compatibility_selective_fusion",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -3181,6 +3356,9 @@ def main():
                 "quality_supervised",
                 "quality_compatibility_supervised",
                 "quality_compatibility_fusion",
+                "quality_compatibility_selective_weights",
+                "quality_compatibility_selective_interaction",
+                "quality_compatibility_selective_fusion",
             }
             else 0.0
         ),
@@ -3193,6 +3371,9 @@ def main():
             if args.fusion_architecture in {
                 "quality_compatibility_supervised",
                 "quality_compatibility_fusion",
+                "quality_compatibility_selective_weights",
+                "quality_compatibility_selective_interaction",
+                "quality_compatibility_selective_fusion",
             }
             else 0.0
         ),
@@ -3286,6 +3467,9 @@ def main():
                 "quality_supervised",
                 "quality_compatibility_supervised",
                 "quality_compatibility_fusion",
+                "quality_compatibility_selective_weights",
+                "quality_compatibility_selective_interaction",
+                "quality_compatibility_selective_fusion",
             }
         ),
 
@@ -3295,6 +3479,9 @@ def main():
                 "quality_supervised",
                 "quality_compatibility_supervised",
                 "quality_compatibility_fusion",
+                "quality_compatibility_selective_weights",
+                "quality_compatibility_selective_interaction",
+                "quality_compatibility_selective_fusion",
             }
             else 0.0
         ),
@@ -3304,6 +3491,9 @@ def main():
             if args.fusion_architecture in {
                 "quality_compatibility_supervised",
                 "quality_compatibility_fusion",
+                "quality_compatibility_selective_weights",
+                "quality_compatibility_selective_interaction",
+                "quality_compatibility_selective_fusion",
             }
             else 0.0
         ),
@@ -3329,6 +3519,9 @@ def main():
                 "quality_supervised",
                 "quality_compatibility_supervised",
                 "quality_compatibility_fusion",
+                "quality_compatibility_selective_weights",
+                "quality_compatibility_selective_interaction",
+                "quality_compatibility_selective_fusion",
             }
             else None
         ),
@@ -3412,6 +3605,9 @@ def main():
                 "quality_supervised",
                 "quality_compatibility_supervised",
                 "quality_compatibility_fusion",
+                "quality_compatibility_selective_weights",
+                "quality_compatibility_selective_interaction",
+                "quality_compatibility_selective_fusion",
             }
             else None
         ),
@@ -3777,6 +3973,9 @@ def main():
                             "quality_supervised",
                             "quality_compatibility_supervised",
                             "quality_compatibility_fusion",
+                            "quality_compatibility_selective_weights",
+                            "quality_compatibility_selective_interaction",
+                            "quality_compatibility_selective_fusion",
                         }
                         else 0.0
                     ),
@@ -3786,6 +3985,9 @@ def main():
                         if args.fusion_architecture in {
                             "quality_compatibility_supervised",
                             "quality_compatibility_fusion",
+                            "quality_compatibility_selective_weights",
+                            "quality_compatibility_selective_interaction",
+                            "quality_compatibility_selective_fusion",
                         }
                         else 0.0
                     ),
