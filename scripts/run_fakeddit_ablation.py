@@ -240,6 +240,20 @@ DEFAULT_EXPERIMENT_ROOT = Path(
     "ablation"
 )
 
+QUALITY_TRAINING_ARCHITECTURES = frozenset({
+    "quality_supervised",
+    "quality_compatibility_supervised",
+    "quality_compatibility_fusion",
+    "quality_compatibility_selective_weights",
+    "quality_compatibility_selective_interaction",
+    "quality_compatibility_selective_fusion",
+})
+
+
+def requires_quality_feature_statistics(fusion_architecture: str) -> bool:
+    """Return whether training needs frozen-cache Gaussian scale statistics."""
+    return fusion_architecture in QUALITY_TRAINING_ARCHITECTURES
+
 
 # =====================================================================
 # CLI
@@ -2926,6 +2940,9 @@ def main():
         "quality_supervised",
         "quality_compatibility_supervised",
         "quality_compatibility_fusion",
+        "quality_compatibility_selective_weights",
+        "quality_compatibility_selective_interaction",
+        "quality_compatibility_selective_fusion",
     }:
 
         if alignment_model.gated_interaction_fusion is None:
@@ -2994,11 +3011,7 @@ def main():
     text_feature_std = None
     vision_feature_std = None
 
-    if args.fusion_architecture in {
-        "quality_supervised",
-        "quality_compatibility_supervised",
-        "quality_compatibility_fusion",
-    }:
+    if requires_quality_feature_statistics(args.fusion_architecture):
         text_feature_std = compute_feature_std(
             train_data.text_embeddings,
             unbiased=False,
@@ -3015,10 +3028,15 @@ def main():
             print("M4qc quality + compatibility supervision: ENABLED")
             print("M4qc quality loss weight:", args.quality_weight)
             print("M4qc compatibility loss weight:", args.compatibility_weight)
-        else:
+        elif args.fusion_architecture == "quality_compatibility_fusion":
             print("M4qcf reliability-informed fusion supervision: ENABLED")
             print("M4qcf quality loss weight:", args.quality_weight)
             print("M4qcf compatibility loss weight:", args.compatibility_weight)
+        else:
+            print("M4qcs selective reliability supervision: ENABLED")
+            print("M4qcs architecture:", args.fusion_architecture)
+            print("M4qcs quality loss weight:", args.quality_weight)
+            print("M4qcs compatibility loss weight:", args.compatibility_weight)
         print("v0.27 Gaussian feature scale: training-cache population std")
         print()
 

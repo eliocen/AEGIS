@@ -3,7 +3,10 @@
 import torch
 
 from aegis.training import BinaryIntegrityBatch
-from scripts.run_fakeddit_ablation import prepare_m4qcs_training_batch
+from scripts.run_fakeddit_ablation import (
+    prepare_m4qcs_training_batch,
+    requires_quality_feature_statistics,
+)
 
 
 def _batch(size=32):
@@ -13,6 +16,19 @@ def _batch(size=32):
         integrity_targets=torch.arange(size) % 2,
         sample_ids=[f"v028-{i}" for i in range(size)],
     )
+
+
+def test_all_m4qcs_variants_initialize_quality_feature_statistics():
+    for architecture in (
+        "quality_compatibility_selective_weights",
+        "quality_compatibility_selective_interaction",
+        "quality_compatibility_selective_fusion",
+    ):
+        assert requires_quality_feature_statistics(architecture)
+
+
+def test_nonquality_architecture_does_not_initialize_quality_statistics():
+    assert not requires_quality_feature_statistics("gated_interaction")
 
 
 def test_m4qcs_preparation_is_deterministic_and_preserves_batch_size():
