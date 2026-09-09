@@ -1,0 +1,419 @@
+{
+  "closure": {
+    "next_development_line": "v0.28",
+    "step16_complete_when_this_record_is_committed": true,
+    "v027_additional_architecture_changes_permitted": false,
+    "v027_additional_experiments_permitted": false,
+    "v027_formal_decisions_final": true,
+    "v028_requirement": "Any v0.28 architecture, criterion, hypothesis, or evaluation must be prospectively specified and frozen before result exposure."
+  },
+  "documentation_integrity": {
+    "all_outcomes_retained": true,
+    "step13a": {
+      "classification": "MINIMAL_PRE_IMPLEMENTATION_FREEZE_MARKER",
+      "json_bytes": 0,
+      "limitation": "Step13A did not contain a complete machine-readable or narrative protocol. No retrospective reconstruction was performed; later M4qcf configuration, training, and robustness records are retained as written, and claims of detailed Step13A preregistration are not made.",
+      "markdown_marker": "FROZEN BEFORE M4qcf IMPLEMENTATION AND RESULT EXPOSURE",
+      "protocol_commit": "822c913",
+      "retrospective_reconstruction_performed": false
+    },
+    "unsupported_formal_results_retained": [
+      "H9-F",
+      "H10-F"
+    ]
+  },
+  "exploratory_step15": {
+    "candidate_mechanistic_explanations": [
+      "The reliability pathway may correctly detect unusable modalities yet lack sufficient selectivity to improve decisions under mild or distributed corruption.",
+      "Down-weighting may be helpful but insufficient when the retained modality lacks adequate decision-relevant information or when downstream fusion/classifier geometry remains unfavorable.",
+      "Compatibility suppression may remove both harmful and useful cross-modal interactions, reducing total changes without improving their harmful-to-beneficial balance.",
+      "The current mechanism appears better suited to catastrophic modality loss than to consistently graded robustness across corruption regimes."
+    ],
+    "candidate_v028_hypotheses": [
+      {
+        "hypothesis": "A prospectively specified reliability mechanism can improve positive-condition coverage under mild and graded corruptions while preserving catastrophic modality-loss robustness.",
+        "id": "V28-H1-CANDIDATE",
+        "status": "EXPLORATORY_CANDIDATE_REQUIRING_PROSPECTIVE_V028_FREEZE"
+      },
+      {
+        "hypothesis": "A prospectively specified mismatch mechanism can improve the harmful-to-beneficial transition balance rather than merely reduce total prediction flips.",
+        "id": "V28-H2-CANDIDATE",
+        "status": "EXPLORATORY_CANDIDATE_REQUIRING_PROSPECTIVE_V028_FREEZE"
+      },
+      {
+        "hypothesis": "Separating interaction suppression from modality-weight reallocation can yield more selective mismatch responses under a preregistered evaluation.",
+        "id": "V28-H3-CANDIDATE",
+        "status": "EXPLORATORY_CANDIDATE_REQUIRING_PROSPECTIVE_V028_FREEZE"
+      },
+      {
+        "hypothesis": "A prospectively defined text-side reliability objective can improve robustness to text Gaussian perturbation without degrading other frozen regimes.",
+        "id": "V28-H4-CANDIDATE",
+        "status": "EXPLORATORY_CANDIDATE_REQUIRING_PROSPECTIVE_V028_FREEZE"
+      }
+    ],
+    "classification": "EXPLORATORY_POST_HOC_NOT_CONFIRMATORY",
+    "descriptive_associations": [
+      "Down-weighting magnitude and robustness benefit moved together descriptively in the pooled conditions, but this relationship varied by modality, corruption family, and severity.",
+      "Strongest positive gains occurred when vision information was completely removed; mild corruptions frequently showed no benefit.",
+      "Text Gaussian noise remained a specific unfavorable regime, with negative R_i in 10/12 observations.",
+      "Mismatch suppression substantially reduced effective reliabilities while average text/vision fusion weights remained nearly unchanged.",
+      "Lower total prediction-flip rate did not imply lower mismatch degradation; the direction and balance of flips mattered."
+    ],
+    "directly_observed_findings": [
+      {
+        "evidence": {
+          "H8_F": "SUPPORTED",
+          "mean_D_m": 0.1333673901324747,
+          "positive_D_m": "54/54"
+        },
+        "finding": "M4qcf consistently down-weighted the corrupted modality in all 54 frozen seed-condition observations.",
+        "id": "O1"
+      },
+      {
+        "evidence": {
+          "H9_F": "NOT_SUPPORTED",
+          "mean_R_i": 0.051111288731590224,
+          "median_R_i": 0.001426187266855894,
+          "negative_R_i": "25/54",
+          "positive_R_i": "29/54"
+        },
+        "finding": "Downstream robustness benefit was heterogeneous and failed the frozen cross-condition coverage criterion.",
+        "id": "O2"
+      },
+      {
+        "evidence": {
+          "remaining_48_mean_R_i": 0.003532432832697198,
+          "six_severe_vision_rows_share_of_total_R_i": 0.938566599010638
+        },
+        "finding": "The positive H9 aggregate was highly concentrated in catastrophic vision-loss conditions.",
+        "id": "O3"
+      },
+      {
+        "evidence": {
+          "D_m_positive_R_i_nonpositive": 25,
+          "pearson_r": 0.6245231009919004,
+          "spearman_rho": 0.6953753478973655
+        },
+        "finding": "Larger down-weighting was positively associated with larger R_i in the pooled exploratory observations, but 25 observations combined positive D_m with nonpositive R_i.",
+        "id": "O4"
+      },
+      {
+        "evidence": {
+          "H10_F": "NOT_SUPPORTED",
+          "mean_D_I": 0.42031526107986356,
+          "mean_G": -0.007623939063888622,
+          "negative_G_seeds": "3/3"
+        },
+        "finding": "M4qcf strongly suppressed compatibility-informed interaction under mismatch in every seed without reducing mismatch degradation relative to M1b.",
+        "id": "O5"
+      },
+      {
+        "evidence": {
+          "M1b_flip_rate": 0.18466666666666667,
+          "M1b_net_harmful": 44,
+          "M4qcf_flip_rate": 0.119,
+          "M4qcf_net_harmful": 67
+        },
+        "finding": "M4qcf reduced total mismatch-induced prediction flips relative to M1b but retained a worse harmful-versus-beneficial flip balance.",
+        "id": "O6"
+      }
+    ],
+    "formal_decisions_changed": false,
+    "source_status": "STEP15_COMPLETE_FROZEN_EXPLORATORY_SYNTHESIS"
+  },
+  "formal_decision_matrix": [
+    {
+      "decision": "SUPPORTED",
+      "hypothesis": "H1-Q",
+      "primary_evidence": {
+        "mean_spearman_rho": -1.0,
+        "negative_curves": "12/12"
+      },
+      "stage": "M4q intrinsic-quality monotonicity"
+    },
+    {
+      "decision": "SUPPORTED",
+      "hypothesis": "H2-Q",
+      "primary_evidence": {
+        "positive_proportion": 1.0,
+        "positive_selectivity": "54/54"
+      },
+      "stage": "M4q modality selectivity"
+    },
+    {
+      "decision": "SUPPORTED",
+      "hypothesis": "H3-Q",
+      "primary_evidence": {
+        "mean_intact_quality": 0.9608055760663078,
+        "mean_zeroed_quality": 0.014434382581242917
+      },
+      "stage": "M4q zero-dropout discrimination"
+    },
+    {
+      "decision": "SUPPORTED",
+      "hypothesis": "H6-CLS",
+      "primary_evidence": {
+        "delta_vs_M1b": -0.0010366992568159317,
+        "descriptive_margin": -0.01,
+        "mean_macro_f1": 0.8725633007431841
+      },
+      "stage": "M4q clean-classification preservation"
+    },
+    {
+      "decision": "SUPPORTED",
+      "hypothesis": "H4-C",
+      "primary_evidence": {
+        "mean_roc_auc": 0.804852,
+        "threshold": 0.8
+      },
+      "stage": "M4qc compatibility discrimination"
+    },
+    {
+      "decision": "SUPPORTED",
+      "hypothesis": "H5-C",
+      "primary_evidence": {
+        "mean_abs_text_quality_change": 0.0,
+        "mean_abs_vision_quality_change": 0.0,
+        "mean_compatibility_drop": 0.3095600563993018
+      },
+      "stage": "M4qc quality stability and compatibility drop"
+    },
+    {
+      "decision": "SUPPORTED",
+      "hypothesis": "H7-F",
+      "primary_evidence": {
+        "delta_vs_M1b": -0.006184632011983604,
+        "descriptive_margin": -0.01,
+        "mean_macro_f1": 0.8674153679880164
+      },
+      "stage": "M4qcf clean-classification preservation"
+    },
+    {
+      "decision": "SUPPORTED",
+      "hypothesis": "H8-F",
+      "primary_evidence": {
+        "mean_down_weighting": 0.1333673901324747,
+        "positive_observations": "54/54"
+      },
+      "stage": "M4qcf corrupted-modality down-weighting"
+    },
+    {
+      "decision": "NOT_SUPPORTED",
+      "hypothesis": "H9-F",
+      "primary_evidence": {
+        "failed_component": "coverage_gate",
+        "mean_macro_f1_improvement": 0.051111288731590224,
+        "positive_observations": "29/54"
+      },
+      "stage": "M4qcf cross-condition robustness improvement"
+    },
+    {
+      "decision": "NOT_SUPPORTED",
+      "hypothesis": "H10-F",
+      "primary_evidence": {
+        "failed_component": "classification_mismatch_reduction_gate",
+        "mean_G": -0.007623939063888622,
+        "mean_interaction_suppression_D_I": 0.42031526107986356
+      },
+      "stage": "M4qcf mismatch robustness"
+    }
+  ],
+  "record_version": "0.27.2-step16",
+  "release": {
+    "branch": "feature/v0.27-corruption-aware-reliability",
+    "commits_since_previous_tag_before_closure": 35,
+    "preclosure_head": "b20bff365cc61b4071109065e5bd13e72e52fdfc",
+    "previous_tag": "v0.27.1",
+    "release_line": "AEGIS v0.27",
+    "tag_must_target_step16_closure_commit": true,
+    "target_tag": "v0.27.2"
+  },
+  "release_verification": {
+    "git_diff_check": "PASS",
+    "git_fsck_full_no_dangling": "PASS",
+    "pytest": {
+      "failed": 0,
+      "passed": 917,
+      "status": "PASS"
+    },
+    "python_compileall": "PASS",
+    "verification_performed_at_head": "b20bff365cc61b4071109065e5bd13e72e52fdfc"
+  },
+  "scientific_synthesis": {
+    "central_mechanistic_result": "Reliable internal adaptation was observed without reliable downstream robustness.",
+    "not_demonstrated": [
+      "Consistent M4qcf robustness improvement over M1b across the frozen corruption matrix.",
+      "Reduced mismatch-induced classification degradation relative to M1b.",
+      "Statistical noninferiority, statistical significance, or causal effects.",
+      "Open-world factual verification, source credibility, author intent, human trust, or universal semantic consistency.",
+      "Raw-input, cross-dataset, temporal, geographic, or arbitrary real-world robustness generalization."
+    ],
+    "primary_conclusion": "AEGIS v0.27 established that explicitly supervised intrinsic modality quality and cross-modal compatibility can be learned under frozen controlled Fakeddit validation conditions, and that these signals can drive consistent internal reliability adaptation. However, M4qcf did not demonstrate sufficiently consistent downstream robustness across corruption conditions or reduced mismatch-induced classification degradation relative to M1b.",
+    "supported_capabilities": [
+      "Monotonic and modality-selective intrinsic-quality response to controlled representation corruption.",
+      "Controlled matched-versus-mismatched compatibility discrimination.",
+      "Clean validation classification preservation within frozen descriptive margins for M4q, M4qc, and M4qcf.",
+      "Consistent corrupted-modality down-weighting by M4qcf across all 54 formal seed-condition observations.",
+      "Compatibility-informed interaction suppression under deterministic class-preserving mismatch."
+    ]
+  },
+  "scope_and_safety": {
+    "dataset": "Fakeddit",
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0,
+    "post_exposure_checkpoint_reselection_performed": false,
+    "post_exposure_threshold_tuning_performed": false,
+    "split": "validation",
+    "step15_architecture_modification_performed": false,
+    "step15_confirmatory_claim_made": false,
+    "validation_samples": 1000
+  },
+  "source_document_manifest": {
+    "docs/experiments/v027/m4q_quality_analysis_results.json": {
+      "bytes": 9312,
+      "sha256": "965feae06a42c3c36c17d5c95b46fc0debb525d461bf0b5742585eb1bb397f1a"
+    },
+    "docs/experiments/v027/m4q_quality_analysis_results.md": {
+      "bytes": 11515,
+      "sha256": "69287faf2bbeed2830d29fc3aac374b81f8ed948ff8a95ab9809d326ffc9cf68"
+    },
+    "docs/experiments/v027/m4q_training_results.json": {
+      "bytes": 5336,
+      "sha256": "a4c431eff1a513b872631164827648610bd4591ec1a8325a03086757af898a1b"
+    },
+    "docs/experiments/v027/m4q_training_results.md": {
+      "bytes": 3553,
+      "sha256": "8219c5aa2e47625f988a98ef80c7ee01615004b1260bc58eb37e01e4ee755bcd"
+    },
+    "docs/experiments/v027/protocol.json": {
+      "bytes": 5982,
+      "sha256": "040db7365b6bc1335556c700d8730647354b1e029213f53fcdeb02b429767b28"
+    },
+    "docs/experiments/v027/protocol.md": {
+      "bytes": 21201,
+      "sha256": "1dd40d2289f48bdbefcef468deec3d9903c5a060a84133f36387a6fe8b9e8264"
+    },
+    "docs/experiments/v027/step10_analysis_protocol.json": {
+      "bytes": 6661,
+      "sha256": "1911478c92e9be3c6ce822b4a344c83f149edf7baa2ad0b9a1b5466cea11855f"
+    },
+    "docs/experiments/v027/step10_analysis_protocol.md": {
+      "bytes": 14422,
+      "sha256": "39a0549f3c7756c73df4b1784ab8b7afb0a741fd0a4ef66dd23a7486e9c1863e"
+    },
+    "docs/experiments/v027/step11a_m4qc_protocol.json": {
+      "bytes": 3784,
+      "sha256": "01727c1826aeded8254327d434305754863abcaa499c475632b3b6f545e4090d"
+    },
+    "docs/experiments/v027/step11a_m4qc_protocol.md": {
+      "bytes": 11419,
+      "sha256": "3ca8151ea9e3f5b8aa41e08b4c8f3e0e4d319292dab82c710a96c5c801f5dad4"
+    },
+    "docs/experiments/v027/step11e_m4qc_training_results.json": {
+      "bytes": 6392,
+      "sha256": "e941884524913e6ce433cee04c05270ee8217e99cfbc99d2f3882a793a575dff"
+    },
+    "docs/experiments/v027/step11e_m4qc_training_results.md": {
+      "bytes": 3957,
+      "sha256": "02d9bf1108136158c3b0c80b1cbf0fc21c86cafbd788dc829fffee622996c626"
+    },
+    "docs/experiments/v027/step12d_m4qc_results.json": {
+      "bytes": 3440,
+      "sha256": "47fb7a97de3a2960808697e98ac326415d651c3111d0da7682ad6b803e9a9a07"
+    },
+    "docs/experiments/v027/step12d_m4qc_results.md": {
+      "bytes": 5860,
+      "sha256": "147aa42f896504cf33d52613e3fe4cb3b45874229a534677c76457cf166e9cb8"
+    },
+    "docs/experiments/v027/step13a_m4qcf_protocol.json": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs/experiments/v027/step13a_m4qcf_protocol.md": {
+      "bytes": 54,
+      "sha256": "2686c8eca1d34f5ff65e09728adaf9d6aab4707d898a8b50ad1684af17c93ffe"
+    },
+    "docs/experiments/v027/step13d_m4qcf_smoke_audit.json": {
+      "bytes": 2217,
+      "sha256": "d9bcd2debf1b8419e5c7eb7ea756c763d1de6416ed14cae035ee1668e740d2b5"
+    },
+    "docs/experiments/v027/step13d_m4qcf_smoke_audit.md": {
+      "bytes": 5542,
+      "sha256": "d336a0a467e88abb7f47a40c832e66c1cec66a15923c99283a1f59904ed67f50"
+    },
+    "docs/experiments/v027/step13e_m4qcf_training_results.json": {
+      "bytes": 4965,
+      "sha256": "2dfbc7af85b7b9fe978833c7e00d6a907dff38ac0e6d7b11a017c549eb21f145"
+    },
+    "docs/experiments/v027/step13e_m4qcf_training_results.md": {
+      "bytes": 2842,
+      "sha256": "2b94b5402937db5ae2585ef50fe2c53e1e6ef4a7ace59aad3a3175e61fdb6ad1"
+    },
+    "docs/experiments/v027/step14a_m4qcf_robustness_protocol.json": {
+      "bytes": 3163,
+      "sha256": "e1815a1dcee7062aab6bf7a0e855727b2575a4c0672eeb3664d39e92d1ce2e39"
+    },
+    "docs/experiments/v027/step14a_m4qcf_robustness_protocol.md": {
+      "bytes": 9402,
+      "sha256": "46956c201e85e46270225d0b8a03634e7a25bbfc1a29e240170ea9ec3b7f3385"
+    },
+    "docs/experiments/v027/step14b_robustness_analysis_operationalization.md": {
+      "bytes": 4802,
+      "sha256": "53d16e1ddf55f111b407158e769b014e57cd54b30fa7929d22ec8a4c9e3c5d10"
+    },
+    "docs/experiments/v027/step14c_m4qcf_robustness_results.json": {
+      "bytes": 6469,
+      "sha256": "9d3c9fa10fdf280e828cdcfbe5b292df10af4853321e57bf2f89b143dcffb7ce"
+    },
+    "docs/experiments/v027/step14c_m4qcf_robustness_results.md": {
+      "bytes": 4761,
+      "sha256": "719cc464a812217d2ac0ee66ed7bc81e9ed0ac59adf1ca88d0fec3ae3e2afaf8"
+    },
+    "docs/experiments/v027/step15a_failure_mode_characterization_protocol.json": {
+      "bytes": 9690,
+      "sha256": "0c87544611beb989930e895fd9a2045bf32e6ea2e8bfff18810e91fe5211a77c"
+    },
+    "docs/experiments/v027/step15a_failure_mode_characterization_protocol.md": {
+      "bytes": 6549,
+      "sha256": "aba8b214865f77aebb9aa54c933c628a7e5a6ec0c84fb271fa45772b044ddda3"
+    },
+    "docs/experiments/v027/step15b_h9_failure_decomposition_results.json": {
+      "bytes": 69926,
+      "sha256": "de869b01efba99c1b65888646163d17237f9407c68c3db47f8eb6cb2216f7133"
+    },
+    "docs/experiments/v027/step15b_h9_failure_decomposition_results.md": {
+      "bytes": 24138,
+      "sha256": "5674e2ba3b556bdd21ead5f04d36fbe108f98b03ee903fe407d44baedef9ea50"
+    },
+    "docs/experiments/v027/step15c_h8_h9_mechanism_characterization_results.json": {
+      "bytes": 42894,
+      "sha256": "e08395143424e23184d0e8fe5d6d00d0f1de8104078b896b2a095f968fbc8ce5"
+    },
+    "docs/experiments/v027/step15c_h8_h9_mechanism_characterization_results.md": {
+      "bytes": 14620,
+      "sha256": "e359a512bbc2addfc8286626250665b0ad41b583af846dcd0e6ff1ce4999cfbd"
+    },
+    "docs/experiments/v027/step15d_h10_mismatch_pathway_decomposition_results.json": {
+      "bytes": 55693,
+      "sha256": "cae41b0715dff4a4006530e3fc5d2a0ae6314852a16386f7c810282ffc381954"
+    },
+    "docs/experiments/v027/step15d_h10_mismatch_pathway_decomposition_results.md": {
+      "bytes": 11215,
+      "sha256": "ba075efaab0cd4f692913fba56f39920aa8e8fb691e137d2ce7d59ee9c46a22e"
+    },
+    "docs/experiments/v027/step15e_exploratory_scientific_synthesis.json": {
+      "bytes": 9535,
+      "sha256": "1f08a6b13ff646587506784826e8de08409d48347821a120c4645ca255a24e5d"
+    },
+    "docs/experiments/v027/step15e_exploratory_scientific_synthesis.md": {
+      "bytes": 7272,
+      "sha256": "5b9ea8fb505b0bd0f0d80a4c54f32553ecf43faf57066d816ec953048ce18de6"
+    }
+  },
+  "status": "V027_SCIENTIFICALLY_CLOSED_READY_FOR_TAG"
+}
