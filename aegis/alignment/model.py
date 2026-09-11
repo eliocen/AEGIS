@@ -87,6 +87,7 @@ from ..reliability.compatibility_estimator import CrossModalCompatibilityEstimat
 from ..reliability.quality_estimator import ModalityQualityEstimator
 from ..reliability.reliability_controller import (
     DeterministicReliabilityController,
+    GradedReliabilityTransitionController,
     SelectiveReliabilityController,
 )
 from .evidence_integration import AEGISEvidenceIntegrationBlock
@@ -120,6 +121,7 @@ class CrossModalAlignmentModel(nn.Module):
         quality_compatibility_supervised: bool = False,
         quality_compatibility_fusion: bool = False,
         quality_compatibility_selective_fusion: str | None = None,
+        quality_compatibility_graded_transition_fusion: str | None = None,
         evidence_reliability_hidden_dim: int = 256,
         evidence_interaction_dropout: float = 0.1,
         evidence_reliability_dropout: float = 0.1,
@@ -146,6 +148,11 @@ class CrossModalAlignmentModel(nn.Module):
                 raise TypeError(f"{name} must be a bool.")
 
         selective_modes = {"weights_only", "interaction_only", "combined"}
+        graded_transition_modes = {
+            "graded_weights_only",
+            "transition_only",
+            "combined",
+        }
         if (
             quality_compatibility_selective_fusion is not None
             and quality_compatibility_selective_fusion not in selective_modes
@@ -153,6 +160,15 @@ class CrossModalAlignmentModel(nn.Module):
             raise ValueError(
                 "quality_compatibility_selective_fusion must be None or one "
                 f"of {sorted(selective_modes)}."
+            )
+        if (
+            quality_compatibility_graded_transition_fusion is not None
+            and quality_compatibility_graded_transition_fusion
+            not in graded_transition_modes
+        ):
+            raise ValueError(
+                "quality_compatibility_graded_transition_fusion must be None "
+                f"or one of {sorted(graded_transition_modes)}."
             )
 
         # Preserve historical M1/M3 validation messages exactly.
@@ -254,6 +270,22 @@ class CrossModalAlignmentModel(nn.Module):
                 "with another experimental fusion flag."
             )
 
+        if quality_compatibility_graded_transition_fusion is not None and any((
+            evidence_aware,
+            interaction_only,
+            gated_interaction,
+            reliability_only,
+            interaction_reliability,
+            quality_supervised,
+            quality_compatibility_supervised,
+            quality_compatibility_fusion,
+            quality_compatibility_selective_fusion is not None,
+        )):
+            raise ValueError(
+                "quality_compatibility_graded_transition_fusion cannot be "
+                "combined with another experimental fusion flag."
+            )
+
         self.text_dim = text_dim
         self.vision_dim = vision_dim
         self.shared_dim = shared_dim
@@ -268,6 +300,9 @@ class CrossModalAlignmentModel(nn.Module):
         self.quality_compatibility_fusion = quality_compatibility_fusion
         self.quality_compatibility_selective_fusion = (
             quality_compatibility_selective_fusion
+        )
+        self.quality_compatibility_graded_transition_fusion = (
+            quality_compatibility_graded_transition_fusion
         )
 
         if self.evidence_aware:
@@ -288,6 +323,12 @@ class CrossModalAlignmentModel(nn.Module):
             self.fusion_architecture = "quality_compatibility_selective_interaction"
         elif self.quality_compatibility_selective_fusion == "combined":
             self.fusion_architecture = "quality_compatibility_selective_fusion"
+        elif self.quality_compatibility_graded_transition_fusion == "graded_weights_only":
+            self.fusion_architecture = "quality_compatibility_graded_weights"
+        elif self.quality_compatibility_graded_transition_fusion == "transition_only":
+            self.fusion_architecture = "quality_compatibility_transition_control"
+        elif self.quality_compatibility_graded_transition_fusion == "combined":
+            self.fusion_architecture = "quality_compatibility_graded_transition_fusion"
         elif self.quality_compatibility_supervised:
             self.fusion_architecture = "quality_compatibility_supervised"
         elif self.quality_supervised:
@@ -335,6 +376,7 @@ class CrossModalAlignmentModel(nn.Module):
                 or self.quality_compatibility_supervised
                 or self.quality_compatibility_fusion
                 or self.quality_compatibility_selective_fusion is not None
+                or self.quality_compatibility_graded_transition_fusion is not None
             )
             else None
         )
@@ -402,6 +444,7 @@ class CrossModalAlignmentModel(nn.Module):
                 or self.quality_compatibility_supervised
                 or self.quality_compatibility_fusion
                 or self.quality_compatibility_selective_fusion is not None
+                or self.quality_compatibility_graded_transition_fusion is not None
             )
             else None
         )
@@ -417,6 +460,7 @@ class CrossModalAlignmentModel(nn.Module):
                 or self.quality_compatibility_supervised
                 or self.quality_compatibility_fusion
                 or self.quality_compatibility_selective_fusion is not None
+                or self.quality_compatibility_graded_transition_fusion is not None
             )
             else None
         )
@@ -434,6 +478,7 @@ class CrossModalAlignmentModel(nn.Module):
                 self.quality_compatibility_supervised
                 or self.quality_compatibility_fusion
                 or self.quality_compatibility_selective_fusion is not None
+                or self.quality_compatibility_graded_transition_fusion is not None
             )
             else None
         )
@@ -451,6 +496,14 @@ class CrossModalAlignmentModel(nn.Module):
                 mode=self.quality_compatibility_selective_fusion,
             )
             if self.quality_compatibility_selective_fusion is not None
+            else None
+        )
+
+        self.graded_transition_reliability_controller = (
+            GradedReliabilityTransitionController(
+                mode=self.quality_compatibility_graded_transition_fusion,
+            )
+            if self.quality_compatibility_graded_transition_fusion is not None
             else None
         )
 
@@ -579,7 +632,10 @@ class CrossModalAlignmentModel(nn.Module):
                 ],
             }
 
-        elif self.quality_compatibility_selective_fusion is not None:
+        elif (
+            self.quality_compatibility_selective_fusion is not None
+            or self.quality_compatibility_graded_transition_fusion is not None
+        ):
             if self.gated_interaction_fusion is None:
                 raise RuntimeError("M4qcs interaction block is unavailable.")
             if self.text_quality_estimator is None:
@@ -588,8 +644,11 @@ class CrossModalAlignmentModel(nn.Module):
                 raise RuntimeError("M4qcs vision quality estimator is unavailable.")
             if self.compatibility_estimator is None:
                 raise RuntimeError("M4qcs compatibility estimator is unavailable.")
-            if self.selective_reliability_controller is None:
-                raise RuntimeError("M4qcs selective controller is unavailable.")
+            controller = self.selective_reliability_controller
+            if self.quality_compatibility_graded_transition_fusion is not None:
+                controller = self.graded_transition_reliability_controller
+            if controller is None:
+                raise RuntimeError("Selective or graded-transition controller is unavailable.")
 
             out = self.gated_interaction_fusion(aligned_text, aligned_vision)
             text_quality = self.text_quality_estimator(aligned_text)
@@ -597,7 +656,7 @@ class CrossModalAlignmentModel(nn.Module):
             compatibility_score = self.compatibility_estimator(
                 aligned_text, aligned_vision
             )
-            control = self.selective_reliability_controller(
+            control = controller(
                 text_quality, vision_quality, compatibility_score
             )
             reliability_weighted_fusion = (

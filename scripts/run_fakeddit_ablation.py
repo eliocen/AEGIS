@@ -247,6 +247,9 @@ QUALITY_TRAINING_ARCHITECTURES = frozenset({
     "quality_compatibility_selective_weights",
     "quality_compatibility_selective_interaction",
     "quality_compatibility_selective_fusion",
+    "quality_compatibility_graded_weights",
+    "quality_compatibility_transition_control",
+    "quality_compatibility_graded_transition_fusion",
 })
 
 
@@ -302,6 +305,9 @@ def parse_args():
             "quality_compatibility_selective_weights",
             "quality_compatibility_selective_interaction",
             "quality_compatibility_selective_fusion",
+            "quality_compatibility_graded_weights",
+            "quality_compatibility_transition_control",
+            "quality_compatibility_graded_transition_fusion",
             "evidence_aware",
         ],
         help=(
@@ -580,6 +586,9 @@ def validate_args(
             "quality_compatibility_selective_weights",
             "quality_compatibility_selective_interaction",
             "quality_compatibility_selective_fusion",
+            "quality_compatibility_graded_weights",
+            "quality_compatibility_transition_control",
+            "quality_compatibility_graded_transition_fusion",
         }
         and args.quality_weight <= 0
     ):
@@ -595,6 +604,9 @@ def validate_args(
             "quality_compatibility_selective_weights",
             "quality_compatibility_selective_interaction",
             "quality_compatibility_selective_fusion",
+            "quality_compatibility_graded_weights",
+            "quality_compatibility_transition_control",
+            "quality_compatibility_graded_transition_fusion",
         }
         and args.compatibility_weight <= 0
     ):
@@ -746,6 +758,12 @@ def mode_description(
 
     if fusion_architecture == "quality_compatibility_selective_fusion":
         return "M4qcs combined selective allocation and interaction suppression"
+    if fusion_architecture == "quality_compatibility_graded_weights":
+        return "M4qgr graded reliability allocation with unsuppressed interaction"
+    if fusion_architecture == "quality_compatibility_transition_control":
+        return "M4qtc transition-aware interaction control with equal allocation"
+    if fusion_architecture == "quality_compatibility_graded_transition_fusion":
+        return "M4qgrt combined graded reliability and transition control"
 
     if fusion_architecture == "evidence_aware":
         return (
@@ -821,6 +839,9 @@ class FakedditAblationTrainer(
             "quality_compatibility_selective_weights",
             "quality_compatibility_selective_interaction",
             "quality_compatibility_selective_fusion",
+            "quality_compatibility_graded_weights",
+            "quality_compatibility_transition_control",
+            "quality_compatibility_graded_transition_fusion",
             "evidence_aware",
         }:
             raise ValueError(
@@ -964,6 +985,20 @@ class FakedditAblationTrainer(
                 "quality_compatibility_selective_fusion."
             )
 
+        expected_graded_transition_mode = {
+            "quality_compatibility_graded_weights": "graded_weights_only",
+            "quality_compatibility_transition_control": "transition_only",
+            "quality_compatibility_graded_transition_fusion": "combined",
+        }.get(fusion_architecture)
+        if (
+            self.alignment_model.quality_compatibility_graded_transition_fusion
+            != expected_graded_transition_mode
+        ):
+            raise ValueError(
+                "fusion_architecture is inconsistent with alignment_model."
+                "quality_compatibility_graded_transition_fusion."
+            )
+
         self.fusion_architecture = fusion_architecture
 
         if (
@@ -1098,6 +1133,9 @@ class FakedditAblationTrainer(
                 "quality_compatibility_selective_weights",
                 "quality_compatibility_selective_interaction",
                 "quality_compatibility_selective_fusion",
+                "quality_compatibility_graded_weights",
+                "quality_compatibility_transition_control",
+                "quality_compatibility_graded_transition_fusion",
             }:
                 raise ValueError(
                     "quality_targets are valid only for M4q/M4qc quality "
@@ -1166,6 +1204,9 @@ class FakedditAblationTrainer(
                 "quality_compatibility_selective_weights",
                 "quality_compatibility_selective_interaction",
                 "quality_compatibility_selective_fusion",
+                "quality_compatibility_graded_weights",
+                "quality_compatibility_transition_control",
+                "quality_compatibility_graded_transition_fusion",
             }:
                 raise ValueError(
                     "compatibility_targets are valid only for M4qc/M4qcf."
@@ -1919,6 +1960,9 @@ def train_one_epoch(
             "quality_compatibility_selective_weights",
             "quality_compatibility_selective_interaction",
             "quality_compatibility_selective_fusion",
+            "quality_compatibility_graded_weights",
+            "quality_compatibility_transition_control",
+            "quality_compatibility_graded_transition_fusion",
         }:
             if text_feature_std is None or vision_feature_std is None:
                 raise RuntimeError(
@@ -1946,6 +1990,8 @@ def train_one_epoch(
             elif trainer.fusion_architecture in {
                 "quality_compatibility_selective_weights",
                 "quality_compatibility_selective_fusion",
+                "quality_compatibility_graded_weights",
+                "quality_compatibility_graded_transition_fusion",
             }:
                 (
                     training_batch,
@@ -1985,6 +2031,9 @@ def train_one_epoch(
                     "quality_compatibility_selective_weights",
                     "quality_compatibility_selective_interaction",
                     "quality_compatibility_selective_fusion",
+                    "quality_compatibility_graded_weights",
+                    "quality_compatibility_transition_control",
+                    "quality_compatibility_graded_transition_fusion",
                 }
                 else 0.0
             ),
@@ -1999,6 +2048,9 @@ def train_one_epoch(
                     "quality_compatibility_selective_weights",
                     "quality_compatibility_selective_interaction",
                     "quality_compatibility_selective_fusion",
+                    "quality_compatibility_graded_weights",
+                    "quality_compatibility_transition_control",
+                    "quality_compatibility_graded_transition_fusion",
                 }
                 else 0.0
             ),
@@ -2273,6 +2325,9 @@ def collect_component_fingerprints(
             "quality_compatibility_selective_weights",
             "quality_compatibility_selective_interaction",
             "quality_compatibility_selective_fusion",
+            "quality_compatibility_graded_weights",
+            "quality_compatibility_transition_control",
+            "quality_compatibility_graded_transition_fusion",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -2477,6 +2532,9 @@ def effective_parameter_counts(
             "quality_compatibility_selective_weights",
             "quality_compatibility_selective_interaction",
             "quality_compatibility_selective_fusion",
+            "quality_compatibility_graded_weights",
+            "quality_compatibility_transition_control",
+            "quality_compatibility_graded_transition_fusion",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -2929,6 +2987,12 @@ def main():
                 "quality_compatibility_selective_interaction": "interaction_only",
                 "quality_compatibility_selective_fusion": "combined",
             }.get(args.fusion_architecture),
+
+            quality_compatibility_graded_transition_fusion={
+                "quality_compatibility_graded_weights": "graded_weights_only",
+                "quality_compatibility_transition_control": "transition_only",
+                "quality_compatibility_graded_transition_fusion": "combined",
+            }.get(args.fusion_architecture),
         )
     )
 
@@ -2943,6 +3007,9 @@ def main():
         "quality_compatibility_selective_weights",
         "quality_compatibility_selective_interaction",
         "quality_compatibility_selective_fusion",
+        "quality_compatibility_graded_weights",
+        "quality_compatibility_transition_control",
+        "quality_compatibility_graded_transition_fusion",
     }:
 
         if alignment_model.gated_interaction_fusion is None:
@@ -3176,6 +3243,9 @@ def main():
             "quality_compatibility_selective_weights",
             "quality_compatibility_selective_interaction",
             "quality_compatibility_selective_fusion",
+            "quality_compatibility_graded_weights",
+            "quality_compatibility_transition_control",
+            "quality_compatibility_graded_transition_fusion",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -3377,6 +3447,9 @@ def main():
                 "quality_compatibility_selective_weights",
                 "quality_compatibility_selective_interaction",
                 "quality_compatibility_selective_fusion",
+                "quality_compatibility_graded_weights",
+                "quality_compatibility_transition_control",
+                "quality_compatibility_graded_transition_fusion",
             }
             else 0.0
         ),
@@ -3392,6 +3465,9 @@ def main():
                 "quality_compatibility_selective_weights",
                 "quality_compatibility_selective_interaction",
                 "quality_compatibility_selective_fusion",
+                "quality_compatibility_graded_weights",
+                "quality_compatibility_transition_control",
+                "quality_compatibility_graded_transition_fusion",
             }
             else 0.0
         ),
@@ -3488,6 +3564,9 @@ def main():
                 "quality_compatibility_selective_weights",
                 "quality_compatibility_selective_interaction",
                 "quality_compatibility_selective_fusion",
+                "quality_compatibility_graded_weights",
+                "quality_compatibility_transition_control",
+                "quality_compatibility_graded_transition_fusion",
             }
         ),
 
@@ -3500,6 +3579,9 @@ def main():
                 "quality_compatibility_selective_weights",
                 "quality_compatibility_selective_interaction",
                 "quality_compatibility_selective_fusion",
+                "quality_compatibility_graded_weights",
+                "quality_compatibility_transition_control",
+                "quality_compatibility_graded_transition_fusion",
             }
             else 0.0
         ),
@@ -3512,6 +3594,9 @@ def main():
                 "quality_compatibility_selective_weights",
                 "quality_compatibility_selective_interaction",
                 "quality_compatibility_selective_fusion",
+                "quality_compatibility_graded_weights",
+                "quality_compatibility_transition_control",
+                "quality_compatibility_graded_transition_fusion",
             }
             else 0.0
         ),
@@ -3540,6 +3625,9 @@ def main():
                 "quality_compatibility_selective_weights",
                 "quality_compatibility_selective_interaction",
                 "quality_compatibility_selective_fusion",
+                "quality_compatibility_graded_weights",
+                "quality_compatibility_transition_control",
+                "quality_compatibility_graded_transition_fusion",
             }
             else None
         ),
@@ -3994,6 +4082,9 @@ def main():
                             "quality_compatibility_selective_weights",
                             "quality_compatibility_selective_interaction",
                             "quality_compatibility_selective_fusion",
+                            "quality_compatibility_graded_weights",
+                            "quality_compatibility_transition_control",
+                            "quality_compatibility_graded_transition_fusion",
                         }
                         else 0.0
                     ),
@@ -4006,6 +4097,9 @@ def main():
                             "quality_compatibility_selective_weights",
                             "quality_compatibility_selective_interaction",
                             "quality_compatibility_selective_fusion",
+                            "quality_compatibility_graded_weights",
+                            "quality_compatibility_transition_control",
+                            "quality_compatibility_graded_transition_fusion",
                         }
                         else 0.0
                     ),

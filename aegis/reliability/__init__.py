@@ -33,6 +33,7 @@ from .quality_estimator import (
 )
 from .reliability_controller import (
     DeterministicReliabilityController,
+    GradedReliabilityTransitionController,
     ReliabilityControllerOutput,
     SelectiveReliabilityController,
 )
@@ -53,6 +54,7 @@ __all__ = [
     "ModalityName",
     "ModalityQualityEstimator",
     "DeterministicReliabilityController",
+    "GradedReliabilityTransitionController",
     "PermutationMismatchPlan",
     "QualityCondition",
     "QualityEstimatorConfig",

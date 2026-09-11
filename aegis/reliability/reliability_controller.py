@@ -55,6 +55,13 @@ SELECTIVE_CONTROLLER_MODES = {
     "interaction_only",
     "combined",
 }
+V029_STEP1_PROTOCOL_VERSION = "0.29.0-step1"
+V029_STEP2_IMPLEMENTATION_VERSION = "0.29.0-step2"
+GRADED_TRANSITION_CONTROLLER_MODES = {
+    "graded_weights_only",
+    "transition_only",
+    "combined",
+}
 
 
 @dataclass(frozen=True)
@@ -559,5 +566,131 @@ class SelectiveReliabilityController(DeterministicReliabilityController):
             "stop_gradient_controller_inputs": True,
             "compatibility_affects_allocation": False,
             "quality_affects_interaction_multiplier": False,
+            "official_test_accessed": False,
+        }
+
+
+class GradedReliabilityTransitionController(DeterministicReliabilityController):
+    """Parameter-free v0.29 controller for graded reliability and transitions.
+
+    The quality allocation and transition pathways are separated.  Scores are
+    detached, so classification gradients cannot manipulate either controller
+    input.  Graded allocation is clipped to the Step1 interval [0.1, 0.9].
+    Transition control penalizes incompatibility together with modality-quality
+    disagreement by the frozen 0.1 margin.
+    """
+
+    def __init__(
+        self,
+        *,
+        mode: str = "combined",
+        epsilon: float = 1e-6,
+        allocation_exponent: float = 1.0,
+        transition_exponent: float = 1.0,
+        minimum_modality_weight: float = 0.1,
+        maximum_modality_weight: float = 0.9,
+        transition_margin: float = 0.1,
+    ) -> None:
+        super().__init__(epsilon=epsilon)
+        if mode not in GRADED_TRANSITION_CONTROLLER_MODES:
+            raise ValueError(
+                f"mode must be one of {sorted(GRADED_TRANSITION_CONTROLLER_MODES)}; "
+                f"got {mode!r}."
+            )
+        if not (0.0 <= minimum_modality_weight < 0.5 < maximum_modality_weight <= 1.0):
+            raise ValueError("modality-weight bounds must contain 0.5 and lie in [0, 1].")
+        if minimum_modality_weight + maximum_modality_weight != 1.0:
+            raise ValueError("modality-weight bounds must sum to one.")
+        if transition_margin < 0.0 or transition_margin > 1.0:
+            raise ValueError("transition_margin must lie in [0, 1].")
+        for name, value in (
+            ("allocation_exponent", allocation_exponent),
+            ("transition_exponent", transition_exponent),
+        ):
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or float(value) <= 0.0:
+                raise ValueError(f"{name} must be a positive real number.")
+        self.mode = mode
+        self.allocation_exponent = float(allocation_exponent)
+        self.transition_exponent = float(transition_exponent)
+        self.minimum_modality_weight = float(minimum_modality_weight)
+        self.maximum_modality_weight = float(maximum_modality_weight)
+        self.transition_margin = float(transition_margin)
+
+    @property
+    def graded_reliability_weights(self) -> bool:
+        return self.mode in {"graded_weights_only", "combined"}
+
+    @property
+    def transition_control(self) -> bool:
+        return self.mode in {"transition_only", "combined"}
+
+    def forward(
+        self,
+        text_quality: Tensor,
+        vision_quality: Tensor,
+        compatibility: Tensor,
+    ) -> ReliabilityControllerOutput:
+        self._validate_triplet(text_quality, vision_quality, compatibility)
+        q_text = text_quality.detach()
+        q_vision = vision_quality.detach()
+        c_tv = compatibility.detach()
+
+        if self.graded_reliability_weights:
+            text_score = (self.epsilon + q_text).pow(self.allocation_exponent)
+            vision_score = (self.epsilon + q_vision).pow(self.allocation_exponent)
+            raw_text_weight = text_score / (text_score + vision_score)
+            text_weight = raw_text_weight.clamp(
+                min=self.minimum_modality_weight,
+                max=self.maximum_modality_weight,
+            )
+            vision_weight = 1.0 - text_weight
+        else:
+            text_score = torch.ones_like(q_text)
+            vision_score = torch.ones_like(q_vision)
+            text_weight = torch.full_like(q_text, 0.5)
+            vision_weight = torch.full_like(q_vision, 0.5)
+
+        if self.transition_control:
+            disagreement = (q_text - q_vision).abs()
+            transition_signal = (c_tv - self.transition_margin * disagreement).clamp(0.0, 1.0)
+            interaction_multiplier = self.epsilon + (1.0 - self.epsilon) * transition_signal.pow(self.transition_exponent)
+        else:
+            interaction_multiplier = torch.ones_like(c_tv)
+
+        weights = torch.cat((text_weight, vision_weight), dim=1)
+        self._validate_outputs(
+            effective_text_reliability=text_score,
+            effective_vision_reliability=vision_score,
+            text_weight=text_weight,
+            vision_weight=vision_weight,
+            weights=weights,
+            interaction_multiplier=interaction_multiplier,
+        )
+        return ReliabilityControllerOutput(
+            effective_text_reliability=text_score,
+            effective_vision_reliability=vision_score,
+            text_weight=text_weight,
+            vision_weight=vision_weight,
+            weights=weights,
+            interaction_multiplier=interaction_multiplier,
+        )
+
+    def architecture_metadata(self) -> dict[str, object]:
+        return {
+            "module": self.__class__.__name__,
+            "protocol_version": V029_STEP1_PROTOCOL_VERSION,
+            "implementation_version": V029_STEP2_IMPLEMENTATION_VERSION,
+            "mode": self.mode,
+            "epsilon": self.epsilon,
+            "allocation_exponent": self.allocation_exponent,
+            "transition_exponent": self.transition_exponent,
+            "minimum_modality_weight": self.minimum_modality_weight,
+            "maximum_modality_weight": self.maximum_modality_weight,
+            "transition_margin": self.transition_margin,
+            "graded_reliability_weights": self.graded_reliability_weights,
+            "transition_control": self.transition_control,
+            "parameter_free": True,
+            "trainable_parameter_count": self.parameter_count,
+            "stop_gradient_controller_inputs": True,
             "official_test_accessed": False,
         }
