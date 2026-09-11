@@ -1,0 +1,171 @@
+{
+  "branch": "feature/v0.29-graded-reliability-and-transition-control",
+  "checkpoint_selection": {
+    "compatibility_metrics_used": false,
+    "mismatch_metrics_used": false,
+    "post_result_reselection_permitted": false,
+    "primary_metric": "clean_validation_macro_f1",
+    "quality_metrics_used": false,
+    "robustness_metrics_used": false,
+    "tie_breaker": "clean_validation_classification_loss",
+    "transition_metrics_used": false
+  },
+  "completion_rule": "Step3 completes only after all nine locked runs finish and their clean-selected checkpoints, provenance, training metrics, and safety audit are frozen.",
+  "evidence_classification": "CONTROLLED_VALIDATION_DEVELOPMENT_EVIDENCE",
+  "experiment": "aegis_v029_graded_reliability_and_transition_control",
+  "formal_training": {
+    "architecture_order": [
+      "M4qgr",
+      "M4qtc",
+      "M4qgrt"
+    ],
+    "execution_policy": "sequential_locked_order",
+    "rerun_policy": "No completed formal run may be overwritten. Technical failures must be preserved and retried only under a prospectively frozen continuation rule.",
+    "run_count": 9,
+    "runs": [
+      {
+        "architecture": "M4qgr",
+        "controller_mode": "graded_weights_only",
+        "experiment_root": "experiments/fakeddit/v029_m4qgr_seed42",
+        "fusion_architecture": "quality_compatibility_graded_weights",
+        "run_index": 1,
+        "seed": 42,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qgr",
+        "controller_mode": "graded_weights_only",
+        "experiment_root": "experiments/fakeddit/v029_m4qgr_seed43",
+        "fusion_architecture": "quality_compatibility_graded_weights",
+        "run_index": 2,
+        "seed": 43,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qgr",
+        "controller_mode": "graded_weights_only",
+        "experiment_root": "experiments/fakeddit/v029_m4qgr_seed44",
+        "fusion_architecture": "quality_compatibility_graded_weights",
+        "run_index": 3,
+        "seed": 44,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qtc",
+        "controller_mode": "transition_only",
+        "experiment_root": "experiments/fakeddit/v029_m4qtc_seed42",
+        "fusion_architecture": "quality_compatibility_transition_control",
+        "run_index": 4,
+        "seed": 42,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qtc",
+        "controller_mode": "transition_only",
+        "experiment_root": "experiments/fakeddit/v029_m4qtc_seed43",
+        "fusion_architecture": "quality_compatibility_transition_control",
+        "run_index": 5,
+        "seed": 43,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qtc",
+        "controller_mode": "transition_only",
+        "experiment_root": "experiments/fakeddit/v029_m4qtc_seed44",
+        "fusion_architecture": "quality_compatibility_transition_control",
+        "run_index": 6,
+        "seed": 44,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qgrt",
+        "controller_mode": "combined",
+        "experiment_root": "experiments/fakeddit/v029_m4qgrt_seed42",
+        "fusion_architecture": "quality_compatibility_graded_transition_fusion",
+        "run_index": 7,
+        "seed": 42,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qgrt",
+        "controller_mode": "combined",
+        "experiment_root": "experiments/fakeddit/v029_m4qgrt_seed43",
+        "fusion_architecture": "quality_compatibility_graded_transition_fusion",
+        "run_index": 8,
+        "seed": 43,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qgrt",
+        "controller_mode": "combined",
+        "experiment_root": "experiments/fakeddit/v029_m4qgrt_seed44",
+        "fusion_architecture": "quality_compatibility_graded_transition_fusion",
+        "run_index": 9,
+        "seed": 44,
+        "status": "LOCKED_NOT_STARTED"
+      }
+    ],
+    "seed_order_within_architecture": [
+      42,
+      43,
+      44
+    ]
+  },
+  "locked_runner": {
+    "alignment_weight": 0.5,
+    "batch_size": 32,
+    "classification_weight": 1.0,
+    "compatibility_weight": 1.0,
+    "dropout": 0.1,
+    "entrypoint": "python -m scripts.run_fakeddit_ablation",
+    "epochs": 50,
+    "gradient_clip": 1.0,
+    "hidden_dim": 128,
+    "hyperparameter_search_permitted": false,
+    "learning_rate": 0.001,
+    "log_every": 1,
+    "min_delta": 1e-06,
+    "min_epochs": 5,
+    "mode": "multimodal",
+    "parameter_change_after_any_formal_result": false,
+    "patience": 8,
+    "quality_weight": 1.0,
+    "shared_dim": 128,
+    "temperature": 0.07,
+    "train_cache": "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+    "transition_objective_weight": 0.25,
+    "validation_cache": "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42",
+    "weight_decay": 0.0001
+  },
+  "next_step": "Execute the nine locked formal training runs in recorded order.",
+  "record_version": "0.29.0-step3-training-operationalization",
+  "scientific_safety": {
+    "architecture_modification_during_formal_training": false,
+    "failed_seed_or_run_exclusion_permitted": false,
+    "formal_hypothesis_decisions_during_step3": false,
+    "formal_mismatch_evaluation_during_step3": false,
+    "formal_robustness_evaluation_during_step3": false,
+    "frozen_v028_or_v029_record_modification_permitted": false,
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0
+  },
+  "smoke_audit": {
+    "architectures": [
+      "M4qgr",
+      "M4qtc",
+      "M4qgrt"
+    ],
+    "compatibility_weight_verified": 1.0,
+    "epochs_per_variant": 1,
+    "formal_evidence": false,
+    "quality_weight_verified": 1.0,
+    "seed": 42,
+    "status": "PASSED_NON_EVIDENTIARY_IMPLEMENTATION_SMOKE_RETRY2",
+    "used_for_architecture_selection": false,
+    "used_for_hyperparameter_selection": false
+  },
+  "source_protocol_sha256": "440c1ba6b971beea146e3572e2513f8a5a1aebe5aa1454a1646c381290451919",
+  "status": "FROZEN_BEFORE_FORMAL_V029_TRAINING",
+  "step1_protocol_commit": "0626f9da2830e68f8ac5f955778cdeee2565588d",
+  "step2_implementation_commit": "f5d41feb5462f79a7f5039527583d3ed093446e4"
+}
