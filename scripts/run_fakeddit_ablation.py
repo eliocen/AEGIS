@@ -443,6 +443,17 @@ def parse_args():
     )
 
     parser.add_argument(
+        "--transition-objective-weight",
+        type=float,
+        default=0.25,
+        help=(
+            "Frozen v0.29 training-only harmful-transition objective "
+            "coefficient. Required to equal 0.25 for M4qgr, M4qtc, and "
+            "M4qgrt. The objective is active only for M4qtc and M4qgrt."
+        ),
+    )
+
+    parser.add_argument(
         "--gradient-clip",
         type=float,
         default=1.0,
@@ -577,6 +588,26 @@ def validate_args(
 
         raise ValueError(
             "--compatibility-weight must be >= 0."
+        )
+
+    if args.transition_objective_weight < 0:
+
+        raise ValueError(
+            "--transition-objective-weight must be >= 0."
+        )
+
+    if (
+        args.fusion_architecture in {
+            "quality_compatibility_graded_weights",
+            "quality_compatibility_transition_control",
+            "quality_compatibility_graded_transition_fusion",
+        }
+        and args.transition_objective_weight != 0.25
+    ):
+
+        raise ValueError(
+            "The frozen v0.29 architectures require "
+            "--transition-objective-weight 0.25."
         )
 
     if (
@@ -780,6 +811,96 @@ def mode_description(
 # =====================================================================
 # Ablation-aware trainer
 # =====================================================================
+
+def harmful_transition_loss(
+    matched_logits: torch.Tensor,
+    mismatched_logits: torch.Tensor,
+    integrity_targets: torch.Tensor,
+    mismatch_mask: torch.Tensor,
+) -> torch.Tensor:
+    """Penalize only mismatch-induced reductions in true-class probability.
+
+    The binary integrity classifier emits two class logits per sample and
+    integrity_targets contains one integer class index per sample.
+
+    The matched probability is a detached reference. Consequently the model
+    cannot reduce this loss by degrading its matched prediction. A beneficial
+    transition, where mismatch increases or preserves true-class probability,
+    contributes exactly zero.
+    """
+    if matched_logits.shape != mismatched_logits.shape:
+        raise ValueError("Matched and mismatched logit shapes must agree.")
+
+    if mismatched_logits.ndim != 2 or mismatched_logits.shape[1] != 2:
+        raise ValueError(
+            "Transition-objective logits must have shape [batch_size, 2]."
+        )
+
+    if integrity_targets.ndim != 1:
+        raise ValueError(
+            "Transition-objective integrity targets must have shape [batch_size]."
+        )
+
+    if integrity_targets.shape[0] != mismatched_logits.shape[0]:
+        raise ValueError(
+            "Transition-objective target and logit batch sizes must agree."
+        )
+
+    targets = integrity_targets.to(
+        device=mismatched_logits.device,
+        dtype=torch.long,
+    )
+
+    if bool(((targets < 0) | (targets >= 2)).any().item()):
+        raise ValueError(
+            "Transition-objective integrity targets must be binary class "
+            "indices 0 or 1."
+        )
+
+    mask = mismatch_mask.to(
+        device=mismatched_logits.device,
+        dtype=torch.bool,
+    )
+
+    if mask.ndim == 2 and mask.shape[1] == 1:
+        mask = mask.reshape(-1)
+
+    if mask.ndim != 1 or mask.shape[0] != mismatched_logits.shape[0]:
+        raise ValueError(
+            "Transition-objective mismatch mask must have shape "
+            "[batch_size] or [batch_size, 1]."
+        )
+
+    matched_probability = torch.softmax(
+        matched_logits.detach().to(mismatched_logits.device),
+        dim=-1,
+    )
+
+    mismatched_probability = torch.softmax(
+        mismatched_logits,
+        dim=-1,
+    )
+
+    gather_index = targets.reshape(-1, 1)
+
+    matched_true_probability = matched_probability.gather(
+        1,
+        gather_index,
+    ).squeeze(1)
+
+    mismatched_true_probability = mismatched_probability.gather(
+        1,
+        gather_index,
+    ).squeeze(1)
+
+    per_sample_harm = torch.relu(
+        matched_true_probability - mismatched_true_probability
+    )
+
+    if not bool(mask.any().item()):
+        return mismatched_logits.sum() * 0.0
+
+    return per_sample_harm.masked_select(mask).mean()
 
 class FakedditAblationTrainer(
     BinaryIntegrityTrainer
@@ -1085,6 +1206,8 @@ class FakedditAblationTrainer(
         ] = None,
         compatibility_targets: Optional[torch.Tensor] = None,
         compatibility_loss_weight: float = 0.0,
+        transition_reference_batch: Optional[BinaryIntegrityBatch] = None,
+        transition_loss_weight: float = 0.0,
     ) -> Dict:
         """
         Forward one binary-integrity batch.
@@ -1124,6 +1247,7 @@ class FakedditAblationTrainer(
         text_quality_loss = classification_losses["loss"] * 0.0
         vision_quality_loss = classification_losses["loss"] * 0.0
         compatibility_loss = classification_losses["loss"] * 0.0
+        transition_loss = classification_losses["loss"] * 0.0
 
         if quality_targets is not None:
             if self.fusion_architecture not in {
@@ -1229,11 +1353,79 @@ class FakedditAblationTrainer(
                 compatibility_target,
             )
 
+        if transition_reference_batch is not None:
+            if self.fusion_architecture not in {
+                "quality_compatibility_transition_control",
+                "quality_compatibility_graded_transition_fusion",
+            }:
+                raise ValueError(
+                    "A transition reference is valid only for M4qtc/M4qgrt."
+                )
+            if transition_loss_weight <= 0.0:
+                raise ValueError(
+                    "A transition reference requires transition_loss_weight > 0."
+                )
+            if compatibility_targets is None:
+                raise ValueError(
+                    "Transition supervision requires compatibility targets."
+                )
+
+            transition_reference_batch.validate(
+                text_dim=self.alignment_model.text_dim,
+                vision_dim=self.alignment_model.vision_dim,
+            )
+            reference_batch = transition_reference_batch.to(self.device)
+            if reference_batch.batch_size != batch.batch_size:
+                raise ValueError("Transition-reference batch size mismatch.")
+            if not torch.equal(
+                reference_batch.integrity_targets,
+                batch.integrity_targets,
+            ):
+                raise ValueError("Transition-reference targets changed.")
+
+            alignment_was_training = self.alignment_model.training
+            classifier_was_training = self.classification_model.training
+            self.alignment_model.eval()
+            self.classification_model.eval()
+            try:
+                with torch.no_grad():
+                    matched_representation = self._representation_forward(
+                        batch=reference_batch,
+                        compute_alignment_loss=False,
+                    )
+                    matched_logits = self.classification_model(
+                        matched_representation["classifier_embedding"]
+                    )["integrity_logits"]
+
+                deterministic_mismatch_representation = (
+                    self._representation_forward(
+                        batch=batch,
+                        compute_alignment_loss=False,
+                    )
+                )
+                deterministic_mismatch_logits = self.classification_model(
+                    deterministic_mismatch_representation["classifier_embedding"]
+                )["integrity_logits"]
+            finally:
+                self.alignment_model.train(alignment_was_training)
+                self.classification_model.train(classifier_was_training)
+
+            mismatch_mask = compatibility_targets.to(
+                device=deterministic_mismatch_logits.device
+            ) < 0.5
+            transition_loss = harmful_transition_loss(
+                matched_logits=matched_logits,
+                mismatched_logits=deterministic_mismatch_logits,
+                integrity_targets=batch.integrity_targets,
+                mismatch_mask=mismatch_mask,
+            )
+
         total_loss = (
             self.alignment_loss_weight * alignment_loss
             + self.classification_loss_weight * classification_losses["loss"]
             + float(quality_loss_weight) * quality_loss
             + float(compatibility_loss_weight) * compatibility_loss
+            + float(transition_loss_weight) * transition_loss
         )
 
         metrics = compute_binary_integrity_metrics(
@@ -1260,6 +1452,7 @@ class FakedditAblationTrainer(
             "text_quality_loss": text_quality_loss,
             "vision_quality_loss": vision_quality_loss,
             "compatibility_loss": compatibility_loss,
+            "transition_loss": transition_loss,
             "integrity_loss": classification_losses["integrity_loss"],
             "threat_loss": None,
             "alignment_outputs": alignment_outputs,
@@ -1278,6 +1471,8 @@ class FakedditAblationTrainer(
         ] = None,
         compatibility_targets: Optional[torch.Tensor] = None,
         compatibility_loss_weight: float = 0.0,
+        transition_reference_batch: Optional[BinaryIntegrityBatch] = None,
+        transition_loss_weight: float = 0.0,
     ) -> Dict[str, float]:
         """Execute one optimization step, including M4q/M4qc auxiliaries."""
         self.alignment_model.train()
@@ -1292,6 +1487,8 @@ class FakedditAblationTrainer(
             quality_sample_weights=quality_sample_weights,
             compatibility_targets=compatibility_targets,
             compatibility_loss_weight=compatibility_loss_weight,
+            transition_reference_batch=transition_reference_batch,
+            transition_loss_weight=transition_loss_weight,
         )
         loss = outputs["loss"]
         if not torch.isfinite(loss):
@@ -1325,6 +1522,9 @@ class FakedditAblationTrainer(
             ),
             "compatibility_loss": float(
                 outputs["compatibility_loss"].detach().cpu().item()
+            ),
+            "transition_loss": float(
+                outputs["transition_loss"].detach().cpu().item()
             ),
             "integrity_loss": float(outputs["integrity_loss"].detach().cpu().item()),
         }
@@ -1928,6 +2128,7 @@ def train_one_epoch(
     *,
     quality_loss_weight: float = 0.0,
     compatibility_loss_weight: float = 0.0,
+    transition_loss_weight: float = 0.0,
     text_feature_std: Optional[torch.Tensor] = None,
     vision_feature_std: Optional[torch.Tensor] = None,
 ) -> Dict:
@@ -1938,6 +2139,7 @@ def train_one_epoch(
     weighted_text_quality_loss = 0.0
     weighted_vision_quality_loss = 0.0
     weighted_compatibility_loss = 0.0
+    weighted_transition_loss = 0.0
     total_samples = 0
     batch_count = 0
     corruption_counts = Counter()
@@ -2054,6 +2256,23 @@ def train_one_epoch(
                 }
                 else 0.0
             ),
+            transition_reference_batch=(
+                batch
+                if trainer.fusion_architecture in {
+                    "quality_compatibility_transition_control",
+                    "quality_compatibility_graded_transition_fusion",
+                }
+                and transition_loss_weight > 0.0
+                else None
+            ),
+            transition_loss_weight=(
+                transition_loss_weight
+                if trainer.fusion_architecture in {
+                    "quality_compatibility_transition_control",
+                    "quality_compatibility_graded_transition_fusion",
+                }
+                else 0.0
+            ),
         )
 
         current_batch_size = batch.batch_size
@@ -2074,6 +2293,7 @@ def train_one_epoch(
         weighted_compatibility_loss += (
             result["compatibility_loss"] * current_batch_size
         )
+        weighted_transition_loss += result["transition_loss"] * current_batch_size
 
     if total_samples == 0:
         raise RuntimeError("Training epoch contained zero samples.")
@@ -2088,6 +2308,7 @@ def train_one_epoch(
         "text_quality_loss": weighted_text_quality_loss / total_samples,
         "vision_quality_loss": weighted_vision_quality_loss / total_samples,
         "compatibility_loss": weighted_compatibility_loss / total_samples,
+        "transition_loss": weighted_transition_loss / total_samples,
         "corruption_counts": dict(sorted(corruption_counts.items())),
     }
 
@@ -3474,6 +3695,18 @@ def main():
     )
 
     print(
+        "Transition objective weight:",
+        (
+            args.transition_objective_weight
+            if args.fusion_architecture in {
+                "quality_compatibility_transition_control",
+                "quality_compatibility_graded_transition_fusion",
+            }
+            else 0.0
+        ),
+    )
+
+    print(
         "Maximum epochs:",
         args.epochs,
     )
@@ -3600,6 +3833,30 @@ def main():
             }
             else 0.0
         ),
+
+        "transition_objective": {
+            "enabled": args.fusion_architecture in {
+                "quality_compatibility_transition_control",
+                "quality_compatibility_graded_transition_fusion",
+            },
+            "requested_weight": args.transition_objective_weight,
+            "effective_weight": (
+                args.transition_objective_weight
+                if args.fusion_architecture in {
+                    "quality_compatibility_transition_control",
+                    "quality_compatibility_graded_transition_fusion",
+                }
+                else 0.0
+            ),
+            "training_split_only": True,
+            "matched_reference_detached": True,
+            "beneficial_transition_penalty": 0.0,
+            "definition": (
+                "mean_relu(matched_true_class_probability_detached_minus_"
+                "mismatched_true_class_probability)_over_mismatch_samples"
+            ),
+            "validation_feedback_used": False,
+        },
 
         "m4q_corruption_protocol": (
             {
@@ -4104,6 +4361,15 @@ def main():
                         else 0.0
                     ),
 
+                    transition_loss_weight=(
+                        args.transition_objective_weight
+                        if args.fusion_architecture in {
+                            "quality_compatibility_transition_control",
+                            "quality_compatibility_graded_transition_fusion",
+                        }
+                        else 0.0
+                    ),
+
                     text_feature_std=(
                         text_feature_std
                     ),
@@ -4321,6 +4587,23 @@ def main():
                             "classification_loss"
                         ]
                     ),
+
+                    "quality_loss": training_metrics["quality_loss"],
+                    "text_quality_loss": training_metrics[
+                        "text_quality_loss"
+                    ],
+                    "vision_quality_loss": training_metrics[
+                        "vision_quality_loss"
+                    ],
+                    "compatibility_loss": training_metrics[
+                        "compatibility_loss"
+                    ],
+                    "transition_loss": training_metrics[
+                        "transition_loss"
+                    ],
+                    "corruption_counts": training_metrics[
+                        "corruption_counts"
+                    ],
                 },
 
                 "validation": {
