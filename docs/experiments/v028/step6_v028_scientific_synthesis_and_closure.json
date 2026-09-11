@@ -1,0 +1,526 @@
+{
+  "branch": "feature/v0.28-selective-reliability-and-mismatch-control",
+  "clean_performance_safeguard": {
+    "decision": "PASSED",
+    "failure_consequence": "M4qcs cannot be recommended as the v0.28 successor if this safeguard fails.",
+    "gates": {
+      "mean_clean_delta_vs_M1b_at_least_minus_0p01": true,
+      "mean_clean_delta_vs_M4qcf_at_least_minus_0p01": true
+    },
+    "mean_clean_deltas": {
+      "M1b": -0.0075360530205059355,
+      "M4qcf": -0.001344043845194672
+    }
+  },
+  "closure_controls": {
+    "additional_v028_evaluation_permitted": false,
+    "additional_v028_training_permitted": false,
+    "analyzer_rerun_permitted": false,
+    "checkpoint_reselection_permitted": false,
+    "formal_gate_modification_permitted": false,
+    "next_development_line": "v0.29",
+    "seed_or_condition_dropping_permitted": false,
+    "threshold_tuning_permitted": false,
+    "v028_closed": true
+  },
+  "decisive_measurements": {
+    "V28_H1": {
+      "catastrophic_mean_delta": -0.003333541730637305,
+      "graded_mean_delta": -0.002855888025334331,
+      "graded_observations": 36,
+      "graded_positive_count": 9
+    },
+    "V28_H2": {
+      "architecture_aggregates": [
+        {
+          "architecture": "M1b",
+          "beneficial_flip_count": 255,
+          "harmful_flip_count": 299,
+          "harmful_to_beneficial_ratio": 1.1725490196078432,
+          "mean_matched_macro_f1": 0.8736073771633278,
+          "mean_mismatch_gap": 0.014707090246742474,
+          "mean_mismatched_macro_f1": 0.8589002869165853,
+          "net_harmful_flip_count": 44,
+          "per_seed_mismatch_gap": [
+            {
+              "gap": 0.014094008901719302,
+              "seed": 42
+            },
+            {
+              "gap": 0.0028813423843957464,
+              "seed": 43
+            },
+            {
+              "gap": 0.027145919454112377,
+              "seed": 44
+            }
+          ],
+          "prediction_flip_count": 554,
+          "prediction_flip_rate": 0.18466666666666667,
+          "sample_pairs": 3000
+        },
+        {
+          "architecture": "M4qc",
+          "beneficial_flip_count": 160,
+          "harmful_flip_count": 185,
+          "harmful_to_beneficial_ratio": 1.15625,
+          "mean_matched_macro_f1": 0.8648393576089181,
+          "mean_mismatch_gap": 0.008347008471116468,
+          "mean_mismatched_macro_f1": 0.8564923491378016,
+          "net_harmful_flip_count": 25,
+          "per_seed_mismatch_gap": [
+            {
+              "gap": -0.0009653960181152943,
+              "seed": 42
+            },
+            {
+              "gap": 0.013987190662233973,
+              "seed": 43
+            },
+            {
+              "gap": 0.012019230769230727,
+              "seed": 44
+            }
+          ],
+          "prediction_flip_count": 345,
+          "prediction_flip_rate": 0.115,
+          "sample_pairs": 3000
+        },
+        {
+          "architecture": "M4qcf",
+          "beneficial_flip_count": 145,
+          "harmful_flip_count": 212,
+          "harmful_to_beneficial_ratio": 1.4620689655172414,
+          "mean_matched_macro_f1": 0.8674153679880164,
+          "mean_mismatch_gap": 0.022331029310631096,
+          "mean_mismatched_macro_f1": 0.8450843386773853,
+          "net_harmful_flip_count": 67,
+          "per_seed_mismatch_gap": [
+            {
+              "gap": 0.02591191476475385,
+              "seed": 42
+            },
+            {
+              "gap": 0.008857204095516602,
+              "seed": 43
+            },
+            {
+              "gap": 0.03222396907162284,
+              "seed": 44
+            }
+          ],
+          "prediction_flip_count": 357,
+          "prediction_flip_rate": 0.119,
+          "sample_pairs": 3000
+        },
+        {
+          "architecture": "M4qcs-w",
+          "beneficial_flip_count": 178,
+          "harmful_flip_count": 183,
+          "harmful_to_beneficial_ratio": 1.0280898876404494,
+          "mean_matched_macro_f1": 0.8645538215213664,
+          "mean_mismatch_gap": 0.0016402142283803804,
+          "mean_mismatched_macro_f1": 0.862913607292986,
+          "net_harmful_flip_count": 5,
+          "per_seed_mismatch_gap": [
+            {
+              "gap": 0.007990312869869065,
+              "seed": 42
+            },
+            {
+              "gap": -0.0040216398457755265,
+              "seed": 43
+            },
+            {
+              "gap": 0.0009519696610476025,
+              "seed": 44
+            }
+          ],
+          "prediction_flip_count": 361,
+          "prediction_flip_rate": 0.12033333333333333,
+          "sample_pairs": 3000
+        },
+        {
+          "architecture": "M4qcs-i",
+          "beneficial_flip_count": 135,
+          "harmful_flip_count": 192,
+          "harmful_to_beneficial_ratio": 1.4222222222222223,
+          "mean_matched_macro_f1": 0.8641969732511354,
+          "mean_mismatch_gap": 0.019062561482083296,
+          "mean_mismatched_macro_f1": 0.8451344117690521,
+          "net_harmful_flip_count": 57,
+          "per_seed_mismatch_gap": [
+            {
+              "gap": 0.014010937776718246,
+              "seed": 42
+            },
+            {
+              "gap": 0.016181850345379,
+              "seed": 43
+            },
+            {
+              "gap": 0.02699489632415264,
+              "seed": 44
+            }
+          ],
+          "prediction_flip_count": 327,
+          "prediction_flip_rate": 0.109,
+          "sample_pairs": 3000
+        },
+        {
+          "architecture": "M4qcs",
+          "beneficial_flip_count": 166,
+          "harmful_flip_count": 207,
+          "harmful_to_beneficial_ratio": 1.2469879518072289,
+          "mean_matched_macro_f1": 0.8660713241428217,
+          "mean_mismatch_gap": 0.013670276109957302,
+          "mean_mismatched_macro_f1": 0.8524010480328644,
+          "net_harmful_flip_count": 41,
+          "per_seed_mismatch_gap": [
+            {
+              "gap": 0.030302689846442132,
+              "seed": 42
+            },
+            {
+              "gap": 0.014920409833499182,
+              "seed": 43
+            },
+            {
+              "gap": -0.0042122713500694076,
+              "seed": 44
+            }
+          ],
+          "prediction_flip_count": 373,
+          "prediction_flip_rate": 0.12433333333333334,
+          "sample_pairs": 3000
+        }
+      ],
+      "mean_mismatch_gap_improvement_vs_M1b": 0.0010368141367851722
+    },
+    "V28_H3": {
+      "architecture_aggregates": [
+        {
+          "architecture": "M4qcs-w",
+          "beneficial_flip_count": 178,
+          "harmful_flip_count": 183,
+          "harmful_to_beneficial_ratio": 1.0280898876404494,
+          "mean_matched_macro_f1": 0.8645538215213664,
+          "mean_mismatch_gap": 0.0016402142283803804,
+          "mean_mismatched_macro_f1": 0.862913607292986,
+          "net_harmful_flip_count": 5,
+          "per_seed_mismatch_gap": [
+            {
+              "gap": 0.007990312869869065,
+              "seed": 42
+            },
+            {
+              "gap": -0.0040216398457755265,
+              "seed": 43
+            },
+            {
+              "gap": 0.0009519696610476025,
+              "seed": 44
+            }
+          ],
+          "prediction_flip_count": 361,
+          "prediction_flip_rate": 0.12033333333333333,
+          "sample_pairs": 3000
+        },
+        {
+          "architecture": "M4qcs-i",
+          "beneficial_flip_count": 135,
+          "harmful_flip_count": 192,
+          "harmful_to_beneficial_ratio": 1.4222222222222223,
+          "mean_matched_macro_f1": 0.8641969732511354,
+          "mean_mismatch_gap": 0.019062561482083296,
+          "mean_mismatched_macro_f1": 0.8451344117690521,
+          "net_harmful_flip_count": 57,
+          "per_seed_mismatch_gap": [
+            {
+              "gap": 0.014010937776718246,
+              "seed": 42
+            },
+            {
+              "gap": 0.016181850345379,
+              "seed": 43
+            },
+            {
+              "gap": 0.02699489632415264,
+              "seed": 44
+            }
+          ],
+          "prediction_flip_count": 327,
+          "prediction_flip_rate": 0.109,
+          "sample_pairs": 3000
+        },
+        {
+          "architecture": "M4qcs",
+          "beneficial_flip_count": 166,
+          "harmful_flip_count": 207,
+          "harmful_to_beneficial_ratio": 1.2469879518072289,
+          "mean_matched_macro_f1": 0.8660713241428217,
+          "mean_mismatch_gap": 0.013670276109957302,
+          "mean_mismatched_macro_f1": 0.8524010480328644,
+          "net_harmful_flip_count": 41,
+          "per_seed_mismatch_gap": [
+            {
+              "gap": 0.030302689846442132,
+              "seed": 42
+            },
+            {
+              "gap": 0.014920409833499182,
+              "seed": 43
+            },
+            {
+              "gap": -0.0042122713500694076,
+              "seed": 44
+            }
+          ],
+          "prediction_flip_count": 373,
+          "prediction_flip_rate": 0.12433333333333334,
+          "sample_pairs": 3000
+        }
+      ],
+      "controller_invariants": {
+        "M4qcs_combined_interaction_is_active": true,
+        "M4qcs_combined_weights_are_active": true,
+        "M4qcs_i_interaction_is_active": true,
+        "M4qcs_i_text_weight_fixed_to_half": true,
+        "M4qcs_i_vision_weight_fixed_to_half": true,
+        "M4qcs_w_interaction_fixed_to_one": true,
+        "M4qcs_w_weights_are_active": true
+      }
+    },
+    "V28_H4": {
+      "clean_mean_delta": -0.001344043845194672,
+      "other_nonclean_mean_delta": -0.00301220705327518,
+      "text_gaussian_mean_delta": -0.0024770268193677614,
+      "text_gaussian_observations": 12,
+      "text_gaussian_positive_count": 3
+    }
+  },
+  "formal_decisions": {
+    "V28_H1": "NOT_SUPPORTED",
+    "V28_H2": "NOT_SUPPORTED",
+    "V28_H3": "NOT_SUPPORTED",
+    "V28_H4": "NOT_SUPPORTED"
+  },
+  "formal_gate_results": {
+    "V28_H1": {
+      "decision": "NOT_SUPPORTED",
+      "gates": {
+        "catastrophic_mean_delta_vs_M4qcf_at_least_minus_0p01": true,
+        "graded_mean_macro_f1_improvement_at_least_0p01": false,
+        "graded_positive_count_at_least_26_of_36": false,
+        "graded_positive_fraction_at_least_0p70": false
+      }
+    },
+    "V28_H2": {
+      "decision": "NOT_SUPPORTED",
+      "gates": {
+        "harmful_to_beneficial_ratio_lower_than_M1b": false,
+        "harmful_to_beneficial_ratio_lower_than_M4qcf": true,
+        "mean_mismatch_gap_improvement_vs_M1b_strictly_positive": true,
+        "net_harmful_flips_lower_than_M1b": true,
+        "net_harmful_flips_lower_than_M4qcf": true,
+        "total_flip_rate_not_above_M1b": true
+      }
+    },
+    "V28_H3": {
+      "decision": "NOT_SUPPORTED",
+      "gates": {
+        "M4qcs_mismatch_macro_f1_at_least_M4qcs_i": true,
+        "M4qcs_mismatch_macro_f1_at_least_M4qcs_w": false,
+        "M4qcs_net_harmful_flips_lower_than_M4qcs_i": true,
+        "M4qcs_net_harmful_flips_lower_than_M4qcs_w": false,
+        "weight_and_interaction_controls_verified_independent": true
+      }
+    },
+    "V28_H4": {
+      "decision": "NOT_SUPPORTED",
+      "gates": {
+        "clean_macro_f1_delta_vs_M4qcf_at_least_minus_0p01": true,
+        "other_conditions_mean_macro_f1_delta_at_least_minus_0p01": true,
+        "text_gaussian_mean_macro_f1_delta_at_least_0p01": false,
+        "text_gaussian_positive_count_at_least_9_of_12": false,
+        "text_gaussian_positive_fraction_at_least_0p75": false
+      }
+    }
+  },
+  "next_step": "Freeze this Step6 closure record, create and publish annotated tag v0.28.0, then establish a prospective v0.29 development line.",
+  "pre_closure_commit": "0712bec5db59020a11d6eac62976f1f8cd31f33b",
+  "programme_cardinality": {
+    "formal_hypotheses": 4,
+    "formal_seeds": 3,
+    "formal_training_runs": 9,
+    "frozen_checkpoints": 18,
+    "mismatch_summary_rows": 36,
+    "quality_summary_rows": 342
+  },
+  "record_version": "0.28.0-step6-closure",
+  "release_verification": {
+    "branch": "feature/v0.28-selective-reliability-and-mismatch-control",
+    "complete_regression_suite": {
+      "command": "python -m pytest -q",
+      "elapsed_seconds_observed": 173.03099999998813,
+      "exit_code": 0,
+      "failed": 0,
+      "passed": 1011,
+      "pytest_summary": "1011 passed in 161.62"
+    },
+    "frozen_document_count": 12,
+    "frozen_document_manifest": {
+      "docs/experiments/v028/step1_selective_reliability_mismatch_protocol.json": {
+        "canonical_lf_sha256": "92bd206c8aae6933421a586e522b006d991f59ef9049f9fb5b4295f229539f48",
+        "git_blob_oid": "53653788780778dd3b8ad243ebf273d20898cdaf",
+        "size_bytes": 17157
+      },
+      "docs/experiments/v028/step1_selective_reliability_mismatch_protocol.md": {
+        "canonical_lf_sha256": "12f73cf92c37eec8e2f144a7731a7a27ed04823c02f4660bae5d128bcc3b28d2",
+        "git_blob_oid": "895e5519eb6535590cd6aee3f1291a7654e54700",
+        "size_bytes": 5287
+      },
+      "docs/experiments/v028/step3_formal_training_results.json": {
+        "canonical_lf_sha256": "21483512d8cf22a6c6917700a2a59bc5476d28791c3bfb1fbc40eeabcd21f0df",
+        "git_blob_oid": "b6c62f2092489becd6ba5384d196310129905828",
+        "size_bytes": 43310
+      },
+      "docs/experiments/v028/step3_formal_training_results.md": {
+        "canonical_lf_sha256": "ba9004349d1462530d0b43ab3c6e5bf9f422efa566454eca81bb297b5060bcf9",
+        "git_blob_oid": "5c0c938bae201961217221374a5c467295ec4048",
+        "size_bytes": 2371
+      },
+      "docs/experiments/v028/step3_locked_training_operationalization.json": {
+        "canonical_lf_sha256": "a6d588070e51140ad0d78cc48b3cabfca2102d5b13c97107bc9c652712c89b9e",
+        "git_blob_oid": "fa5b5ea47b70a0e15c5c8fc1a512adf69e0729b9",
+        "size_bytes": 6438
+      },
+      "docs/experiments/v028/step3_locked_training_operationalization.md": {
+        "canonical_lf_sha256": "47d0151e13b30a39c3ecac6320222cf409ffc8fb471be481f3ab77272f66ed71",
+        "git_blob_oid": "d63360ffc67def1d18ba64aab8ca2c99a9698973",
+        "size_bytes": 2550
+      },
+      "docs/experiments/v028/step4_unified_evaluation_operationalization.json": {
+        "canonical_lf_sha256": "a71adb63c0506a0f0b1dc02c758cd857fb6f1e691bdda3f1b76aa97cba2a8bbd",
+        "git_blob_oid": "731ae969beedf7e46387f67c2653d6f5915d2161",
+        "size_bytes": 9852
+      },
+      "docs/experiments/v028/step4_unified_evaluation_operationalization.md": {
+        "canonical_lf_sha256": "266f226f313d7eb05a954af917c65a67fb6e4a3c73d9b87eaffc03973504d7bb",
+        "git_blob_oid": "9cc358f430c267864659322197243ef0b51b2da3",
+        "size_bytes": 2836
+      },
+      "docs/experiments/v028/step4_unified_evaluation_results.json": {
+        "canonical_lf_sha256": "d27591e33fe82528682c00f73b2323b47c430896e71fae059b02c942ab32f8fa",
+        "git_blob_oid": "1ab6b0c92c4b45859420b6ca08e938093ab0cb72",
+        "size_bytes": 1373762
+      },
+      "docs/experiments/v028/step4_unified_evaluation_results.md": {
+        "canonical_lf_sha256": "6cec3a6168b864bd01b5a338a0bf333b0754e46dd7e34d63f7efa2d60c3c32b1",
+        "git_blob_oid": "be84b5cb2e9f9b85e8679e5c32590b50c3f969c4",
+        "size_bytes": 2828
+      },
+      "docs/experiments/v028/step5_formal_analysis_results.json": {
+        "canonical_lf_sha256": "9e521235b9353a66ba95d9c17e2cd2df952339377f01ff72a4673f649da7d2dc",
+        "git_blob_oid": "8ba563bdb124121416a9e6b6ac92f3f2c703a8da",
+        "size_bytes": 41603
+      },
+      "docs/experiments/v028/step5_formal_analysis_results.md": {
+        "canonical_lf_sha256": "2bcb7ad792c7baa99a088dd68bde37bc4ab901eb7a02916ae615d8493a54c0a6",
+        "git_blob_oid": "a8abc3103e98cbaf651f94fbb2703e58c73d0808",
+        "size_bytes": 2904
+      }
+    },
+    "integrity": {
+      "git_diff_check_passed": true,
+      "git_fsck_full_passed": true,
+      "git_index_empty": true,
+      "tracked_working_tree_clean": true
+    },
+    "record_version": "0.28.0-step6-release-verification",
+    "scientific_safety": {
+      "checkpoint_reselection_performed": false,
+      "evaluation_performed": false,
+      "formal_analyzer_rerun": false,
+      "official_test_accessed": false,
+      "official_test_samples_accessed": 0,
+      "threshold_tuning_performed": false,
+      "training_performed": false
+    },
+    "status": "V028_RELEASE_VERIFICATION_PASSED",
+    "verified_commit": "0712bec5db59020a11d6eac62976f1f8cd31f33b"
+  },
+  "release_verification_sha256": "3a88b5f689c6b83ea2269c851b51a5560634c8185314f25c2646fea70e3ec56c",
+  "scientific_scope": {
+    "causal_claim_made": false,
+    "evidence_class": "CONTROLLED_VALIDATION_DEVELOPMENT_EVIDENCE",
+    "independent_confirmation": false,
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0,
+    "universal_robustness_claim_made": false
+  },
+  "source_document_manifest": {
+    "docs/experiments/v028/step1_selective_reliability_mismatch_protocol.json": {
+      "canonical_lf_sha256": "92bd206c8aae6933421a586e522b006d991f59ef9049f9fb5b4295f229539f48",
+      "raw_sha256": "92bd206c8aae6933421a586e522b006d991f59ef9049f9fb5b4295f229539f48",
+      "size_bytes": 17157
+    },
+    "docs/experiments/v028/step1_selective_reliability_mismatch_protocol.md": {
+      "canonical_lf_sha256": "12f73cf92c37eec8e2f144a7731a7a27ed04823c02f4660bae5d128bcc3b28d2",
+      "raw_sha256": "12f73cf92c37eec8e2f144a7731a7a27ed04823c02f4660bae5d128bcc3b28d2",
+      "size_bytes": 5287
+    },
+    "docs/experiments/v028/step3_formal_training_results.json": {
+      "canonical_lf_sha256": "21483512d8cf22a6c6917700a2a59bc5476d28791c3bfb1fbc40eeabcd21f0df",
+      "raw_sha256": "07d3e895620fb9b2099ecb79e1c2113fbd2a0adfc6c3e77d15eb0b5cf9d2e7d1",
+      "size_bytes": 43310
+    },
+    "docs/experiments/v028/step3_formal_training_results.md": {
+      "canonical_lf_sha256": "ba9004349d1462530d0b43ab3c6e5bf9f422efa566454eca81bb297b5060bcf9",
+      "raw_sha256": "3c824c42c82547a9ff15eee59d09443392f85daf5e1f835d1fb5803f9b78a0df",
+      "size_bytes": 2371
+    },
+    "docs/experiments/v028/step3_locked_training_operationalization.json": {
+      "canonical_lf_sha256": "a6d588070e51140ad0d78cc48b3cabfca2102d5b13c97107bc9c652712c89b9e",
+      "raw_sha256": "ba715e61553a80119a868cee4dea99cae2ff52d3aa3cd6398ce8a56b5f5e8d88",
+      "size_bytes": 6438
+    },
+    "docs/experiments/v028/step3_locked_training_operationalization.md": {
+      "canonical_lf_sha256": "47d0151e13b30a39c3ecac6320222cf409ffc8fb471be481f3ab77272f66ed71",
+      "raw_sha256": "c80fd91753f65ee3d551ee1b6b5edc34608ea0c75a1144564a69e442a347e139",
+      "size_bytes": 2550
+    },
+    "docs/experiments/v028/step4_unified_evaluation_operationalization.json": {
+      "canonical_lf_sha256": "a71adb63c0506a0f0b1dc02c758cd857fb6f1e691bdda3f1b76aa97cba2a8bbd",
+      "raw_sha256": "bf861d465939bca72b44e199157d80ec079a2bfc5225183cfd07f6729329674b",
+      "size_bytes": 9852
+    },
+    "docs/experiments/v028/step4_unified_evaluation_operationalization.md": {
+      "canonical_lf_sha256": "266f226f313d7eb05a954af917c65a67fb6e4a3c73d9b87eaffc03973504d7bb",
+      "raw_sha256": "d91e9972f1f5417cd018b173e1c16b3c3ede197bab062950cb0938bbf3b51730",
+      "size_bytes": 2836
+    },
+    "docs/experiments/v028/step4_unified_evaluation_results.json": {
+      "canonical_lf_sha256": "d27591e33fe82528682c00f73b2323b47c430896e71fae059b02c942ab32f8fa",
+      "raw_sha256": "d27591e33fe82528682c00f73b2323b47c430896e71fae059b02c942ab32f8fa",
+      "size_bytes": 1373762
+    },
+    "docs/experiments/v028/step4_unified_evaluation_results.md": {
+      "canonical_lf_sha256": "6cec3a6168b864bd01b5a338a0bf333b0754e46dd7e34d63f7efa2d60c3c32b1",
+      "raw_sha256": "6cec3a6168b864bd01b5a338a0bf333b0754e46dd7e34d63f7efa2d60c3c32b1",
+      "size_bytes": 2828
+    },
+    "docs/experiments/v028/step5_formal_analysis_results.json": {
+      "canonical_lf_sha256": "9e521235b9353a66ba95d9c17e2cd2df952339377f01ff72a4673f649da7d2dc",
+      "raw_sha256": "af76b99426e81fb9104536cba8387544ee141b9480c4400ecf3d275cdc7a3822",
+      "size_bytes": 41603
+    },
+    "docs/experiments/v028/step5_formal_analysis_results.md": {
+      "canonical_lf_sha256": "2bcb7ad792c7baa99a088dd68bde37bc4ab901eb7a02916ae615d8493a54c0a6",
+      "raw_sha256": "7246f86eed585834065b47eb723722eb104cc6623030ff20ebf8b9896826e7e5",
+      "size_bytes": 2904
+    }
+  },
+  "status": "V028_SCIENTIFICALLY_CLOSED_READY_FOR_TAG",
+  "target_release_tag": "v0.28.0"
+}
