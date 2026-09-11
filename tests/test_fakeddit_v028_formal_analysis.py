@@ -92,6 +92,57 @@ def test_h4_boundary_values():
     assert MODULE.decision(gates) == "SUPPORTED"
 
 
+def test_exact_frozen_protocol_status_is_accepted():
+    protocol = {
+        "protocol_version": "0.28.0-step1",
+        "status": (
+            "FROZEN_PROSPECTIVE_V028_PROTOCOL_BEFORE_"
+            "IMPLEMENTATION_TRAINING_AND_RESULT_EXPOSURE"
+        ),
+        "formal_decision_policy": {
+            "all_hypothesis_gates_conjunctive": True,
+            "aggregate_mean_may_override_failed_coverage_gate": False,
+        },
+        "formal_hypotheses": {
+            "V28_H1": {
+                "support_gates": {
+                    "graded_mean_macro_f1_improvement_min": 0.01,
+                    "graded_minimum_positive_count_for_36": 26,
+                    "catastrophic_mean_delta_vs_M4qcf_min": -0.01,
+                }
+            },
+            "V28_H2": {"support_gates": {}},
+            "V28_H3": {"support_gates": {}},
+            "V28_H4": {
+                "support_gates": {
+                    "text_gaussian_mean_macro_f1_delta_min": 0.01,
+                    "text_gaussian_minimum_positive_count_for_12": 9,
+                }
+            },
+        },
+    }
+    MODULE.validate_protocol(protocol)
+
+
+def test_short_noncanonical_protocol_status_is_rejected():
+    protocol = {
+        "protocol_version": "0.28.0-step1",
+        "status": "FROZEN_PROSPECTIVE_PROTOCOL",
+        "formal_decision_policy": {
+            "all_hypothesis_gates_conjunctive": True,
+            "aggregate_mean_may_override_failed_coverage_gate": False,
+        },
+        "formal_hypotheses": {
+            "V28_H1": {"support_gates": {}},
+            "V28_H2": {"support_gates": {}},
+            "V28_H3": {"support_gates": {}},
+            "V28_H4": {"support_gates": {}},
+        },
+    }
+    with pytest.raises(RuntimeError):
+        MODULE.validate_protocol(protocol)
+
+
 def test_diagnostic_constant_check():
     rows = [{"architecture": "M4qcs-i", "diagnostics": {"text_weight": {"min": 0.5, "mean": 0.5, "max": 0.5}}}]
     assert MODULE.diagnostic_is_constant(rows, "M4qcs-i", "text_weight", 0.5)

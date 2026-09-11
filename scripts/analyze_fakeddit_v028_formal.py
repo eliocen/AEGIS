@@ -164,7 +164,11 @@ def diagnostic_has_variation(rows: Sequence[Mapping[str, Any]], architecture: st
 
 def validate_protocol(protocol: Mapping[str, Any]) -> None:
     require(protocol["protocol_version"] == "0.28.0-step1", "Wrong Step1 protocol version.")
-    require(protocol["status"] == "FROZEN_PROSPECTIVE_PROTOCOL", "Step1 protocol is not frozen.")
+    require(
+        protocol["status"]
+        == "FROZEN_PROSPECTIVE_V028_PROTOCOL_BEFORE_IMPLEMENTATION_TRAINING_AND_RESULT_EXPOSURE",
+        "Step1 protocol is not the frozen prospective v0.28 protocol.",
+    )
     policy = protocol["formal_decision_policy"]
     require(policy["all_hypothesis_gates_conjunctive"] is True, "Formal gates are not conjunctive.")
     require(policy["aggregate_mean_may_override_failed_coverage_gate"] is False, "Mean override is prohibited.")
