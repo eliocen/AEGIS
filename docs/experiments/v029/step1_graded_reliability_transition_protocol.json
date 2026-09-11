@@ -1,0 +1,257 @@
+{
+  "accelerated_execution_plan": [
+    "Step1_protocol_freeze",
+    "Step2_implementation_invariants_smoke_and_freeze",
+    "Step3_nine_locked_training_runs_and_record",
+    "Step4_unified_frozen_evaluation_without_decisions",
+    "Step5_one_time_frozen_formal_analysis_and_decision_record",
+    "Step6_scientific_synthesis_closure_and_release_tag"
+  ],
+  "architecture_contract": {
+    "controller": {
+      "allocation_exponent": 1.0,
+      "epsilon": 1e-06,
+      "inputs_stop_gradient": true,
+      "maximum_modality_weight": 0.9,
+      "minimum_modality_weight": 0.1,
+      "parameter_free": true,
+      "reliability_temperature": 1.0,
+      "separation_invariants_required": true,
+      "transition_exponent": 1.0,
+      "transition_margin": 0.1
+    },
+    "family": "graded_reliability_and_transition_control",
+    "primary": "M4qgrt",
+    "variants": {
+      "M4qgr": {
+        "graded_reliability_weights": true,
+        "interaction_multiplier": 1.0,
+        "transition_control": false
+      },
+      "M4qgrt": {
+        "graded_reliability_weights": true,
+        "transition_control": true
+      },
+      "M4qtc": {
+        "graded_reliability_weights": false,
+        "text_weight": 0.5,
+        "transition_control": true,
+        "vision_weight": 0.5
+      }
+    }
+  },
+  "branch": "feature/v0.29-graded-reliability-and-transition-control",
+  "clean_performance_safeguard": {
+    "comparators": [
+      "M1b",
+      "M4qcf",
+      "M4qcs-w"
+    ],
+    "failure_consequence": "M4qgrt cannot be recommended as a successor regardless of formal robustness outcomes.",
+    "metric": "mean clean validation Macro-F1",
+    "minimum_delta_vs_each_comparator": -0.01,
+    "primary": "M4qgrt"
+  },
+  "evaluation_protocol": {
+    "architectures": [
+      "M1b",
+      "M4qcf",
+      "M4qcs-w",
+      "M4qcs",
+      "M4qgr",
+      "M4qtc",
+      "M4qgrt"
+    ],
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "mismatch_summary_rows": 42,
+    "quality_conditions": [
+      "clean",
+      "text_gaussian_noise_s0p25",
+      "text_gaussian_noise_s0p5",
+      "text_gaussian_noise_s0p75",
+      "vision_gaussian_noise_s0p25",
+      "vision_gaussian_noise_s0p5",
+      "vision_gaussian_noise_s0p75",
+      "text_attenuation_s0p25",
+      "text_attenuation_s0p5",
+      "text_attenuation_s0p75",
+      "text_attenuation_s1",
+      "vision_attenuation_s0p25",
+      "vision_attenuation_s0p5",
+      "vision_attenuation_s0p75",
+      "vision_attenuation_s1",
+      "text_zero_dropout_s1",
+      "vision_zero_dropout_s1",
+      "text_structured_dropout_s0p5",
+      "vision_structured_dropout_s0p5"
+    ],
+    "quality_summary_rows": 399,
+    "sample_level_transition_counts_required": true,
+    "shared_corruption_realizations": true,
+    "shared_deterministic_class_preserving_mismatch_mapping": true,
+    "validation_samples": 1000
+  },
+  "evidence_classification": {
+    "class": "CONTROLLED_VALIDATION_DEVELOPMENT_EVIDENCE",
+    "independent_confirmation": false,
+    "official_test_evidence": false,
+    "prospective_relative_to_v029": true
+  },
+  "experiment": "fakeddit_v029_graded_reliability_and_transition_control",
+  "formal_decision_policy": {
+    "all_gates_conjunctive": true,
+    "allowed_values": [
+      "SUPPORTED",
+      "NOT_SUPPORTED"
+    ],
+    "decision_stage": "Step5",
+    "decisions_computed_only_after_frozen_unified_evaluation": true,
+    "failed_gate_cannot_be_overridden": true
+  },
+  "formal_hypotheses": {
+    "V29_H1": {
+      "claim": "M4qgrt improves graded-corruption coverage over M4qcs while preserving catastrophic-loss performance relative to M4qcf.",
+      "comparators": [
+        "M4qcs",
+        "M4qcf"
+      ],
+      "decision": "NOT_COMPUTED",
+      "gates": {
+        "catastrophic_mean_macro_f1_delta_vs_M4qcf_at_least_minus_0p01": ">=-0.01 across 12 catastrophic observations",
+        "graded_mean_macro_f1_delta_vs_M4qcs_at_least_0p01": ">=0.01 across 36 frozen graded observations",
+        "graded_positive_count_at_least_26_of_36": ">=26",
+        "graded_positive_fraction_at_least_0p70": ">=0.70"
+      },
+      "primary": "M4qgrt"
+    },
+    "V29_H2": {
+      "claim": "M4qgrt improves mismatch degradation and transition balance over M1b and M4qcs-w.",
+      "comparators": [
+        "M1b",
+        "M4qcs-w"
+      ],
+      "decision": "NOT_COMPUTED",
+      "gates": {
+        "harmful_to_beneficial_ratio_strictly_lower_than_M1b": "strictly lower",
+        "harmful_to_beneficial_ratio_strictly_lower_than_M4qcs_w": "strictly lower",
+        "mean_mismatch_gap_strictly_lower_than_M1b": "strictly lower",
+        "mean_mismatch_gap_strictly_lower_than_M4qcs_w": "strictly lower",
+        "net_harmful_flips_strictly_lower_than_M1b": "strictly lower",
+        "net_harmful_flips_strictly_lower_than_M4qcs_w": "strictly lower",
+        "prediction_flip_rate_not_above_M1b": "<=M1b"
+      },
+      "primary": "M4qgrt"
+    },
+    "V29_H3": {
+      "claim": "The combined M4qgrt mechanism outperforms M4qgr and M4qtc while all separation invariants hold.",
+      "comparators": [
+        "M4qgr",
+        "M4qtc"
+      ],
+      "decision": "NOT_COMPUTED",
+      "gates": {
+        "graded_mean_macro_f1_strictly_above_each_ablation": "strictly above both",
+        "mismatched_macro_f1_strictly_above_each_ablation": "strictly above both",
+        "net_harmful_flips_strictly_lower_than_each_ablation": "strictly lower than both",
+        "weight_and_transition_controls_verified_independent": "all frozen invariants true"
+      },
+      "primary": "M4qgrt"
+    },
+    "V29_H4": {
+      "claim": "M4qgrt improves text-Gaussian robustness over both M4qcf and M4qcs while preserving clean and other non-clean regimes.",
+      "comparators": [
+        "M4qcf",
+        "M4qcs"
+      ],
+      "decision": "NOT_COMPUTED",
+      "gates": {
+        "clean_mean_delta_vs_each_comparator_at_least_minus_0p01": ">=-0.01 versus each comparator",
+        "other_nonclean_mean_delta_vs_each_comparator_at_least_minus_0p01": ">=-0.01 versus each comparator",
+        "text_gaussian_mean_delta_vs_each_comparator_at_least_0p01": ">=0.01 versus each comparator",
+        "text_gaussian_positive_count_vs_each_comparator_at_least_9_of_12": ">=9 versus each comparator",
+        "text_gaussian_positive_fraction_vs_each_comparator_at_least_0p75": ">=0.75 versus each comparator"
+      },
+      "primary": "M4qgrt"
+    }
+  },
+  "frozen_v028_handoff": {
+    "clean_safeguard": "PASSED",
+    "formal_decisions": {
+      "V28_H1": "NOT_SUPPORTED",
+      "V28_H2": "NOT_SUPPORTED",
+      "V28_H3": "NOT_SUPPORTED",
+      "V28_H4": "NOT_SUPPORTED"
+    },
+    "graded_mean_delta": -0.002855888025334331,
+    "graded_observations": 36,
+    "graded_positive_count": 9,
+    "text_gaussian_mean_delta": -0.0024770268193677614,
+    "text_gaussian_observations": 12,
+    "text_gaussian_positive_count": 3
+  },
+  "next_step": "Step2 \u2014 implement M4qgr, M4qtc, and M4qgrt with unified runners, invariant tests, and non-evidentiary smoke validation.",
+  "prohibited_actions": [
+    "official_test_access",
+    "post_exposure_threshold_tuning",
+    "post_exposure_checkpoint_reselection",
+    "post_exposure_loss_weight_change",
+    "post_exposure_architecture_modification",
+    "new_evaluation_conditions_after_exposure",
+    "dropping_conditions",
+    "dropping_seeds",
+    "favorable_result_reweighting",
+    "formal_gate_modification",
+    "v028_record_modification"
+  ],
+  "protocol_version": "0.29.0-step1",
+  "research_objective": "Improve graded-corruption coverage and mismatch transition balance without sacrificing clean or catastrophic-loss safeguards.",
+  "scientific_safety": {
+    "evaluation_performed": false,
+    "formal_decisions_computed": false,
+    "implementation_performed": false,
+    "official_test_access_permitted": false,
+    "official_test_samples_accessed": 0,
+    "training_performed": false
+  },
+  "source_release": {
+    "closure_document": "docs/experiments/v028/step6_v028_scientific_synthesis_and_closure.json",
+    "closure_document_sha256": "eaa90abea72997836d25c57bf090232376d83ea32043549c77c8d89dcae05475",
+    "commit": "8301888479572edfd08d93657ba01ff08918bc9a",
+    "tag": "v0.28.0"
+  },
+  "status": "FROZEN_PROSPECTIVE_V029_PROTOCOL_BEFORE_IMPLEMENTATION_TRAINING_AND_RESULT_EXPOSURE",
+  "training_protocol": {
+    "checkpoint_selection": "clean validation Macro-F1, then clean validation classification loss",
+    "dataset": "Fakeddit",
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "locked_runs": 9,
+    "new_architectures": [
+      "M4qgr",
+      "M4qtc",
+      "M4qgrt"
+    ],
+    "post_exposure_reselection_permitted": false,
+    "robustness_or_mismatch_used_for_checkpoint_selection": false,
+    "training_mixture": {
+      "class_preserving_mismatch": 0.2,
+      "clean": 0.5,
+      "single_modality_quality_corruption": 0.3
+    },
+    "training_samples": 5000,
+    "transition_objective": {
+      "objective": "penalize harmful matched-to-mismatched transitions while retaining beneficial transitions",
+      "training_split_only": true,
+      "validation_feedback_used": false,
+      "weight": 0.25
+    },
+    "validation_samples": 1000
+  }
+}
