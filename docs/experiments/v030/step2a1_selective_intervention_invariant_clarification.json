@@ -1,0 +1,65 @@
+{
+  "clarification": {
+    "M4qesri": {
+      "final_modality_weight_bounds": [
+        0.1,
+        0.9
+      ],
+      "weight_intervention_enabled": true
+    },
+    "M4qesri-t": {
+      "final_modality_weight_bounds": null,
+      "required_behavior": "Preserve the exact M4qcs-w-compatible reference weights with no additional clamp.",
+      "weight_intervention_enabled": false
+    },
+    "M4qesri-w": {
+      "final_modality_weight_bounds": [
+        0.1,
+        0.9
+      ],
+      "weight_intervention_enabled": true
+    }
+  },
+  "identified_inconsistency": {
+    "conflicting_generic_invariant": "Step2A also stated that all final modality weights must lie in [0.10,0.90].",
+    "observed_non_evidentiary_example": {
+      "interpretation": "The exact stable-reference allocation can legitimately exceed the [0.10,0.90] intervention clamp because that clamp belongs to the selective weight-intervention pathway, not the reference pathway.",
+      "text_weight_values": [
+        0.5,
+        0.0826,
+        0.9615
+      ]
+    },
+    "stable_reference_requirement": "M4qesri-t transition-only must preserve the exact M4qcs-w-compatible reference modality weights."
+  },
+  "parent_step2a_commit": "5ae986c1f453bcc7da4f55f407b2d01c12aab78f",
+  "record_version": "0.30.0-step2a1",
+  "scientific_safety": {
+    "formal_decisions_computed": false,
+    "formal_evaluation_performed": false,
+    "formal_training_performed": false,
+    "official_test_samples_accessed": 0
+  },
+  "status": "PROSPECTIVE_CLARIFICATION_BEFORE_FORMAL_TRAINING_AND_EVALUATION",
+  "superseded_invariant": "The generic statement '0.10 <= final modality weights <= 0.90' is superseded by the mode-specific invariant in this clarification.",
+  "test_correction_authorized": "Focused tests must assert [0.10,0.90] final weight bounds only for weights_only and combined modes; transition_only must instead assert exact identity with reference_text_weight/reference_vision_weight.",
+  "trigger": {
+    "failed_test": "test_v030_controller_is_parameter_free_bounded_and_detached[transition_only]",
+    "formal_decisions_computed": false,
+    "formal_evaluation_performed": false,
+    "formal_training_performed": false,
+    "official_test_samples_accessed": 0,
+    "stage": "non_evidentiary_focused_tensor_contract_test"
+  },
+  "unchanged_contract": [
+    "risk decomposition equations unchanged",
+    "intervention gate equation unchanged",
+    "M4qesri-w weight-intervention equation unchanged",
+    "M4qesri transition/weight equations unchanged",
+    "M4qesri-t transition-intervention equation unchanged",
+    "gate=0 stable-reference identity unchanged",
+    "controller remains parameter-free",
+    "controller inputs remain stop-gradient",
+    "no training/evaluation/checkpoint/result exposure occurred"
+  ]
+}
