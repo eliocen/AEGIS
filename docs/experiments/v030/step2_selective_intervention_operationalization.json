@@ -1,0 +1,110 @@
+{
+  "architecture_family": "evidence_conditioned_selective_reliability_intervention",
+  "fusion_equation": "z = alpha_T*h_T + alpha_V*h_V + g_I*z_I",
+  "implementation_scope": {
+    "alignment_model_integration": true,
+    "controller": true,
+    "focused_tensor_contract_tests": true,
+    "formal_evaluation": false,
+    "formal_hypothesis_decisions": false,
+    "formal_training": false,
+    "official_test_access": false,
+    "training_runner_integration": false
+  },
+  "input_contract": {
+    "all_controller_inputs_stop_gradient": true,
+    "compatibility": "[B,1], floating, finite, bounded [0,1]",
+    "official_test_labels_permitted": false,
+    "text_quality": "[B,1], floating, finite, bounded [0,1]",
+    "validation_labels_permitted": false,
+    "vision_quality": "[B,1], floating, finite, bounded [0,1]"
+  },
+  "intervention_gate": {
+    "active_reporting_threshold": 0.5,
+    "equation": "clamp((transition_risk - 0.25)/0.50, 0, 1)",
+    "floor": 0.25,
+    "range": [
+      0.0,
+      1.0
+    ],
+    "width": 0.5
+  },
+  "no_intervention_identity": "If gate=0, final fusion must exactly equal the M4qcs-w-compatible stable reference fusion.",
+  "parent_step1_commit": "4640622cc2738d26cfd96337496294ca096fc6ba",
+  "primary_architecture": "M4qesri",
+  "protocol_version": "0.30.0-step2a",
+  "required_diagnostics": [
+    "reference_text_weight",
+    "reference_vision_weight",
+    "intervention_gate",
+    "transition_risk",
+    "quality_deficit",
+    "compatibility_deficit",
+    "quality_disagreement",
+    "weight_intervention_magnitude",
+    "transition_intervention_magnitude"
+  ],
+  "required_invariants": [
+    "controller parameter_count == 0",
+    "all controller inputs detached",
+    "0 <= intervention_gate <= 1",
+    "0.10 <= final modality weights <= 0.90",
+    "final modality weights sum to 1",
+    "weight intervention magnitude <= 0.15",
+    "0.50 <= interaction multiplier <= 1",
+    "transition intervention magnitude <= 0.50",
+    "weights-only leaves interaction multiplier exactly 1",
+    "transition-only leaves reference modality weights unchanged",
+    "combined equals composition of the two separated interventions",
+    "gate=0 exactly reproduces stable reference path"
+  ],
+  "risk_decomposition": {
+    "compatibility_deficit": "1 - c_TV",
+    "quality_deficit": "1 - 0.5*(q_T + q_V)",
+    "quality_disagreement": "abs(q_T - q_V)",
+    "transition_risk": "clamp(0.50*compatibility_deficit + 0.25*quality_deficit + 0.25*quality_disagreement, 0, 1)"
+  },
+  "scientific_safety": {
+    "formal_decisions_computed": false,
+    "formal_evaluation_performed": false,
+    "formal_training_performed": false,
+    "official_test_samples_accessed": 0
+  },
+  "stable_reference": {
+    "allocation_exponent": 2.0,
+    "epsilon": 0.1,
+    "name": "M4qcs-w",
+    "reference_interaction_multiplier": 1.0,
+    "reference_text_score": "(epsilon + q_T)^2",
+    "reference_text_weight": "s_T / (s_T + s_V)",
+    "reference_vision_score": "(epsilon + q_V)^2",
+    "reference_vision_weight": "s_V / (s_T + s_V)"
+  },
+  "status": "FROZEN_BEFORE_V030_IMPLEMENTATION_AND_TRAINING",
+  "transition_intervention": {
+    "beneficial_transition_penalty_defined_here": false,
+    "disabled_mode_behavior": "g_I = 1",
+    "enabled_modes": [
+      "transition_only",
+      "combined"
+    ],
+    "equation": "g_I = clamp(1 - gate*0.50*transition_risk, 0.50, 1.00)",
+    "max_interaction_suppression": 0.5
+  },
+  "variants": {
+    "M4qesri": "combined",
+    "M4qesri-t": "transition_only",
+    "M4qesri-w": "weights_only"
+  },
+  "weight_intervention": {
+    "disabled_mode_behavior": "use exact stable-reference weights",
+    "enabled_modes": [
+      "weights_only",
+      "combined"
+    ],
+    "equation": "alpha_T = clamp(alpha_T_ref + gate*0.15*(q_T-q_V), 0.10, 0.90); alpha_V = 1-alpha_T",
+    "max_weight_shift": 0.15,
+    "maximum_modality_weight": 0.9,
+    "minimum_modality_weight": 0.1
+  }
+}
