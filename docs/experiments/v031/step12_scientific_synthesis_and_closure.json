@@ -1,0 +1,97 @@
+{
+  "aegis_version": "0.31",
+  "closure_boundary": {
+    "additional_v031_formal_evaluation": "PROHIBITED",
+    "additional_v031_training": "PROHIBITED",
+    "checkpoint_reselection": "PROHIBITED",
+    "official_test_access": "PROHIBITED",
+    "official_test_samples_accessed": 0,
+    "post_exposure_rebinning": "PROHIBITED",
+    "step11_decisions": "IMMUTABLE",
+    "threshold_tuning": "PROHIBITED"
+  },
+  "formal_decisions": {
+    "V31_H1": "NOT_SUPPORTED",
+    "V31_H2": "NOT_SUPPORTED",
+    "V31_H3": "NOT_SUPPORTED",
+    "V31_H4": "NOT_SUPPORTED",
+    "V31_H5": "NOT_SUPPORTED",
+    "clean_performance_safeguard": "PASSED"
+  },
+  "formal_output_tree_sha256": "17110ED5139AF09034D4EDECBF083339DEFC2AF2C7E03D6CCB1F9CA1D3399DFF",
+  "next_research_stage": "New version/prospective protocol only. Do not reopen v0.31.",
+  "overall_conclusion": {
+    "primary_mechanistic_failure": "utility selector/intervention gate remained effectively inactive; utility probabilities stayed near 0.5 and active intervention remained zero across clean, graded, and catastrophic conditions.",
+    "statement": "AEGIS v0.31 preserved clean performance but failed all five prospectively frozen scientific hypotheses. The calibrated evidence selective-intervention mechanism did not establish graded robustness, mismatch-transition improvement, combined-mechanism superiority, utility selectivity, or evidence-utility alignment.",
+    "status": "V0.31_CLOSED_NOT_SUPPORTED",
+    "successor_direction": "A successor may investigate why the learned utility objective is non-discriminative or poorly optimized, but must be introduced under a new prospective protocol/version. v0.31 itself must not be retrained or retuned."
+  },
+  "parent_step11_commit": "f575a903b15f531516fde65fe1b651fb00812ece",
+  "record_type": "scientific_synthesis_closure_release",
+  "release": {
+    "basis": "scientific lifecycle complete with frozen negative results and clean regression suite",
+    "eligible": true,
+    "tag": "v0.31.0"
+  },
+  "schema_version": "1.0",
+  "scientific_synthesis": [
+    {
+      "evidence": "clean-performance safeguard PASSED",
+      "finding": "clean_performance_preserved",
+      "interpretation": "The calibrated selective-intervention design did not materially damage clean validation performance relative to the frozen safeguards."
+    },
+    {
+      "evidence": {
+        "catastrophic_mean_delta_vs_M4qcf": 0.0057599709101868735,
+        "graded_mean_delta_vs_M4qcs-w": -0.0010695138602748054,
+        "graded_positive_count": 12,
+        "graded_positive_fraction": 0.3333333333333333
+      },
+      "finding": "graded_robustness_not_improved",
+      "interpretation": "The primary controller did not improve graded corruption robustness over the stable-reference baseline under the prospective H1 gate."
+    },
+    {
+      "evidence": {
+        "primary_harmful_beneficial_ratio": 1.1162790697674418,
+        "primary_mismatch_gap": 0.0066098133330552145,
+        "primary_net_harmful": 20
+      },
+      "finding": "mismatch_transition_quality_not_improved",
+      "interpretation": "The calibrated controller did not establish superior mismatch-transition behavior relative to the frozen comparators."
+    },
+    {
+      "evidence": "V31-H3 NOT_SUPPORTED",
+      "finding": "combined_mechanism_not_superior",
+      "interpretation": "Combining calibration and utility selection did not meet the prospectively frozen superiority requirements over either ablation."
+    },
+    {
+      "evidence": {
+        "catastrophic_active_rate": 0.0,
+        "clean_active_rate": 0.0,
+        "graded_active_rate": 0.0,
+        "matched_mean_utility_probability": 0.49877981637914975,
+        "mismatched_mean_utility_probability": 0.49811080131928126
+      },
+      "finding": "utility_selector_failed_to_activate",
+      "interpretation": "The utility selector remained effectively centered near its initialization and produced zero active intervention across the evaluated corruption strata. The principal v0.31 mechanism therefore did not learn a useful intervention boundary."
+    },
+    {
+      "evidence": {
+        "criterion_A_high_band_n": 0,
+        "criterion_A_low_band_n": 15,
+        "criterion_B_high_band_n": 0,
+        "criterion_B_low_band_n": 0
+      },
+      "finding": "evidence_utility_alignment_not_established",
+      "interpretation": "The frozen H5 bands did not establish usable evidence-to-utility alignment; no post-exposure rebinning is permitted."
+    }
+  ],
+  "step": "Step12",
+  "step11_json_sha256": "F780896B953F48F95D5DC8558D7B53AFD68DF61813BBD9A3B2094DBB7D870AE7",
+  "step8_provenance_note": {
+    "canonical_frozen_regression_test_sha256": "C990591FAFF28AE5A1990D2112CD9E5D002C41D8C364AE423063FE578C98B8BA",
+    "classification": "EOF_ONLY_CANONICALIZATION_DISCREPANCY_NO_LOGIC_CHANGE",
+    "precanonical_regression_test_sha256": "2370EA278E8CF5D951CAB191ED4B5518ECF276CAF759EC2C66468AA1C0F2C253",
+    "precanonical_sha_present_in_step8_record": true
+  }
+}
