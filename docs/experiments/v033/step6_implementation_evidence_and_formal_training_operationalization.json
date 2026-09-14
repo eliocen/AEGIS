@@ -1,0 +1,90 @@
+{
+    "version":  "0.33",
+    "step":  "Step6",
+    "status":  "IMPLEMENTATION_EVIDENCE_AND_FORMAL_TRAINING_OPERATIONALIZATION_FROZEN",
+    "step5_primary_commit":  "fde002fb45034ae8b4d232aefecb982b61a39258",
+    "validation_observability_correction_commit":  "a05c05cbdc3d6d6ce8709268ef2ed7b737c32846",
+    "branch":  "feature/v0.33-prospective-utility-supervision-selector-learning-redesign",
+    "implementation":  {
+                           "primary_architecture":  "M4qusli",
+                           "runner_architecture_identifier":  "quality_compatibility_utility_supervised_intervention",
+                           "source_sha256":  {
+                                                 "controller":  "6807597395E0FAD7D295645A416CB5506825845DEA9F6D342F3642035D6E137F",
+                                                 "model":  "6EDC8D06233DF4BFB7D868165E1BDA7607D083308370426AAE9E92232252793C",
+                                                 "runner":  "1D6100D5AC0E8858F0B54846FC5167A97E20C0EEF4D70B5762EF7F3BF41B63CF",
+                                                 "controller_test":  "96C5AC55143D40DE9EB2C8B7194E294B36A1E2B12ECF017D52B5D4335CAC4C9E",
+                                                 "training_path_test":  "C5B485D0C36CE4BE17D4149AA4CD5AF133C8164DF7A3F8D6C4C5A0ABBF9E6691"
+                                             }
+                       },
+    "prospective_mechanism":  {
+                                  "delta_u":  "p_candidate_true - p_ref_true",
+                                  "utility_target":  "clip(0.5 + delta_u / 0.20, 0, 1)",
+                                  "utility_loss":  "mean((1 + 4*min(abs(delta_u)/0.10,1)) * BCEWithLogits(selector_logit,u_target))",
+                                  "effective_utility_loss_weight":  0.5,
+                                  "transition_objective_weight":  0,
+                                  "active_threshold":  0.6,
+                                  "soft_gate":  "clip((utility_probability - 0.60) / 0.40, 0, 1)",
+                                  "max_intervention_strength":  0.15,
+                                  "below_threshold_behavior":  "exact_no_intervention",
+                                  "candidate_action":  "unchanged_from_v0.31_utility_only_raw_evidence_path"
+                              },
+    "pretraining_hard_gates":  {
+                                   "G1_counterfactual_tensor_contract":  "PASS",
+                                   "G2_controlled_non_neutral_target_smoke":  "PASS",
+                                   "G3_real_one_batch_selector_learning_path":  "PASS",
+                                   "G4_effective_runtime_weight_assertion":  "PASS",
+                                   "G5_inactive_default_exact_identity":  "PASS",
+                                   "candidate_action_parity":  "PASS",
+                                   "validation_machine_readable_observability":  "PASS"
+                               },
+    "regression_evidence":  {
+                                "focused_v033":  "PASS",
+                                "inherited_v031":  "PASS",
+                                "relevant_reliability_alignment":  "PASS",
+                                "full_regression":  "PASS"
+                            },
+    "formal_training":  {
+                            "authorized":  true,
+                            "executed_during_step6":  false,
+                            "architecture":  "M4qusli",
+                            "seeds":  [
+                                          42,
+                                          43,
+                                          44
+                                      ],
+                            "run_count":  3,
+                            "train_cache":  "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+                            "validation_cache":  "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42",
+                            "epochs":  50,
+                            "batch_size":  32,
+                            "learning_rate":  0.001,
+                            "weight_decay":  0.0001,
+                            "shared_dim":  128,
+                            "hidden_dim":  128,
+                            "dropout":  0.1,
+                            "temperature":  0.07,
+                            "alignment_weight":  0.5,
+                            "classification_weight":  1,
+                            "quality_weight":  1,
+                            "compatibility_weight":  1,
+                            "effective_utility_loss_weight":  0.5,
+                            "transition_objective_weight":  0,
+                            "gradient_clip":  1,
+                            "patience":  8,
+                            "min_epochs":  5,
+                            "min_delta":  1E-06,
+                            "checkpoint_selection":  "highest validation Macro-F1; tie-break lowest validation classification loss"
+                        },
+    "prohibitions":  [
+                         "no additional architectures",
+                         "no ablations during formal training",
+                         "no extra seeds",
+                         "no threshold search or tuning",
+                         "no checkpoint reselection outside frozen rule",
+                         "no formal hypothesis decisions during training",
+                         "no formal robustness evaluation until later operationalization",
+                         "no official test access"
+                     ],
+    "official_test_samples_accessed":  0,
+    "next":  "Step7 formal M4qusli training using frozen launcher; then freeze training evidence/provenance"
+}
