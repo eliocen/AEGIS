@@ -1,0 +1,107 @@
+{
+  "adaptation_boundary": {
+    "changes": [
+      "add M4qusli checkpoint/model routing",
+      "add exact v0.33 utility-supervision diagnostics",
+      "recompute p_ref_true/p_candidate_true/delta_u/u_target from frozen classifier counterfactuals",
+      "enforce v0.33 utility_probability >= 0.60 activation semantics"
+    ],
+    "formal_mismatch_summaries_expected": 24,
+    "formal_quality_summaries_expected": 228,
+    "formal_roster": [
+      "M1b",
+      "M4qcf",
+      "M4qcs-w",
+      "M4qusli"
+    ],
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "inherited_semantics_unchanged": [
+      "19-condition corruption matrix",
+      "class-preserving mismatch mapping",
+      "binary metrics",
+      "mismatch transition metrics",
+      "historical comparator behavior"
+    ]
+  },
+  "aegis_version": "0.33",
+  "engineering_smoke": {
+    "architectures": [
+      "M1b",
+      "M4qcf",
+      "M4qcs-w",
+      "M4qusli"
+    ],
+    "formal": false,
+    "mapping_sha256": "975967D77622BCDAD7E28597CB6F9F967C73BFE16D4A7455C1AB56CC7FBC6464",
+    "mapping_sha_verified_in_summary_and_manifest": true,
+    "mismatch_summary_rows": 8,
+    "performed": true,
+    "quality_conditions_per_architecture_seed": 2,
+    "quality_summary_rows": 8,
+    "rerun_during_recovery": false,
+    "root": "experiments/fakeddit/v033_step10_engineering_smoke",
+    "root_evidence_files": [
+      "summary.json",
+      "manifest.json",
+      "quality_condition_summaries.json",
+      "mismatch_summaries.json"
+    ],
+    "seed": 42,
+    "standalone_root_mismatch_mapping_file_expected": false,
+    "tree_sha256": "EFD7DD57B0B24671E99748378239ED7556D472424468A2E9C0A5B67FD189613A"
+  },
+  "evaluator_path": "scripts/run_fakeddit_unified_evaluation_v033.py",
+  "evaluator_sha256": "49678E9B0E4E0CB9F22253DC00B00453D7FFD3CC40C64B5A42EC66D5897B2623",
+  "next_stage": "Step11 formal unified evaluation execution after this Step10 remote freeze",
+  "parent_evaluator_path": "scripts/run_fakeddit_unified_evaluation_v031.py",
+  "parent_evaluator_sha256": "46685C69198071E0D9114DA264647BF3DD77910C616000B7DD771531EC2DB919",
+  "parent_step9_commit": "b208021818e5984e9b93893b4436f2a27db4f5b9",
+  "recovery_history": [
+    {
+      "corrected_rule": "metrics.sample_count stores cardinality; diagnostic summaries expose mean/std_population/min/max",
+      "evaluation_semantics_changed": false,
+      "evaluator_changed": false,
+      "failed_assumption": "diagnostic summary exposes count and std",
+      "scientific_design_changed": false,
+      "smoke_rerun": false,
+      "type": "diagnostic_summary_schema_only"
+    },
+    {
+      "corrected_rule": "mapping is used in memory; mismatch_mapping_sha256 is persisted in summary.json and manifest.json",
+      "evaluation_semantics_changed": false,
+      "evaluator_changed": false,
+      "failed_assumption": "engineering smoke persists root-level mismatch_mapping.json",
+      "scientific_design_changed": false,
+      "smoke_rerun": false,
+      "type": "smoke_artifact_contract_only"
+    }
+  ],
+  "schema_version": "1.1",
+  "scientific_boundary": {
+    "V33_H1": "NOT_COMPUTED",
+    "V33_H2": "NOT_COMPUTED",
+    "V33_H3": "NOT_COMPUTED",
+    "V33_H4": "NOT_COMPUTED",
+    "V33_H5": "NOT_COMPUTED",
+    "checkpoint_reselection_performed": false,
+    "formal_evaluation_performed": false,
+    "formal_hypothesis_decisions_performed": false,
+    "official_test_samples_accessed": 0,
+    "threshold_tuning_performed": false,
+    "training_performed": false
+  },
+  "status": "EVALUATOR_ADAPTATION_VERIFIED",
+  "step": "Step10 evaluator adaptation implementation and engineering smoke",
+  "step9_json_sha256": "6AA04BC43546F1D3FECD10E27DA80459AECF1C85441AE0D473359AA9649D7898",
+  "test_path": "tests/test_v033_unified_evaluator.py",
+  "test_sha256": "96E8C50A448A6A66F0A627C4ABD39F938FBD723CFB7A4261DBCBD0923E2FA7EC",
+  "unchanged_v033_sources": {
+    "controller_sha256": "6807597395E0FAD7D295645A416CB5506825845DEA9F6D342F3642035D6E137F",
+    "model_sha256": "6EDC8D06233DF4BFB7D868165E1BDA7607D083308370426AAE9E92232252793C",
+    "runner_sha256": "1D6100D5AC0E8858F0B54846FC5167A97E20C0EEF4D70B5762EF7F3BF41B63CF"
+  }
+}
