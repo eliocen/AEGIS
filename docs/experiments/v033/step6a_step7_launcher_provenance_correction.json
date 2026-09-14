@@ -1,0 +1,27 @@
+{
+    "version":  "0.33",
+    "step":  "Step6A",
+    "status":  "STEP7_LAUNCHER_PROVENANCE_CORRECTION_FROZEN",
+    "parent_step6_commit":  "b81cef1e22396b0fc96de75cf7736f622ec22579",
+    "observability_correction_commit":  "a05c05cbdc3d6d6ce8709268ef2ed7b737c32846",
+    "correction_type":  "provenance_only",
+    "reason":  "Step7 launcher retained the pre-float-tolerance training-path test SHA after Step6 froze the corrected test identity.",
+    "obsolete_training_path_test_sha256":  "9A021ACBFB0152C265413A797C53CBC7F32C8E7E1269937C2AFB87F718D04935",
+    "authoritative_training_path_test_sha256":  "C5B485D0C36CE4BE17D4149AA4CD5AF133C8164DF7A3F8D6C4C5A0ABBF9E6691",
+    "old_step7_launcher_sha256":  "C57CA480687287152FE86132A63494CE6E9E33DA7A7069A0EE355CAC751A584F",
+    "corrected_step7_launcher_sha256":  "E7F014DB54831C8B24A4E84BE0B5A523DFB1F65A7A515F33A21612F9E549EB5C",
+    "implementation_changed":  false,
+    "training_executed":  false,
+    "formal_evaluation_executed":  false,
+    "official_test_samples_accessed":  0,
+    "formal_training_authorization":  {
+                                          "architecture":  "M4qusli",
+                                          "seeds":  [
+                                                        42,
+                                                        43,
+                                                        44
+                                                    ],
+                                          "unchanged":  true
+                                      },
+    "next":  "Run corrected frozen Step7 formal-training launcher."
+}
