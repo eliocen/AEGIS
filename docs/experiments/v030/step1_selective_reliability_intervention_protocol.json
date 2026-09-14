@@ -1,0 +1,277 @@
+{
+  "architecture_family": {
+    "name": "evidence_conditioned_selective_reliability_intervention",
+    "required_invariants": [
+      "intervention gate is finite and bounded in [0,1]",
+      "gate=0 reproduces stable reference path within numerical tolerance",
+      "intervention magnitude is bounded prospectively before training",
+      "weight and transition interventions remain independently ablatable",
+      "no validation/test labels enter evidence-gate computation",
+      "no official-test access",
+      "beneficial-transition path is not explicitly penalized",
+      "all intervention diagnostics are observable at evaluation time"
+    ],
+    "shared_evidence_gate": {
+      "active_intervention_reporting_threshold": 0.5,
+      "forbidden_inputs": [
+        "validation labels",
+        "official test labels",
+        "post-result formal metrics",
+        "architecture-specific result-derived thresholds"
+      ],
+      "implementation_parameters": "Exact tensor equations, margins, bounded intervention magnitude, and gradient-flow rules must be prospectively frozen in Step2 before formal training.",
+      "inputs": [
+        "frozen quality/reliability evidence",
+        "cross-modal compatibility evidence",
+        "transition-risk evidence available without validation/test labels"
+      ],
+      "meaning": "0=no intervention; 1=maximum permitted intervention",
+      "output_range": [
+        0.0,
+        1.0
+      ]
+    },
+    "stable_reference_path": {
+      "reference": "M4qcs-w-compatible fusion/stability semantics",
+      "requirement": "The no-intervention state must reproduce the frozen stable-reference path within numerical tolerance."
+    },
+    "variants": {
+      "M4qesri": {
+        "description": "Combined evidence-conditioned selective weighting and transition intervention.",
+        "selective_transition_intervention": true,
+        "selective_weight_intervention": true
+      },
+      "M4qesri-t": {
+        "description": "Evidence-conditioned selective transition intervention only.",
+        "selective_transition_intervention": true,
+        "selective_weight_intervention": false
+      },
+      "M4qesri-w": {
+        "description": "Evidence-conditioned selective modality weighting only.",
+        "selective_transition_intervention": false,
+        "selective_weight_intervention": true
+      }
+    }
+  },
+  "clean_performance_safeguard": {
+    "consequence": "If either clean safeguard gate fails, M4qesri cannot be recommended as the v0.30 successor regardless of robustness results.",
+    "gates": {
+      "delta_vs_M1b": ">= -0.01",
+      "delta_vs_M4qcs-w": ">= -0.01"
+    },
+    "metric": "mean clean validation Macro-F1 across seeds",
+    "primary": "M4qesri"
+  },
+  "comparators": {
+    "clean_reference": [
+      "M1b",
+      "M4qcs-w"
+    ],
+    "failed_v029_mechanism_reference": [
+      "M4qgr",
+      "M4qgrt"
+    ],
+    "new_ablation_reference": [
+      "M4qesri-w",
+      "M4qesri-t"
+    ],
+    "robustness_reference": [
+      "M4qcf",
+      "M4qcs-w"
+    ]
+  },
+  "evaluation_protocol": {
+    "evidence_classification": "CONTROLLED_VALIDATION_DEVELOPMENT_EVIDENCE",
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "official_test_access_permitted": false,
+    "official_test_samples_accessed": 0,
+    "quality_condition_count": 19,
+    "quality_conditions": [
+      "clean",
+      "text_gaussian_noise_s0p25",
+      "text_gaussian_noise_s0p5",
+      "text_gaussian_noise_s0p75",
+      "vision_gaussian_noise_s0p25",
+      "vision_gaussian_noise_s0p5",
+      "vision_gaussian_noise_s0p75",
+      "text_attenuation_s0p25",
+      "text_attenuation_s0p5",
+      "text_attenuation_s0p75",
+      "text_attenuation_s1",
+      "vision_attenuation_s0p25",
+      "vision_attenuation_s0p5",
+      "vision_attenuation_s0p75",
+      "vision_attenuation_s1",
+      "text_zero_dropout_s1",
+      "vision_zero_dropout_s1",
+      "text_structured_dropout_s0p5",
+      "vision_structured_dropout_s0p5"
+    ],
+    "required_diagnostics": [
+      "clean Macro-F1",
+      "quality-condition Macro-F1",
+      "matched and mismatched Macro-F1",
+      "prediction flip count/rate",
+      "harmful flip count",
+      "beneficial flip count",
+      "net harmful flips",
+      "harmful-to-beneficial ratio",
+      "true-class probability degradation",
+      "intervention gate mean",
+      "intervention gate distribution",
+      "active intervention rate at gate>=0.5",
+      "weight intervention magnitude",
+      "transition intervention magnitude",
+      "intervention by corruption family and severity",
+      "intervention on matched versus mismatched pairs"
+    ],
+    "reuse_v029_structured_dropout_semantics": true,
+    "shared_class_preserving_mismatch_mapping": true,
+    "shared_corruption_realizations": true,
+    "validation_samples": 1000
+  },
+  "formal_decision_policy": {
+    "all_gates_conjunctive": true,
+    "allowed_decisions": [
+      "SUPPORTED",
+      "NOT_SUPPORTED"
+    ],
+    "decision_stage": "Step9 only",
+    "decisions_before_frozen_unified_evaluation": false,
+    "failed_gate_cannot_be_overridden": true,
+    "post_exposure_gate_modification_permitted": false
+  },
+  "formal_hypotheses": {
+    "V30_H1": {
+      "claim": "M4qesri improves broad graded-corruption robustness over the M4qcs-w stability reference without violating catastrophic-loss or clean-performance safeguards.",
+      "comparators": [
+        "M4qcs-w",
+        "M4qcf"
+      ],
+      "decision": "NOT_COMPUTED",
+      "gates": {
+        "catastrophic_mean_macro_f1_delta_vs_M4qcf": ">= -0.01 across 12 catastrophic observations",
+        "clean_safeguard": "PASSED",
+        "graded_mean_macro_f1_delta_vs_M4qcs_w": ">= 0.005 across 36 graded observations",
+        "graded_positive_count_vs_M4qcs_w": ">= 22 of 36",
+        "graded_positive_fraction_vs_M4qcs_w": ">= 0.60"
+      },
+      "primary": "M4qesri"
+    },
+    "V30_H2": {
+      "claim": "M4qesri improves mismatch transition selectivity over M4qgrt while matching or exceeding the M4qcs-w stability reference.",
+      "comparators": [
+        "M4qgrt",
+        "M4qcs-w"
+      ],
+      "decision": "NOT_COMPUTED",
+      "gates": {
+        "harmful_to_beneficial_ratio_vs_M4qcs_w": "<= M4qcs-w",
+        "harmful_to_beneficial_ratio_vs_M4qgrt": "strictly lower",
+        "mean_mismatch_gap_vs_M4qcs_w": "<= M4qcs-w + 0.005",
+        "mean_mismatch_gap_vs_M4qgrt": "strictly lower",
+        "mismatched_macro_f1_vs_M4qcs_w": ">= M4qcs-w - 0.005",
+        "net_harmful_flips_vs_M4qcs_w": "<= M4qcs-w",
+        "net_harmful_flips_vs_M4qgrt": "strictly lower"
+      },
+      "primary": "M4qesri"
+    },
+    "V30_H3": {
+      "claim": "The combined selective controller provides measurable synergy over each selective ablation without sacrificing clean retention.",
+      "comparators": [
+        "M4qesri-w",
+        "M4qesri-t"
+      ],
+      "decision": "NOT_COMPUTED",
+      "gates": {
+        "all_selective_intervention_invariants": "true",
+        "clean_macro_f1_delta_vs_each_ablation": ">= -0.005 versus each",
+        "graded_mean_macro_f1_above_each_ablation": ">= +0.0025 versus each",
+        "mismatched_macro_f1_above_each_ablation": ">= +0.0025 versus each",
+        "net_harmful_flips_below_each_ablation": "strictly lower than each"
+      },
+      "primary": "M4qesri"
+    },
+    "V30_H4": {
+      "claim": "The evidence gate activates selectively: intervention remains low on clean inputs and increases under degraded or mismatched evidence.",
+      "comparators": [],
+      "decision": "NOT_COMPUTED",
+      "gates": {
+        "catastrophic_mean_active_intervention_rate": ">= graded mean active intervention rate",
+        "clean_active_intervention_rate": "<= 0.15",
+        "graded_mean_active_intervention_rate_minus_clean": ">= 0.10",
+        "mismatch_active_intervention_rate_minus_matched": ">= 0.10",
+        "severity_response": "For text Gaussian, vision Gaussian, text attenuation, and vision attenuation, mean intervention intensity must be non-decreasing from s0p25 to s0p5 to s0p75 with tolerance 0.02."
+      },
+      "primary": "M4qesri"
+    }
+  },
+  "next_step": "Step2 ??prospectively operationalize and implement M4qesri-w, M4qesri-t, and M4qesri with exact tensor equations, bounded intervention semantics, gradient-flow invariants, and non-evidentiary tests.",
+  "parent_failure_decomposition": "docs/experiments/v030/step0_v029_failure_decomposition.json",
+  "primary_architecture": "M4qesri",
+  "prohibited_actions": [
+    "official_test_access",
+    "post_exposure_threshold_tuning",
+    "post_exposure_checkpoint_reselection",
+    "post_exposure_loss_weight_change",
+    "post_exposure_architecture_modification",
+    "post_exposure_intervention_gate_change",
+    "new_evaluation_conditions_after_exposure",
+    "dropping_conditions",
+    "dropping_seeds",
+    "favorable_result_reweighting",
+    "formal_gate_modification",
+    "modification_of_v029_frozen_records"
+  ],
+  "protocol_version": "0.30.0-step1",
+  "research_objective": "Improve graded-corruption and mismatch robustness by selectively intervening only when reliability evidence justifies intervention, while preserving clean performance and beneficial matched-to-mismatched transitions.",
+  "scientific_safety": {
+    "formal_decisions_computed": false,
+    "formal_evaluation_performed": false,
+    "implementation_performed": false,
+    "official_test_access_permitted": false,
+    "official_test_samples_accessed": 0,
+    "training_performed": false
+  },
+  "source_identity": {
+    "step4_results_sha256": "5E77E1A1433131DBA713B4BCEA5BB2B59944182CDDD7A4766F9D4C5FBFACB3E5",
+    "step5_results_sha256": "24CA16974A93DE7B4632E28847D6EF9BD15C375228EEA0EF7C14996FA799BC36",
+    "step6_closure_sha256": "C997F0094D9FAAF418951DF6FA1C5A220C9B1EDA839686E6821623F94D4433D4",
+    "v029_closure_commit": "2551430bea7f0cc8865265519e1d46da1a5c2230",
+    "v029_release_tag": "v0.29.0",
+    "v029_step1_protocol_sha256": "440C1BA6B971BEEA146E3572E2513F8A5A1AEBE5AA1454A1646C381290451919"
+  },
+  "status": "FROZEN_PROSPECTIVE_V030_PROTOCOL_BEFORE_IMPLEMENTATION_TRAINING_AND_RESULT_EXPOSURE",
+  "title": "AEGIS v0.30 Evidence-Conditioned Selective Reliability Intervention",
+  "training_protocol": {
+    "checkpoint_selection": {
+      "intervention_metrics_used": false,
+      "mismatch_metrics_used": false,
+      "post_result_reselection_permitted": false,
+      "primary": "clean_validation_macro_f1",
+      "robustness_metrics_used": false,
+      "tie_breaker": "clean_validation_classification_loss"
+    },
+    "dataset": "Fakeddit",
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "hyperparameter_policy": "No result-driven hyperparameter search is permitted. Any Step2/Step4 implementation or optimization constants must be frozen before formal training and may use only training-split behavior plus synthetic/invariant tests.",
+    "locked_runs": 9,
+    "new_architectures": [
+      "M4qesri-w",
+      "M4qesri-t",
+      "M4qesri"
+    ],
+    "train_cache": "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+    "training_samples": 5000,
+    "validation_cache": "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42",
+    "validation_samples": 1000
+  }
+}

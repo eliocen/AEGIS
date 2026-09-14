@@ -1,0 +1,87 @@
+{
+  "evidence_classification": "CONTROLLED_VALIDATION_DEVELOPMENT_EVIDENCE",
+  "failure_decomposition": {
+    "clean_retention": {
+      "M4qgrt_delta_vs_M1b": -0.012784645712237697,
+      "M4qgrt_delta_vs_M4qcf": -0.006592636536926433,
+      "M4qgrt_delta_vs_M4qcs_w": -0.0037310900702763883,
+      "interpretation": "The combined v0.29 controller exceeded the allowed clean loss against M1b while remaining within tolerance against M4qcf and M4qcs-w."
+    },
+    "graded_corruption": {
+      "M4qgrt_mean_delta_vs_M4qcs": -0.00506921129043952,
+      "interpretation": "Continuous graded weighting did not convert reliability signals into broad corruption gains.",
+      "positive_count_of_36": 9,
+      "positive_fraction": 0.25
+    },
+    "mechanism_combination": {
+      "graded_delta_M4qgrt_minus_M4qgr": -0.0030473694261373696,
+      "graded_delta_M4qgrt_minus_M4qtc": -0.0036775930527059852,
+      "interpretation": "The combined controller improved strongly over transition-only M4qtc on mismatch performance but did not outperform graded-only M4qgr; the mechanisms therefore did not combine synergistically.",
+      "mismatch_delta_M4qgrt_minus_M4qgr": -0.004762923276929953,
+      "mismatch_delta_M4qgrt_minus_M4qtc": 0.02072579890068338,
+      "net_harmful_M4qgr": 31,
+      "net_harmful_M4qgrt": 35,
+      "net_harmful_M4qtc": 98
+    },
+    "text_gaussian": {
+      "interpretation": "The v0.29 reliability controller did not provide targeted text-Gaussian robustness.",
+      "mean_delta_vs_M4qcf": -0.009142510962746838,
+      "mean_delta_vs_M4qcs": -0.004384285931934394,
+      "positive_count_vs_M4qcf_of_9": 1,
+      "positive_count_vs_M4qcs_of_9": 2
+    },
+    "transition_balance": {
+      "M1b": {
+        "harmful_to_beneficial_ratio": 1.1725490196078432,
+        "mean_mismatch_gap": 0.014707090246742474,
+        "net_harmful_flips": 44,
+        "prediction_flip_rate": 0.18466666666666667
+      },
+      "M4qcs_w": {
+        "harmful_to_beneficial_ratio": 1.0280898876404494,
+        "mean_mismatch_gap": 0.0016402142283803804,
+        "net_harmful_flips": 5,
+        "prediction_flip_rate": 0.12033333333333333
+      },
+      "M4qgrt": {
+        "harmful_to_beneficial_ratio": 1.25,
+        "mean_mismatch_gap": 0.011609903349964257,
+        "net_harmful_flips": 35,
+        "prediction_flip_rate": 0.105
+      },
+      "interpretation": "M4qgrt reduced total prediction flips and improved mismatch gap relative to M1b, but its harmful/beneficial balance remained worse than both M1b and the M4qcs-w stability reference."
+    }
+  },
+  "record_version": "0.30.0-step0",
+  "scientific_safety": {
+    "official_test_access_permitted": false,
+    "official_test_samples_accessed": 0,
+    "v030_evaluation_performed": false,
+    "v030_formal_decisions_computed": false,
+    "v030_implementation_performed": false,
+    "v030_training_performed": false
+  },
+  "source_identity": {
+    "step4_results_sha256": "5E77E1A1433131DBA713B4BCEA5BB2B59944182CDDD7A4766F9D4C5FBFACB3E5",
+    "step5_results_sha256": "24CA16974A93DE7B4632E28847D6EF9BD15C375228EEA0EF7C14996FA799BC36",
+    "step6_closure_sha256": "C997F0094D9FAAF418951DF6FA1C5A220C9B1EDA839686E6821623F94D4433D4",
+    "v029_closure_commit": "2551430bea7f0cc8865265519e1d46da1a5c2230",
+    "v029_release_tag": "v0.29.0",
+    "v029_step1_protocol_sha256": "440C1BA6B971BEEA146E3572E2513F8A5A1AEBE5AA1454A1646C381290451919"
+  },
+  "status": "FROZEN_V029_FAILURE_DECOMPOSITION_FOR_V030_PROTOCOL_DESIGN",
+  "v029_formal_outcome": {
+    "V29_H1": "NOT_SUPPORTED",
+    "V29_H2": "NOT_SUPPORTED",
+    "V29_H3": "NOT_SUPPORTED",
+    "V29_H4": "NOT_SUPPORTED",
+    "clean_performance_safeguard": "FAILED",
+    "official_test_samples_accessed": 0
+  },
+  "v030_design_conclusion": {
+    "design_direction": "EVIDENCE_CONDITIONED_SELECTIVE_RELIABILITY_INTERVENTION",
+    "primary_problem": "The controller must discriminate when intervention is justified, rather than continuously reweighting or suppressing transitions.",
+    "principle": "Default to the stable path; increase intervention only when frozen reliability evidence supports it; preserve beneficial transitions.",
+    "stable_reference": "M4qcs-w-compatible stability path"
+  }
+}
