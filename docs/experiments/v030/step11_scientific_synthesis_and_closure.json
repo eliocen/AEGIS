@@ -1,0 +1,324 @@
+{
+  "aegis_version": "0.30",
+  "closure": {
+    "additional_v030_formal_evaluation_prohibited": true,
+    "additional_v030_training_prohibited": true,
+    "next_development_line": "v0.31",
+    "official_test_access_prohibited": true,
+    "post_hoc_threshold_tuning_prohibited": true,
+    "release_tag": "v0.30.0",
+    "step9_decision_revision_prohibited": true,
+    "successor_status": "NEW_PROSPECTIVE_PROTOCOL_REQUIRED_BEFORE_ANY_V0.31_IMPLEMENTATION_OR_TRAINING"
+  },
+  "closure_timestamp_utc": "2026-09-14T07:23:22.019087Z",
+  "formal_decisions": {
+    "V30_H1": "NOT_SUPPORTED",
+    "V30_H2": "NOT_SUPPORTED",
+    "V30_H3": "NOT_SUPPORTED",
+    "V30_H4": "NOT_SUPPORTED",
+    "clean_performance_safeguard": "PASSED"
+  },
+  "primary_conclusion": {
+    "mechanistic_conclusion": "The dominant limitation is the evidence-to-intervention mapping: the controller did not selectively and consistently activate in a manner that translated reliability evidence into broad corruption robustness, better harmful/beneficial transition balance, combined-ablation superiority, or the required severity/mismatch response.",
+    "negative_result": "All four prospectively frozen scientific hypotheses were NOT_SUPPORTED.",
+    "positive_result": "The clean-performance safeguard passed, demonstrating that the stable-reference / bounded-intervention design can preserve clean behavior.",
+    "result": "v0.30 did not establish evidence-conditioned selective reliability intervention as a supported robustness mechanism."
+  },
+  "record_type": "scientific_synthesis_and_closure",
+  "research_implications": [
+    "Do not increase v0.30 intervention strength or tune the frozen gate post hoc.",
+    "Do not reinterpret the clean safeguard as evidence of robustness.",
+    "Do not carry the current evidence-to-action gate unchanged into a successor.",
+    "Retain the stable-reference and bounded-intervention principles as useful design constraints.",
+    "A successor should prospectively redesign how reliability evidence is calibrated and converted into intervention decisions, with explicit attention to selective usefulness rather than intervention magnitude alone.",
+    "The official Fakeddit test split remains sealed; v0.30 conclusions are validation-protocol conclusions only."
+  ],
+  "schema_version": "1.0",
+  "scientific_interpretation": {
+    "H1": {
+      "catastrophic_mean_delta_vs_M4qcf": 0.004777118984629014,
+      "finding": "Robustness gains were insufficiently broad and consistent across the frozen graded-corruption matrix; the primary model therefore did not establish the required corruption-robustness advantage.",
+      "graded_mean_delta_vs_M4qcs-w": 2.34845961648701e-05,
+      "meaning": "v0.30 did not convert its evidence-conditioned intervention into a reliable condition-wide Macro-F1 gain. Preserving clean behavior was easier than producing systematic corruption robustness."
+    },
+    "H2": {
+      "M4qcs-w": {
+        "beneficial": 178,
+        "flip_count": 361,
+        "flip_rate": 0.12033333333333333,
+        "harmful": 183,
+        "matched_macro_f1_mean": 0.8645538215213664,
+        "mismatch_gap_mean": 0.0016402142283803804,
+        "mismatched_macro_f1_mean": 0.862913607292986,
+        "net_harmful": 5,
+        "ratio": 1.0280898876404494
+      },
+      "M4qesri": {
+        "beneficial": 177,
+        "flip_count": 363,
+        "flip_rate": 0.121,
+        "harmful": 186,
+        "matched_macro_f1_mean": 0.8658815163256696,
+        "mismatch_gap_mean": 0.0029108631738294552,
+        "mismatched_macro_f1_mean": 0.8629706531518403,
+        "net_harmful": 9,
+        "ratio": 1.0508474576271187
+      },
+      "M4qgrt": {
+        "beneficial": 140,
+        "flip_count": 315,
+        "flip_rate": 0.105,
+        "harmful": 175,
+        "matched_macro_f1_mean": 0.86082273145109,
+        "mismatch_gap_mean": 0.011609903349964257,
+        "mismatched_macro_f1_mean": 0.8492128281011256,
+        "net_harmful": 35,
+        "ratio": 1.25
+      },
+      "finding": "The primary mechanism did not simultaneously outperform the v0.29 transition comparator and the strong M4qcs-w reference on the frozen harmful/beneficial transition criteria.",
+      "meaning": "Selective intervention did not achieve the intended transition discrimination: reducing or controlling mismatch activity alone was not sufficient to improve the balance between harmful and beneficial transitions."
+    },
+    "H3": {
+      "descriptive_synergy_interference_counts": {
+        "interference": 7,
+        "mixed": 28,
+        "synergy": 22
+      },
+      "finding": "The combined controller did not demonstrate consistent superiority over both prospective ablations.",
+      "meaning": "Weight intervention and transition intervention were not consistently complementary. The combined path shows condition-dependent interaction rather than a stable additive advantage."
+    },
+    "H4": {
+      "active_intervention_rates": {
+        "catastrophic": 0.0,
+        "clean": 0.009666666666666667,
+        "graded": 0.008083333333333336,
+        "matched": 0.009666666666666667,
+        "mismatched": 0.20466666666666666
+      },
+      "finding": "The evidence gate did not exhibit the prospectively required selective response profile across clean, corrupted, severity-ordered, and matched/mismatched regimes.",
+      "meaning": "The central v0.30 limitation is not simply insufficient model capacity. The controller's intervention signal was not sufficiently aligned with the regimes where intervention needed to produce robust benefit.",
+      "severity_response": {
+        "text_attenuation": {
+          "active_rates": [
+            0.005333333333333333,
+            0.0,
+            0.0
+          ],
+          "adjacent_differences": [
+            -0.005333333333333333,
+            0.0
+          ],
+          "down_steps": 1,
+          "flat_steps": 1,
+          "up_steps": 0
+        },
+        "text_gaussian": {
+          "active_rates": [
+            0.011333333333333334,
+            0.011000000000000001,
+            0.011000000000000001
+          ],
+          "adjacent_differences": [
+            -0.00033333333333333305,
+            0.0
+          ],
+          "down_steps": 1,
+          "flat_steps": 1,
+          "up_steps": 0
+        },
+        "vision_attenuation": {
+          "active_rates": [
+            0.006333333333333334,
+            0.006000000000000001,
+            0.006333333333333333
+          ],
+          "adjacent_differences": [
+            -0.00033333333333333305,
+            0.0003333333333333322
+          ],
+          "down_steps": 1,
+          "flat_steps": 0,
+          "up_steps": 1
+        },
+        "vision_gaussian": {
+          "active_rates": [
+            0.009333333333333334,
+            0.014,
+            0.016333333333333335
+          ],
+          "adjacent_differences": [
+            0.004666666666666666,
+            0.002333333333333335
+          ],
+          "down_steps": 0,
+          "flat_steps": 0,
+          "up_steps": 2
+        }
+      }
+    },
+    "clean_safeguard": {
+      "finding": "The v0.30 mechanism preserved acceptable clean validation performance under the prospectively frozen safeguard.",
+      "meaning": "The selective-intervention design did not catastrophically damage the stable reference path, so the no-intervention/stability objective was substantially preserved."
+    },
+    "cross_cutting": {
+      "finding": "The frozen evidence supports a controller-calibration/alignment failure more strongly than a pure clean-performance or optimization failure.",
+      "highest_intervention_conditions": [
+        {
+          "M4qesri_macro_f1": 0.8420149917630418,
+          "active_intervention_rate": 0.114,
+          "compatibility_mean": 0.8834390976205468,
+          "condition": "text_structured_dropout_s0p5",
+          "delta_vs_M4qcs-w": 0.0010150006482939993,
+          "family": "structured_dropout",
+          "intervention_gate_mean": 0.28784230128924054,
+          "modality": "text",
+          "severity": 0.5,
+          "text_quality_mean": 0.08772071005124599,
+          "vision_quality_mean": 0.9530478849510352
+        },
+        {
+          "M4qesri_macro_f1": 0.8426126653882552,
+          "active_intervention_rate": 0.016333333333333335,
+          "compatibility_mean": 0.7936602045036851,
+          "condition": "vision_gaussian_noise_s0p75",
+          "delta_vs_M4qcs-w": -0.002954855538334781,
+          "family": "gaussian_noise",
+          "intervention_gate_mean": 0.04123916455109914,
+          "modality": "vision",
+          "severity": 0.75,
+          "text_quality_mean": 0.8910690151254336,
+          "vision_quality_mean": 0.9353997569878896
+        },
+        {
+          "M4qesri_macro_f1": 0.8529368707822244,
+          "active_intervention_rate": 0.014,
+          "compatibility_mean": 0.8128462966374742,
+          "condition": "vision_gaussian_noise_s0p5",
+          "delta_vs_M4qcs-w": 0.0027427948008325043,
+          "family": "gaussian_noise",
+          "intervention_gate_mean": 0.03718270274003346,
+          "modality": "vision",
+          "severity": 0.5,
+          "text_quality_mean": 0.8910690151254336,
+          "vision_quality_mean": 0.9448882288535435
+        },
+        {
+          "M4qesri_macro_f1": 0.8602349455996846,
+          "active_intervention_rate": 0.011333333333333334,
+          "compatibility_mean": 0.8267129373303614,
+          "condition": "text_gaussian_noise_s0p25",
+          "delta_vs_M4qcs-w": 0.0017034847734908043,
+          "family": "gaussian_noise",
+          "intervention_gate_mean": 0.031970114409923554,
+          "modality": "text",
+          "severity": 0.25,
+          "text_quality_mean": 0.8905715388854345,
+          "vision_quality_mean": 0.9530478849510352
+        },
+        {
+          "M4qesri_macro_f1": 0.86058140267386,
+          "active_intervention_rate": 0.011000000000000001,
+          "compatibility_mean": 0.8223033918883497,
+          "condition": "text_gaussian_noise_s0p5",
+          "delta_vs_M4qcs-w": -0.00429071241733936,
+          "family": "gaussian_noise",
+          "intervention_gate_mean": 0.0329059721827507,
+          "modality": "text",
+          "severity": 0.5,
+          "text_quality_mean": 0.8892095894416173,
+          "vision_quality_mean": 0.9530478849510352
+        }
+      ],
+      "lowest_performance_delta_conditions": [
+        {
+          "M4qesri_macro_f1": 0.86058140267386,
+          "active_intervention_rate": 0.011000000000000001,
+          "compatibility_mean": 0.8223033918883497,
+          "condition": "text_gaussian_noise_s0p5",
+          "delta_vs_M4qcs-w": -0.00429071241733936,
+          "family": "gaussian_noise",
+          "intervention_gate_mean": 0.0329059721827507,
+          "modality": "text",
+          "severity": 0.5,
+          "text_quality_mean": 0.8892095894416173,
+          "vision_quality_mean": 0.9530478849510352
+        },
+        {
+          "M4qesri_macro_f1": 0.8575103118766202,
+          "active_intervention_rate": 0.006000000000000001,
+          "compatibility_mean": 0.9198642322225495,
+          "condition": "vision_attenuation_s0p5",
+          "delta_vs_M4qcs-w": -0.003613433004879855,
+          "family": "attenuation",
+          "intervention_gate_mean": 0.0157086634238561,
+          "modality": "vision",
+          "severity": 0.5,
+          "text_quality_mean": 0.8910690151254336,
+          "vision_quality_mean": 0.7567463088134924
+        },
+        {
+          "M4qesri_macro_f1": 0.8426126653882552,
+          "active_intervention_rate": 0.016333333333333335,
+          "compatibility_mean": 0.7936602045036851,
+          "condition": "vision_gaussian_noise_s0p75",
+          "delta_vs_M4qcs-w": -0.002954855538334781,
+          "family": "gaussian_noise",
+          "intervention_gate_mean": 0.04123916455109914,
+          "modality": "vision",
+          "severity": 0.75,
+          "text_quality_mean": 0.8910690151254336,
+          "vision_quality_mean": 0.9353997569878896
+        },
+        {
+          "M4qesri_macro_f1": 0.8638648024556789,
+          "active_intervention_rate": 0.006333333333333334,
+          "compatibility_mean": 0.8654504861355138,
+          "condition": "vision_attenuation_s0p25",
+          "delta_vs_M4qcs-w": -0.0009746178502950306,
+          "family": "attenuation",
+          "intervention_gate_mean": 0.022309468626976015,
+          "modality": "vision",
+          "severity": 0.25,
+          "text_quality_mean": 0.8910690151254336,
+          "vision_quality_mean": 0.9159296911756197
+        },
+        {
+          "M4qesri_macro_f1": 0.8435398681168172,
+          "active_intervention_rate": 0.006333333333333333,
+          "compatibility_mean": 0.9797262884924809,
+          "condition": "vision_attenuation_s0p75",
+          "delta_vs_M4qcs-w": -0.0005091794156650101,
+          "family": "attenuation",
+          "intervention_gate_mean": 0.09257230299711228,
+          "modality": "vision",
+          "severity": 0.75,
+          "text_quality_mean": 0.8910690151254336,
+          "vision_quality_mean": 0.2122454717954
+        }
+      ],
+      "meaning": "v0.30 successfully constrained intervention around a stable reference, but the evidence-to-action mapping did not reliably identify when and how much intervention would improve information-integrity performance."
+    }
+  },
+  "scientific_safety": {
+    "checkpoint_loaded": false,
+    "checkpoint_reselection_performed": false,
+    "new_hypothesis_test_performed": false,
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0,
+    "re_evaluation_performed": false,
+    "retraining_performed": false,
+    "step9_decisions_modified": false,
+    "threshold_tuning_performed": false,
+    "training_performed": false
+  },
+  "source_boundary": {
+    "step10a_commit": "e13f21a105739d32aab8ef23d293287e400750de",
+    "step10a_json_sha256": "DEABD2ED18C3C798206FFB29CF0B0EEED59C5739A18B28365A65961A1083CACE",
+    "step10b_commit": "86aad9d76cc69d05a4dfee000fb758b14b39c93b",
+    "step10b_json_sha256": "476E659C64C3F384EAD367D6809481980FF6D09AF75D5BDFA33A2569DAA6C238",
+    "step9_commit": "78951c65dd2573907623291ebbb685ab11a027cf",
+    "step9_json_sha256": "B2862D63E49E42057EFFCFE8F8E1C29BE2EC7BCE22778EA8B7A0D177B4C822E1"
+  },
+  "status": "V0.30_SCIENTIFICALLY_CLOSED",
+  "step": "Step11"
+}
