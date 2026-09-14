@@ -1,0 +1,95 @@
+{
+    "version":  "0.33",
+    "step":  "Step8",
+    "status":  "FORMAL_TRAINING_EVIDENCE_AND_PROVENANCE_FROZEN",
+    "parent_step6a_commit":  "14b98298fc450ba9e59d794f2f1935b268b5157f",
+    "branch":  "feature/v0.33-prospective-utility-supervision-selector-learning-redesign",
+    "architecture":  "M4qusli",
+    "runner_architecture_identifier":  "quality_compatibility_utility_supervised_intervention",
+    "seeds":  [
+                  42,
+                  43,
+                  44
+              ],
+    "formal_training_runs_completed":  3,
+    "formal_training_runs_expected":  3,
+    "effective_utility_loss_weight":  0.5,
+    "transition_objective_weight":  0,
+    "training_data":  "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+    "validation_data":  "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42",
+    "checkpoint_selection":  "highest validation Macro-F1; tie-break lowest validation classification loss",
+    "source_sha256":  {
+                          "controller":  "6807597395E0FAD7D295645A416CB5506825845DEA9F6D342F3642035D6E137F",
+                          "model":  "6EDC8D06233DF4BFB7D868165E1BDA7607D083308370426AAE9E92232252793C",
+                          "runner":  "1D6100D5AC0E8858F0B54846FC5167A97E20C0EEF4D70B5762EF7F3BF41B63CF",
+                          "controller_test":  "96C5AC55143D40DE9EB2C8B7194E294B36A1E2B12ECF017D52B5D4335CAC4C9E",
+                          "training_path_test":  "C5B485D0C36CE4BE17D4149AA4CD5AF133C8164DF7A3F8D6C4C5A0ABBF9E6691",
+                          "step7_launcher":  "E7F014DB54831C8B24A4E84BE0B5A523DFB1F65A7A515F33A21612F9E549EB5C"
+                      },
+    "runs":  [
+                 {
+                     "seed":  42,
+                     "run_root":  "experiments/fakeddit/v033/formal_training/m4qusli_seed42",
+                     "metrics_rows":  15,
+                     "best_epoch":  7,
+                     "best_validation_macro_f1":  null,
+                     "artifact_sha256":  {
+                                             "experiment.json":  "BD2B82D436D9338C087D1AB26685B2EB64ADB86E39C98BA2D10A6D1A05CE60D1",
+                                             "metrics.jsonl":  "CBB44AC9B0C47C78467EC6CCC2B9CC6F38F27A2F9E0896709D204C53A0B256FE",
+                                             "best_model.pt":  "87791324F6432DA20222470903D26ACEBF8D77088A3EEDE2CC4F85F01E80AE06",
+                                             "final_model.pt":  "4A54B0D0C1843B21894E0886470BAB6255E8EC445DFAD0BC578FEB1420822730",
+                                             "best_validation_predictions.json":  "81BA52B5823DA4C8A2FA4D43876B4719F119FCA7C09861E7A95080CFA331DCE6",
+                                             "summary.json":  "E464D9A9E12C5B1C2B61B39FE72D651698722F5141D7B518209F37C18C85B926"
+                                         }
+                 },
+                 {
+                     "seed":  43,
+                     "run_root":  "experiments/fakeddit/v033/formal_training/m4qusli_seed43",
+                     "metrics_rows":  17,
+                     "best_epoch":  9,
+                     "best_validation_macro_f1":  null,
+                     "artifact_sha256":  {
+                                             "experiment.json":  "90BCC6AA5BFEFDD8CF5B6C8DEDE3FDE660447F45A55132B69B15C62BF63968EC",
+                                             "metrics.jsonl":  "4DF866225B3A3F806E595A751965724E11C4B31B3EB97D837A8C0122CA8DB891",
+                                             "best_model.pt":  "AEFC91E704DA6C68A8490C2109E8B5DAF0A236DF62A23084AE55EDA06D7EFEBB",
+                                             "final_model.pt":  "777940E657F273E7C26E5DBDEA11DFA046A9F2A12F172E8A74104A16BB353D30",
+                                             "best_validation_predictions.json":  "7D58C473EAA148DBA79A35D53EA5C63232C2B49AD9195212496A14C586982404",
+                                             "summary.json":  "4608FB44A0289FC3BF438A021199186097173942FF241F4D0155BC400147F0AC"
+                                         }
+                 },
+                 {
+                     "seed":  44,
+                     "run_root":  "experiments/fakeddit/v033/formal_training/m4qusli_seed44",
+                     "metrics_rows":  12,
+                     "best_epoch":  4,
+                     "best_validation_macro_f1":  null,
+                     "artifact_sha256":  {
+                                             "experiment.json":  "81E3E27754EDAB56AACB27F90E69A1C41E948DE08D600E17275B672628F9489D",
+                                             "metrics.jsonl":  "FBEB16407C9E0EDB0C1CB2B16467062E8C395A42BA6FAB05F5ECD3843410573E",
+                                             "best_model.pt":  "43EAD7DCF173BCFFABBA549E32A3C2AF7FA51D8D14CCB1376C4B23780065F820",
+                                             "final_model.pt":  "821332C162F6D33A26F3C7F7CD53F9CD9E362FA40B6E8BF9D1ACD332ACA420C4",
+                                             "best_validation_predictions.json":  "E0481D1CAED8974E28160CAED51B8E76153C52418C534EB4042595B1D7F1C95D",
+                                             "summary.json":  "108753BE5FEB535565554C0FF839F2B624B60E01DC0FC605FD86F01B31D35908"
+                                         }
+                 }
+             ],
+    "invariants":  {
+                       "utility_weight_exact_0_50":  "PASS",
+                       "transition_objective_zero":  "PASS",
+                       "selector_diagnostics_machine_readable":  "PASS",
+                       "validation_selector_diagnostics_machine_readable":  "PASS",
+                       "checkpoint_artifacts_present":  "PASS",
+                       "official_test_split":  "SEALED_NOT_ACCESSED",
+                       "official_test_samples_accessed":  0
+                   },
+    "actions_during_step8":  {
+                                 "training_executed":  false,
+                                 "formal_evaluation_executed":  false,
+                                 "hypothesis_decisions_made":  false,
+                                 "checkpoint_reselection_performed":  false,
+                                 "threshold_search_performed":  false,
+                                 "official_test_accessed":  false
+                             },
+    "formal_evaluation_authorized":  false,
+    "next_step":  "Step9 formal evaluation operationalization/freeze, if separately authorized."
+}
