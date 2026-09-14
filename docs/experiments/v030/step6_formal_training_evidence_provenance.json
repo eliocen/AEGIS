@@ -1,0 +1,940 @@
+{
+  "aegis_version": "0.30",
+  "created_utc": "2026-09-14T04:14:26.599982Z",
+  "formal_runs": [
+    {
+      "architecture": "quality_compatibility_selective_intervention_weights",
+      "command_sha256_utf8": "5F6590C2EF6428569D7BC5E3C16DF2902F1F2C3594F278A375F201C1600795CB",
+      "experiment_root": "experiments/fakeddit/v030_m4qesri_w_seed42",
+      "frozen_command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention_weights --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_w_seed42 --seed 42 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+      "label": "M4qesri-w",
+      "required_artifacts": {
+        "best_model.pt": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed42/best_model.pt",
+          "sha256": "7EBC399774CE9DAF05BA8E5411B5A70FE7F421FACC25E89E0DFD044D4925B175"
+        },
+        "best_validation_predictions.json": {
+          "bytes": 100499,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed42/best_validation_predictions.json",
+          "sha256": "270D5CFA5A506AD6453561411EBB63306A6DEC1971D6AD7421A157BD99D73AD8"
+        },
+        "experiment.json": {
+          "bytes": 6625,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed42/experiment.json",
+          "sha256": "2D84DA4F32018D7EDA8453D0A1463B6013FC0ACDC6C74BECD15D4831D39FAE9F"
+        },
+        "final_model.pt": {
+          "bytes": 6261135,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed42/final_model.pt",
+          "sha256": "005034924143044CEE83575305B812E468DFDF916EC0357C7570E689ED367F5D"
+        },
+        "metrics.jsonl": {
+          "bytes": 18991,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed42/metrics.jsonl",
+          "sha256": "F443B94D84C4F6A88BA0786CB492101F7F66030269C7D50D50F80C938ADF87AC"
+        },
+        "step5_formal_completion.json": {
+          "bytes": 2356,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed42/step5_formal_completion.json",
+          "sha256": "56E3EE0BC8879A9F71A2A0A53B86D22CBD08C9903FDCEBC2B6265015243D9D5B"
+        },
+        "summary.json": {
+          "bytes": 8545,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed42/summary.json",
+          "sha256": "F2DDD48D678F7834A406629A6EB47E278A287EF91FB203C0F20B15E4361EC3A4"
+        }
+      },
+      "root_tree": {
+        "file_count": 7,
+        "files": [
+          {
+            "bytes": 6260973,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed42/best_model.pt",
+            "sha256": "7EBC399774CE9DAF05BA8E5411B5A70FE7F421FACC25E89E0DFD044D4925B175"
+          },
+          {
+            "bytes": 100499,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed42/best_validation_predictions.json",
+            "sha256": "270D5CFA5A506AD6453561411EBB63306A6DEC1971D6AD7421A157BD99D73AD8"
+          },
+          {
+            "bytes": 6625,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed42/experiment.json",
+            "sha256": "2D84DA4F32018D7EDA8453D0A1463B6013FC0ACDC6C74BECD15D4831D39FAE9F"
+          },
+          {
+            "bytes": 6261135,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed42/final_model.pt",
+            "sha256": "005034924143044CEE83575305B812E468DFDF916EC0357C7570E689ED367F5D"
+          },
+          {
+            "bytes": 18991,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed42/metrics.jsonl",
+            "sha256": "F443B94D84C4F6A88BA0786CB492101F7F66030269C7D50D50F80C938ADF87AC"
+          },
+          {
+            "bytes": 2356,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed42/step5_formal_completion.json",
+            "sha256": "56E3EE0BC8879A9F71A2A0A53B86D22CBD08C9903FDCEBC2B6265015243D9D5B"
+          },
+          {
+            "bytes": 8545,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed42/summary.json",
+            "sha256": "F2DDD48D678F7834A406629A6EB47E278A287EF91FB203C0F20B15E4361EC3A4"
+          }
+        ],
+        "path": "experiments/fakeddit/v030_m4qesri_w_seed42",
+        "tree_hash_definition": "SHA256 of UTF-8 LF-joined lines '<FILE_SHA256><two spaces><repo-relative-posix-path>' sorted lexicographically by path",
+        "tree_sha256": "3F801714FBB569BF6E3CD627A3A5C3FC46249DD856CEE572ED17944A4178960A"
+      },
+      "run_index": 1,
+      "seed": 42,
+      "training_log": {
+        "bytes": 7906,
+        "path": "run_v030_step5_formal_m4qesri_w_seed42.txt",
+        "sha256": "443EC179661F8153A3687443F8CEE3EFFED9C827D22A4E3E82AC5EFF0591058A"
+      }
+    },
+    {
+      "architecture": "quality_compatibility_selective_intervention_weights",
+      "command_sha256_utf8": "A2F355A28B18449C0D99EF1C5874B63384CDC7C45C889FD1D3F490863CAB3400",
+      "experiment_root": "experiments/fakeddit/v030_m4qesri_w_seed43",
+      "frozen_command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention_weights --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_w_seed43 --seed 43 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+      "label": "M4qesri-w",
+      "required_artifacts": {
+        "best_model.pt": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed43/best_model.pt",
+          "sha256": "37198D3B9D0D44BF400380E0F96DA1CE7E6C1EC90A0DA0D469A04D9F4C5E1E5C"
+        },
+        "best_validation_predictions.json": {
+          "bytes": 100926,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed43/best_validation_predictions.json",
+          "sha256": "2B01AA771115AE00C04FA647850658FC57C0AC530A004F187BA7432AB8465AAC"
+        },
+        "experiment.json": {
+          "bytes": 6625,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed43/experiment.json",
+          "sha256": "B9098A2D59B4DCDBA8A6D55ED2060AFC77F122F79BBCF3EBA8BF0609076FCB3D"
+        },
+        "final_model.pt": {
+          "bytes": 6261135,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed43/final_model.pt",
+          "sha256": "C1B8CAF7E041146D2501FE2990176FBB10DDAEB30433F5DCCD475D17FE766D03"
+        },
+        "metrics.jsonl": {
+          "bytes": 33527,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed43/metrics.jsonl",
+          "sha256": "C0E76606A004090614A0CC415EC5FE8501770B4B01F15BE815A528679CA33EB8"
+        },
+        "step5_formal_completion.json": {
+          "bytes": 2356,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed43/step5_formal_completion.json",
+          "sha256": "0E092ED777346EE49C496C97E1454EEBD2E8433FA1CB5FC18977F63E05A52EE6"
+        },
+        "summary.json": {
+          "bytes": 8638,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed43/summary.json",
+          "sha256": "0639DFA4C147A5427756A4332E056F2769D801783AD10CB55DBB13092A5DCD73"
+        }
+      },
+      "root_tree": {
+        "file_count": 7,
+        "files": [
+          {
+            "bytes": 6260973,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed43/best_model.pt",
+            "sha256": "37198D3B9D0D44BF400380E0F96DA1CE7E6C1EC90A0DA0D469A04D9F4C5E1E5C"
+          },
+          {
+            "bytes": 100926,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed43/best_validation_predictions.json",
+            "sha256": "2B01AA771115AE00C04FA647850658FC57C0AC530A004F187BA7432AB8465AAC"
+          },
+          {
+            "bytes": 6625,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed43/experiment.json",
+            "sha256": "B9098A2D59B4DCDBA8A6D55ED2060AFC77F122F79BBCF3EBA8BF0609076FCB3D"
+          },
+          {
+            "bytes": 6261135,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed43/final_model.pt",
+            "sha256": "C1B8CAF7E041146D2501FE2990176FBB10DDAEB30433F5DCCD475D17FE766D03"
+          },
+          {
+            "bytes": 33527,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed43/metrics.jsonl",
+            "sha256": "C0E76606A004090614A0CC415EC5FE8501770B4B01F15BE815A528679CA33EB8"
+          },
+          {
+            "bytes": 2356,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed43/step5_formal_completion.json",
+            "sha256": "0E092ED777346EE49C496C97E1454EEBD2E8433FA1CB5FC18977F63E05A52EE6"
+          },
+          {
+            "bytes": 8638,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed43/summary.json",
+            "sha256": "0639DFA4C147A5427756A4332E056F2769D801783AD10CB55DBB13092A5DCD73"
+          }
+        ],
+        "path": "experiments/fakeddit/v030_m4qesri_w_seed43",
+        "tree_hash_definition": "SHA256 of UTF-8 LF-joined lines '<FILE_SHA256><two spaces><repo-relative-posix-path>' sorted lexicographically by path",
+        "tree_sha256": "87DEA62F1C53C4B17C4FA76F6B9F3492BAEB3E22401CA0B9A23871403CB18A83"
+      },
+      "run_index": 2,
+      "seed": 43,
+      "training_log": {
+        "bytes": 9019,
+        "path": "run_v030_step5_formal_m4qesri_w_seed43.txt",
+        "sha256": "DF50DECE00FAECDCB100E2A3EF41E6022D8159CBDCC3F76888198799F1E105F1"
+      }
+    },
+    {
+      "architecture": "quality_compatibility_selective_intervention_weights",
+      "command_sha256_utf8": "364B6775C2FF2F93CA5CA5B8057D360394BF70B4E5E0426D16358F0816C1A209",
+      "experiment_root": "experiments/fakeddit/v030_m4qesri_w_seed44",
+      "frozen_command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention_weights --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_w_seed44 --seed 44 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+      "label": "M4qesri-w",
+      "required_artifacts": {
+        "best_model.pt": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed44/best_model.pt",
+          "sha256": "794898A7ADEB9FB35179A99B6E2A6F13B86B961063268503F23A27987FE18D64"
+        },
+        "best_validation_predictions.json": {
+          "bytes": 100470,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed44/best_validation_predictions.json",
+          "sha256": "D410A2FF5AF85F9B2D1B6FB9DC91DC887D216BC48D06AA0A5A74B8E7FD039ECC"
+        },
+        "experiment.json": {
+          "bytes": 6625,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed44/experiment.json",
+          "sha256": "B50949C7E11E1BB95B1951041E702746A069B0A29FEE934A6B2E1CDFD1A7713E"
+        },
+        "final_model.pt": {
+          "bytes": 6261135,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed44/final_model.pt",
+          "sha256": "1783EB15FAE8BD7522468F8FC0FF7C18C95F7B27C8F1049B8DB7D33757746626"
+        },
+        "metrics.jsonl": {
+          "bytes": 23276,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed44/metrics.jsonl",
+          "sha256": "7911FF41A978824E0E269BCAB4F26212AAD72C5AC52713DF77F0B08114B971D0"
+        },
+        "step5_formal_completion.json": {
+          "bytes": 2356,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed44/step5_formal_completion.json",
+          "sha256": "CDF9DF340211F80514D44562CAEB940F0B61C45020AFDA82541D0950ED8C50F8"
+        },
+        "summary.json": {
+          "bytes": 8633,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed44/summary.json",
+          "sha256": "8993D530E679C9E1CA152F4512EE8310AD3D263893B915486B310112CE95F476"
+        }
+      },
+      "root_tree": {
+        "file_count": 7,
+        "files": [
+          {
+            "bytes": 6260973,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed44/best_model.pt",
+            "sha256": "794898A7ADEB9FB35179A99B6E2A6F13B86B961063268503F23A27987FE18D64"
+          },
+          {
+            "bytes": 100470,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed44/best_validation_predictions.json",
+            "sha256": "D410A2FF5AF85F9B2D1B6FB9DC91DC887D216BC48D06AA0A5A74B8E7FD039ECC"
+          },
+          {
+            "bytes": 6625,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed44/experiment.json",
+            "sha256": "B50949C7E11E1BB95B1951041E702746A069B0A29FEE934A6B2E1CDFD1A7713E"
+          },
+          {
+            "bytes": 6261135,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed44/final_model.pt",
+            "sha256": "1783EB15FAE8BD7522468F8FC0FF7C18C95F7B27C8F1049B8DB7D33757746626"
+          },
+          {
+            "bytes": 23276,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed44/metrics.jsonl",
+            "sha256": "7911FF41A978824E0E269BCAB4F26212AAD72C5AC52713DF77F0B08114B971D0"
+          },
+          {
+            "bytes": 2356,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed44/step5_formal_completion.json",
+            "sha256": "CDF9DF340211F80514D44562CAEB940F0B61C45020AFDA82541D0950ED8C50F8"
+          },
+          {
+            "bytes": 8633,
+            "path": "experiments/fakeddit/v030_m4qesri_w_seed44/summary.json",
+            "sha256": "8993D530E679C9E1CA152F4512EE8310AD3D263893B915486B310112CE95F476"
+          }
+        ],
+        "path": "experiments/fakeddit/v030_m4qesri_w_seed44",
+        "tree_hash_definition": "SHA256 of UTF-8 LF-joined lines '<FILE_SHA256><two spaces><repo-relative-posix-path>' sorted lexicographically by path",
+        "tree_sha256": "7AA128E507FFA15A57E46ABC889C02623494D9D3D8F8D0A4A6ACB34920E7F0CE"
+      },
+      "run_index": 3,
+      "seed": 44,
+      "training_log": {
+        "bytes": 8247,
+        "path": "run_v030_step5_formal_m4qesri_w_seed44.txt",
+        "sha256": "08B7D2D48AF6B6333B0C5BAEC882F88768F8FEEB1A487FBDE074228818B4F043"
+      }
+    },
+    {
+      "architecture": "quality_compatibility_selective_intervention_transition",
+      "command_sha256_utf8": "255F5EB674C98E862C28D8817CDD66148A00D657C84EF0F7C735D00903AFBE28",
+      "experiment_root": "experiments/fakeddit/v030_m4qesri_t_seed42",
+      "frozen_command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention_transition --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_t_seed42 --seed 42 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+      "label": "M4qesri-t",
+      "required_artifacts": {
+        "best_model.pt": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed42/best_model.pt",
+          "sha256": "287DDCE800A14D35A06E1E82B7B76B4B112DEF49B6B2BABF58EA60841EC2CC11"
+        },
+        "best_validation_predictions.json": {
+          "bytes": 100493,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed42/best_validation_predictions.json",
+          "sha256": "27111C2800744AC342DB78E6466F73A8F8E8D5D51CD9AC42D03D43BD14400FE7"
+        },
+        "experiment.json": {
+          "bytes": 6637,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed42/experiment.json",
+          "sha256": "FD17F27B656F3E90E9C205971518DCE6CDCBEC0C008870FE9B65A000E06C9948"
+        },
+        "final_model.pt": {
+          "bytes": 6261135,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed42/final_model.pt",
+          "sha256": "DE33877F503B36EEBB9139C39D421801B6027BAE4A64032486CC8B1A50850525"
+        },
+        "metrics.jsonl": {
+          "bytes": 23378,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed42/metrics.jsonl",
+          "sha256": "37A8E694B51C64DB10F475A307A7D7A89C363697CBF4D9B5364F9509240AA681"
+        },
+        "step5_formal_completion.json": {
+          "bytes": 2365,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed42/step5_formal_completion.json",
+          "sha256": "C721DB3F4C719B7B735467CD77746EC502C0BEE72AB4FFE9239454B3D26F45AC"
+        },
+        "summary.json": {
+          "bytes": 8543,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed42/summary.json",
+          "sha256": "BBD0217A362CE4813B98D0C59542C5FABE0A2753792AEB1C5AB5E31ABF652CB5"
+        }
+      },
+      "root_tree": {
+        "file_count": 7,
+        "files": [
+          {
+            "bytes": 6260973,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed42/best_model.pt",
+            "sha256": "287DDCE800A14D35A06E1E82B7B76B4B112DEF49B6B2BABF58EA60841EC2CC11"
+          },
+          {
+            "bytes": 100493,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed42/best_validation_predictions.json",
+            "sha256": "27111C2800744AC342DB78E6466F73A8F8E8D5D51CD9AC42D03D43BD14400FE7"
+          },
+          {
+            "bytes": 6637,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed42/experiment.json",
+            "sha256": "FD17F27B656F3E90E9C205971518DCE6CDCBEC0C008870FE9B65A000E06C9948"
+          },
+          {
+            "bytes": 6261135,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed42/final_model.pt",
+            "sha256": "DE33877F503B36EEBB9139C39D421801B6027BAE4A64032486CC8B1A50850525"
+          },
+          {
+            "bytes": 23378,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed42/metrics.jsonl",
+            "sha256": "37A8E694B51C64DB10F475A307A7D7A89C363697CBF4D9B5364F9509240AA681"
+          },
+          {
+            "bytes": 2365,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed42/step5_formal_completion.json",
+            "sha256": "C721DB3F4C719B7B735467CD77746EC502C0BEE72AB4FFE9239454B3D26F45AC"
+          },
+          {
+            "bytes": 8543,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed42/summary.json",
+            "sha256": "BBD0217A362CE4813B98D0C59542C5FABE0A2753792AEB1C5AB5E31ABF652CB5"
+          }
+        ],
+        "path": "experiments/fakeddit/v030_m4qesri_t_seed42",
+        "tree_hash_definition": "SHA256 of UTF-8 LF-joined lines '<FILE_SHA256><two spaces><repo-relative-posix-path>' sorted lexicographically by path",
+        "tree_sha256": "25C5D2D875C7E9A470637C93755AD488D1357322B4E99CC55121789081378638"
+      },
+      "run_index": 4,
+      "seed": 42,
+      "training_log": {
+        "bytes": 8269,
+        "path": "run_v030_step5_formal_m4qesri_t_seed42.txt",
+        "sha256": "9AE5DBD03808F39BD6653CDC93460ADCFFDA66FCD0A1019DD95E68DC95AB7763"
+      }
+    },
+    {
+      "architecture": "quality_compatibility_selective_intervention_transition",
+      "command_sha256_utf8": "9A7B39ED7EF5B032B179D009715E480F22CB01304DA4C7F74D9132A3E2A376B8",
+      "experiment_root": "experiments/fakeddit/v030_m4qesri_t_seed43",
+      "frozen_command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention_transition --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_t_seed43 --seed 43 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+      "label": "M4qesri-t",
+      "required_artifacts": {
+        "best_model.pt": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed43/best_model.pt",
+          "sha256": "549E9D5BA1956E7AC52975A1A4224773A820826359D2C0B6F558A1F7044E8B07"
+        },
+        "best_validation_predictions.json": {
+          "bytes": 100803,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed43/best_validation_predictions.json",
+          "sha256": "62CE5905D9DE4F165863B35E9EFCBAC655DBE6F45E1CD0441FAAB30D1E0C1916"
+        },
+        "experiment.json": {
+          "bytes": 6637,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed43/experiment.json",
+          "sha256": "AD785160DD7D1CC7D020EA04ED809746412003146CF1211182678151FA50A05F"
+        },
+        "final_model.pt": {
+          "bytes": 6261135,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed43/final_model.pt",
+          "sha256": "1A76B1F42478FEEE140EF69928EB8B93D56E63F78704F49D713334FBAD05A190"
+        },
+        "metrics.jsonl": {
+          "bytes": 27608,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed43/metrics.jsonl",
+          "sha256": "24C2E54F04B05896577E14EF875E86D473A3B3E72836842CBA3821672E9D1CE6"
+        },
+        "step5_formal_completion.json": {
+          "bytes": 2365,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed43/step5_formal_completion.json",
+          "sha256": "4CE472D331480A589A30F9F084DF88E279B9C7E9516B31865A647F571A7E9B72"
+        },
+        "summary.json": {
+          "bytes": 8540,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed43/summary.json",
+          "sha256": "0A6C45C9A32EE2876392CF9C047C0C58A3634D4BBD170E04BBBE8555B8ADA8C3"
+        }
+      },
+      "root_tree": {
+        "file_count": 7,
+        "files": [
+          {
+            "bytes": 6260973,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed43/best_model.pt",
+            "sha256": "549E9D5BA1956E7AC52975A1A4224773A820826359D2C0B6F558A1F7044E8B07"
+          },
+          {
+            "bytes": 100803,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed43/best_validation_predictions.json",
+            "sha256": "62CE5905D9DE4F165863B35E9EFCBAC655DBE6F45E1CD0441FAAB30D1E0C1916"
+          },
+          {
+            "bytes": 6637,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed43/experiment.json",
+            "sha256": "AD785160DD7D1CC7D020EA04ED809746412003146CF1211182678151FA50A05F"
+          },
+          {
+            "bytes": 6261135,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed43/final_model.pt",
+            "sha256": "1A76B1F42478FEEE140EF69928EB8B93D56E63F78704F49D713334FBAD05A190"
+          },
+          {
+            "bytes": 27608,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed43/metrics.jsonl",
+            "sha256": "24C2E54F04B05896577E14EF875E86D473A3B3E72836842CBA3821672E9D1CE6"
+          },
+          {
+            "bytes": 2365,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed43/step5_formal_completion.json",
+            "sha256": "4CE472D331480A589A30F9F084DF88E279B9C7E9516B31865A647F571A7E9B72"
+          },
+          {
+            "bytes": 8540,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed43/summary.json",
+            "sha256": "0A6C45C9A32EE2876392CF9C047C0C58A3634D4BBD170E04BBBE8555B8ADA8C3"
+          }
+        ],
+        "path": "experiments/fakeddit/v030_m4qesri_t_seed43",
+        "tree_hash_definition": "SHA256 of UTF-8 LF-joined lines '<FILE_SHA256><two spaces><repo-relative-posix-path>' sorted lexicographically by path",
+        "tree_sha256": "1BE9D8EEEE1A512893CC1DDD86E4738FB99EFF10FC32E99546FCBBD05FDAF088"
+      },
+      "run_index": 5,
+      "seed": 43,
+      "training_log": {
+        "bytes": 8591,
+        "path": "run_v030_step5_formal_m4qesri_t_seed43.txt",
+        "sha256": "87B9DBB6523E835DD9476BA29F4139C14F0745556A6EE2190AB4B065C2950EC3"
+      }
+    },
+    {
+      "architecture": "quality_compatibility_selective_intervention_transition",
+      "command_sha256_utf8": "FEA3005E409BCF1BEC522659A2E285E10FC8FB337A135398DE6F62254BB903B9",
+      "experiment_root": "experiments/fakeddit/v030_m4qesri_t_seed44",
+      "frozen_command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention_transition --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_t_seed44 --seed 44 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+      "label": "M4qesri-t",
+      "required_artifacts": {
+        "best_model.pt": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed44/best_model.pt",
+          "sha256": "591F8CED16EB1774EFDAC9F0F920DDEE0A55A332EBAF0CC19809EFC1D6A7F866"
+        },
+        "best_validation_predictions.json": {
+          "bytes": 100572,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed44/best_validation_predictions.json",
+          "sha256": "247065AED027F21796730443C922E47E11602431D2892D926CA3E28AA2BCD154"
+        },
+        "experiment.json": {
+          "bytes": 6637,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed44/experiment.json",
+          "sha256": "05A1331841E591778DBF7BE4186AFAB352D0DA5F24111CEE3075DE1EBE5576C9"
+        },
+        "final_model.pt": {
+          "bytes": 6261135,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed44/final_model.pt",
+          "sha256": "4568F05045A32FD0651B8567AF1A1968A743C4081004D224E95D70BE2AD8346B"
+        },
+        "metrics.jsonl": {
+          "bytes": 18932,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed44/metrics.jsonl",
+          "sha256": "DAFBAC0C89849457477A5B54D1ABD8D9BEEE54862AE3B4DE535CD17AE7E6D3A8"
+        },
+        "step5_formal_completion.json": {
+          "bytes": 2365,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed44/step5_formal_completion.json",
+          "sha256": "0771FB94EA6374AB1A863C332900B8BFFF251D430D2E3108AFF2564261BF4F5E"
+        },
+        "summary.json": {
+          "bytes": 8643,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed44/summary.json",
+          "sha256": "683FC5258ED6185D5371F5336C14E16609D027961B339013F4FBE60AAE58FE82"
+        }
+      },
+      "root_tree": {
+        "file_count": 7,
+        "files": [
+          {
+            "bytes": 6260973,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed44/best_model.pt",
+            "sha256": "591F8CED16EB1774EFDAC9F0F920DDEE0A55A332EBAF0CC19809EFC1D6A7F866"
+          },
+          {
+            "bytes": 100572,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed44/best_validation_predictions.json",
+            "sha256": "247065AED027F21796730443C922E47E11602431D2892D926CA3E28AA2BCD154"
+          },
+          {
+            "bytes": 6637,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed44/experiment.json",
+            "sha256": "05A1331841E591778DBF7BE4186AFAB352D0DA5F24111CEE3075DE1EBE5576C9"
+          },
+          {
+            "bytes": 6261135,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed44/final_model.pt",
+            "sha256": "4568F05045A32FD0651B8567AF1A1968A743C4081004D224E95D70BE2AD8346B"
+          },
+          {
+            "bytes": 18932,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed44/metrics.jsonl",
+            "sha256": "DAFBAC0C89849457477A5B54D1ABD8D9BEEE54862AE3B4DE535CD17AE7E6D3A8"
+          },
+          {
+            "bytes": 2365,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed44/step5_formal_completion.json",
+            "sha256": "0771FB94EA6374AB1A863C332900B8BFFF251D430D2E3108AFF2564261BF4F5E"
+          },
+          {
+            "bytes": 8643,
+            "path": "experiments/fakeddit/v030_m4qesri_t_seed44/summary.json",
+            "sha256": "683FC5258ED6185D5371F5336C14E16609D027961B339013F4FBE60AAE58FE82"
+          }
+        ],
+        "path": "experiments/fakeddit/v030_m4qesri_t_seed44",
+        "tree_hash_definition": "SHA256 of UTF-8 LF-joined lines '<FILE_SHA256><two spaces><repo-relative-posix-path>' sorted lexicographically by path",
+        "tree_sha256": "B41C7211475AD7DCB1793AE77026A3A4CAAFCB9B08C137D969423B2E445D3B73"
+      },
+      "run_index": 6,
+      "seed": 44,
+      "training_log": {
+        "bytes": 7938,
+        "path": "run_v030_step5_formal_m4qesri_t_seed44.txt",
+        "sha256": "8A26CAA70D12D494BCD2C59BD4F3862116879D1F83F18374180918BCC8F69026"
+      }
+    },
+    {
+      "architecture": "quality_compatibility_selective_intervention",
+      "command_sha256_utf8": "D2246A208E4970222B73E5BAC7F2668BA0A395098F7CA995FB7D7CB17747395C",
+      "experiment_root": "experiments/fakeddit/v030_m4qesri_seed42",
+      "frozen_command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_seed42 --seed 42 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+      "label": "M4qesri",
+      "required_artifacts": {
+        "best_model.pt": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_seed42/best_model.pt",
+          "sha256": "3B42178C78DECD2FC73F537F5D35C62CB3F4C90325C431A062F1D466C25E718C"
+        },
+        "best_validation_predictions.json": {
+          "bytes": 100444,
+          "path": "experiments/fakeddit/v030_m4qesri_seed42/best_validation_predictions.json",
+          "sha256": "95647239572028105DD6262C9DC33542C3ABA3B7534B6111851AEAD90AECF3E6"
+        },
+        "experiment.json": {
+          "bytes": 6599,
+          "path": "experiments/fakeddit/v030_m4qesri_seed42/experiment.json",
+          "sha256": "3B751278411B7BC8E10375744434F4D7BEFF54EF52836D73898F131C09EBE4CD"
+        },
+        "final_model.pt": {
+          "bytes": 6261135,
+          "path": "experiments/fakeddit/v030_m4qesri_seed42/final_model.pt",
+          "sha256": "911AC2616930AE2A0255DA8029847341438DF99EA56C8CA1FE4064984726B5E3"
+        },
+        "metrics.jsonl": {
+          "bytes": 20276,
+          "path": "experiments/fakeddit/v030_m4qesri_seed42/metrics.jsonl",
+          "sha256": "1F0C621EFEECF0A51E52EA889F1BB07A16B8B426791E7472C7D3491AE09791A8"
+        },
+        "step5_formal_completion.json": {
+          "bytes": 2330,
+          "path": "experiments/fakeddit/v030_m4qesri_seed42/step5_formal_completion.json",
+          "sha256": "AF69CD2FC7D656C457F90718C9C0E1B254F186F5F5BBD16F827C8D213AD28FE4"
+        },
+        "summary.json": {
+          "bytes": 8512,
+          "path": "experiments/fakeddit/v030_m4qesri_seed42/summary.json",
+          "sha256": "8B09AA0A624F26BA24442D68B3CBD42C7AB2D336C8233731735B505106EB6467"
+        }
+      },
+      "root_tree": {
+        "file_count": 7,
+        "files": [
+          {
+            "bytes": 6260973,
+            "path": "experiments/fakeddit/v030_m4qesri_seed42/best_model.pt",
+            "sha256": "3B42178C78DECD2FC73F537F5D35C62CB3F4C90325C431A062F1D466C25E718C"
+          },
+          {
+            "bytes": 100444,
+            "path": "experiments/fakeddit/v030_m4qesri_seed42/best_validation_predictions.json",
+            "sha256": "95647239572028105DD6262C9DC33542C3ABA3B7534B6111851AEAD90AECF3E6"
+          },
+          {
+            "bytes": 6599,
+            "path": "experiments/fakeddit/v030_m4qesri_seed42/experiment.json",
+            "sha256": "3B751278411B7BC8E10375744434F4D7BEFF54EF52836D73898F131C09EBE4CD"
+          },
+          {
+            "bytes": 6261135,
+            "path": "experiments/fakeddit/v030_m4qesri_seed42/final_model.pt",
+            "sha256": "911AC2616930AE2A0255DA8029847341438DF99EA56C8CA1FE4064984726B5E3"
+          },
+          {
+            "bytes": 20276,
+            "path": "experiments/fakeddit/v030_m4qesri_seed42/metrics.jsonl",
+            "sha256": "1F0C621EFEECF0A51E52EA889F1BB07A16B8B426791E7472C7D3491AE09791A8"
+          },
+          {
+            "bytes": 2330,
+            "path": "experiments/fakeddit/v030_m4qesri_seed42/step5_formal_completion.json",
+            "sha256": "AF69CD2FC7D656C457F90718C9C0E1B254F186F5F5BBD16F827C8D213AD28FE4"
+          },
+          {
+            "bytes": 8512,
+            "path": "experiments/fakeddit/v030_m4qesri_seed42/summary.json",
+            "sha256": "8B09AA0A624F26BA24442D68B3CBD42C7AB2D336C8233731735B505106EB6467"
+          }
+        ],
+        "path": "experiments/fakeddit/v030_m4qesri_seed42",
+        "tree_hash_definition": "SHA256 of UTF-8 LF-joined lines '<FILE_SHA256><two spaces><repo-relative-posix-path>' sorted lexicographically by path",
+        "tree_sha256": "29B9265D5DF99C555657B242AE90457B0F546213405B6BA7DBA76F53684F446D"
+      },
+      "run_index": 7,
+      "seed": 42,
+      "training_log": {
+        "bytes": 7966,
+        "path": "run_v030_step5_formal_m4qesri_seed42.txt",
+        "sha256": "5B05D0971D2025E22A84BE519080C826A4CEFF125352538A486119A29A500AAF"
+      }
+    },
+    {
+      "architecture": "quality_compatibility_selective_intervention",
+      "command_sha256_utf8": "02E3DE54D2E73E40A289A271984C85D98FED1B66E3463EA4ED0F4D1547F7663B",
+      "experiment_root": "experiments/fakeddit/v030_m4qesri_seed43",
+      "frozen_command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_seed43 --seed 43 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+      "label": "M4qesri",
+      "required_artifacts": {
+        "best_model.pt": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_seed43/best_model.pt",
+          "sha256": "5B3BE689CE5BAF728408A43B170DC53A8E9D373744D53FD4D283B3A8FF86AFD0"
+        },
+        "best_validation_predictions.json": {
+          "bytes": 100613,
+          "path": "experiments/fakeddit/v030_m4qesri_seed43/best_validation_predictions.json",
+          "sha256": "CD0BFBE8548999B274BBDC63DAF5D3DFEFD7A618B56A1371F6F152E25B253162"
+        },
+        "experiment.json": {
+          "bytes": 6599,
+          "path": "experiments/fakeddit/v030_m4qesri_seed43/experiment.json",
+          "sha256": "AB865CA1C5ADEA3B24B47F4ACA5348C8FEEC9B7A25D1692E4515E05774060C7C"
+        },
+        "final_model.pt": {
+          "bytes": 6261135,
+          "path": "experiments/fakeddit/v030_m4qesri_seed43/final_model.pt",
+          "sha256": "CB99119DD98E0CA814677C5E6CA455409267F5F90F05F72E9A60798A03F8F484"
+        },
+        "metrics.jsonl": {
+          "bytes": 24635,
+          "path": "experiments/fakeddit/v030_m4qesri_seed43/metrics.jsonl",
+          "sha256": "643DC40DFB90D23ABA0D6D373107D14CB149CEBA0A110EC149AE1A3476390488"
+        },
+        "step5_formal_completion.json": {
+          "bytes": 2330,
+          "path": "experiments/fakeddit/v030_m4qesri_seed43/step5_formal_completion.json",
+          "sha256": "5DD0A433E815F89A4298084573368143FD3F582623DA20F4756C96BB63F6725F"
+        },
+        "summary.json": {
+          "bytes": 8606,
+          "path": "experiments/fakeddit/v030_m4qesri_seed43/summary.json",
+          "sha256": "50CC7BF75E8CC22290882A341860E9B45BD66326948B8B07490D4B29138EE517"
+        }
+      },
+      "root_tree": {
+        "file_count": 7,
+        "files": [
+          {
+            "bytes": 6260973,
+            "path": "experiments/fakeddit/v030_m4qesri_seed43/best_model.pt",
+            "sha256": "5B3BE689CE5BAF728408A43B170DC53A8E9D373744D53FD4D283B3A8FF86AFD0"
+          },
+          {
+            "bytes": 100613,
+            "path": "experiments/fakeddit/v030_m4qesri_seed43/best_validation_predictions.json",
+            "sha256": "CD0BFBE8548999B274BBDC63DAF5D3DFEFD7A618B56A1371F6F152E25B253162"
+          },
+          {
+            "bytes": 6599,
+            "path": "experiments/fakeddit/v030_m4qesri_seed43/experiment.json",
+            "sha256": "AB865CA1C5ADEA3B24B47F4ACA5348C8FEEC9B7A25D1692E4515E05774060C7C"
+          },
+          {
+            "bytes": 6261135,
+            "path": "experiments/fakeddit/v030_m4qesri_seed43/final_model.pt",
+            "sha256": "CB99119DD98E0CA814677C5E6CA455409267F5F90F05F72E9A60798A03F8F484"
+          },
+          {
+            "bytes": 24635,
+            "path": "experiments/fakeddit/v030_m4qesri_seed43/metrics.jsonl",
+            "sha256": "643DC40DFB90D23ABA0D6D373107D14CB149CEBA0A110EC149AE1A3476390488"
+          },
+          {
+            "bytes": 2330,
+            "path": "experiments/fakeddit/v030_m4qesri_seed43/step5_formal_completion.json",
+            "sha256": "5DD0A433E815F89A4298084573368143FD3F582623DA20F4756C96BB63F6725F"
+          },
+          {
+            "bytes": 8606,
+            "path": "experiments/fakeddit/v030_m4qesri_seed43/summary.json",
+            "sha256": "50CC7BF75E8CC22290882A341860E9B45BD66326948B8B07490D4B29138EE517"
+          }
+        ],
+        "path": "experiments/fakeddit/v030_m4qesri_seed43",
+        "tree_hash_definition": "SHA256 of UTF-8 LF-joined lines '<FILE_SHA256><two spaces><repo-relative-posix-path>' sorted lexicographically by path",
+        "tree_sha256": "7326E272A12C0E0435AC52D20EC79BF67EA59E9161B89F32EF4B92A0E3BCDA43"
+      },
+      "run_index": 8,
+      "seed": 43,
+      "training_log": {
+        "bytes": 8301,
+        "path": "run_v030_step5_formal_m4qesri_seed43.txt",
+        "sha256": "5B189A734284F00C62676CB7B44D481763C1CDF295A3B0DD870531A184F5D696"
+      }
+    },
+    {
+      "architecture": "quality_compatibility_selective_intervention",
+      "command_sha256_utf8": "3F2FA8D0671495F507612BCF0640ED42B28933A1AC66832178855071D36D93F9",
+      "experiment_root": "experiments/fakeddit/v030_m4qesri_seed44",
+      "frozen_command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_seed44 --seed 44 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+      "label": "M4qesri",
+      "required_artifacts": {
+        "best_model.pt": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_seed44/best_model.pt",
+          "sha256": "8404AB25D6CFD39F1762A95AD6A362292C7A126B8C0DB3F61292D674462DA8A1"
+        },
+        "best_validation_predictions.json": {
+          "bytes": 100565,
+          "path": "experiments/fakeddit/v030_m4qesri_seed44/best_validation_predictions.json",
+          "sha256": "FE9C75D6BC977D74F975DAD1F92BFB54363A42156A6F965D31F68C78592FD90E"
+        },
+        "experiment.json": {
+          "bytes": 6599,
+          "path": "experiments/fakeddit/v030_m4qesri_seed44/experiment.json",
+          "sha256": "7A14DC6FDC619A7654C33F85E864B2BE7BBE3439AB5E274B8686E466A6BA5476"
+        },
+        "final_model.pt": {
+          "bytes": 6261135,
+          "path": "experiments/fakeddit/v030_m4qesri_seed44/final_model.pt",
+          "sha256": "D9C5FAC659A66D5EDA1429318816990412CBD70B212BFF0E76CB305B1E8920C6"
+        },
+        "metrics.jsonl": {
+          "bytes": 18848,
+          "path": "experiments/fakeddit/v030_m4qesri_seed44/metrics.jsonl",
+          "sha256": "2D73AF86F3042397AEC62BDDBD79E7BACBF9C07E3BF31184AEDA3B33A690709B"
+        },
+        "step5_formal_completion.json": {
+          "bytes": 2330,
+          "path": "experiments/fakeddit/v030_m4qesri_seed44/step5_formal_completion.json",
+          "sha256": "BA09F77E74E3058B7BF2586DCE07A4E7BAA27DCE7C319DE2E840DEAF02DF204E"
+        },
+        "summary.json": {
+          "bytes": 8589,
+          "path": "experiments/fakeddit/v030_m4qesri_seed44/summary.json",
+          "sha256": "769B0D429348F407EE2AB8607B5E1AA5350CB642FFF4902A7F823206916C025A"
+        }
+      },
+      "root_tree": {
+        "file_count": 7,
+        "files": [
+          {
+            "bytes": 6260973,
+            "path": "experiments/fakeddit/v030_m4qesri_seed44/best_model.pt",
+            "sha256": "8404AB25D6CFD39F1762A95AD6A362292C7A126B8C0DB3F61292D674462DA8A1"
+          },
+          {
+            "bytes": 100565,
+            "path": "experiments/fakeddit/v030_m4qesri_seed44/best_validation_predictions.json",
+            "sha256": "FE9C75D6BC977D74F975DAD1F92BFB54363A42156A6F965D31F68C78592FD90E"
+          },
+          {
+            "bytes": 6599,
+            "path": "experiments/fakeddit/v030_m4qesri_seed44/experiment.json",
+            "sha256": "7A14DC6FDC619A7654C33F85E864B2BE7BBE3439AB5E274B8686E466A6BA5476"
+          },
+          {
+            "bytes": 6261135,
+            "path": "experiments/fakeddit/v030_m4qesri_seed44/final_model.pt",
+            "sha256": "D9C5FAC659A66D5EDA1429318816990412CBD70B212BFF0E76CB305B1E8920C6"
+          },
+          {
+            "bytes": 18848,
+            "path": "experiments/fakeddit/v030_m4qesri_seed44/metrics.jsonl",
+            "sha256": "2D73AF86F3042397AEC62BDDBD79E7BACBF9C07E3BF31184AEDA3B33A690709B"
+          },
+          {
+            "bytes": 2330,
+            "path": "experiments/fakeddit/v030_m4qesri_seed44/step5_formal_completion.json",
+            "sha256": "BA09F77E74E3058B7BF2586DCE07A4E7BAA27DCE7C319DE2E840DEAF02DF204E"
+          },
+          {
+            "bytes": 8589,
+            "path": "experiments/fakeddit/v030_m4qesri_seed44/summary.json",
+            "sha256": "769B0D429348F407EE2AB8607B5E1AA5350CB642FFF4902A7F823206916C025A"
+          }
+        ],
+        "path": "experiments/fakeddit/v030_m4qesri_seed44",
+        "tree_hash_definition": "SHA256 of UTF-8 LF-joined lines '<FILE_SHA256><two spaces><repo-relative-posix-path>' sorted lexicographically by path",
+        "tree_sha256": "84FFFE620FDF4C7F3684450C397DA6680D3EE67256C398A58F6EB64A287A97B8"
+      },
+      "run_index": 9,
+      "seed": 44,
+      "training_log": {
+        "bytes": 7862,
+        "path": "run_v030_step5_formal_m4qesri_seed44.txt",
+        "sha256": "534E74A92CDA784249287477E3B1E2D98151B076568852484F0FE7E5C5CEC438"
+      }
+    }
+  ],
+  "frozen_source_boundary": {
+    "runner": {
+      "bytes": 159493,
+      "path": "scripts/run_fakeddit_ablation.py",
+      "sha256": "2AB9072852A578E1CFC4A87DBD5553E40A5501EE132833440119526E48973D1A"
+    },
+    "step4_formal_training_operationalization_commit": "7483adf96f51dfc6a243f1cf855ecf9f5098ca7e",
+    "step4_record": {
+      "bytes": 22853,
+      "path": "docs/experiments/v030/step4_formal_training_operationalization.json",
+      "sha256": "C1875452F203BBA11EE51B1023C6A7566342F4FB867FC5A6CB46B69FD6D96763"
+    },
+    "step5a_correction_record": {
+      "bytes": 2037,
+      "path": "docs/experiments/v030/step5a_training_routing_correction_record.json",
+      "sha256": "FC076A6C75B5E5BF82D0A8578A379F24D531A6E8091FA7973FA70E8BDC53E7FE"
+    },
+    "step5a_training_routing_correction_commit": "3230843532421f274b2ba0b70f0f7e09d8c7e600"
+  },
+  "locked_training_contract": {
+    "architectures": [
+      "M4qesri-w",
+      "M4qesri-t",
+      "M4qesri"
+    ],
+    "compatibility_weight": 1.0,
+    "official_test_split": "SEALED",
+    "quality_weight": 1.0,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "train_cache": "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+    "transition_objective_weight": 0.0,
+    "validation_cache": "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42"
+  },
+  "next_stage": "v0.30 Step7 \u9225?Formal Evaluation Operationalization",
+  "preserved_pre_correction_failure": {
+    "classification": "technical training-routing defect before first formal epoch completion",
+    "failure_log": {
+      "bytes": 5342,
+      "path": "run_v030_step5_formal_m4qesri_w_seed42.failed_pre_training_routing_correction.txt",
+      "sha256": "1C18F4FDF97CA6887F2A8BB807F7B993BB87860FC4FAF4D3DD7AA56186449640"
+    },
+    "retained_as_provenance": true,
+    "root_tree": {
+      "file_count": 2,
+      "files": [
+        {
+          "bytes": 5987,
+          "path": "experiments/fakeddit/v030_step5_failed_run1_m4qesri_w_seed42_pre_training_routing_correction/experiment.json",
+          "sha256": "0B8D94D2C962A0350D591ED738608D82D2FDBCC539720D8F5B1B2212546B1ED2"
+        },
+        {
+          "bytes": 0,
+          "path": "experiments/fakeddit/v030_step5_failed_run1_m4qesri_w_seed42_pre_training_routing_correction/metrics.jsonl",
+          "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+        }
+      ],
+      "path": "experiments/fakeddit/v030_step5_failed_run1_m4qesri_w_seed42_pre_training_routing_correction",
+      "tree_hash_definition": "SHA256 of UTF-8 LF-joined lines '<FILE_SHA256><two spaces><repo-relative-posix-path>' sorted lexicographically by path",
+      "tree_sha256": "DB9500957769A25A574805D7753A4C82AABB6A5F77B3FCF0928DC062451BC2E3"
+    },
+    "scientific_result_produced": false
+  },
+  "prohibitions_after_step6_freeze": [
+    "overwrite or retrain any of the nine formal v0.30 training runs",
+    "reselect checkpoints",
+    "change frozen training commands or hyperparameters",
+    "modify training artifacts",
+    "access the official Fakeddit test split",
+    "compute V30-H1 through V30-H4 before the designated formal hypothesis-analysis stage"
+  ],
+  "schema_version": "1.0",
+  "scientific_status": {
+    "checkpoint_reselection_performed_in_step6": false,
+    "checkpoints_loaded_for_evaluation_in_step6": false,
+    "formal_evaluation_performed": false,
+    "formal_hypothesis_decisions_performed": false,
+    "formal_runs_complete": 9,
+    "formal_runs_expected": 9,
+    "formal_training_complete": true,
+    "official_test_samples_accessed": 0,
+    "training_or_retraining_performed_in_step6": false
+  },
+  "stage": "Step6",
+  "title": "Formal Training Evidence and Provenance Freeze"
+}
