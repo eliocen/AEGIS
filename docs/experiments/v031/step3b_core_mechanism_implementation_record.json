@@ -1,0 +1,63 @@
+{
+  "aegis_version": "0.31",
+  "architecture_modes": {
+    "M4qcesi": "combined",
+    "M4qcesi-c": "calibration_only",
+    "M4qcesi-u": "utility_only"
+  },
+  "implemented_components": [
+    "MonotoneEvidenceCalibrator",
+    "CalibratedEvidenceUtilityControllerOutput",
+    "CalibratedEvidenceUtilityInterventionController",
+    "training-only detached utility-target helper",
+    "bounded candidate intervention",
+    "bounded actual intervention",
+    "frozen diagnostics fields"
+  ],
+  "integration_state": {
+    "model_integration": "NO",
+    "optimizer_routing": "NO",
+    "real_one_batch_training_path": "NO",
+    "runner_integration": "NO"
+  },
+  "next_step": "v0.31 Step3C \u9225?model/runner integration, optimizer/loss routing, and real one-batch regressions.",
+  "parent_step2_commit": "28acb2a859ddb01363d853b646ed965bcadf1f71",
+  "post_implementation_controller_sha256": "296D67DF43B78CF585E0B59D8F9C44F0CFF78B7E92CE0CF0640C548EB2A9D214",
+  "pre_implementation_controller_sha256": "551CFD4BAC77716D768C0C76AB1BF635829BF127E0056A012BF35842DAD9C48A",
+  "record_type": "core_mechanism_implementation_record",
+  "recovery_history": [
+    {
+      "issue": "zero_gate_clamp_boundary_perturbation",
+      "resolution": "When g == 0, preserve atr and avr exactly; retain frozen bounded formula for nonzero gate.",
+      "scientific_change": "NO",
+      "status": "CORRECTED"
+    },
+    {
+      "issue": "literal_float32_bound_assertion",
+      "resolution": "Use \u53641e-7 numerical tolerance for mathematical [0.10,0.90] bound assertion while keeping exact g=0 identity regression.",
+      "scientific_change": "NO",
+      "status": "CORRECTED_TEST_ONLY"
+    }
+  ],
+  "regression_test_sha256": "D18D0816B9B89375A2AFD5F0B2AC33B6DAD9B2319698922B0C3E14A9756909E3",
+  "schema_version": "1.0",
+  "scientific_safety": {
+    "checkpoint_loading": "NO",
+    "formal_evaluation": "NO",
+    "formal_hypothesis_decisions": "NO",
+    "formal_training": "NO",
+    "official_test_samples_accessed": 0,
+    "v029_transition_objective_modified": false,
+    "v030_controller_semantics_modified": false
+  },
+  "status": "IMPLEMENTED_NOT_YET_INTEGRATED_WITH_MODEL_RUNNER",
+  "step": "Step3B",
+  "step2_contract_sha256": "28E9555FD48C6A13BACB281E13D3B1C5E79FC077E732061B9EB92F707CB692FD",
+  "verification": {
+    "exact_zero_gate_reference_identity": "PASS",
+    "focused_v031_controller_tests": "PASS",
+    "full_repository_regression": "PASS",
+    "inherited_reliability_v030_v029_tests": "PASS",
+    "python_compile": "PASS"
+  }
+}

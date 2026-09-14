@@ -1000,3 +1000,157 @@ class EvidenceConditionedSelectiveInterventionController(
             "stop_gradient_controller_inputs": True,
             "official_test_accessed": False,
         }
+# ============================================================================
+# AEGIS v0.31 Step3B 鈥?calibrated evidence + intervention utility controller
+# Frozen contract: step2_calibrated_evidence_utility_tensor_contract.json
+# ============================================================================
+V031_PROTOCOL_VERSION = "0.31.0-step2"
+V031_IMPLEMENTATION_VERSION = "0.31.0-step3b"
+V031_CALIBRATION_EPSILON = 1e-4
+V031_IDENTITY_SOFTPLUS_RAW = 0.541324854612918
+V031_CALIBRATION_LOSS_WEIGHT = 0.25
+V031_UTILITY_LOSS_WEIGHT = 0.50
+V031_UTILITY_TARGET_TEMPERATURE = 0.05
+V031_RISK_FLOOR = 0.25
+V031_RISK_WIDTH = 0.50
+V031_MAX_WEIGHT_SHIFT = 0.15
+V031_MIN_MODALITY_WEIGHT = 0.10
+V031_MAX_MODALITY_WEIGHT = 0.90
+V031_MAX_INTERACTION_SUPPRESSION = 0.50
+V031_ACTIVE_INTERVENTION_THRESHOLD = 0.50
+V031_CONTROLLER_MODES = frozenset({"calibration_only","utility_only","combined"})
+
+class MonotoneEvidenceCalibrator(nn.Module):
+    def __init__(self) -> None:
+        super().__init__()
+        self.a_raw = nn.Parameter(torch.tensor(float(V031_IDENTITY_SOFTPLUS_RAW)))
+        self.bias = nn.Parameter(torch.tensor(0.0))
+    @property
+    def slope(self) -> Tensor:
+        return torch.nn.functional.softplus(self.a_raw) + V031_CALIBRATION_EPSILON
+    def forward(self, score: Tensor) -> Tensor:
+        DeterministicReliabilityController._validate_score(score, name="calibration_score")
+        x=score.detach().clamp(V031_CALIBRATION_EPSILON,1.0-V031_CALIBRATION_EPSILON)
+        logit_x=torch.log(x)-torch.log1p(-x)
+        return torch.sigmoid(self.slope*logit_x+self.bias)
+
+@dataclass(frozen=True)
+class CalibratedEvidenceUtilityControllerOutput:
+    q_text_raw: Tensor
+    q_vision_raw: Tensor
+    compatibility_raw: Tensor
+    q_text_calibrated: Tensor
+    q_vision_calibrated: Tensor
+    compatibility_calibrated: Tensor
+    quality_deficit: Tensor
+    compatibility_deficit: Tensor
+    quality_disagreement: Tensor
+    calibrated_risk: Tensor
+    utility_features: Tensor
+    utility_probability: Tensor
+    utility_gate: Tensor
+    calibration_only_gate: Tensor
+    intervention_gate: Tensor
+    active_intervention_indicator: Tensor
+    reference_text_weight: Tensor
+    reference_vision_weight: Tensor
+    reference_weights: Tensor
+    candidate_text_weight: Tensor
+    candidate_vision_weight: Tensor
+    candidate_interaction_multiplier: Tensor
+    text_weight: Tensor
+    vision_weight: Tensor
+    weights: Tensor
+    interaction_multiplier: Tensor
+    weight_intervention_magnitude: Tensor
+    interaction_suppression_magnitude: Tensor
+    def as_dict(self) -> Dict[str, Tensor]:
+        return {name:getattr(self,name) for name in self.__dataclass_fields__}
+
+class CalibratedEvidenceUtilityInterventionController(DeterministicReliabilityController):
+    def __init__(self, *, mode: str="combined", utility_initialization_seed: int=0,
+                 epsilon: float=DEFAULT_EPSILON,
+                 allocation_exponent: float=DEFAULT_ALLOCATION_EXPONENT) -> None:
+        super().__init__(epsilon=epsilon)
+        if mode not in V031_CONTROLLER_MODES:
+            raise ValueError(f"mode must be one of {sorted(V031_CONTROLLER_MODES)}; got {mode!r}.")
+        if isinstance(utility_initialization_seed,bool) or not isinstance(utility_initialization_seed,int):
+            raise TypeError("utility_initialization_seed must be an int.")
+        if isinstance(allocation_exponent,bool) or not isinstance(allocation_exponent,(int,float)):
+            raise TypeError("allocation_exponent must be a real number.")
+        if float(allocation_exponent)<=0.0: raise ValueError("allocation_exponent must be greater than zero.")
+        self.mode=mode; self.utility_initialization_seed=int(utility_initialization_seed); self.allocation_exponent=float(allocation_exponent)
+        self.text_calibrator=MonotoneEvidenceCalibrator() if mode in {"calibration_only","combined"} else None
+        self.vision_calibrator=MonotoneEvidenceCalibrator() if mode in {"calibration_only","combined"} else None
+        self.compatibility_calibrator=MonotoneEvidenceCalibrator() if mode in {"calibration_only","combined"} else None
+        self.utility_selector=None
+        if mode in {"utility_only","combined"}:
+            self.utility_selector=nn.Sequential(nn.Linear(7,16),nn.ReLU(),nn.Linear(16,1),nn.Sigmoid())
+            self._initialize_utility_selector()
+    @property
+    def calibration_enabled(self): return self.mode in {"calibration_only","combined"}
+    @property
+    def utility_selector_enabled(self): return self.mode in {"utility_only","combined"}
+    def _initialize_utility_selector(self):
+        if self.utility_selector is None: return
+        first=self.utility_selector[0]; final=self.utility_selector[2]
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(self.utility_initialization_seed); nn.init.xavier_uniform_(first.weight)
+        nn.init.zeros_(first.bias); nn.init.zeros_(final.weight); nn.init.zeros_(final.bias)
+    @staticmethod
+    def _validate_targets(targets: Tensor,batch_size:int)->None:
+        if not isinstance(targets,Tensor): raise TypeError("targets must be a torch.Tensor.")
+        if targets.ndim!=1 or targets.shape[0]!=batch_size: raise ValueError(f"targets must have shape [{batch_size}].")
+        if targets.dtype!=torch.long: raise TypeError("targets must have dtype torch.long.")
+        if not torch.all((targets==0)|(targets==1)): raise ValueError("targets must contain only binary class indices 0/1.")
+    @staticmethod
+    def utility_target_from_logits(reference_logits:Tensor,candidate_logits:Tensor,targets:Tensor)->Dict[str,Tensor]:
+        if reference_logits.ndim!=2 or reference_logits.shape[1]!=2: raise ValueError("reference_logits must have shape [B,2].")
+        if candidate_logits.shape!=reference_logits.shape: raise ValueError("candidate_logits must match reference_logits.")
+        if not torch.is_floating_point(reference_logits) or not torch.is_floating_point(candidate_logits): raise TypeError("utility-target logits must be floating.")
+        if not torch.isfinite(reference_logits).all() or not torch.isfinite(candidate_logits).all(): raise ValueError("utility-target logits must be finite.")
+        CalibratedEvidenceUtilityInterventionController._validate_targets(targets,reference_logits.shape[0])
+        idx=targets.view(-1,1)
+        p_ref=torch.softmax(reference_logits,dim=1).gather(1,idx)
+        p_cand=torch.softmax(candidate_logits,dim=1).gather(1,idx)
+        delta=(p_cand-p_ref).detach(); target=torch.sigmoid(delta/V031_UTILITY_TARGET_TEMPERATURE).detach()
+        return {"p_ref_true":p_ref.detach(),"p_candidate_true":p_cand.detach(),"delta_u":delta,"u_target":target}
+    def _calibrate(self,q_t,q_v,c):
+        if not self.calibration_enabled: return q_t,q_v,c
+        return self.text_calibrator(q_t),self.vision_calibrator(q_v),self.compatibility_calibrator(c)
+    def forward(self,text_quality:Tensor,vision_quality:Tensor,compatibility:Tensor)->CalibratedEvidenceUtilityControllerOutput:
+        self._validate_triplet(text_quality,vision_quality,compatibility)
+        qtr=text_quality.detach(); qvr=vision_quality.detach(); cr=compatibility.detach()
+        qt,qv,c=self._calibrate(qtr,qvr,cr)
+        st=(self.epsilon+qtr).pow(self.allocation_exponent); sv=(self.epsilon+qvr).pow(self.allocation_exponent)
+        den=st+sv; atr=st/den; avr=sv/den; refw=torch.cat((atr,avr),dim=1)
+        dq=1.0-0.5*(qt+qv); dc=1.0-c; dd=(qt-qv).abs(); risk=(0.50*dc+0.25*dq+0.25*dd).clamp(0.0,1.0)
+        feats=torch.cat((qt,qv,c,dq,dc,dd,risk),dim=1)
+        gc=((risk-V031_RISK_FLOOR)/V031_RISK_WIDTH).clamp(0.0,1.0)
+        if self.utility_selector_enabled:
+            u=self.utility_selector(feats); gu=((u-0.50)/0.50).clamp(0.0,1.0)
+        else:
+            u=torch.full_like(risk,0.50); gu=torch.zeros_like(risk)
+        g=gc if self.mode=="calibration_only" else gu
+        pref=qt-qv
+        cat=(atr+V031_MAX_WEIGHT_SHIFT*pref).clamp(V031_MIN_MODALITY_WEIGHT,V031_MAX_MODALITY_WEIGHT); cav=1.0-cat
+        cgi=(1.0-V031_MAX_INTERACTION_SUPPRESSION*risk).clamp(1.0-V031_MAX_INTERACTION_SUPPRESSION,1.0)
+        at_bounded=(atr+g*V031_MAX_WEIGHT_SHIFT*pref).clamp(V031_MIN_MODALITY_WEIGHT,V031_MAX_MODALITY_WEIGHT)
+        av_bounded=1.0-at_bounded
+        zero_gate=(g==0.0)
+        at=torch.where(zero_gate,atr,at_bounded)
+        av=torch.where(zero_gate,avr,av_bounded)
+        weights=torch.cat((at,av),dim=1)
+        gi=(1.0-g*V031_MAX_INTERACTION_SUPPRESSION*risk).clamp(1.0-V031_MAX_INTERACTION_SUPPRESSION,1.0)
+        wmag=(at-atr).abs(); imag=1.0-gi; active=(g>=V031_ACTIVE_INTERVENTION_THRESHOLD).to(g.dtype)
+        self._validate_outputs(effective_text_reliability=st,effective_vision_reliability=sv,text_weight=at,vision_weight=av,weights=weights,interaction_multiplier=gi)
+        if torch.any(wmag>V031_MAX_WEIGHT_SHIFT+1e-7): raise RuntimeError("v0.31 weight intervention exceeded frozen bound.")
+        if torch.any(imag>V031_MAX_INTERACTION_SUPPRESSION+1e-7): raise RuntimeError("v0.31 interaction suppression exceeded frozen bound.")
+        return CalibratedEvidenceUtilityControllerOutput(qtr,qvr,cr,qt,qv,c,dq,dc,dd,risk,feats,u,gu,gc,g,active,atr,avr,refw,cat,cav,cgi,at,av,weights,gi,wmag,imag)
+    def architecture_metadata(self)->dict[str,object]:
+        return {"module":self.__class__.__name__,"protocol_version":V031_PROTOCOL_VERSION,"implementation_version":V031_IMPLEMENTATION_VERSION,
+                "mode":self.mode,"calibration_enabled":self.calibration_enabled,"utility_selector_enabled":self.utility_selector_enabled,
+                "calibration_loss_weight":V031_CALIBRATION_LOSS_WEIGHT,"utility_loss_weight":V031_UTILITY_LOSS_WEIGHT,
+                "utility_target_temperature":V031_UTILITY_TARGET_TEMPERATURE,"max_weight_shift":V031_MAX_WEIGHT_SHIFT,
+                "max_interaction_suppression":V031_MAX_INTERACTION_SUPPRESSION,"active_intervention_threshold":V031_ACTIVE_INTERVENTION_THRESHOLD,
+                "stable_reference":"M4qcs-w-compatible raw-evidence allocation","official_test_accessed":False}
