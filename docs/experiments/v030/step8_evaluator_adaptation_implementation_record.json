@@ -1,0 +1,83 @@
+{
+  "aegis_version": "0.30",
+  "created_utc": "2026-09-14T06:40:35.135470Z",
+  "implementation": {
+    "active_intervention_reporting_threshold": 0.5,
+    "architecture_roster": [
+      "M1b",
+      "M4qcf",
+      "M4qcs-w",
+      "M4qgrt",
+      "M4qesri-w",
+      "M4qesri-t",
+      "M4qesri"
+    ],
+    "checkpoint_count": 21,
+    "checkpoint_hash_authority": "Step7 formal_evaluation_roster.checkpoints",
+    "expected_mismatch_summaries": 42,
+    "expected_quality_summaries": 399,
+    "inherited_corruption_semantics_changed": false,
+    "inherited_mismatch_mapping_changed": false,
+    "max_interaction_suppression": 0.5,
+    "max_modality_weight_intervention": 0.15,
+    "quality_conditions_per_architecture_seed": 19,
+    "regression_test": {
+      "path": "tests/test_v030_unified_evaluator_adaptation.py",
+      "sha256": "7809A93A29E8D4F94F59A852A5A4E999ABEA435233A70D4BB5D91D4B25060813"
+    },
+    "required_intervention_diagnostics": [
+      "intervention_gate",
+      "active_intervention_indicator",
+      "modality_weight_intervention_magnitude",
+      "interaction_suppression_magnitude"
+    ],
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "v030_evaluator": {
+      "path": "scripts/run_fakeddit_unified_evaluation_v030.py",
+      "sha256": "3997C7CA42C158984CCE2DB84A3E62CA41524DEA91BDDC5B5BBF6F06AAE31744"
+    },
+    "v030_reconstruction_constructor": "quality_compatibility_selective_intervention"
+  },
+  "next_action": "Execute v0.30 Step8 formal unified evaluation only after this implementation freeze is remotely verified.",
+  "schema_version": "1.0",
+  "scientific_safety": {
+    "checkpoint_reselection_performed": false,
+    "formal_hypothesis_decisions": {
+      "V30_H1": "NOT_COMPUTED",
+      "V30_H2": "NOT_COMPUTED",
+      "V30_H3": "NOT_COMPUTED",
+      "V30_H4": "NOT_COMPUTED",
+      "clean_performance_safeguard": "NOT_COMPUTED"
+    },
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0,
+    "retraining_performed": false,
+    "threshold_tuning_performed": false,
+    "training_performed": false
+  },
+  "source_boundary": {
+    "frozen_v029_evaluator": {
+      "modified": false,
+      "path": "scripts/run_fakeddit_unified_evaluation_v029.py",
+      "sha256": "14E8160637FEDDB738D29AF2C29D01DA5F89E79C76FCFFE257F38BC199B8AFE9"
+    },
+    "step7_commit": "09ecc9be9db5fa79ec1746072a46ae08b8d73e19",
+    "step7_json_sha256": "84ACBA8509CED45E0DBAF7CEC547B5940B423F362D49FED1BDD4364BCA32634B"
+  },
+  "stage": "Step8 evaluator adaptation / implementation verification",
+  "status": "IMPLEMENTATION_VERIFIED_BEFORE_FORMAL_EVALUATION",
+  "verification": {
+    "checkpoint_loaded": false,
+    "cli_import_smoke": "PASS",
+    "complete_repository_regression": "PASS",
+    "focused_regression": "PASS",
+    "formal_results_generated": false,
+    "formal_unified_evaluation_executed": false,
+    "python_compile": "PASS",
+    "validation_evaluation_executed": false
+  }
+}
