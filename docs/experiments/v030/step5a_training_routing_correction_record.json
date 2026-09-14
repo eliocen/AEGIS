@@ -1,0 +1,43 @@
+{
+  "branch": "feature/v0.30-evidence-driven-adaptive-control",
+  "correction_scope": {
+    "checkpoint_policy_changed": false,
+    "evaluation_conditions_changed": false,
+    "formal_run_matrix_changed": false,
+    "formal_training_resumed_in_this_step": false,
+    "hyperparameters_changed": false,
+    "hypothesis_gates_changed": false,
+    "official_test_boundary_changed": false,
+    "scientific_architecture_changed": false,
+    "training_caches_changed": false,
+    "training_commands_changed": false
+  },
+  "failure_class": "RUNNER_TRAINING_ROUTING_IMPLEMENTATION_DEFECT",
+  "next_step": "Preserve the failed run-1 evidence by non-destructive rename, then use a separate Step5 resume orchestrator to retry the exact frozen Step4 command.",
+  "record_version": "0.30.0-step5a-centralized-training-routing-correction",
+  "scientific_safety": {
+    "formal_evaluation_performed": false,
+    "formal_hypothesis_decisions_performed": false,
+    "formal_training_resumed": false,
+    "official_test_samples_accessed": 0
+  },
+  "source_identities": {
+    "correction_test_sha256": "299076280C1E82315C6013C7136D767426B68BAE8EE667D858BA0A4B460E0197",
+    "runner_post_correction_sha256": "2AB9072852A578E1CFC4A87DBD5553E40A5501EE132833440119526E48973D1A",
+    "runner_pre_correction_sha256": "D73F7C95504D0BB3122A99A00322ECDB483BA6AC7A73DA52BEFDA11A2B572CF5"
+  },
+  "status": "VERIFIED_PROSPECTIVE_TECHNICAL_CORRECTION_BEFORE_FORMAL_TRAINING_RESUME",
+  "step4_parent_commit": "7483adf96f51dfc6a243f1cf855ecf9f5098ca7e",
+  "verified_correction": {
+    "compatibility_supervision_routing_enabled": true,
+    "m4qcs_training_mixture_preserved": true,
+    "one_batch_training_path_regression_added": true,
+    "quality_supervision_routing_enabled": true,
+    "v029_transition_auxiliary_objective_enabled_for_v030": false,
+    "v030_architectures": [
+      "quality_compatibility_selective_intervention_weights",
+      "quality_compatibility_selective_intervention_transition",
+      "quality_compatibility_selective_intervention"
+    ]
+  }
+}

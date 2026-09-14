@@ -1324,6 +1324,9 @@ class FakedditAblationTrainer(
                 "quality_compatibility_graded_weights",
                 "quality_compatibility_transition_control",
                 "quality_compatibility_graded_transition_fusion",
+                "quality_compatibility_selective_intervention_weights",
+                "quality_compatibility_selective_intervention_transition",
+                "quality_compatibility_selective_intervention",
             }:
                 raise ValueError(
                     "quality_targets are valid only for M4q/M4qc quality "
@@ -1395,6 +1398,9 @@ class FakedditAblationTrainer(
                 "quality_compatibility_graded_weights",
                 "quality_compatibility_transition_control",
                 "quality_compatibility_graded_transition_fusion",
+                "quality_compatibility_selective_intervention_weights",
+                "quality_compatibility_selective_intervention_transition",
+                "quality_compatibility_selective_intervention",
             }:
                 raise ValueError(
                     "compatibility_targets are valid only for M4qc/M4qcf."
@@ -2306,6 +2312,9 @@ def train_one_epoch(
                     "quality_compatibility_graded_weights",
                     "quality_compatibility_transition_control",
                     "quality_compatibility_graded_transition_fusion",
+                    "quality_compatibility_selective_intervention_weights",
+                    "quality_compatibility_selective_intervention_transition",
+                    "quality_compatibility_selective_intervention",
                 }
                 else 0.0
             ),
@@ -2323,6 +2332,9 @@ def train_one_epoch(
                     "quality_compatibility_graded_weights",
                     "quality_compatibility_transition_control",
                     "quality_compatibility_graded_transition_fusion",
+                    "quality_compatibility_selective_intervention_weights",
+                    "quality_compatibility_selective_intervention_transition",
+                    "quality_compatibility_selective_intervention",
                 }
                 else 0.0
             ),
@@ -3311,6 +3323,9 @@ def main():
         "quality_compatibility_graded_weights",
         "quality_compatibility_transition_control",
         "quality_compatibility_graded_transition_fusion",
+        "quality_compatibility_selective_intervention_weights",
+        "quality_compatibility_selective_intervention_transition",
+        "quality_compatibility_selective_intervention",
     }:
 
         if alignment_model.gated_interaction_fusion is None:
@@ -3766,6 +3781,9 @@ def main():
                 "quality_compatibility_graded_weights",
                 "quality_compatibility_transition_control",
                 "quality_compatibility_graded_transition_fusion",
+                "quality_compatibility_selective_intervention_weights",
+                "quality_compatibility_selective_intervention_transition",
+                "quality_compatibility_selective_intervention",
             }
             else 0.0
         ),
@@ -3784,6 +3802,9 @@ def main():
                 "quality_compatibility_graded_weights",
                 "quality_compatibility_transition_control",
                 "quality_compatibility_graded_transition_fusion",
+                "quality_compatibility_selective_intervention_weights",
+                "quality_compatibility_selective_intervention_transition",
+                "quality_compatibility_selective_intervention",
             }
             else 0.0
         ),
@@ -3926,6 +3947,9 @@ def main():
                 "quality_compatibility_graded_weights",
                 "quality_compatibility_transition_control",
                 "quality_compatibility_graded_transition_fusion",
+                "quality_compatibility_selective_intervention_weights",
+                "quality_compatibility_selective_intervention_transition",
+                "quality_compatibility_selective_intervention",
             }
         ),
 
@@ -3941,6 +3965,9 @@ def main():
                 "quality_compatibility_graded_weights",
                 "quality_compatibility_transition_control",
                 "quality_compatibility_graded_transition_fusion",
+                "quality_compatibility_selective_intervention_weights",
+                "quality_compatibility_selective_intervention_transition",
+                "quality_compatibility_selective_intervention",
             }
             else 0.0
         ),
@@ -3956,6 +3983,9 @@ def main():
                 "quality_compatibility_graded_weights",
                 "quality_compatibility_transition_control",
                 "quality_compatibility_graded_transition_fusion",
+                "quality_compatibility_selective_intervention_weights",
+                "quality_compatibility_selective_intervention_transition",
+                "quality_compatibility_selective_intervention",
             }
             else 0.0
         ),
@@ -4011,6 +4041,9 @@ def main():
                 "quality_compatibility_graded_weights",
                 "quality_compatibility_transition_control",
                 "quality_compatibility_graded_transition_fusion",
+                "quality_compatibility_selective_intervention_weights",
+                "quality_compatibility_selective_intervention_transition",
+                "quality_compatibility_selective_intervention",
             }
             else None
         ),
@@ -4471,6 +4504,9 @@ def main():
                             "quality_compatibility_graded_weights",
                             "quality_compatibility_transition_control",
                             "quality_compatibility_graded_transition_fusion",
+                            "quality_compatibility_selective_intervention_weights",
+                            "quality_compatibility_selective_intervention_transition",
+                            "quality_compatibility_selective_intervention",
                         }
                         else 0.0
                     ),
@@ -4486,6 +4522,9 @@ def main():
                             "quality_compatibility_graded_weights",
                             "quality_compatibility_transition_control",
                             "quality_compatibility_graded_transition_fusion",
+                            "quality_compatibility_selective_intervention_weights",
+                            "quality_compatibility_selective_intervention_transition",
+                            "quality_compatibility_selective_intervention",
                         }
                         else 0.0
                     ),
