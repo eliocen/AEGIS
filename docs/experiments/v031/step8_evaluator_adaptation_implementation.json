@@ -1,0 +1,70 @@
+{
+  "aegis_version": "0.31",
+  "engineering_smoke": {
+    "formal": false,
+    "mismatch_summary_rows": 14,
+    "performed": true,
+    "quality_conditions_per_architecture_seed": 2,
+    "quality_summary_rows": 14,
+    "root": "experiments/fakeddit/v031_step8_engineering_smoke",
+    "seed": 42,
+    "tree_sha256": "99F86795D3AC7F33890426573817E7395B1E5A4A288776C06F11148D72C63EDD"
+  },
+  "evaluator_path": "scripts/run_fakeddit_unified_evaluation_v031.py",
+  "evaluator_sha256": "46685C69198071E0D9114DA264647BF3DD77910C616000B7DD771531EC2DB919",
+  "formal_mismatch_summaries_expected": 42,
+  "formal_quality_summaries_expected": 399,
+  "formal_roster": [
+    "M1b",
+    "M4qcf",
+    "M4qcs-w",
+    "M4qgrt",
+    "M4qcesi-c",
+    "M4qcesi-u",
+    "M4qcesi"
+  ],
+  "formal_seeds": [
+    42,
+    43,
+    44
+  ],
+  "next_stage": "Step9 formal unified evaluation execution",
+  "parent_step7_commit": "ed0870fa60653d250ad1b4bc9b7b6a474430bb64",
+  "recovery_history": [
+    {
+      "correction": "use exact frozen fusion_architecture as authoritative controller-mode identity; validate transition_objective.effective_weight == 0.0",
+      "scientific_design_changed": false,
+      "type": "checkpoint_metadata_schema_only"
+    },
+    {
+      "checkpoint_changed": false,
+      "controller_changed": false,
+      "corrected_rule": "v0.31 requires its actual frozen raw/calibrated evidence, final weights, interaction multiplier, risk, utility, gate, and intervention diagnostics; legacy effective-reliability fields remain required only where historically applicable",
+      "evaluation_conditions_changed": false,
+      "failed_assumption": "v0.31 controller emits legacy effective_text_reliability/effective_vision_reliability diagnostics",
+      "model_changed": false,
+      "scientific_design_changed": false,
+      "training_changed": false,
+      "type": "diagnostic_contract_schema_only"
+    }
+  ],
+  "schema_version": "1.2",
+  "scientific_boundary": {
+    "V31_H1": "NOT_COMPUTED",
+    "V31_H2": "NOT_COMPUTED",
+    "V31_H3": "NOT_COMPUTED",
+    "V31_H4": "NOT_COMPUTED",
+    "V31_H5": "NOT_COMPUTED",
+    "checkpoint_reselection_performed": false,
+    "formal_evaluation_performed": false,
+    "formal_hypothesis_decisions_performed": false,
+    "official_test_samples_accessed": 0,
+    "threshold_tuning_performed": false,
+    "training_performed": false
+  },
+  "step": "Step8 evaluator adaptation implementation and verification",
+  "test_path": "tests/test_v031_unified_evaluator.py",
+  "test_sha256": "2370EA278E8CF5D951CAB191ED4B5518ECF276CAF759EC2C66468AA1C0F2C253",
+  "unchanged_controller_sha256": "296D67DF43B78CF585E0B59D8F9C44F0CFF78B7E92CE0CF0640C548EB2A9D214",
+  "unchanged_model_sha256": "CA94D9FEF5F395C14F69E4B3C9CA222D5F75F9177C1273215D3B956321ED5E58"
+}
