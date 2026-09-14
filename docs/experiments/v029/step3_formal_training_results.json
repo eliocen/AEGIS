@@ -1,0 +1,352 @@
+{
+  "architecture_descriptive_aggregates": {
+    "M4qgr": {
+      "descriptive_only_not_formal_hypothesis_decision": true,
+      "mean_clean_validation_classification_loss": 0.3528760072787603,
+      "mean_clean_validation_macro_f1": 0.8642504131490948,
+      "population_sd_clean_validation_macro_f1": 0.0017275866110020269,
+      "seeds": [
+        42,
+        43,
+        44
+      ]
+    },
+    "M4qgrt": {
+      "descriptive_only_not_formal_hypothesis_decision": true,
+      "mean_clean_validation_classification_loss": 0.3555425013701121,
+      "mean_clean_validation_macro_f1": 0.86082273145109,
+      "population_sd_clean_validation_macro_f1": 0.0021632391184347156,
+      "seeds": [
+        42,
+        43,
+        44
+      ]
+    },
+    "M4qtc": {
+      "descriptive_only_not_formal_hypothesis_decision": true,
+      "mean_clean_validation_classification_loss": 0.3758271795312564,
+      "mean_clean_validation_macro_f1": 0.8612184788905276,
+      "population_sd_clean_validation_macro_f1": 0.0046590370727102705,
+      "seeds": [
+        42,
+        43,
+        44
+      ]
+    }
+  },
+  "branch": "feature/v0.29-graded-reliability-and-transition-control",
+  "checkpoint_selection": {
+    "diagnostic_metrics_used_for_selection": false,
+    "post_result_reselection_permitted": false,
+    "primary_metric": "clean_validation_macro_f1",
+    "tie_breaker": "clean_validation_classification_loss"
+  },
+  "evidence_classification": "CONTROLLED_VALIDATION_DEVELOPMENT_EVIDENCE",
+  "generated_utc": "2026-09-14T01:11:30.217033+00:00",
+  "next_gate": "Freeze this Step3 training record and prospectively operationalize the v0.29 formal evaluation from the frozen Step1 protocol.",
+  "programme_cardinality": {
+    "architectures": 3,
+    "formal_seeds": 3,
+    "formal_training_runs": 9
+  },
+  "record_version": "0.29.0-step3-formal-training-results",
+  "runs": [
+    {
+      "architecture": "M4qgr",
+      "artifact_sha256": {
+        "best_validation_predictions_json": "A021E3B44CAFE86553DE8586D2EEBA8285583C501CCD2067E318055100477D78",
+        "experiment_json": "33ABDD952DA5BE009222F04C5BF0304DC09FA4B857966AB6B1B150C7C068F73F",
+        "metrics_jsonl": "CAC2ADD7C471D7F0876C3388B2D6883DE35F211645836FC5CAE8DD0DBC121278",
+        "summary_json": "346E94C41BEBA21C72135A67D1445709A29699DD08D8676F1B19E8A003C04A63"
+      },
+      "epochs_completed": 20,
+      "experiment_root": "experiments/fakeddit/v029_m4qgr_seed42",
+      "final_checkpoint": {
+        "path": "experiments/fakeddit/v029_m4qgr_seed42/final_model.pt",
+        "sha256": "8E43E277A28BE171502CF8F80AF8B24A363B04159946C19D12672DEBB99AECA6"
+      },
+      "fusion_architecture": "quality_compatibility_graded_weights",
+      "metrics_rows": 20,
+      "official_test_samples_accessed": 0,
+      "official_test_status": "sealed_not_accessed",
+      "run_index": 1,
+      "seed": 42,
+      "selected_checkpoint": {
+        "clean_validation_accuracy": 0.866,
+        "clean_validation_classification_loss": 0.3708740612268448,
+        "clean_validation_f1": 0.8629856850715746,
+        "clean_validation_macro_f1": 0.8659351125944956,
+        "epoch": 12,
+        "path": "experiments/fakeddit/v029_m4qgr_seed42/best_model.pt",
+        "sha256": "43D66CA55327CDD5D590905BDF6950AE49C3D48A54871A119D2DEE2AF024FCFE"
+      },
+      "stop_reason": "early_stopping"
+    },
+    {
+      "architecture": "M4qgr",
+      "artifact_sha256": {
+        "best_validation_predictions_json": "EB8E252E0ADBDBDD67CFA06D037D9429417F160513600F62AB94F6B6817FA1C9",
+        "experiment_json": "3A34354BC71825A4E54492ABBC7D86D220EBE2F587739E4414C626AC89133C48",
+        "metrics_jsonl": "F6DF72E06AACCB98E44F7D1CF8F55BAE9758BCED873ABF7BF680FD394F4B85BE",
+        "summary_json": "068D18F5879C55A7163431EF9565567A8E79FF6CD621D482A7CEF919579CDDD6"
+      },
+      "epochs_completed": 17,
+      "experiment_root": "experiments/fakeddit/v029_m4qgr_seed43",
+      "final_checkpoint": {
+        "path": "experiments/fakeddit/v029_m4qgr_seed43/final_model.pt",
+        "sha256": "BB717917007FB8D7E6DEEE73B5D8C6A1EF81282197BA06D0B692DA0DA7266206"
+      },
+      "fusion_architecture": "quality_compatibility_graded_weights",
+      "metrics_rows": 17,
+      "official_test_samples_accessed": 0,
+      "official_test_status": "sealed_not_accessed",
+      "run_index": 2,
+      "seed": 43,
+      "selected_checkpoint": {
+        "clean_validation_accuracy": 0.862,
+        "clean_validation_classification_loss": 0.34091176390647887,
+        "clean_validation_f1": 0.8577319587628867,
+        "clean_validation_macro_f1": 0.8618756881193075,
+        "epoch": 9,
+        "path": "experiments/fakeddit/v029_m4qgr_seed43/best_model.pt",
+        "sha256": "34FE692A7FF966EDD33D4D14D30713F9E2C6D62CDB9C472B9EE39EB53606FCB6"
+      },
+      "stop_reason": "early_stopping"
+    },
+    {
+      "architecture": "M4qgr",
+      "artifact_sha256": {
+        "best_validation_predictions_json": "25313BB01F366AD0B53791BD5443A840D677ACFD5219F31674BF1BFBB86EBBB8",
+        "experiment_json": "A131ACB0BB0E6A6BA339DD6AB5FEA02D38023F370EB48F1D997B2CE72E9423FF",
+        "metrics_jsonl": "156619DBF7DEEB50E80FE9796768DE8A6DAF4E9EBA037F50C4848E11D0A0AB96",
+        "summary_json": "D59CCDC6F2D08A9168B0E32C41451B2763E38C6322B1D96BB572D24461E6C894"
+      },
+      "epochs_completed": 13,
+      "experiment_root": "experiments/fakeddit/v029_m4qgr_seed44",
+      "final_checkpoint": {
+        "path": "experiments/fakeddit/v029_m4qgr_seed44/final_model.pt",
+        "sha256": "4D3BE20FE3023B89F3EAF621F84546A38E941F767CEF2326B7DE1EEDAA9207A5"
+      },
+      "fusion_architecture": "quality_compatibility_graded_weights",
+      "metrics_rows": 13,
+      "official_test_samples_accessed": 0,
+      "official_test_status": "sealed_not_accessed",
+      "run_index": 3,
+      "seed": 44,
+      "selected_checkpoint": {
+        "clean_validation_accuracy": 0.865,
+        "clean_validation_classification_loss": 0.34684219670295713,
+        "clean_validation_f1": 0.8621041879468846,
+        "clean_validation_macro_f1": 0.8649404387334815,
+        "epoch": 5,
+        "path": "experiments/fakeddit/v029_m4qgr_seed44/best_model.pt",
+        "sha256": "613A14DCDFF526651905B2A2B4419D80A068B8CEFF7DC2408C65D2891507D9E3"
+      },
+      "stop_reason": "early_stopping"
+    },
+    {
+      "architecture": "M4qtc",
+      "artifact_sha256": {
+        "best_validation_predictions_json": "7FE6D794DA2EE57B5D668FA2300AC7056EF4BFBF4B32D60E65F080898E447779",
+        "experiment_json": "3B7CDF48F51276A487F232CF3A16B655B2624BF6714061360817284DEAD81378",
+        "metrics_jsonl": "245BB84F3EDF46A2A20B691B5239FC6C2F553947A4B1E097C25402C7F7F1B185",
+        "summary_json": "E98D02A7D98896717F9E00042265D5CEB7E1818240145EF1B1AC561349470D73"
+      },
+      "epochs_completed": 20,
+      "experiment_root": "experiments/fakeddit/v029_m4qtc_seed42",
+      "final_checkpoint": {
+        "path": "experiments/fakeddit/v029_m4qtc_seed42/final_model.pt",
+        "sha256": "A37A58A45D40D7A009D6DD37078C3B0A56F316BABA792BC816E83D725EF231D9"
+      },
+      "fusion_architecture": "quality_compatibility_transition_control",
+      "metrics_rows": 20,
+      "official_test_samples_accessed": 0,
+      "official_test_status": "sealed_not_accessed",
+      "run_index": 4,
+      "seed": 42,
+      "selected_checkpoint": {
+        "clean_validation_accuracy": 0.855,
+        "clean_validation_classification_loss": 0.37900903606414793,
+        "clean_validation_f1": 0.8503611971104231,
+        "clean_validation_macro_f1": 0.8548605209606431,
+        "epoch": 12,
+        "path": "experiments/fakeddit/v029_m4qtc_seed42/best_model.pt",
+        "sha256": "251BD3871727C881EA9159EEDE13835DF7ECF0AEEF513802193F9586FCF094B0"
+      },
+      "stop_reason": "early_stopping"
+    },
+    {
+      "architecture": "M4qtc",
+      "artifact_sha256": {
+        "best_validation_predictions_json": "D756D525E24CE083EE6B6EB3F3C1EAC665D66B8A9DE17CE602ABCEA1F3E98863",
+        "experiment_json": "743C03D1498F90DC80FEF1FEF7ED1F7DDF3A04461FEC1D74EE5E8734043C7558",
+        "metrics_jsonl": "9D1A705BD86C40690E0C691A2A82425C24D4A98824160FC717BAC8DBA9A53BF0",
+        "summary_json": "B26F64CCB16C5C1919969659F2C3026C12DAC6BBDE538A4C1546B5ECE5CA66B5"
+      },
+      "epochs_completed": 17,
+      "experiment_root": "experiments/fakeddit/v029_m4qtc_seed43",
+      "final_checkpoint": {
+        "path": "experiments/fakeddit/v029_m4qtc_seed43/final_model.pt",
+        "sha256": "89CCB809675E9ABA1996F80465F6628FCC66F4F82CA3C50F008D1B572BA60E09"
+      },
+      "fusion_architecture": "quality_compatibility_transition_control",
+      "metrics_rows": 17,
+      "official_test_samples_accessed": 0,
+      "official_test_status": "sealed_not_accessed",
+      "run_index": 5,
+      "seed": 43,
+      "selected_checkpoint": {
+        "clean_validation_accuracy": 0.866,
+        "clean_validation_classification_loss": 0.35721412444114686,
+        "clean_validation_f1": 0.8621399176954733,
+        "clean_validation_macro_f1": 0.8658948615714721,
+        "epoch": 9,
+        "path": "experiments/fakeddit/v029_m4qtc_seed43/best_model.pt",
+        "sha256": "C35BA7A87467461DB5C973442F155431278703534F73424D0F96001D140E1D74"
+      },
+      "stop_reason": "early_stopping"
+    },
+    {
+      "architecture": "M4qtc",
+      "artifact_sha256": {
+        "best_validation_predictions_json": "57E392D15D1265BF2C3A223F4371ECFB77947535F24EF4D23D3B01B16D036BEA",
+        "experiment_json": "B255C2E4AD8405A0C3FCA7283378D2C0165FCD553C14EA04C4089BB7D9916ACA",
+        "metrics_jsonl": "02CD52B1A6EF40FC03E72F8A218CA7D912FBDCCA6B088ACF9E73A4E2AB575BE5",
+        "summary_json": "58D79363076B47F15BD14EF47D8993D16EC0B7AE75856D83792C91B7D755767E"
+      },
+      "epochs_completed": 21,
+      "experiment_root": "experiments/fakeddit/v029_m4qtc_seed44",
+      "final_checkpoint": {
+        "path": "experiments/fakeddit/v029_m4qtc_seed44/final_model.pt",
+        "sha256": "4C2FE5823B08C63BBB452F5D4D9DBDF32E4D2BE239098FDBD78CE1803DF57D2D"
+      },
+      "fusion_architecture": "quality_compatibility_transition_control",
+      "metrics_rows": 21,
+      "official_test_samples_accessed": 0,
+      "official_test_status": "sealed_not_accessed",
+      "run_index": 6,
+      "seed": 44,
+      "selected_checkpoint": {
+        "clean_validation_accuracy": 0.863,
+        "clean_validation_classification_loss": 0.3912583780884743,
+        "clean_validation_f1": 0.8591983556012333,
+        "clean_validation_macro_f1": 0.8629000541394676,
+        "epoch": 13,
+        "path": "experiments/fakeddit/v029_m4qtc_seed44/best_model.pt",
+        "sha256": "8079A5938456A9575B7F388CC1CAA2AB44C73F3A9E8879A0AC4CCB461928F34D"
+      },
+      "stop_reason": "early_stopping"
+    },
+    {
+      "architecture": "M4qgrt",
+      "artifact_sha256": {
+        "best_validation_predictions_json": "710BC84BF6291FB428D698FF1128A04AC7EBED0576EA62B587F5DF960AD09E32",
+        "experiment_json": "0BA5086E782838840020994C112B53F31E2656639384BBD24A48DE2E232121A4",
+        "metrics_jsonl": "DFD14F42700CF88F463DE5E7F46E25121DE8E5E6A80CD7635146D5886DE44C48",
+        "summary_json": "8AD888F1397829338001AFCFEEB210351C8C8D854848966CFE2DEE77A1387C65"
+      },
+      "epochs_completed": 16,
+      "experiment_root": "experiments/fakeddit/v029_m4qgrt_seed42",
+      "final_checkpoint": {
+        "path": "experiments/fakeddit/v029_m4qgrt_seed42/final_model.pt",
+        "sha256": "AED2DAA6C8C5C5E0E9917A857A5E5469921C9F26D98D1D3815D4F6428708BF64"
+      },
+      "fusion_architecture": "quality_compatibility_graded_transition_fusion",
+      "metrics_rows": 16,
+      "official_test_samples_accessed": 0,
+      "official_test_status": "sealed_not_accessed",
+      "run_index": 7,
+      "seed": 42,
+      "selected_checkpoint": {
+        "clean_validation_accuracy": 0.859,
+        "clean_validation_classification_loss": 0.35746702599525454,
+        "clean_validation_f1": 0.8535825545171339,
+        "clean_validation_macro_f1": 0.8588067063810356,
+        "epoch": 8,
+        "path": "experiments/fakeddit/v029_m4qgrt_seed42/best_model.pt",
+        "sha256": "543EEA54A3A34303D2581969347B9C13B2E4DFD6CDEEEED27856A646081AA48A"
+      },
+      "stop_reason": "early_stopping"
+    },
+    {
+      "architecture": "M4qgrt",
+      "artifact_sha256": {
+        "best_validation_predictions_json": "E59F6D24FA1DBD9EB15D128346A5A0FD4E3384FFBA4563BE92FA155ABC00E935",
+        "experiment_json": "B6A4D997D074AE2F2F4B81BC669CA85D0922C5FAE3F99B80CC32CEC7432563DE",
+        "metrics_jsonl": "22D45220728F81EBCEDF73BFD35B90D49E1C0B7DF8AA49B058C2ED4C1036DF13",
+        "summary_json": "06F4A1DDC2DE14049D1DE49DCC5AB6EDFA8AB0018CA0AF8D72AD95322C5DB442"
+      },
+      "epochs_completed": 14,
+      "experiment_root": "experiments/fakeddit/v029_m4qgrt_seed43",
+      "final_checkpoint": {
+        "path": "experiments/fakeddit/v029_m4qgrt_seed43/final_model.pt",
+        "sha256": "3C599033DF0F8D80B89BF8770DFE7B059703D9F64D67DC50798930C30790F46D"
+      },
+      "fusion_architecture": "quality_compatibility_graded_transition_fusion",
+      "metrics_rows": 14,
+      "official_test_samples_accessed": 0,
+      "official_test_status": "sealed_not_accessed",
+      "run_index": 8,
+      "seed": 43,
+      "selected_checkpoint": {
+        "clean_validation_accuracy": 0.86,
+        "clean_validation_classification_loss": 0.35349960255622864,
+        "clean_validation_f1": 0.855072463768116,
+        "clean_validation_macro_f1": 0.8598379726964371,
+        "epoch": 6,
+        "path": "experiments/fakeddit/v029_m4qgrt_seed43/best_model.pt",
+        "sha256": "20B655E2AB26F940C6583A8B005400F55DEC84C2B172A5AAFFF201BF75986EB1"
+      },
+      "stop_reason": "early_stopping"
+    },
+    {
+      "architecture": "M4qgrt",
+      "artifact_sha256": {
+        "best_validation_predictions_json": "977A412AE877C872FDD3BC7598ABC6BE4141783A5E1CB9CFFFA950F55C458C35",
+        "experiment_json": "D24AC952CFF03414CA70C6F6F1BAC6D62414057B760B60A37F246EF1FA748E01",
+        "metrics_jsonl": "CF70563157945F1AA86C099FF21CDB86F37D2BD2AF76DF211B2209ECB1684320",
+        "summary_json": "49BC5080B4266F19D6571B81123FD16688F6E1F75657D1C3481CABF83DED786C"
+      },
+      "epochs_completed": 13,
+      "experiment_root": "experiments/fakeddit/v029_m4qgrt_seed44",
+      "final_checkpoint": {
+        "path": "experiments/fakeddit/v029_m4qgrt_seed44/final_model.pt",
+        "sha256": "74E9AA28955720FC30CCB166851FBB42E52DF54EF8C32BAEB82C8647122EEE4B"
+      },
+      "fusion_architecture": "quality_compatibility_graded_transition_fusion",
+      "metrics_rows": 13,
+      "official_test_samples_accessed": 0,
+      "official_test_status": "sealed_not_accessed",
+      "run_index": 9,
+      "seed": 44,
+      "selected_checkpoint": {
+        "clean_validation_accuracy": 0.864,
+        "clean_validation_classification_loss": 0.3556608755588532,
+        "clean_validation_f1": 0.8589211618257261,
+        "clean_validation_macro_f1": 0.8638235152757974,
+        "epoch": 5,
+        "path": "experiments/fakeddit/v029_m4qgrt_seed44/best_model.pt",
+        "sha256": "EABBD1FC5BECC959967DDA7AB662BEB51B8C452F2B20880C9BEE537F6366752D"
+      },
+      "stop_reason": "early_stopping"
+    }
+  ],
+  "scientific_safety": {
+    "architecture_modification_performed": false,
+    "checkpoint_reselection_performed": false,
+    "failed_seed_or_run_excluded": false,
+    "formal_evaluation_performed": false,
+    "formal_hypothesis_decisions_computed": false,
+    "formal_training_completed": true,
+    "hyperparameter_search_performed": false,
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0
+  },
+  "source_identities": {
+    "runner_sha256": "DBDAA707B4293DD6D866DA28DC95300865986D0045EE3D0888A803AEB9DA4963",
+    "step1_protocol_sha256": "440C1BA6B971BEEA146E3572E2513F8A5A1AEBE5AA1454A1646C381290451919",
+    "step3_operationalization_sha256": "390871C8A0B7D8375C8BEA931A217E3EE70A0E43D00CD21C021A65BD0DB1047E"
+  },
+  "status": "FORMAL_STEP3_TRAINING_COMPLETE_READY_TO_FREEZE",
+  "training_source_commit": "1ab0a9a3b743a1ac9b16d04c771813ced6d641a2"
+}
