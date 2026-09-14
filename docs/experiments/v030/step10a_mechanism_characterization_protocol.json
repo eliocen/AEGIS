@@ -1,0 +1,188 @@
+{
+  "aegis_version": "0.30",
+  "architectures": {
+    "ablations": [
+      "M4qesri-w",
+      "M4qesri-t"
+    ],
+    "comparators": [
+      "M1b",
+      "M4qcf",
+      "M4qcs-w",
+      "M4qgrt"
+    ],
+    "primary": "M4qesri"
+  },
+  "authoritative_evidence_sources": {
+    "step8_evaluation_root": "experiments/fakeddit/v030_unified_evaluation",
+    "step8_mismatch_summary": "mismatch_summaries.json",
+    "step8_per_sample_mismatch": "seed*/<architecture>/mismatch/{matched_samples.jsonl,mismatched_samples.jsonl}",
+    "step8_per_sample_quality": "seed*/<architecture>/quality/*_samples.jsonl",
+    "step8_provenance": "docs/experiments/v030/step8_formal_evaluation_evidence_provenance.json",
+    "step8_quality_summary": "quality_condition_summaries.json",
+    "step9_decisions": "docs/experiments/v030/step9_formal_hypothesis_analysis.json"
+  },
+  "characterization_questions": [
+    {
+      "id": "MC1_H1_ROBUSTNESS_LOCALIZATION",
+      "linked_step9_decision": "V30_H1 NOT_SUPPORTED",
+      "predefined_outputs": [
+        "paired condition-level Macro-F1 deltas",
+        "mean/median/min/max delta by corruption family and modality",
+        "positive/negative/zero delta counts",
+        "seed consistency",
+        "graded-vs-catastrophic decomposition",
+        "clean-to-corruption degradation"
+      ],
+      "question": "Where across modality, corruption family, severity, seed, and condition does M4qesri gain or lose Macro-F1 relative to M4qcs-w and M4qcf?"
+    },
+    {
+      "id": "MC2_H2_TRANSITION_FAILURE_DECOMPOSITION",
+      "linked_step9_decision": "V30_H2 NOT_SUPPORTED",
+      "predefined_outputs": [
+        "harmful transition count",
+        "beneficial transition count",
+        "harmful/beneficial ratio",
+        "net harmful count",
+        "flip count/rate",
+        "matched Macro-F1",
+        "mismatched Macro-F1",
+        "mismatch gap",
+        "per-seed transition decomposition"
+      ],
+      "question": "Which mismatch transition components explain failure versus M4qgrt and M4qcs-w?"
+    },
+    {
+      "id": "MC3_H3_ABLATION_ATTRIBUTION",
+      "label_rule": {
+        "interference": "combined model is below both ablations on the same condition",
+        "mixed": "combined model lies between the two ablations",
+        "note": "Labels are descriptive only and are not new hypothesis decisions.",
+        "synergy": "combined model exceeds both ablations on the same condition"
+      },
+      "linked_step9_decision": "V30_H3 NOT_SUPPORTED",
+      "predefined_outputs": [
+        "primary-minus-weights-only deltas",
+        "primary-minus-transition-only deltas",
+        "condition-level winner counts",
+        "family-level mean deltas",
+        "mismatch transition comparison",
+        "clean delta comparison",
+        "synergy/interference descriptive labels based only on signed deltas"
+      ],
+      "question": "Does weights-only or transition-only behavior account for the combined model's observed performance, and where does combination create synergy or interference?"
+    },
+    {
+      "descriptive_failure_patterns": [
+        "weak_activation: low intervention magnitude across corrupted conditions",
+        "poor_separation: corrupted/mismatched activation close to clean/matched activation",
+        "saturation: gate/active indicator near ceiling broadly rather than selectively",
+        "non_monotonicity: activation does not increase consistently with frozen severity ordering",
+        "wrong_regime_response: stronger activation where performance does not need intervention and/or weaker activation where degradation is largest"
+      ],
+      "id": "MC4_H4_GATE_RESPONSE_CHARACTERIZATION",
+      "linked_step9_decision": "V30_H4 NOT_SUPPORTED",
+      "note": "These labels are descriptive summaries, not newly tuned thresholds or formal hypotheses.",
+      "predefined_outputs": [
+        "active intervention rate by condition",
+        "intervention gate mean/std/min/max",
+        "modality-weight intervention magnitude",
+        "interaction-suppression magnitude",
+        "clean/graded/catastrophic activation distributions",
+        "matched-vs-mismatched activation separation",
+        "severity trajectories for text Gaussian, vision Gaussian, text attenuation, vision attenuation",
+        "seed consistency of all activation statistics"
+      ],
+      "question": "Was intervention too weak, poorly separated, saturated, non-monotonic, or activated on the wrong evidence regime?"
+    },
+    {
+      "id": "MC5_EVIDENCE_PERFORMANCE_COUPLING",
+      "linked_step9_decision": "cross-cutting",
+      "predefined_outputs": [
+        "condition-level text_quality mean",
+        "condition-level vision_quality mean",
+        "compatibility mean",
+        "intervention_gate mean",
+        "active intervention rate",
+        "performance delta versus M4qcs-w",
+        "ranked high-intervention/low-benefit and low-intervention/high-degradation conditions"
+      ],
+      "question": "How do frozen reliability evidence and intervention strength relate descriptively to performance changes?",
+      "restriction": "No post-hoc significance threshold, classifier, regression model selection, or causal claim."
+    }
+  ],
+  "frozen_characterization_rules": {
+    "aggregation": "Report per-seed values and unweighted arithmetic means across the three frozen seeds.",
+    "diagnostic_mean_path": "diagnostics.<name>.mean",
+    "macro_f1_path": "metrics.macro_f1",
+    "mismatch_beneficial": "matched incorrect AND mismatched correct",
+    "mismatch_flip": "matched prediction != mismatched prediction",
+    "mismatch_harmful": "matched correct AND mismatched incorrect",
+    "missing_data": "Fail extraction rather than impute or infer a missing frozen field.",
+    "rounding": "Retain full precision in JSON; Markdown may display 6-12 decimal places."
+  },
+  "immutable_step9_decisions": {
+    "V30_H1": "NOT_SUPPORTED",
+    "V30_H2": "NOT_SUPPORTED",
+    "V30_H3": "NOT_SUPPORTED",
+    "V30_H4": "NOT_SUPPORTED",
+    "clean_performance_safeguard": "PASSED"
+  },
+  "next_after_step10b": "Step11 scientific synthesis/closure, unless a separately prospectively frozen Step10C descriptive follow-up is justified without changing Step9 decisions.",
+  "parent_step9_commit": "78951c65dd2573907623291ebbb685ab11a027cf",
+  "planned_step10b_outputs": [
+    "docs/experiments/v030/step10b_mechanism_characterization_evidence.json",
+    "docs/experiments/v030/step10b_mechanism_characterization_evidence.md"
+  ],
+  "prohibitions": [
+    "No training or retraining",
+    "No checkpoint reselection",
+    "No re-evaluation or checkpoint loading",
+    "No official-test access",
+    "No threshold tuning",
+    "No new corruption conditions",
+    "No dropped seeds or conditions",
+    "No hypothesis redefinition",
+    "No Step9 decision modification",
+    "No causal claim from characterization alone",
+    "No successor architecture change during Step10"
+  ],
+  "purpose": {
+    "primary": "Characterize why the frozen v0.30 mechanism failed to satisfy V30-H1..H4 while preserving the clean-performance safeguard.",
+    "prohibited_interpretation": "Step10 may explain or decompose Step9 outcomes but may not alter, rescue, retest, redefine, or supersede Step9 decisions.",
+    "scope": "Descriptive/mechanistic characterization only."
+  },
+  "record_type": "prospective_mechanism_characterization_protocol",
+  "schema_version": "1.0",
+  "status": "PROTOCOL_FROZEN_BEFORE_MECHANISM_EVIDENCE_EXTRACTION",
+  "step": "Step10A",
+  "strata": {
+    "catastrophic": [
+      "text_attenuation_s1",
+      "vision_attenuation_s1",
+      "text_zero_dropout_s1",
+      "vision_zero_dropout_s1"
+    ],
+    "clean": [
+      "clean"
+    ],
+    "graded": [
+      "text_gaussian_noise_s0p25",
+      "text_gaussian_noise_s0p5",
+      "text_gaussian_noise_s0p75",
+      "vision_gaussian_noise_s0p25",
+      "vision_gaussian_noise_s0p5",
+      "vision_gaussian_noise_s0p75",
+      "text_attenuation_s0p25",
+      "text_attenuation_s0p5",
+      "text_attenuation_s0p75",
+      "vision_attenuation_s0p25",
+      "vision_attenuation_s0p5",
+      "vision_attenuation_s0p75"
+    ],
+    "other_nonclean": [
+      "text_structured_dropout_s0p5",
+      "vision_structured_dropout_s0p5"
+    ]
+  }
+}
