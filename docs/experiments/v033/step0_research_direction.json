@@ -1,0 +1,41 @@
+{
+  "aegis_version": "0.33",
+  "motivation": [
+    "v0.32 established selector non-learning and utility non-discrimination in the v0.31 utility pathway.",
+    "v0.32 could not identify the upstream cause because decisive counterfactual-supervision and optimization diagnostics were not recorded.",
+    "v0.33 will redesign the utility-supervision and selector-learning pathway only after prospectively freezing observability, learning-signal, and pre-training verification requirements."
+  ],
+  "non_objectives": [
+    "no reopening or modification of v0.31 or v0.32",
+    "no post-hoc reconstruction of missing v0.31 diagnostics",
+    "no architecture expansion to AEGIS-Vision/Audio/Video",
+    "no official test access",
+    "no formal performance claim at Step0 or Step1"
+  ],
+  "official_test_samples": 0,
+  "parent_release": {
+    "commit": "273d8af07c63f6c4db18122f9c2f5aed7651b2e8",
+    "status": "V0.32_CLOSED_FAILURE_CHARACTERIZED",
+    "tag": "v0.32.0"
+  },
+  "primary_objective": "Create a utility-learning pathway whose supervision signal, target transform, selector optimization, and intervention activation are directly observable and verifiable before formal training.",
+  "research_direction": "Prospective Utility-Supervision and Selector-Learning Redesign",
+  "schema_version": "1.0",
+  "scientific_principles": [
+    "observability before training",
+    "mechanism verification before formal runs",
+    "inactive-by-default intervention",
+    "prospective thresholds before exposure",
+    "no validation-feedback-driven threshold redesign",
+    "preserve stable-reference behavior unless prospectively authorized"
+  ],
+  "step": "Step0",
+  "successor_scope": {
+    "architecture_identifier": "DEFERRED_TO_STEP2_EXACT_MECHANISM_CONTRACT",
+    "current_version": "v0.33",
+    "formal_evaluation": "NOT_AUTHORIZED",
+    "formal_training": "NOT_AUTHORIZED",
+    "phase": "utility-supervision and selector-learning redesign"
+  },
+  "title": "Prospective Utility-Supervision and Selector-Learning Redesign"
+}

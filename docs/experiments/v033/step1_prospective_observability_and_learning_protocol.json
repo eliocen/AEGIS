@@ -1,0 +1,151 @@
+{
+  "aegis_version": "0.33",
+  "failure_modes_to_distinguish": [
+    "candidate_action_space_failure",
+    "utility_target_signal_failure",
+    "target_transform_compression",
+    "selector_optimization_failure",
+    "evidence_representation_failure",
+    "intervention_gate_failure",
+    "mixed_or_indeterminate"
+  ],
+  "formal_hypothesis_policy": {
+    "reason": "Step1 freezes observability and learning-mechanism requirements before implementation. Exact successor architecture, loss equations, intervention bounds, and formal performance hypotheses must be frozen at Step2 before any source modification or training.",
+    "status": "DEFERRED_TO_STEP2_EXACT_MECHANISM_CONTRACT"
+  },
+  "implementation_policy": {
+    "checkpoint_reselection": "PROHIBITED",
+    "formal_evaluation_before_step2": "PROHIBITED",
+    "official_test_access": "PROHIBITED",
+    "source_modification_before_step2": "PROHIBITED",
+    "threshold_search": "PROHIBITED",
+    "training_before_step2": "PROHIBITED"
+  },
+  "mandatory_observability": {
+    "missingness_rule": "A required diagnostic that is absent must be reported NOT_AVAILABLE; it may not be reconstructed by retraining after formal results are exposed.",
+    "per_batch_or_periodic_training_diagnostics": [
+      "delta_u",
+      "u_target",
+      "p_ref_true",
+      "p_candidate_true",
+      "utility_probability",
+      "utility_gate",
+      "intervention_gate",
+      "active_intervention_indicator",
+      "utility_loss",
+      "classification_loss",
+      "calibration_loss_if_applicable",
+      "selector_parameter_delta_or_equivalent",
+      "selector_gradient_norm_or_equivalent"
+    ],
+    "persistence_rule": "Diagnostics must be written to machine-readable artifacts during the run; terminal-only evidence is insufficient.",
+    "required_metadata": [
+      "architecture",
+      "seed",
+      "epoch",
+      "step_or_batch_index",
+      "split_role",
+      "effective_loss_weights",
+      "selector_enabled",
+      "intervention_enabled"
+    ]
+  },
+  "next_step": {
+    "must_freeze_before": [
+      "controller/model source changes",
+      "runner changes",
+      "new training",
+      "new formal evaluation"
+    ],
+    "name": "Step2 exact utility-supervision and selector-learning mechanism contract"
+  },
+  "official_test_samples": 0,
+  "parent_step0": "docs/experiments/v033/step0_research_direction.json",
+  "pretraining_mechanism_gates": {
+    "G1_counterfactual_target_contract": {
+      "formal_training_if_failed": "PROHIBITED",
+      "requirement": "A deterministic tensor-contract test must verify p_ref_true, p_candidate_true, delta_u, and u_target shapes, finiteness, range, detach semantics, and target-transform directionality."
+    },
+    "G2_non_neutral_supervision_smoke": {
+      "formal_training_if_failed": "PROHIBITED",
+      "minimum_requirement": "at least one positive-utility and one negative-utility case with abs(delta_u) >= 0.01",
+      "requirement": "A synthetic or controlled regression must demonstrate that positive and negative counterfactual utility cases produce directionally distinct u_target values around the neutral point."
+    },
+    "G3_real_one_batch_learning_path": {
+      "formal_training_if_failed": "PROHIBITED",
+      "requirement": "Using the real training code path, one controlled batch must demonstrate finite non-zero utility loss, non-zero selector optimization signal, and measurable selector parameter movement when non-neutral targets are present."
+    },
+    "G4_effective_weight_assertion": {
+      "formal_training_if_failed": "PROHIBITED",
+      "requirement": "The runtime must assert the effective utility/calibration/classification weights actually applied by the optimizer path, not merely the CLI/config values."
+    },
+    "G5_inactive_by_default_gate": {
+      "formal_training_if_failed": "PROHIBITED",
+      "requirement": "Before learned evidence satisfies the prospectively frozen intervention rule, the selector must preserve the stable-reference/no-intervention default."
+    }
+  },
+  "prospective_learning_characterization": {
+    "L1_target_signal": {
+      "directionally_sparse_rule": "fraction abs(delta_u) >= 0.01 < 0.20",
+      "required_metrics": [
+        "delta_u mean/std/median/IQR/min/max",
+        "fraction delta_u > 0",
+        "fraction delta_u < 0",
+        "fraction abs(delta_u) >= 0.01",
+        "u_target mean/std/median/IQR",
+        "fraction u_target in [0.45,0.55]",
+        "fraction u_target >= 0.60",
+        "fraction u_target <= 0.40"
+      ],
+      "weak_signal_rule": "std(delta_u) < 0.01 OR fraction u_target in [0.45,0.55] >= 0.75"
+    },
+    "L2_candidate_action_quality": {
+      "candidate_space_failure_rule": "beneficial fraction < 0.40 AND harmful fraction >= beneficial fraction",
+      "required_metrics": [
+        "beneficial fraction delta_u > 0",
+        "harmful fraction delta_u < 0",
+        "neutral fraction abs(delta_u) < 0.005",
+        "mean positive delta_u conditional on benefit",
+        "mean negative delta_u conditional on harm"
+      ]
+    },
+    "L3_target_transform_compression": {
+      "compression_failure_rule": "fraction u_target in [0.45,0.55] >= 0.75",
+      "required_metrics": [
+        "delta_u to u_target monotonic consistency",
+        "u_target dispersion",
+        "central mass [0.45,0.55]",
+        "lower tail <= 0.40",
+        "upper tail >= 0.60"
+      ]
+    },
+    "L4_selector_optimization": {
+      "required_metrics": [
+        "utility_probability mean/std by epoch",
+        "utility_loss trajectory",
+        "selector parameter movement",
+        "selector gradient norm or equivalent optimization signal",
+        "active intervention rate"
+      ],
+      "selector_nonlearning_rule": "final utility_probability std < 0.02 AND active intervention rate == 0"
+    },
+    "L5_evidence_utility_discrimination": {
+      "non_discriminative_rule": "abs(mismatched_minus_matched_utility) < 0.02 AND abs(catastrophic_minus_clean_utility) < 0.02",
+      "required_strata": [
+        "clean",
+        "graded",
+        "catastrophic",
+        "matched",
+        "class_preserving_mismatched",
+        "text Gaussian severity",
+        "vision Gaussian severity",
+        "text attenuation severity",
+        "vision attenuation severity"
+      ]
+    }
+  },
+  "schema_version": "1.0",
+  "scientific_role": "prospective protocol freeze before implementation or training",
+  "step": "Step1",
+  "title": "Prospective Observability and Selector-Learning Protocol"
+}
