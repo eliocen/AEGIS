@@ -1,0 +1,66 @@
+{
+  "artifact_sha256": {
+    "manifest.json": "E2C047F429D4EF45F9114AB00E14C2687C8BC14D57742077672324FFD3ECD431",
+    "mismatch_summaries.json": "0A5779E91B0344FA59BC58FACBCEA5778D80D6A647FEF87C0A5A859BC814A024",
+    "quality_condition_summaries.json": "ABF9D9C5BE26D2659B4A97DA3852C1C9C3C87C827466AB062794ACC4D304E67E",
+    "quality_conditions.json": "536B0820650CE0DD3419F351BE94ABEF064DF25EE72CC22F47FDCD3E5C5F617E",
+    "summary.json": "CE072C2917A3088910EB3C93E57D492CC7409DC99745A5D1E8A424314942E9C8",
+    "validation_derangement_mapping.json": "6444423DEF61F787E9B578FBBAC341EC28C6D12A84D5C1545019ACB3509D7A05"
+  },
+  "evaluation_summary": {
+    "architectures": [
+      "M1b",
+      "M4qcf",
+      "M4qcs-w",
+      "M4qcs",
+      "M4qgr",
+      "M4qtc",
+      "M4qgrt"
+    ],
+    "checkpoint_reselection_performed": false,
+    "experiment": "fakeddit_unified_evaluation_v029",
+    "formal_hypothesis_decisions": {
+      "V29_H1": "NOT_COMPUTED",
+      "V29_H2": "NOT_COMPUTED",
+      "V29_H3": "NOT_COMPUTED",
+      "V29_H4": "NOT_COMPUTED"
+    },
+    "mismatch_mapping_sha256": "975967d77622bcdad7e28597cb6f9f967c73bfe16d4a7455c1ab56cc7fbc6464",
+    "mismatch_summary_rows": 42,
+    "model_state_unchanged": true,
+    "next_step": "Step5 formal analysis after Step4 artifact audit/freeze",
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0,
+    "parent_protocol_version": "0.29.0-step4a",
+    "protocol_version": "0.29.0-step4",
+    "quality_conditions_per_architecture_seed": 19,
+    "quality_summary_rows": 399,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "smoke": false,
+    "status": "STEP4_DIAGNOSTIC_EVIDENCE_COMPLETE",
+    "threshold_tuning_performed": false,
+    "training_performed": false,
+    "validation_samples": 1000
+  },
+  "evidence_classification": "CONTROLLED_VALIDATION_DEVELOPMENT_EVIDENCE",
+  "formal_hypothesis_decisions": {
+    "V29_H1": "NOT_COMPUTED",
+    "V29_H2": "NOT_COMPUTED",
+    "V29_H3": "NOT_COMPUTED",
+    "V29_H4": "NOT_COMPUTED"
+  },
+  "next_gate": "Step5 one-time frozen formal analysis",
+  "record_version": "0.29.0-step4-results",
+  "scientific_safety": {
+    "checkpoint_reselection_performed": false,
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0,
+    "threshold_tuning_performed": false,
+    "training_performed": false
+  },
+  "status": "FROZEN_FORMAL_V029_UNIFIED_EVALUATION_EVIDENCE"
+}
