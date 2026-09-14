@@ -284,6 +284,41 @@ def v031_calibrated_intervention_mode(fusion_architecture: str) -> Optional[str]
 def is_v031_calibrated_intervention_architecture(fusion_architecture: str) -> bool:
     return fusion_architecture in V031_CALIBRATED_INTERVENTION_ARCHITECTURES
 
+V033_UTILITY_SUPERVISED_ARCHITECTURE = (
+    "quality_compatibility_utility_supervised_intervention"
+)
+V033_UTILITY_SUPERVISED_ARCHITECTURES = frozenset({
+    V033_UTILITY_SUPERVISED_ARCHITECTURE,
+})
+V033_UTILITY_LOSS_WEIGHT = 0.50
+
+def is_v033_utility_supervised_architecture(fusion_architecture: str) -> bool:
+    return fusion_architecture in V033_UTILITY_SUPERVISED_ARCHITECTURES
+
+def compute_v033_utility_loss(
+    selector_logit: torch.Tensor,
+    utility_target_outputs: Dict[str, torch.Tensor],
+) -> torch.Tensor:
+    u_target = utility_target_outputs["u_target"]
+    delta_u = utility_target_outputs["delta_u"]
+    if selector_logit.ndim != 2 or selector_logit.shape[1] != 1:
+        raise ValueError("selector_logit must have shape [B,1].")
+    if u_target.ndim != 1 or delta_u.ndim != 1:
+        raise ValueError("v0.33 utility targets must have shape [B].")
+    if selector_logit.shape[0] != u_target.shape[0]:
+        raise ValueError("v0.33 utility batch size mismatch.")
+    weights = 1.0 + 4.0 * torch.clamp(
+        delta_u.detach().abs() / 0.10,
+        min=0.0,
+        max=1.0,
+    )
+    per_sample = nn.functional.binary_cross_entropy_with_logits(
+        selector_logit.view(-1),
+        u_target.detach(),
+        reduction="none",
+    )
+    return (weights * per_sample).mean()
+
 QUALITY_TRAINING_ARCHITECTURES = frozenset({
     "quality_supervised",
     "quality_compatibility_supervised",
@@ -294,7 +329,7 @@ QUALITY_TRAINING_ARCHITECTURES = frozenset({
     "quality_compatibility_graded_weights",
     "quality_compatibility_transition_control",
     "quality_compatibility_graded_transition_fusion",
-}) | V030_SELECTIVE_INTERVENTION_ARCHITECTURES | V031_CALIBRATED_INTERVENTION_ARCHITECTURES
+}) | V030_SELECTIVE_INTERVENTION_ARCHITECTURES | V031_CALIBRATED_INTERVENTION_ARCHITECTURES | V033_UTILITY_SUPERVISED_ARCHITECTURES
 
 
 def requires_quality_feature_statistics(fusion_architecture: str) -> bool:
@@ -358,12 +393,14 @@ def parse_args():
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             "quality_compatibility_selective_intervention_weights",
             "quality_compatibility_selective_intervention_transition",
             "quality_compatibility_selective_intervention",
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             "evidence_aware",
         ],
         help=(
@@ -662,6 +699,14 @@ def validate_args(
         )
 
     if (
+        is_v033_utility_supervised_architecture(args.fusion_architecture)
+        and args.transition_objective_weight != 0.0
+    ):
+        raise ValueError(
+            "v0.33 M4qusli requires --transition-objective-weight 0.0."
+        )
+
+    if (
         args.fusion_architecture in {
             "quality_compatibility_graded_weights",
             "quality_compatibility_transition_control",
@@ -691,6 +736,7 @@ def validate_args(
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
         }
         and args.quality_weight <= 0
     ):
@@ -715,6 +761,7 @@ def validate_args(
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
         }
         and args.compatibility_weight <= 0
     ):
@@ -772,6 +819,7 @@ def validate_args(
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             "evidence_aware",
         }
         and args.mode != "multimodal"
@@ -1058,6 +1106,7 @@ class FakedditAblationTrainer(
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             "evidence_aware",
         }:
             raise ValueError(
@@ -1241,6 +1290,22 @@ class FakedditAblationTrainer(
                 "quality_compatibility_calibrated_intervention."
             )
 
+        expected_v033 = (
+            self.mode == "multimodal"
+            and is_v033_utility_supervised_architecture(fusion_architecture)
+        )
+        if (
+            bool(
+                self.alignment_model
+                .quality_compatibility_utility_supervised_intervention
+            )
+            != expected_v033
+        ):
+            raise ValueError(
+                "fusion_architecture is inconsistent with alignment_model."
+                "quality_compatibility_utility_supervised_intervention."
+            )
+
         self.fusion_architecture = fusion_architecture
 
         if (
@@ -1315,6 +1380,7 @@ class FakedditAblationTrainer(
             "vision_quality": alignment_outputs.get("vision_quality"),
             "compatibility_score": alignment_outputs.get("compatibility_score"),
             "v031_control": alignment_outputs.get("v031_control"),
+            "v033_control": alignment_outputs.get("v033_control"),
             "stable_reference_fused_embedding": alignment_outputs.get(
                 "stable_reference_fused_embedding"
             ),
@@ -1399,6 +1465,7 @@ class FakedditAblationTrainer(
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             }:
                 raise ValueError(
                     "quality_targets are valid only for M4q/M4qc quality "
@@ -1476,6 +1543,7 @@ class FakedditAblationTrainer(
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             }:
                 raise ValueError(
                     "compatibility_targets are valid only for M4qc/M4qcf."
@@ -1558,6 +1626,41 @@ class FakedditAblationTrainer(
                     )
                 elif utility_loss_weight != 0.0:
                     raise ValueError("Utility loss must be zero when disabled.")
+
+        if is_v033_utility_supervised_architecture(self.fusion_architecture):
+            control = representation_outputs["v033_control"]
+            if control is None:
+                raise RuntimeError("M4qusli controller output is unavailable.")
+            if quality_targets is None or compatibility_targets is None:
+                if utility_loss_weight > 0.0:
+                    raise ValueError(
+                        "v0.33 utility supervision requires training-only "
+                        "quality and compatibility targets."
+                    )
+            else:
+                ref = representation_outputs["stable_reference_fused_embedding"]
+                cand = representation_outputs["candidate_fused_embedding"]
+                if ref is None or cand is None:
+                    raise RuntimeError(
+                        "M4qusli counterfactual embeddings unavailable."
+                    )
+                ref_logits = self.classification_model(ref)["integrity_logits"]
+                cand_logits = self.classification_model(cand)["integrity_logits"]
+                utility_target_outputs = (
+                    self.alignment_model
+                    .utility_supervised_intervention_controller
+                    .utility_target_from_logits(
+                        ref_logits, cand_logits, batch.integrity_targets
+                    )
+                )
+                utility_loss = compute_v033_utility_loss(
+                    control.selector_logit,
+                    utility_target_outputs,
+                )
+                if float(utility_loss_weight) != V033_UTILITY_LOSS_WEIGHT:
+                    raise ValueError(
+                        "M4qusli effective utility loss weight must equal 0.50."
+                    )
 
         if transition_reference_batch is not None:
             if self.fusion_architecture not in {
@@ -1664,6 +1767,7 @@ class FakedditAblationTrainer(
             "utility_loss": utility_loss,
             "utility_target_outputs": utility_target_outputs,
             "v031_control": representation_outputs["v031_control"],
+            "v033_control": representation_outputs["v033_control"],
             "transition_loss": transition_loss,
             "integrity_loss": classification_losses["integrity_loss"],
             "threat_loss": None,
@@ -1693,6 +1797,22 @@ class FakedditAblationTrainer(
         self.classification_model.train()
         self.optimizer.zero_grad(set_to_none=True)
 
+        v033_selector_before = None
+        v033_selector_parameters = []
+        if is_v033_utility_supervised_architecture(self.fusion_architecture):
+            controller = (
+                self.alignment_model.utility_supervised_intervention_controller
+            )
+            if controller is None:
+                raise RuntimeError("M4qusli controller is unavailable.")
+            v033_selector_parameters = list(
+                controller.utility_selector.parameters()
+            )
+            v033_selector_before = [
+                parameter.detach().clone()
+                for parameter in v033_selector_parameters
+            ]
+
         outputs = self.forward_batch(
             batch,
             compute_alignment_loss=True,
@@ -1711,6 +1831,16 @@ class FakedditAblationTrainer(
             raise RuntimeError("Non-finite training loss detected.")
         loss.backward()
 
+        v033_selector_gradient_norm = 0.0
+        if v033_selector_parameters:
+            grad_sq = 0.0
+            for parameter in v033_selector_parameters:
+                if parameter.grad is not None:
+                    grad_sq += float(
+                        parameter.grad.detach().pow(2).sum().cpu().item()
+                    )
+            v033_selector_gradient_norm = grad_sq ** 0.5
+
         if self.gradient_clip_norm is not None:
             parameters = list(self.alignment_model.parameters()) + list(
                 self.classification_model.parameters()
@@ -1722,6 +1852,18 @@ class FakedditAblationTrainer(
 
         self.optimizer.step()
         self.state.global_step += 1
+
+        v033_selector_parameter_l2_movement = 0.0
+        if v033_selector_before is not None:
+            movement_sq = 0.0
+            for before, after in zip(
+                v033_selector_before,
+                v033_selector_parameters,
+            ):
+                movement_sq += float(
+                    (after.detach() - before).pow(2).sum().cpu().item()
+                )
+            v033_selector_parameter_l2_movement = movement_sq ** 0.5
 
         result = {
             "loss": float(loss.detach().cpu().item()),
@@ -1744,6 +1886,57 @@ class FakedditAblationTrainer(
             ),
             "utility_loss": float(
                 outputs["utility_loss"].detach().cpu().item()
+            ),
+            "effective_utility_loss_weight": (
+                float(utility_loss_weight)
+                if is_v033_utility_supervised_architecture(
+                    self.fusion_architecture
+                )
+                else 0.0
+            ),
+            "selector_gradient_norm": v033_selector_gradient_norm,
+            "selector_parameter_l2_movement": (
+                v033_selector_parameter_l2_movement
+            ),
+            "utility_probability_mean": (
+                float(
+                    outputs["v033_control"].utility_probability
+                    .detach().mean().cpu().item()
+                )
+                if outputs.get("v033_control") is not None
+                else 0.0
+            ),
+            "active_intervention_rate": (
+                float(
+                    outputs["v033_control"].active_intervention_indicator
+                    .detach().mean().cpu().item()
+                )
+                if outputs.get("v033_control") is not None
+                else 0.0
+            ),
+            "delta_u_mean": (
+                float(
+                    outputs["utility_target_outputs"]["delta_u"]
+                    .detach().mean().cpu().item()
+                )
+                if outputs.get("utility_target_outputs") is not None
+                else 0.0
+            ),
+            "delta_u_std": (
+                float(
+                    outputs["utility_target_outputs"]["delta_u"]
+                    .detach().float().std(unbiased=False).cpu().item()
+                )
+                if outputs.get("utility_target_outputs") is not None
+                else 0.0
+            ),
+            "u_target_mean": (
+                float(
+                    outputs["utility_target_outputs"]["u_target"]
+                    .detach().mean().cpu().item()
+                )
+                if outputs.get("utility_target_outputs") is not None
+                else 0.0
             ),
             "transition_loss": float(
                 outputs["transition_loss"].detach().cpu().item()
@@ -2361,6 +2554,14 @@ def train_one_epoch(
     weighted_text_quality_loss = 0.0
     weighted_vision_quality_loss = 0.0
     weighted_compatibility_loss = 0.0
+    weighted_utility_loss = 0.0
+    weighted_selector_gradient_norm = 0.0
+    weighted_selector_parameter_l2_movement = 0.0
+    weighted_utility_probability_mean = 0.0
+    weighted_active_intervention_rate = 0.0
+    weighted_delta_u_mean = 0.0
+    weighted_delta_u_std = 0.0
+    weighted_u_target_mean = 0.0
     weighted_transition_loss = 0.0
     total_samples = 0
     batch_count = 0
@@ -2393,6 +2594,7 @@ def train_one_epoch(
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
         }:
             if text_feature_std is None or vision_feature_std is None:
                 raise RuntimeError(
@@ -2428,6 +2630,7 @@ def train_one_epoch(
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             }:
                 (
                     training_batch,
@@ -2476,6 +2679,7 @@ def train_one_epoch(
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
                 }
                 else 0.0
             ),
@@ -2499,6 +2703,7 @@ def train_one_epoch(
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
                 }
                 else 0.0
             ),
@@ -2524,7 +2729,13 @@ def train_one_epoch(
                         trainer.fusion_architecture
                     ) in {"utility_only", "combined"}
                 )
-                else 0.0
+                else (
+                    V033_UTILITY_LOSS_WEIGHT
+                    if is_v033_utility_supervised_architecture(
+                        trainer.fusion_architecture
+                    )
+                    else 0.0
+                )
             ),
             transition_reference_batch=(
                 batch
@@ -2563,6 +2774,22 @@ def train_one_epoch(
         weighted_compatibility_loss += (
             result["compatibility_loss"] * current_batch_size
         )
+        weighted_utility_loss += result["utility_loss"] * current_batch_size
+        weighted_selector_gradient_norm += (
+            result["selector_gradient_norm"] * current_batch_size
+        )
+        weighted_selector_parameter_l2_movement += (
+            result["selector_parameter_l2_movement"] * current_batch_size
+        )
+        weighted_utility_probability_mean += (
+            result["utility_probability_mean"] * current_batch_size
+        )
+        weighted_active_intervention_rate += (
+            result["active_intervention_rate"] * current_batch_size
+        )
+        weighted_delta_u_mean += result["delta_u_mean"] * current_batch_size
+        weighted_delta_u_std += result["delta_u_std"] * current_batch_size
+        weighted_u_target_mean += result["u_target_mean"] * current_batch_size
         weighted_transition_loss += result["transition_loss"] * current_batch_size
 
     if total_samples == 0:
@@ -2578,6 +2805,29 @@ def train_one_epoch(
         "text_quality_loss": weighted_text_quality_loss / total_samples,
         "vision_quality_loss": weighted_vision_quality_loss / total_samples,
         "compatibility_loss": weighted_compatibility_loss / total_samples,
+        "utility_loss": weighted_utility_loss / total_samples,
+        "selector_gradient_norm": (
+            weighted_selector_gradient_norm / total_samples
+        ),
+        "selector_parameter_l2_movement": (
+            weighted_selector_parameter_l2_movement / total_samples
+        ),
+        "utility_probability_mean": (
+            weighted_utility_probability_mean / total_samples
+        ),
+        "active_intervention_rate": (
+            weighted_active_intervention_rate / total_samples
+        ),
+        "delta_u_mean": weighted_delta_u_mean / total_samples,
+        "delta_u_std": weighted_delta_u_std / total_samples,
+        "u_target_mean": weighted_u_target_mean / total_samples,
+        "effective_utility_loss_weight": (
+            V033_UTILITY_LOSS_WEIGHT
+            if is_v033_utility_supervised_architecture(
+                trainer.fusion_architecture
+            )
+            else 0.0
+        ),
         "transition_loss": weighted_transition_loss / total_samples,
         "corruption_counts": dict(sorted(corruption_counts.items())),
     }
@@ -2825,6 +3075,7 @@ def collect_component_fingerprints(
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -2854,6 +3105,21 @@ def collect_component_fingerprints(
             fingerprints["compatibility_estimator"] = module_state_fingerprint(
                 alignment_model.compatibility_estimator
             )
+            if is_v033_utility_supervised_architecture(fusion_architecture):
+                if (
+                    alignment_model
+                    .utility_supervised_intervention_controller is None
+                ):
+                    raise RuntimeError(
+                        "M4qusli controller unavailable for fingerprinting."
+                    )
+                fingerprints["v033_utility_selector"] = (
+                    module_state_fingerprint(
+                        alignment_model
+                        .utility_supervised_intervention_controller
+                        .utility_selector
+                    )
+                )
 
         elif fusion_architecture == "evidence_aware":
 
@@ -3038,6 +3304,7 @@ def effective_parameter_counts(
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -3069,6 +3336,19 @@ def effective_parameter_counts(
             representation_count += count_parameters(
                 alignment_model.compatibility_estimator
             )
+            if is_v033_utility_supervised_architecture(fusion_architecture):
+                if (
+                    alignment_model
+                    .utility_supervised_intervention_controller is None
+                ):
+                    raise RuntimeError(
+                        "M4qusli parameter accounting requires controller."
+                    )
+                representation_count += count_parameters(
+                    alignment_model
+                    .utility_supervised_intervention_controller
+                    .utility_selector
+                )
 
         else:
 
@@ -3503,7 +3783,13 @@ def main():
             quality_compatibility_calibrated_intervention=(
                 v031_calibrated_intervention_mode(args.fusion_architecture)
             ),
+            quality_compatibility_utility_supervised_intervention=(
+                is_v033_utility_supervised_architecture(
+                    args.fusion_architecture
+                )
+            ),
             v031_utility_initialization_seed=args.seed,
+            v033_utility_initialization_seed=args.seed,
         )
     )
 
@@ -3625,6 +3911,14 @@ def main():
             print("M4qesri quality loss weight:", args.quality_weight)
             print("M4qesri compatibility loss weight:", args.compatibility_weight)
             print("M4qesri v0.29 transition objective: DISABLED")
+        elif is_v033_utility_supervised_architecture(
+            args.fusion_architecture
+        ):
+            print("M4qusli utility-supervised selector learning: ENABLED")
+            print("M4qusli quality loss weight:", args.quality_weight)
+            print("M4qusli compatibility loss weight:", args.compatibility_weight)
+            print("M4qusli utility loss weight:", V033_UTILITY_LOSS_WEIGHT)
+            print("M4qusli transition objective: DISABLED")
         else:
             print("M4qcs selective reliability supervision: ENABLED")
             print("M4qcs architecture:", args.fusion_architecture)
@@ -3778,6 +4072,7 @@ def main():
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -3808,6 +4103,18 @@ def main():
                     raise RuntimeError("M4qcesi controller unavailable.")
                 representation_parameters += list(
                     alignment_model.calibrated_utility_controller.parameters()
+                )
+            if is_v033_utility_supervised_architecture(
+                args.fusion_architecture
+            ):
+                if (
+                    alignment_model
+                    .utility_supervised_intervention_controller is None
+                ):
+                    raise RuntimeError("M4qusli controller unavailable.")
+                representation_parameters += list(
+                    alignment_model
+                    .utility_supervised_intervention_controller.parameters()
                 )
 
         elif args.fusion_architecture == "interaction_reliability":
@@ -3996,6 +4303,7 @@ def main():
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             }
             else 0.0
         ),
@@ -4020,6 +4328,7 @@ def main():
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             }
             else 0.0
         ),
@@ -4070,6 +4379,24 @@ def main():
             args.fusion_architecture
             if args.mode == "multimodal"
             else "bypassed"
+        ),
+
+        "v033_utility_supervised_intervention": (
+            {
+                "architecture_label": "M4qusli",
+                "protocol_version": "0.33.0-step2",
+                "implementation_version": "0.33.0-step5",
+                "utility_target": "clip(0.5 + delta_u / 0.20, 0, 1)",
+                "effective_utility_loss_weight": V033_UTILITY_LOSS_WEIGHT,
+                "active_threshold": 0.60,
+                "max_intervention_strength": 0.15,
+                "transition_objective_weight": 0.0,
+                "official_test_accessed": False,
+            }
+            if is_v033_utility_supervised_architecture(
+                args.fusion_architecture
+            )
+            else None
         ),
 
         "evidence_aware": (
@@ -4168,6 +4495,7 @@ def main():
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             }
         ),
 
@@ -4189,6 +4517,7 @@ def main():
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             }
             else 0.0
         ),
@@ -4210,6 +4539,7 @@ def main():
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             }
             else 0.0
         ),
@@ -4271,6 +4601,7 @@ def main():
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             }
             else None
         ),
@@ -4363,6 +4694,7 @@ def main():
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
             }
             else None
         ),
@@ -4740,6 +5072,7 @@ def main():
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
                         }
                         else 0.0
                     ),
@@ -4761,6 +5094,7 @@ def main():
             "quality_compatibility_calibrated_intervention_calibration",
             "quality_compatibility_calibrated_intervention_utility",
             "quality_compatibility_calibrated_intervention",
+            "quality_compatibility_utility_supervised_intervention",
                         }
                         else 0.0
                     ),
@@ -5002,6 +5336,25 @@ def main():
                     "compatibility_loss": training_metrics[
                         "compatibility_loss"
                     ],
+                    "utility_loss": training_metrics["utility_loss"],
+                    "effective_utility_loss_weight": training_metrics[
+                        "effective_utility_loss_weight"
+                    ],
+                    "selector_gradient_norm": training_metrics[
+                        "selector_gradient_norm"
+                    ],
+                    "selector_parameter_l2_movement": training_metrics[
+                        "selector_parameter_l2_movement"
+                    ],
+                    "utility_probability_mean": training_metrics[
+                        "utility_probability_mean"
+                    ],
+                    "active_intervention_rate": training_metrics[
+                        "active_intervention_rate"
+                    ],
+                    "delta_u_mean": training_metrics["delta_u_mean"],
+                    "delta_u_std": training_metrics["delta_u_std"],
+                    "u_target_mean": training_metrics["u_target_mean"],
                     "transition_loss": training_metrics[
                         "transition_loss"
                     ],

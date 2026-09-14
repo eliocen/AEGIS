@@ -1154,3 +1154,296 @@ class CalibratedEvidenceUtilityInterventionController(DeterministicReliabilityCo
                 "utility_target_temperature":V031_UTILITY_TARGET_TEMPERATURE,"max_weight_shift":V031_MAX_WEIGHT_SHIFT,
                 "max_interaction_suppression":V031_MAX_INTERACTION_SUPPRESSION,"active_intervention_threshold":V031_ACTIVE_INTERVENTION_THRESHOLD,
                 "stable_reference":"M4qcs-w-compatible raw-evidence allocation","official_test_accessed":False}
+
+# ============================================================================
+# AEGIS v0.33 Step5 - utility-supervised selector-learning controller
+# Frozen contracts:
+#   docs/experiments/v033/step2_exact_utility_supervision_selector_learning_contract.json
+#   docs/experiments/v033/step4_implementation_plan_and_source_allowlist.json
+# ============================================================================
+V033_PROTOCOL_VERSION = "0.33.0-step2"
+V033_IMPLEMENTATION_VERSION = "0.33.0-step5"
+V033_UTILITY_LOSS_WEIGHT = 0.50
+V033_UTILITY_TARGET_SCALE = 0.20
+V033_ACTIVE_INTERVENTION_THRESHOLD = 0.60
+V033_MAX_INTERVENTION_STRENGTH = 0.15
+V033_MAX_WEIGHT_SHIFT = 0.15
+V033_MIN_MODALITY_WEIGHT = 0.10
+V033_MAX_MODALITY_WEIGHT = 0.90
+V033_MAX_INTERACTION_SUPPRESSION = 0.50
+
+
+@dataclass(frozen=True)
+class UtilitySupervisedLearnedInterventionControllerOutput:
+    q_text_raw: Tensor
+    q_vision_raw: Tensor
+    compatibility_raw: Tensor
+    quality_deficit: Tensor
+    compatibility_deficit: Tensor
+    quality_disagreement: Tensor
+    utility_features: Tensor
+    selector_logit: Tensor
+    utility_probability: Tensor
+    utility_gate: Tensor
+    intervention_gate: Tensor
+    active_intervention_indicator: Tensor
+    applied_intervention_strength: Tensor
+    reference_text_weight: Tensor
+    reference_vision_weight: Tensor
+    reference_weights: Tensor
+    candidate_text_weight: Tensor
+    candidate_vision_weight: Tensor
+    candidate_interaction_multiplier: Tensor
+    text_weight: Tensor
+    vision_weight: Tensor
+    weights: Tensor
+    interaction_multiplier: Tensor
+    weight_intervention_magnitude: Tensor
+    interaction_suppression_magnitude: Tensor
+
+    def as_dict(self) -> Dict[str, Tensor]:
+        return {name: getattr(self, name) for name in self.__dataclass_fields__}
+
+
+class UtilitySupervisedLearnedInterventionController(
+    DeterministicReliabilityController
+):
+    """AEGIS v0.33 M4qusli selector-learning controller."""
+
+    def __init__(
+        self,
+        *,
+        utility_initialization_seed: int = 0,
+        epsilon: float = DEFAULT_EPSILON,
+        allocation_exponent: float = DEFAULT_ALLOCATION_EXPONENT,
+    ) -> None:
+        super().__init__(epsilon=epsilon)
+        if isinstance(utility_initialization_seed, bool) or not isinstance(
+            utility_initialization_seed, int
+        ):
+            raise TypeError("utility_initialization_seed must be an int.")
+        if isinstance(allocation_exponent, bool) or not isinstance(
+            allocation_exponent, (int, float)
+        ):
+            raise TypeError("allocation_exponent must be a real number.")
+        if float(allocation_exponent) <= 0.0:
+            raise ValueError("allocation_exponent must be greater than zero.")
+
+        self.utility_initialization_seed = int(utility_initialization_seed)
+        self.allocation_exponent = float(allocation_exponent)
+        self.utility_selector = nn.Sequential(
+            nn.Linear(7, 16),
+            nn.ReLU(),
+            nn.Linear(16, 1),
+        )
+        self._initialize_utility_selector()
+
+    def _initialize_utility_selector(self) -> None:
+        first = self.utility_selector[0]
+        final = self.utility_selector[2]
+        with torch.random.fork_rng(devices=[]):
+            torch.manual_seed(self.utility_initialization_seed)
+            nn.init.xavier_uniform_(first.weight)
+        nn.init.zeros_(first.bias)
+        nn.init.zeros_(final.weight)
+        nn.init.zeros_(final.bias)
+
+    @staticmethod
+    def utility_target_from_logits(
+        reference_logits: Tensor,
+        candidate_logits: Tensor,
+        targets: Tensor,
+    ) -> Dict[str, Tensor]:
+        if reference_logits.ndim != 2 or reference_logits.shape[1] != 2:
+            raise ValueError("reference_logits must have shape [B,2].")
+        if candidate_logits.shape != reference_logits.shape:
+            raise ValueError("candidate_logits must match reference_logits.")
+        if not torch.is_floating_point(reference_logits) or not torch.is_floating_point(
+            candidate_logits
+        ):
+            raise TypeError("utility-target logits must be floating.")
+        if not torch.isfinite(reference_logits).all() or not torch.isfinite(
+            candidate_logits
+        ).all():
+            raise ValueError("utility-target logits must be finite.")
+        CalibratedEvidenceUtilityInterventionController._validate_targets(
+            targets, reference_logits.shape[0]
+        )
+        idx = targets.view(-1, 1)
+        p_ref = torch.softmax(reference_logits, dim=1).gather(1, idx)
+        p_cand = torch.softmax(candidate_logits, dim=1).gather(1, idx)
+        delta = (p_cand - p_ref).detach().view(-1)
+        target = torch.clamp(
+            0.5 + delta / V033_UTILITY_TARGET_SCALE,
+            min=0.0,
+            max=1.0,
+        ).detach()
+        return {
+            "p_ref_true": p_ref.detach().view(-1),
+            "p_candidate_true": p_cand.detach().view(-1),
+            "delta_u": delta,
+            "u_target": target,
+        }
+
+    @staticmethod
+    def utility_magnitude_weight(delta_u: Tensor) -> Tensor:
+        if delta_u.ndim != 1:
+            raise ValueError("delta_u must have shape [B].")
+        if not torch.is_floating_point(delta_u):
+            raise TypeError("delta_u must be floating.")
+        if not torch.isfinite(delta_u).all():
+            raise ValueError("delta_u must be finite.")
+        return 1.0 + 4.0 * torch.clamp(
+            delta_u.detach().abs() / 0.10,
+            min=0.0,
+            max=1.0,
+        )
+
+    def forward(
+        self,
+        text_quality: Tensor,
+        vision_quality: Tensor,
+        compatibility: Tensor,
+    ) -> UtilitySupervisedLearnedInterventionControllerOutput:
+        self._validate_triplet(text_quality, vision_quality, compatibility)
+        q_t = text_quality.detach()
+        q_v = vision_quality.detach()
+        c_tv = compatibility.detach()
+
+        text_score = (self.epsilon + q_t).pow(self.allocation_exponent)
+        vision_score = (self.epsilon + q_v).pow(self.allocation_exponent)
+        denominator = text_score + vision_score
+        reference_text_weight = text_score / denominator
+        reference_vision_weight = vision_score / denominator
+        reference_weights = torch.cat(
+            (reference_text_weight, reference_vision_weight), dim=1
+        )
+
+        quality_deficit = 1.0 - 0.5 * (q_t + q_v)
+        compatibility_deficit = 1.0 - c_tv
+        quality_disagreement = (q_t - q_v).abs()
+        risk = (
+            0.50 * compatibility_deficit
+            + 0.25 * quality_deficit
+            + 0.25 * quality_disagreement
+        ).clamp(0.0, 1.0)
+        utility_features = torch.cat(
+            (
+                q_t,
+                q_v,
+                c_tv,
+                quality_deficit,
+                compatibility_deficit,
+                quality_disagreement,
+                risk,
+            ),
+            dim=1,
+        )
+
+        selector_logit = self.utility_selector(utility_features)
+        utility_probability = torch.sigmoid(selector_logit)
+        utility_gate = (
+            (utility_probability - V033_ACTIVE_INTERVENTION_THRESHOLD)
+            / (1.0 - V033_ACTIVE_INTERVENTION_THRESHOLD)
+        ).clamp(0.0, 1.0)
+        intervention_gate = utility_gate
+        active = (
+            utility_probability >= V033_ACTIVE_INTERVENTION_THRESHOLD
+        ).to(utility_probability.dtype)
+        applied_strength = V033_MAX_INTERVENTION_STRENGTH * intervention_gate
+
+        # Exact frozen v0.31 raw-evidence candidate-action equations.
+        preference = q_t - q_v
+        candidate_text_weight = (
+            reference_text_weight + V033_MAX_WEIGHT_SHIFT * preference
+        ).clamp(V033_MIN_MODALITY_WEIGHT, V033_MAX_MODALITY_WEIGHT)
+        candidate_vision_weight = 1.0 - candidate_text_weight
+        candidate_interaction_multiplier = (
+            1.0 - V033_MAX_INTERACTION_SUPPRESSION * risk
+        ).clamp(1.0 - V033_MAX_INTERACTION_SUPPRESSION, 1.0)
+
+        zero_gate = intervention_gate == 0.0
+        blended_text_weight = (
+            reference_text_weight
+            + intervention_gate
+            * (candidate_text_weight - reference_text_weight)
+        ).clamp(V033_MIN_MODALITY_WEIGHT, V033_MAX_MODALITY_WEIGHT)
+        blended_vision_weight = 1.0 - blended_text_weight
+        text_weight = torch.where(
+            zero_gate, reference_text_weight, blended_text_weight
+        )
+        vision_weight = torch.where(
+            zero_gate, reference_vision_weight, blended_vision_weight
+        )
+        weights = torch.cat((text_weight, vision_weight), dim=1)
+
+        blended_interaction_multiplier = (
+            1.0
+            + intervention_gate
+            * (candidate_interaction_multiplier - 1.0)
+        ).clamp(1.0 - V033_MAX_INTERACTION_SUPPRESSION, 1.0)
+        interaction_multiplier = torch.where(
+            zero_gate,
+            torch.ones_like(candidate_interaction_multiplier),
+            blended_interaction_multiplier,
+        )
+
+        weight_intervention_magnitude = (
+            text_weight - reference_text_weight
+        ).abs()
+        interaction_suppression_magnitude = 1.0 - interaction_multiplier
+
+        self._validate_outputs(
+            effective_text_reliability=text_score,
+            effective_vision_reliability=vision_score,
+            text_weight=text_weight,
+            vision_weight=vision_weight,
+            weights=weights,
+            interaction_multiplier=interaction_multiplier,
+        )
+
+        return UtilitySupervisedLearnedInterventionControllerOutput(
+            q_text_raw=q_t,
+            q_vision_raw=q_v,
+            compatibility_raw=c_tv,
+            quality_deficit=quality_deficit,
+            compatibility_deficit=compatibility_deficit,
+            quality_disagreement=quality_disagreement,
+            utility_features=utility_features,
+            selector_logit=selector_logit,
+            utility_probability=utility_probability,
+            utility_gate=utility_gate,
+            intervention_gate=intervention_gate,
+            active_intervention_indicator=active,
+            applied_intervention_strength=applied_strength,
+            reference_text_weight=reference_text_weight,
+            reference_vision_weight=reference_vision_weight,
+            reference_weights=reference_weights,
+            candidate_text_weight=candidate_text_weight,
+            candidate_vision_weight=candidate_vision_weight,
+            candidate_interaction_multiplier=candidate_interaction_multiplier,
+            text_weight=text_weight,
+            vision_weight=vision_weight,
+            weights=weights,
+            interaction_multiplier=interaction_multiplier,
+            weight_intervention_magnitude=weight_intervention_magnitude,
+            interaction_suppression_magnitude=interaction_suppression_magnitude,
+        )
+
+    def architecture_metadata(self) -> dict[str, object]:
+        return {
+            "module": self.__class__.__name__,
+            "protocol_version": V033_PROTOCOL_VERSION,
+            "implementation_version": V033_IMPLEMENTATION_VERSION,
+            "architecture_label": "M4qusli",
+            "stable_reference": "M4qcs-w-compatible raw-evidence allocation",
+            "candidate_action": "frozen_v0.31_raw-evidence_candidate_action",
+            "utility_target": "clip(0.5 + delta_u / 0.20, 0, 1)",
+            "utility_loss_weight": V033_UTILITY_LOSS_WEIGHT,
+            "active_intervention_threshold": V033_ACTIVE_INTERVENTION_THRESHOLD,
+            "max_intervention_strength": V033_MAX_INTERVENTION_STRENGTH,
+            "selector_output": "raw_logit_plus_sigmoid_probability",
+            "calibrated_risk_multiplier": False,
+            "transition_objective_weight": 0.0,
+            "official_test_accessed": False,
+        }

@@ -89,6 +89,7 @@ from ..reliability.reliability_controller import (
     DeterministicReliabilityController,
     EvidenceConditionedSelectiveInterventionController,
     CalibratedEvidenceUtilityInterventionController,
+    UtilitySupervisedLearnedInterventionController,
     GradedReliabilityTransitionController,
     SelectiveReliabilityController,
 )
@@ -126,7 +127,9 @@ class CrossModalAlignmentModel(nn.Module):
         quality_compatibility_graded_transition_fusion: str | None = None,
         quality_compatibility_selective_intervention: str | None = None,
         quality_compatibility_calibrated_intervention: str | None = None,
+        quality_compatibility_utility_supervised_intervention: bool = False,
         v031_utility_initialization_seed: int = 0,
+        v033_utility_initialization_seed: int = 0,
         evidence_reliability_hidden_dim: int = 256,
         evidence_interaction_dropout: float = 0.1,
         evidence_reliability_dropout: float = 0.1,
@@ -148,6 +151,10 @@ class CrossModalAlignmentModel(nn.Module):
             ("quality_supervised", quality_supervised),
             ("quality_compatibility_supervised", quality_compatibility_supervised),
             ("quality_compatibility_fusion", quality_compatibility_fusion),
+            (
+                "quality_compatibility_utility_supervised_intervention",
+                quality_compatibility_utility_supervised_intervention,
+            ),
         ):
             if not isinstance(value, bool):
                 raise TypeError(f"{name} must be a bool.")
@@ -213,6 +220,20 @@ class CrossModalAlignmentModel(nn.Module):
             raise ValueError(
                 "quality_compatibility_calibrated_intervention cannot be "
                 "combined with another experimental fusion architecture."
+            )
+
+        if quality_compatibility_utility_supervised_intervention and any((
+            evidence_aware, interaction_only, gated_interaction,
+            reliability_only, interaction_reliability, quality_supervised,
+            quality_compatibility_supervised, quality_compatibility_fusion,
+            quality_compatibility_selective_fusion is not None,
+            quality_compatibility_graded_transition_fusion is not None,
+            quality_compatibility_selective_intervention is not None,
+            quality_compatibility_calibrated_intervention is not None,
+        )):
+            raise ValueError(
+                "quality_compatibility_utility_supervised_intervention cannot "
+                "be combined with another experimental fusion architecture."
             )
 
         # Preserve historical M1/M3 validation messages exactly.
@@ -371,8 +392,14 @@ class CrossModalAlignmentModel(nn.Module):
         self.quality_compatibility_calibrated_intervention = (
             quality_compatibility_calibrated_intervention
         )
+        self.quality_compatibility_utility_supervised_intervention = (
+            quality_compatibility_utility_supervised_intervention
+        )
         self.v031_utility_initialization_seed = int(
             v031_utility_initialization_seed
+        )
+        self.v033_utility_initialization_seed = int(
+            v033_utility_initialization_seed
         )
 
         if self.evidence_aware:
@@ -405,6 +432,10 @@ class CrossModalAlignmentModel(nn.Module):
             self.fusion_architecture = "quality_compatibility_selective_intervention_transition"
         elif self.quality_compatibility_selective_intervention == "combined":
             self.fusion_architecture = "quality_compatibility_selective_intervention"
+        elif self.quality_compatibility_utility_supervised_intervention:
+            self.fusion_architecture = (
+                "quality_compatibility_utility_supervised_intervention"
+            )
         elif self.quality_compatibility_calibrated_intervention == "calibration_only":
             self.fusion_architecture = "quality_compatibility_calibrated_intervention_calibration"
         elif self.quality_compatibility_calibrated_intervention == "utility_only":
@@ -461,6 +492,7 @@ class CrossModalAlignmentModel(nn.Module):
                 or self.quality_compatibility_graded_transition_fusion is not None
                 or self.quality_compatibility_selective_intervention is not None
                 or self.quality_compatibility_calibrated_intervention is not None
+                or self.quality_compatibility_utility_supervised_intervention
             )
             else None
         )
@@ -531,6 +563,7 @@ class CrossModalAlignmentModel(nn.Module):
                 or self.quality_compatibility_graded_transition_fusion is not None
                 or self.quality_compatibility_selective_intervention is not None
                 or self.quality_compatibility_calibrated_intervention is not None
+                or self.quality_compatibility_utility_supervised_intervention
             )
             else None
         )
@@ -549,6 +582,7 @@ class CrossModalAlignmentModel(nn.Module):
                 or self.quality_compatibility_graded_transition_fusion is not None
                 or self.quality_compatibility_selective_intervention is not None
                 or self.quality_compatibility_calibrated_intervention is not None
+                or self.quality_compatibility_utility_supervised_intervention
             )
             else None
         )
@@ -569,6 +603,7 @@ class CrossModalAlignmentModel(nn.Module):
                 or self.quality_compatibility_graded_transition_fusion is not None
                 or self.quality_compatibility_selective_intervention is not None
                 or self.quality_compatibility_calibrated_intervention is not None
+                or self.quality_compatibility_utility_supervised_intervention
             )
             else None
         )
@@ -611,6 +646,14 @@ class CrossModalAlignmentModel(nn.Module):
                 utility_initialization_seed=self.v031_utility_initialization_seed,
             )
             if self.quality_compatibility_calibrated_intervention is not None
+            else None
+        )
+
+        self.utility_supervised_intervention_controller = (
+            UtilitySupervisedLearnedInterventionController(
+                utility_initialization_seed=self.v033_utility_initialization_seed,
+            )
+            if self.quality_compatibility_utility_supervised_intervention
             else None
         )
 
@@ -737,6 +780,94 @@ class CrossModalAlignmentModel(nn.Module):
                 "interaction_scale": out[
                     "interaction_scale"
                 ],
+            }
+
+        elif self.quality_compatibility_utility_supervised_intervention:
+            if self.gated_interaction_fusion is None:
+                raise RuntimeError("M4qusli interaction block is unavailable.")
+            if (
+                self.text_quality_estimator is None
+                or self.vision_quality_estimator is None
+            ):
+                raise RuntimeError("M4qusli quality estimators are unavailable.")
+            if self.compatibility_estimator is None:
+                raise RuntimeError("M4qusli compatibility estimator is unavailable.")
+            if self.utility_supervised_intervention_controller is None:
+                raise RuntimeError("M4qusli controller is unavailable.")
+
+            out = self.gated_interaction_fusion(aligned_text, aligned_vision)
+            text_quality = self.text_quality_estimator(aligned_text)
+            vision_quality = self.vision_quality_estimator(aligned_vision)
+            compatibility_score = self.compatibility_estimator(
+                aligned_text, aligned_vision
+            )
+            control = self.utility_supervised_intervention_controller(
+                text_quality, vision_quality, compatibility_score
+            )
+            stable_reference_fusion = (
+                control.reference_text_weight * aligned_text
+                + control.reference_vision_weight * aligned_vision
+                + out["scaled_interaction"]
+            )
+            candidate_fusion = (
+                control.candidate_text_weight * aligned_text
+                + control.candidate_vision_weight * aligned_vision
+                + control.candidate_interaction_multiplier
+                * out["scaled_interaction"]
+            )
+            reliability_weighted_fusion = (
+                control.text_weight * aligned_text
+                + control.vision_weight * aligned_vision
+            )
+            selective_interaction = (
+                control.interaction_multiplier * out["scaled_interaction"]
+            )
+            fused_embedding = reliability_weighted_fusion + selective_interaction
+            result = {
+                "aligned_text": aligned_text,
+                "aligned_vision": aligned_vision,
+                "fused_embedding": fused_embedding,
+                "evidence_difference": out["difference"],
+                "evidence_product": out["product"],
+                "cosine_similarity": out["cosine_similarity"],
+                "interaction_embedding": out["interaction_embedding"],
+                "gated_interaction_base_fusion": out["gated_base_fusion"],
+                "scaled_interaction": out["scaled_interaction"],
+                "interaction_scale": out["interaction_scale"],
+                "text_quality": text_quality,
+                "vision_quality": vision_quality,
+                "compatibility_score": compatibility_score,
+                "v033_control": control,
+                "stable_reference_fused_embedding": stable_reference_fusion,
+                "candidate_fused_embedding": candidate_fusion,
+                "selector_logit": control.selector_logit,
+                "utility_probability": control.utility_probability,
+                "utility_gate": control.utility_gate,
+                "intervention_gate": control.intervention_gate,
+                "active_intervention_indicator": (
+                    control.active_intervention_indicator
+                ),
+                "applied_intervention_strength": (
+                    control.applied_intervention_strength
+                ),
+                "reference_text_weight": control.reference_text_weight,
+                "reference_vision_weight": control.reference_vision_weight,
+                "reference_weights": control.reference_weights,
+                "candidate_text_weight": control.candidate_text_weight,
+                "candidate_vision_weight": control.candidate_vision_weight,
+                "candidate_interaction_multiplier": (
+                    control.candidate_interaction_multiplier
+                ),
+                "text_weight": control.text_weight,
+                "vision_weight": control.vision_weight,
+                "evidence_weights": control.weights,
+                "interaction_multiplier": control.interaction_multiplier,
+                "weight_intervention_magnitude": (
+                    control.weight_intervention_magnitude
+                ),
+                "interaction_suppression_magnitude": (
+                    control.interaction_suppression_magnitude
+                ),
             }
 
         elif self.quality_compatibility_calibrated_intervention is not None:
