@@ -1,0 +1,4518 @@
+{
+  "aegis_version": "0.30",
+  "canonical_evidence": {
+    "execution_log": {
+      "path": "v030_step8_formal_unified_evaluation.log",
+      "sha256": "E8B9B1B81CFC818B84F16E44339567BC1D4CBA0C88D01EF8BD19B311699428D3"
+    },
+    "manifest.json": {
+      "sha256": "F8E74204324BE8886C89B422DB9C85B1E7756B7A5D6C414FB69D867CEDF9B876"
+    },
+    "mismatch_summaries.json": {
+      "sha256": "C7CF0901D77A201109D5E5C12276DE219C964B5E2327FBBDC1E0381DB47C482C"
+    },
+    "quality_condition_summaries.json": {
+      "sha256": "9DC56A0C95DFD32DC70C635E1DE8216A92FC144893064E1B5914B936ECA53C1A"
+    },
+    "quality_conditions.json": {
+      "sha256": "0C4DC5B801261F4A81B8224A1DD2EC743E28D294DDD252F989E685E1E4A837B4"
+    },
+    "summary.json": {
+      "sha256": "CD49A21201525C1F50545658A94ECFB0767C2E1AFCE277B2EF0CCE97CD2C2E7B"
+    },
+    "validation_derangement_mapping.json": {
+      "evaluator_reported_mapping_content_sha256": "975967D77622BCDAD7E28597CB6F9F967C73BFE16D4A7455C1AB56CC7FBC6464",
+      "file_sha256": "83352FAC7DA7F78914FF16026AAF726B2F4E3E71A49110BC57B84067AF45391F",
+      "note": "The two hashes identify different objects: serialized file bytes versus evaluator-reported mapping content identity."
+    }
+  },
+  "complete_output_tree_inventory": [
+    {
+      "relative_path": "manifest.json",
+      "sha256": "F8E74204324BE8886C89B422DB9C85B1E7756B7A5D6C414FB69D867CEDF9B876",
+      "size_bytes": 47545
+    },
+    {
+      "relative_path": "mismatch_summaries.json",
+      "sha256": "C7CF0901D77A201109D5E5C12276DE219C964B5E2327FBBDC1E0381DB47C482C",
+      "size_bytes": 143774
+    },
+    {
+      "relative_path": "quality_condition_summaries.json",
+      "sha256": "9DC56A0C95DFD32DC70C635E1DE8216A92FC144893064E1B5914B936ECA53C1A",
+      "size_bytes": 1347547
+    },
+    {
+      "relative_path": "quality_conditions.json",
+      "sha256": "0C4DC5B801261F4A81B8224A1DD2EC743E28D294DDD252F989E685E1E4A837B4",
+      "size_bytes": 7809
+    },
+    {
+      "relative_path": "seed42/m1b/mismatch/matched_samples.jsonl",
+      "sha256": "5A86F2CF64EC72AFB7FEDA0D6E816C8F95FC2F714E31129C233A5E4C2DD36A0C",
+      "size_bytes": 1039219
+    },
+    {
+      "relative_path": "seed42/m1b/mismatch/matched_summary.json",
+      "sha256": "4F132C79FA3270D3F87C08CAC88F0E01904E4C6094C2B67F11B2BD3691DFCF2F",
+      "size_bytes": 1529
+    },
+    {
+      "relative_path": "seed42/m1b/mismatch/mismatched_samples.jsonl",
+      "sha256": "BABD69A651A21005487B516CFB7DF16F398A29275E43AE0E964F7C26446F8911",
+      "size_bytes": 1062052
+    },
+    {
+      "relative_path": "seed42/m1b/mismatch/mismatched_summary.json",
+      "sha256": "F4F6F11CB911BE19E7DB722E5BB994ABFF0469E8B6A90F95869ED779B82A5EBB",
+      "size_bytes": 1868
+    },
+    {
+      "relative_path": "seed42/m1b/quality/clean_samples.jsonl",
+      "sha256": "F2F7629624488FBB6AFB5D190E46A39C6B9E250AD370DDF379D5F9449EE543CD",
+      "size_bytes": 1035839
+    },
+    {
+      "relative_path": "seed42/m1b/quality/clean_summary.json",
+      "sha256": "6E661FA1BB5262ED6CE7ACB5A91EA47CE8F5FCE642FCEDA5E0368BE1FFA4B8F9",
+      "size_bytes": 1642
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "165C686822FDAEF6A540F15B3E54359683D958E68DEA15A54E37290CC2AB7804",
+      "size_bytes": 1062780
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "D1B8FEEF4E2397D12BCE07F8D1F67DE23072C7D32EA9BEE082A48D0C53F66E82",
+      "size_bytes": 1684
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "503CD0C0709B940A5D0E18D2F67E6F1A6F92C9B24C4A2136A5A606E59255466F",
+      "size_bytes": 1060680
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "4707699668FB44D7A69AE11D2698C5A8CD486438F12035B7D01498461A0BAB49",
+      "size_bytes": 1683
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "0909168A717CFC27F0452F73FF70C62E1AC8BF9399CFA1D874284583BE6A6D27",
+      "size_bytes": 1062471
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "9E055AAE45FC9B41325FBA1F99641DBAC4AFC582547D5404C3B0B71E1D3744EF",
+      "size_bytes": 1683
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "2F95611027ECE1F3CE097C1A749105A358F115A90220937314B19337C4BF332D",
+      "size_bytes": 1058402
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_attenuation_s1_summary.json",
+      "sha256": "EE899C187E1B18B03EFFECC92E7AD110957D6B32FA532C0C364E933427386E7C",
+      "size_bytes": 1679
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "8E0D9F34DAA3C7E3EAA3AA948F348EACB95F0A05EAF0C34093A2AB4F216DADB6",
+      "size_bytes": 1068787
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "18988C643C68FE2478430270E3AE55FC361589677E4361BB837ACDF96D30799B",
+      "size_bytes": 1687
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "DEB3BD43919AA136814691A2C180517E6C09BE67F70CB30B7CE832A70D4A2176",
+      "size_bytes": 1066806
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "EE2CC84673A007CAD1AD0BDF7C6193B3D2155730FF5C58247A6189C93A32466B",
+      "size_bytes": 1595
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "7FE21D42D25C762CBB738399894C2FBF294A57CE5243BC6EB6ACEB39AF6949E8",
+      "size_bytes": 1068766
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "4FC1E78B5A2BA58E2FE4729AB6BBCE09CB5A9796C27C661CA7DAEFF336B9D75B",
+      "size_bytes": 1687
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "A08D3FC7919CEAC3C6587B375A77629B9DACBEBEE6FE75B19106F16338149374",
+      "size_bytes": 1070651
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "FD3006CAB2A6532B7433402BD95459E5306C7549752EB10E79857EF95B9F162B",
+      "size_bytes": 1690
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "2F31B50136530C6E090297BB582CCF7010E63ACB4C349EC6F09C467E06BFB3B4",
+      "size_bytes": 1060402
+    },
+    {
+      "relative_path": "seed42/m1b/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "10AA21E39DB44CC76CF536DB95F30BF57352EE5B212E926CA7FD44986BD720FE",
+      "size_bytes": 1680
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "048E3FCF0FE995AF19E5CDF18CD07DA9911385699B5AAF9647D72EF2F0164940",
+      "size_bytes": 1066823
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "3A95399309364F04EB3058B3B429C9DE7BD9D9B7B1F3999B0C412C4ACC354321",
+      "size_bytes": 1687
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "542B9DE0EE3720646FCB76A02FE6BA2D82C0191420266F7A96E017CB2518A416",
+      "size_bytes": 1064775
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "71F9D78261FAF1FAB5CF33404C3691EDCBB021B9FEE387F034DF57EF50D414CB",
+      "size_bytes": 1593
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "02AB5D8F764F4F171730EDB45133DEAE6BB4C91107DB68829FA4547799FD9221",
+      "size_bytes": 1066744
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "9A00205D1D08134F2F410509B19BD37AF61EA59D1BA83E846120CB4DF6F09CB3",
+      "size_bytes": 1686
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "E5548B8017B3D600654C0F2F51621A4761C9769659A6A11755F482F6ABF8EB26",
+      "size_bytes": 1062677
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_attenuation_s1_summary.json",
+      "sha256": "64E8D9880354769C00E7551A5945035B8AE0C56900F4BC2750B9D45B9E0B7B4D",
+      "size_bytes": 1682
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "B58A6E1D98A6A3335253F0289C440AE96202C7436F4DE63FAC8C39E6DC5280C7",
+      "size_bytes": 1072763
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "BFF8A5616683E2655CCB560FB4B39C2A11A50AB27F6628E98FF6B75C171E774B",
+      "size_bytes": 1598
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "3863B2F671B584F9817F01B3E15B70428F660443C5D98592CF554C8A4E656A17",
+      "size_bytes": 1070691
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "8D52447803D3263D58951BD58C2DF8A2CE709A36D4C48795FF394BF55E96FACE",
+      "size_bytes": 1672
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "1A04CFE1EBE63EA8CBD8D052C7F41A95B745423E25F1F60FA24DCFAE056D2DB1",
+      "size_bytes": 1072595
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "6A9B6ABBFDD318BEE93C7228B3D06BDA422B1EE4CAB871CC339723D714BA3DD8",
+      "size_bytes": 1689
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "D6F27F0CD62E4EA02A5538D6075F59D90D68D27EE03FAB453BFC86F07D094593",
+      "size_bytes": 1074343
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "B4CD4E9ED3259079E1854E8910AF0276B5F15555F28868AFF48C7DAC3196C00F",
+      "size_bytes": 1690
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "F72E81093CFE037E75B647E58B206A0886A4F4602DF3A4BB043578CF0DC89340",
+      "size_bytes": 1064677
+    },
+    {
+      "relative_path": "seed42/m1b/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "99BDF4AAB6279613ADB60827A14BF7AFD5BFBE03C451844ED7D39E5845668DFF",
+      "size_bytes": 1683
+    },
+    {
+      "relative_path": "seed42/m4qcf/mismatch/matched_samples.jsonl",
+      "sha256": "00C56F7C700F6A9ABD02391F720185D9C10F5C0B14DB40ECDE653828A728401B",
+      "size_bytes": 1166684
+    },
+    {
+      "relative_path": "seed42/m4qcf/mismatch/matched_summary.json",
+      "sha256": "2830BA86065A6BD30713853DE856BD2A13E9E81342C6B3BCF04AF849C511A252",
+      "size_bytes": 2873
+    },
+    {
+      "relative_path": "seed42/m4qcf/mismatch/mismatched_samples.jsonl",
+      "sha256": "830931699B085669C6378819C5AEFD9EEFC68D7925D3C39F3D6777005A3E3302",
+      "size_bytes": 1193052
+    },
+    {
+      "relative_path": "seed42/m4qcf/mismatch/mismatched_summary.json",
+      "sha256": "5EA4581A3265C8CC9B5F945433D2D190E0604BE67BDA66F5E0C7258D4C0AF8EF",
+      "size_bytes": 3185
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/clean_samples.jsonl",
+      "sha256": "D0B4045D4D1762A5740C73F2C867B51E4B313EC529260D6C701E982F62891643",
+      "size_bytes": 1163304
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/clean_summary.json",
+      "sha256": "CD793FA86EA93B3CEDBF9E447F29EB3F0FF586954CE212D6B4F84413FDAC44E6",
+      "size_bytes": 2986
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "DDAACD3E3FDEF1B68D4D4A951B957327D61228EAB7680275CC92A07A9A40948D",
+      "size_bytes": 1190203
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "A42DB2FEE97DC408B555CCCD8E72FD19160AE2350CAC3B66431885F7AA6A833F",
+      "size_bytes": 3000
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "FCC99A76D359D681F5D4BCF86B13E05ABBEC9C4288513D759DF9287375F4E85D",
+      "size_bytes": 1188102
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "58A469DDE223337665F5135395E8BBC40EBB4D0F801DFF778B5EA008888AD02B",
+      "size_bytes": 2996
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "FF1DB5C26568B63492AEB05A345F98EEF0A08AACEAD4C78145EEA8165518C009",
+      "size_bytes": 1191763
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "81D5B8E0BED0C1F1E16F2C67C6AC54702232412BF15730F43C5BF3F73EC46E72",
+      "size_bytes": 2999
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "D7385024BE324CCB7C701E15CAB12B31433AD4852724AFBD13D868FFC31EDCE0",
+      "size_bytes": 1189808
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_attenuation_s1_summary.json",
+      "sha256": "FC5EBEE5E4A8DCE3CCA9BEF75923140B87D1A2BB571E5AB621A8EEEDD9049FD1",
+      "size_bytes": 2998
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "7293757551D148947F6A277C121A022C7BD42F0A67AD480F10B1E863B6E1BC07",
+      "size_bytes": 1196434
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "C3CE9101C68B42B826EF4D77B5ED9E013596FD42DBE00ED1F82767B487CCA565",
+      "size_bytes": 3009
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "C5E54BA8677EE3EA5684EF2326C5A737A94C72EF46C8EE82087F4953E6C5623F",
+      "size_bytes": 1194317
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "2435D1A9B6CC0EDD311BDA90B3F52B955FBED50B1964025106367B5551C78409",
+      "size_bytes": 3004
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "33DAE8F8F289FFB591D4C902CFA5C0BDFF10E9983E51732889C950ADF637EA89",
+      "size_bytes": 1196403
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "5B3F7F87CFAE894608CB2AFBF9339B5D1C0B722052FC4586DBE7F7442F4B5500",
+      "size_bytes": 2996
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "2561E836C2C76296E4D3C6446BFFD90F1B51F20306D238DAA0801C790B2E5FD4",
+      "size_bytes": 1199643
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "77054FD3990ADB6055FA91ED984523F522272069FDE33D124AC7F44D36CAD4C5",
+      "size_bytes": 3007
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "BF4DDA52FC75D68EC2C0C50097F0D1E0324441E170B85BEAA71A400642DB3A41",
+      "size_bytes": 1191808
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "0D7CA61F992A73881B145D38349C6AB2D590431CAFA4B2C7D10152934DAC28F2",
+      "size_bytes": 2999
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "240921CFEBD629071E1A4652E743A2880CAD70B2ED1E5A466E97EF844E2914F8",
+      "size_bytes": 1194116
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "587C01E289FA9FB20A8BC4F6BF478B87D18EBD48C57938724CCB0AD00A415DC2",
+      "size_bytes": 3002
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "D8B9C450724891B81A69D025F2FB5877F384FCF81A0A27AB3921A1524DA5275B",
+      "size_bytes": 1192140
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "EDD3EF4CCA7CA4724AC6AA33AADD25357C49365971D0CD1B939FD5FB1F4D75EC",
+      "size_bytes": 2997
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "D132819E3C62CAAE81F879378936EDF1E43E2257BA3C595BAD72AB9A11F3E1B3",
+      "size_bytes": 1195121
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "BC6FA542E63B2BD095BEBEA7BAD7DAC6805C24901CFEE864025B7EB54BAAEC74",
+      "size_bytes": 3010
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "D7097F9C50C1B673E481410D00447229FC605DABDC75F499B613E769B5F19917",
+      "size_bytes": 1192530
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_attenuation_s1_summary.json",
+      "sha256": "2AC6C27CAAD595457FE80C9F065E9A93B65544BF2980DB4092B26CD94A06BE8D",
+      "size_bytes": 3003
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "DFDB19BF2AE29B772B8AEC413C1CA429629933558E3C12F413932791A08DEF54",
+      "size_bytes": 1200422
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "194D2BDB8C2CFD0754BBC2E7E4F62DC91969DCB8726E15CEA1F21104B8BE0E71",
+      "size_bytes": 3000
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "56E3F9C182D9972C727ABE4E823E19F51370CC4D6846DA2F829C97A36F4F2D15",
+      "size_bytes": 1198350
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "A5D159C3BC9BEABCFEE9912F1D4B70BB33C4A9B1A6B9BCC10A54057631C58710",
+      "size_bytes": 3006
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "17F4707506868CBC9018CD1C2B5A0B8D644FA983155BAF351654D45F3E6D0B6C",
+      "size_bytes": 1200230
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "5555ECCE775CA3709F0EF69D386564AC4270AAE218BFE7B06DD15CDC651FF3CD",
+      "size_bytes": 2999
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "DD3FC65BF46390BFA48BC7A8E37466305E46F48D6FFEC5DED69D32EB3C00E62F",
+      "size_bytes": 1201986
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "D039A6D42B144890AE65ADC9473A0626999A999127B11B2070153C73DE92F0DB",
+      "size_bytes": 3014
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "1274733303DDF527984DF54E8CA7655D114FF115FCBDD7F71739E5F5CC3E851F",
+      "size_bytes": 1194530
+    },
+    {
+      "relative_path": "seed42/m4qcf/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "20364F4D8AD1B129638B995F751162D227BA57570AB7D08396107638895E1EB7",
+      "size_bytes": 3004
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/mismatch/matched_samples.jsonl",
+      "sha256": "9E51DE857DE3DF1D4EA17B6352976E14F30B4481FAB170D4F47BDD1544E33729",
+      "size_bytes": 1152333
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/mismatch/matched_summary.json",
+      "sha256": "B770CAFE1131CAD0E2031634A839DB47AF79950030E9E3A0C10CA8E020BB9CE7",
+      "size_bytes": 2812
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/mismatch/mismatched_samples.jsonl",
+      "sha256": "B8989CCFB380037BCBA757BF7D7CA8F34FCE4A8EA938D995ACF1150809E5828F",
+      "size_bytes": 1176330
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/mismatch/mismatched_summary.json",
+      "sha256": "3E84FE826282A70097DA81B0C61C8D2F988CECBC596FBE9F5EA07273B943D0AB",
+      "size_bytes": 3128
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/clean_samples.jsonl",
+      "sha256": "26D56227B796067F074FA6B7B1A4752AEBFFB68EACE5AB4002A1F513DDCE6C5F",
+      "size_bytes": 1148953
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/clean_summary.json",
+      "sha256": "83B0E632B8EEC4D569176C58709652D0F19F4711DC5CF16B7EBB4CFF582066D6",
+      "size_bytes": 2925
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "131F8DF1DFCCC4CF9FBA8274DBB0837B12739AF8B1F65A177D9331CEF72C66A3",
+      "size_bytes": 1175905
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "1A894CEDEC17BB5DA38362C1F0544C5B476589FC2FBB6758FC4CC12A5BCC87A1",
+      "size_bytes": 2943
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "D42052A8A14C184DC37C1D6BD1999DDB92CF348C3614FBE256E696E51707BA87",
+      "size_bytes": 1174060
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "0F40BF8C4145E10C49F067974D00A94998DE9EC03F104316211DB5ACCAC79222",
+      "size_bytes": 2934
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "219F4E08E7564B12A02B4CA7781FE4CE8A203C8CE0DBB80C8272E791BCECB3FD",
+      "size_bytes": 1178410
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "6E8959DBB920E257D4708B9E7FFD095370524351D355317E33C8F38EF9873185",
+      "size_bytes": 2950
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "E44422115B5E806133105FA76C774EE4DAADB6238C5F74205263B8AB90961D0F",
+      "size_bytes": 1176749
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_attenuation_s1_summary.json",
+      "sha256": "3BB0ECC4A64950B39B3DB0D30054B73C4CC54C30F726C0811C98776F497EB9CF",
+      "size_bytes": 2923
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "C8B6EE5A2900E9D1C67CC7064E5C03002F9BADCBF8508B321FD34F499FB03206",
+      "size_bytes": 1181946
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "3437FFD935B60A3B5930126C85F5F904A7F4EEEB130669C21C89D1EF65DF7D78",
+      "size_bytes": 2941
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "15557B3A1FA21F9E5C9B9792423EDCBB9C871CCFDDFC957C1F248F232AF5A9E2",
+      "size_bytes": 1179924
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "309D5813C875E9390244163E220E694934F69BB22FC67AD89F133778C9CD733B",
+      "size_bytes": 2947
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "71319105A8B709070724CCFC4B50A8A31BDA342E0E9CF798C43723DBDBA216C8",
+      "size_bytes": 1181959
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "B5011387774DF14B4E78F8F293E89026573B82D026C09E510ECC415B416C8431",
+      "size_bytes": 2942
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "BAB9A5878A44E47393F9CC8E59498EB609BFD7F6289E80F2C7AF858E647A8962",
+      "size_bytes": 1187185
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "1818BAE66B61438CE2C088E5E074E9D8B6BF15E0D7C36D774E75CE57EB725042",
+      "size_bytes": 2951
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "A7B77F9737699CC08917F0862AAAF0AAAF48059384E6C2AB6377DA043B21D29D",
+      "size_bytes": 1178749
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "A7D1F595864394A3010F648A4EBEA8458F05B0F6D259004AA89272BA9E28C14D",
+      "size_bytes": 2924
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "494C12248EE347DBDD141653538BE360BDB66391A146BB6FFF2ECB3D5B8E76B4",
+      "size_bytes": 1179816
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "FFE3C3A042193642567F0FF61D87041201AF3C4517F5F88462514F12E5E7D7BB",
+      "size_bytes": 2944
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "DD20705977F5B248D0DC53E9826736743BF39D6A9E676EE17106755A68D9B418",
+      "size_bytes": 1177991
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "57A64A135560EAE8A7928F734B2E116089FF69EDAB955E354CB31C9EC13C2D74",
+      "size_bytes": 2936
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "C47A3DB7E6DE022727DD3B10B3C2A646A2F44374D944ED965AEE3C176780038C",
+      "size_bytes": 1182366
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "B374C3825742A0A7B6327E9C8A493FEAB105FA8449519A7F303566BDC68C06AE",
+      "size_bytes": 2951
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "579097B4CF103B47C79460F807CFE056885FF9A797AF149811B4282DF8AE429F",
+      "size_bytes": 1181845
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_attenuation_s1_summary.json",
+      "sha256": "33CDB8FAFC63373F10D0A7F472EA6691BA3782AAE523AD65A7CBAC6B7AAEB8B0",
+      "size_bytes": 2932
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "46A9E3D868A4144FD87862BB1EFF50E1EACCDBDFF9DF28F838621BA03B0C698C",
+      "size_bytes": 1185824
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "84B8A19BDD9CD58A6A34339B08EE3E17AEE16F918B335E04ED75F3D3C75A01B3",
+      "size_bytes": 2951
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "7EBC3173CC4B58B0C0208B237E7C5B76B523185F85510F559053E1C5C18C900F",
+      "size_bytes": 1183909
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "EC29350C75D9EBC12A0D67FB144995D23DCB895FF4C7A117611ADA4D597F8420",
+      "size_bytes": 2942
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "BBD2776C0866DD415F600E0CC9D51517CF59ED8E490B67B82C470C9EE88F7D42",
+      "size_bytes": 1185853
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "C0A1F605E22C4FA73A6707B267970523FEABF985BFDE503750D2D7E47236BC16",
+      "size_bytes": 2946
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "E87FD01879601C7071F55CC4B846F9CB1C485F7B29A4D2919587F4C403D7EEE5",
+      "size_bytes": 1187651
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "8FCA2F8425AA90B8A06F44BD775F7160ACCE5CB02531ADE26FC8A816A50CB451",
+      "size_bytes": 2942
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "30BC83357432F5E90FB559FE4A5848C061874F52ED6A37FF0F70FD2F2C28686B",
+      "size_bytes": 1183845
+    },
+    {
+      "relative_path": "seed42/m4qcs-w/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "6E633EE7A20806974AA08DE31B853891B3B78672B6CCD1AFA9EA2A64DB40AD20",
+      "size_bytes": 2933
+    },
+    {
+      "relative_path": "seed42/m4qesri/mismatch/matched_samples.jsonl",
+      "sha256": "F7E6B5DB4A8261D70290A690E4EC9FE660110C871FB25CB9CE197F870F3DFD29",
+      "size_bytes": 1157535
+    },
+    {
+      "relative_path": "seed42/m4qesri/mismatch/matched_summary.json",
+      "sha256": "8CB0EE3BEC60FF8E78F89080D8951818D89863FB081A7EF2D14C7C639DE81024",
+      "size_bytes": 3364
+    },
+    {
+      "relative_path": "seed42/m4qesri/mismatch/mismatched_samples.jsonl",
+      "sha256": "7A065A65C986E0616962E489D631230A21EC287E372B5245028550CD4EEC48AE",
+      "size_bytes": 1211450
+    },
+    {
+      "relative_path": "seed42/m4qesri/mismatch/mismatched_summary.json",
+      "sha256": "F46B1C12DB8DF13411731CB75F1EA79888EC53C7ACB9A77593AC5C78FB4975A0",
+      "size_bytes": 3677
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/clean_samples.jsonl",
+      "sha256": "9BE4FFF9BB119693059D0375E30EF2470738F1BA260B46A332E2DB9F053950AA",
+      "size_bytes": 1154155
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/clean_summary.json",
+      "sha256": "AA19B0064D3AEE5B5CCF8EC55B256DAD2EEF0ABA95FDD79B60B4CF5D355C06CF",
+      "size_bytes": 3477
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "58C0B841A110D91506900F944344D4387A6EFD5E9AFC09A77334515A0182FB9D",
+      "size_bytes": 1175651
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "7BE33CB6F00E684D915A0B918A9F77771D81872BF786843D31CAB4AA126DCFFE",
+      "size_bytes": 3495
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "C78EDB6D095680F8424FB9E53D51866E2BBAB4D046E726263D913FAF7C135A44",
+      "size_bytes": 1170458
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "9BE8AAE284E1FDAE2D4D5945656C20CEA8D1F5CC67B14C151237AF58364B6F1E",
+      "size_bytes": 3473
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "EDDB1B54F04D8C132E7D09DE7A871A5BDC79044691FBB94C901A9B3FF519B8D0",
+      "size_bytes": 1232888
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "905D75EA22D849C25E2DECE134F080B28332CF09F0B77B56BEC5AB3D3E681023",
+      "size_bytes": 3481
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "24289C731D7B645F06B0BA61673D96E1D52880FF90769F0424728E6BBA056B57",
+      "size_bytes": 1234820
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_attenuation_s1_summary.json",
+      "sha256": "7B4C58F025CC29FC9354E929990297C37B70A4AD365DEEF31B54BB1E6CFA9E2C",
+      "size_bytes": 3485
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "EED620DCAA52BFB1286D922350DFE47383B78932503D93801A950436B9AB0315",
+      "size_bytes": 1187209
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "DCA41415C16CD6CC7C8BF14AA7658EE908EA10188669317E26C552DC13BC067A",
+      "size_bytes": 3505
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "D0AEB8F0DA0996B1747DF39EA26CEE336B8D152F29F3E781A56902608EAE0D7A",
+      "size_bytes": 1185420
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "5815E0B01D068FF8C76E82D46D0E671B9081F3F4FCDC9A2B7832C0C15A54A5D7",
+      "size_bytes": 3499
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "1643A31708514BCE45436E1347ED6D50F2FD2434A77458F0EE89EE1CBFBD6E98",
+      "size_bytes": 1188415
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "939DD7213EA8AE143AB514A542D120666EACA11AF8A2C28986333EEDC3143407",
+      "size_bytes": 3505
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "C93FD9CA9AAB4ACD493EF52737BD5EF7D4EEFAC83BA4157E2E618852D33BA5A0",
+      "size_bytes": 1245624
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "08B0D2A598EF4A0C06AB58016790E1846B8E3FBD9A73A3986EB254F46D48B258",
+      "size_bytes": 3521
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "3972C609D5AAF4AF0A91A12996F1940E7E03E17E11C27CFDB1324C0C9EDCB666",
+      "size_bytes": 1236820
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "266B382FD951FA47B6D5383E2595F4FE537A0D0B31ED9052935FACE8C6FB2E74",
+      "size_bytes": 3486
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "AECEEFF200B747473773B8B18F7D3800555BA15E6EAB1A8496EE8B1A273E0B1F",
+      "size_bytes": 1182208
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "1907F8398DDFD540348D96F15F6ABC1FBF58BF1586891AE9E7AD4AB6EDA18D9F",
+      "size_bytes": 3492
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "C704F40B1E77B10F91BD5420696537669B3BF08FEA0E8AE1D599986BD729DB4B",
+      "size_bytes": 1177294
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "4821553E78E8A591EBD05440213C58F0D4EF24982C3869F81B02E133AA27A7DB",
+      "size_bytes": 3499
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "75C40109738619368435C21A2119251EAE14398C60C55A59C2008997B5DA5946",
+      "size_bytes": 1228495
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "731A68F59837F8694E2B2F89B5199BFC5E3DCF29C2AF0FCFD080D8E216E970B4",
+      "size_bytes": 3486
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "BC3D9F334094AC8CCB0EC369C9522541CE773BD0564A3756C4FFFCB145E4C161",
+      "size_bytes": 1239684
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_attenuation_s1_summary.json",
+      "sha256": "7A641A6AB5255FFC06689E8C2A84A17140DB3BD65A8F910D7A7E75166B8D4372",
+      "size_bytes": 3493
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "3C1B19A3852AC593F05A032678FDEC6CF8CA921754D1161D751DFA3352D77136",
+      "size_bytes": 1191660
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "CAF02AAECE86C5B66518E07ABDC96EC3F39DD97502B4441605841EC94DBFA9D9",
+      "size_bytes": 3504
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "E85A5B3D98A0224DA052C88C89AFBB558867D3CE1A70CB6988A40079B5F67E5E",
+      "size_bytes": 1190216
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "7E7F96A3C8FB98964F647B99F6A7887C305DA8F1F7F0D93FE18C9D1DCB5F8A05",
+      "size_bytes": 3503
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "EB39A7350BE645B095CB349959D2BB5E21C1BD99628ECF75841E70FA964A9E99",
+      "size_bytes": 1193295
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "CB3DBCEE9F3E4BB622D78E2F864B5810A0DF22E4AABFA2CD10D1EF6DA28A6DB9",
+      "size_bytes": 3503
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "4FFA7414FCD7EEBD0595874714BAEF16ECA8260A06EDC0B74061E510E679E4A1",
+      "size_bytes": 1191621
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "34C85F741FDF17307908FA3FA8431F8B5BD5A599B93443DE2F437064DD6B4B61",
+      "size_bytes": 3502
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "FAFFD69AA9AC16330FA1A780BF0D5721B775B102FFE9C05B26F2B07C9D8FD174",
+      "size_bytes": 1241684
+    },
+    {
+      "relative_path": "seed42/m4qesri/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "73E963629942FBB631563285F8FD845F3C5B3306992FD9C31AA09F842359A1BB",
+      "size_bytes": 3494
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/mismatch/matched_samples.jsonl",
+      "sha256": "9262082BEC574E9471A4DA5E31904E4A775007B31587B0F75035290401AC0E94",
+      "size_bytes": 1159974
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/mismatch/matched_summary.json",
+      "sha256": "4ED4F9BB5CB555ED8F7D20B4082C3D066FBF2FCE380410E1EBFF4C40E5272F26",
+      "size_bytes": 3315
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/mismatch/mismatched_samples.jsonl",
+      "sha256": "465BDB41B82723B3AF8AABB129151AC0F158A93630660BA0D7414BA11311CCF8",
+      "size_bytes": 1204698
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/mismatch/mismatched_summary.json",
+      "sha256": "61B2B693F99A031A2EA7C80C0C215E23691E675E206BDB1F82132421DE865578",
+      "size_bytes": 3618
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/clean_samples.jsonl",
+      "sha256": "37AC0018669CDF850F0DB9C16673E168C2DD95A71FCB3D33689F9526E7A45696",
+      "size_bytes": 1156594
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/clean_summary.json",
+      "sha256": "BCD246E6D1ECCFD51CA1614197BD1F1C19E994F6E6DC93BC412EA4E592BCFC24",
+      "size_bytes": 3428
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "49BA7061ECB4F91AD9CD469A244E85888A83350A41BF6C72F07B25DF87672CBE",
+      "size_bytes": 1179751
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "11924AB6ADDE14AC58A04C1E548D68C0E5D500E66BCCB638178E40F1E8981E69",
+      "size_bytes": 3428
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "CCF47596908E741EF4EBE8A7C80439E644B52C6319045936B47DC89FE2210104",
+      "size_bytes": 1173933
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "93590CCF424E007D7533D3F305BA745E564066B5E2483F32F5207711C6EC90F5",
+      "size_bytes": 3450
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "F9C15F9D2B82C341095303605F7A6F15336ADC131E92D7A2A23F9B9AA105719C",
+      "size_bytes": 1223514
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "93F365A367F29D4B00D11254022A94AD24ACE8409C82260107A184F94E62F242",
+      "size_bytes": 3437
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "DA5C1BDF57A7E49D2AC8B44B67A17CA51C70F918B84C48BB9E6D4A4E191252CD",
+      "size_bytes": 1222461
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_attenuation_s1_summary.json",
+      "sha256": "B6182566B4F6F0DE34936DADD870B87FD2E84E0D3CCCC751A17AB81FC03BFB23",
+      "size_bytes": 3461
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "34CEAB73662D514E5034CF55E2798049C39ABDDAEF35F637409F46C37D068060",
+      "size_bytes": 1189740
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "9A2198BB18E209F1F05DB3188E66E6721A415D8DF940B776A46E4DED879629A0",
+      "size_bytes": 3441
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "6B250E1E7BCA5ABA8916BBECE9B9E5CDD4EFC390FE38B9CCE0C5B778259AF704",
+      "size_bytes": 1188273
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "43C3E90BE6BB504CAC7E6870F4949D186168773F9332B6532CC5FD1CED2E2DAC",
+      "size_bytes": 3449
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "FCF050CEBF99C4653E7C7A0FC0D5A39AFA53BE9B7392FD4C6D4E9B0B6EA485B9",
+      "size_bytes": 1190432
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "A0A1BBF7794CB3670378355806DF5794A29413C3CC92C8A54516880E2E24188D",
+      "size_bytes": 3454
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "04C78403286D9E048CE0399A889C35D03C057B6646384408F387302785BAD482",
+      "size_bytes": 1231443
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "86199B88F566AE86F2C8F998AF2F44A1E87BC6BCE304F7353AE43A0267189DD1",
+      "size_bytes": 3443
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "4BE8292DAE228F639CB89ABFE8ED9759B13869C233C329BAFC40FB8D1C089CC8",
+      "size_bytes": 1224461
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "181744B0F7A66F6BF493D635430964B3E4C230D47623183F7FB688669AB54D0F",
+      "size_bytes": 3462
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "270A93E04EF74EA4B7C275E26A5D6FD8AF1792F03A37F6EB1A9BCACB14A08778",
+      "size_bytes": 1185407
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "1E336DA1A809A92A5CA4811FD2EC227625B6D3E8D00BC19C30C7C42AE32E4ACF",
+      "size_bytes": 3447
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "78409FDAC6C793D19051F82FF962FA634D3D6F5BDE9C735B3C985F345D4ABA38",
+      "size_bytes": 1183154
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "D3F00EB95067D55593EE4B6E4EA877BCD75F1527D0642F458BA7B13EA43DABD0",
+      "size_bytes": 3444
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "634B266A59925F0571DA1FC11B1FB8556B023EFD345DB9E5FC74CAC674B1C4F4",
+      "size_bytes": 1227114
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "B6568C5B3CD1A54F2D939018DB5E3DD04B754C5948E4710BFB52A6C5C263A879",
+      "size_bytes": 3446
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "D2FE8616E3888F32651899D65E7726348DDDF705B5C373E1EEF9D2C19341C7BC",
+      "size_bytes": 1226546
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_attenuation_s1_summary.json",
+      "sha256": "0D562E83567A53B5A0486CB0AF3A12FE0CDAEC8D43335D15DEF4F8979E6206A2",
+      "size_bytes": 3468
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "35584BCE1B6BCA25DDCA7B9A2F170C1FC0BBE306107B22D11EEE925F320F6980",
+      "size_bytes": 1193688
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "278BEF230A9DF42D5D423B977383BA9DDC203530330EF72FD3B49214683E8123",
+      "size_bytes": 3451
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "DC662F498A20E534E2D94FAF9AEDE9639E8AE22EC769E1D521187B12904B6D0A",
+      "size_bytes": 1192364
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "BBF414F38F62F9F068C6691492BDD0CB34E95845E29D4B2EA98B82DA2AD1B486",
+      "size_bytes": 3450
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "C508A5BFC59807582BB295B2F43DDF4FD17FF306485A0EC27DA3E583DFB48A04",
+      "size_bytes": 1195645
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "0DBBEF1F14BD5895FF3462B2FF8A7FDCFFC9899C4AAA6F7280D59C0AE033461C",
+      "size_bytes": 3450
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "ACE9FC1D40E41A56CF85C75EC01490E1557D9ED9FB5CC737033AB12E83D7DCA7",
+      "size_bytes": 1193562
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "D4A28D7A537AAD0B751F4A047572B393D088DF293EBC592DBBD530D535516DF2",
+      "size_bytes": 3448
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "5BCE203EEF5A0F351112508EDA24B2BECA1611A0178DAB66E9B28A1476A343EA",
+      "size_bytes": 1228546
+    },
+    {
+      "relative_path": "seed42/m4qesri-t/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "A018F2407F9BAEFBC9EB7CC6EF9C7AB58F1923466D02FA9CBE32E8D45F78A0AD",
+      "size_bytes": 3469
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/mismatch/matched_samples.jsonl",
+      "sha256": "48BE22E84A440E20048244221BAE9D6072A3C0687F0237662867CD7ACA254306",
+      "size_bytes": 1151929
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/mismatch/matched_summary.json",
+      "sha256": "9B24E72CA67AF6BA44F5D069D5C38DFCBFDF456DFE28469E1ADCD48654CFC1A9",
+      "size_bytes": 3275
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/mismatch/mismatched_samples.jsonl",
+      "sha256": "23BF607844360902E8D7B48BEFB1D0EDC7C477A6AA686D1A09DECB96C734AAE2",
+      "size_bytes": 1187760
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/mismatch/mismatched_summary.json",
+      "sha256": "28A2F4296A7DDA75EFE7D1DBA063C36DC9663795410E10DE029CD956454A73C3",
+      "size_bytes": 3576
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/clean_samples.jsonl",
+      "sha256": "84BD34DB494648B3966AEB8EED20380CFA83B9E9FB2FB6785B9B848E1DAFF7C9",
+      "size_bytes": 1148549
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/clean_summary.json",
+      "sha256": "8B6A2A9FDD1ADEC0A9D682B9E6DAAEFEA9D4744A6375D25399438519EE6F7492",
+      "size_bytes": 3388
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "587C53711435FDEE1298BA4EF166FAB224697711B98643773E6003AEBF905D9E",
+      "size_bytes": 1174886
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "E8C454DA59B4BCBF1E28764F37CB4AB2B1A13F73F614742A37C7FF6BEBF8729D",
+      "size_bytes": 3405
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "25A75D9F71BD95CE27C4BAD304CAB792AB678DD464F5274592519AFD601BB758",
+      "size_bytes": 1172431
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "F1BF75B20988DC6B4770E01405B12945B43D8A418AF681E94EA3D3B6E92ACDC2",
+      "size_bytes": 3385
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "5ACD7668B063F73372E04E75ACFC12EAF06BD9D816218F8CB5D113A422214B76",
+      "size_bytes": 1208452
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "430DE868D2C91568469F78352B10FD20CE5C16BF89145A35A2B12E70E4739B78",
+      "size_bytes": 3428
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "9AA829C9566C4D9426DBD2F46D86C517055C8138E275700FAADFA264F458751B",
+      "size_bytes": 1206809
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_attenuation_s1_summary.json",
+      "sha256": "93E7CFA80E44F388E7D047305D4D3A81BADF12953CA113A89FA067EE98FB3F98",
+      "size_bytes": 3360
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "30A2C8143ACF75E6DA2966B5FC1461011FE84CD332D15379555B29F4DEDE66D3",
+      "size_bytes": 1181661
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "D015CA45C82A2EC3892B74612543A41F0F4F79619CD49088D7259892C0CDBE65",
+      "size_bytes": 3406
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "DE4DD5B57674FA97EF71EE635BD2F9DBCFCF2DD5EBA6B29109F03586088602A7",
+      "size_bytes": 1179630
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "21369C3209EE126680B66C922BE752D28782C638296CD57DE9ACDCD8FABC2EF2",
+      "size_bytes": 3406
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "1E90CEBD57F8F719A12FA67742F523587E32280CC2635441953A67099AE7E619",
+      "size_bytes": 1181519
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "2243BDB1C43A77E6BC2AB204794C1A84ED8E974C277BC61DE51EE9FC0406B35F",
+      "size_bytes": 3409
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "4C9ED962D963DD73F3E71252C05216617CB601D9E42418C3AA5CADFB84B28765",
+      "size_bytes": 1217703
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "89B6D6591469487C97A00A4060B8B506AE2C2935889B8C0EFBE3A1950AD1F44B",
+      "size_bytes": 3397
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "343F99D590C194C0012A75CA9EFD0C174C640C28757E79D9A4224F34330214EA",
+      "size_bytes": 1208809
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "433F84831902916620CFDEBCB0D948902CEF78EE05B78B10E082AACF3AEFF35D",
+      "size_bytes": 3361
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "9C11C6F6945007D6C3263350D0F4C6F654E3B67929C5538191B35614A5740ADD",
+      "size_bytes": 1178730
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "CA0B22D48CA084D6B86CDC52613F9C386E9A562AABFC68588FE81E856982D32F",
+      "size_bytes": 3411
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "3E3E326A24F200EA74269C63D57FA92CF2AE897DC10569F4C5699D08C2FDFC5C",
+      "size_bytes": 1176459
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "B0D8599D295DDCB7D6A4C0E4E84F97847E4CEF2EDB1AADE46DFD4C72408871E4",
+      "size_bytes": 3408
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "73B7F1E6BEABE5F1E175B228E9B21A73E6D230CFADFE4507B2309CBD5086E280",
+      "size_bytes": 1207829
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "6A462485A4E003E51B2D0C4EE77F60356D8DA370B3C5B6100D134A84A2E92DEC",
+      "size_bytes": 3406
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "454148D0947068A8CCEA956E21AEAF68D3238E51622295490972680E31AB780E",
+      "size_bytes": 1210678
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_attenuation_s1_summary.json",
+      "sha256": "7F61B6C0BB443DAB8BCEBDC13AD60B77A096F6FEE2C813B50860CABE09319FDD",
+      "size_bytes": 3370
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "224FE03DAF5225B5BF7AB89817C8B356CFCB5D9C6813FB40DD06AC492DDBDF12",
+      "size_bytes": 1185828
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "BDBA7CF99C9A7162655471268731F6097E7080B4FA30BB23829B45EB16A20C3D",
+      "size_bytes": 3383
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "1DCBD3B7F6D6979BD39AC73B540A8A2CF27E818482ECFEE6E8624CB30A13F78F",
+      "size_bytes": 1183670
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "EE8622E27F902821399A51DBB542E01750749311FE514992B91FAA0058463116",
+      "size_bytes": 3414
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "658AAF078E2E0B95BFF15BE1C26046994F8D2035F8E1C97F69E61861F2B4EC3D",
+      "size_bytes": 1185827
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "6E8F465453A408CC805561487EC9406C84BDBB075F527DB979D698AAC96E44B1",
+      "size_bytes": 3410
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "2CEFE4BF96A4C038FA49D1DB5BD14DC2CE7290B1226FF6C05CD1EE3A3C3B9E3D",
+      "size_bytes": 1186279
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "831B9B1F5AF992F344ED1787CAFD0E1A7FFA0C9A982157B11E67337B8A92A191",
+      "size_bytes": 3411
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "1A72B88E60B6B770E9B8B71480C9D064F4E5D20E0A68F5634B8D0699EF71594A",
+      "size_bytes": 1212678
+    },
+    {
+      "relative_path": "seed42/m4qesri-w/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "3784A8362867953EFCF9228982F4A4FD646624200E8B228E722950F57A238EC6",
+      "size_bytes": 3371
+    },
+    {
+      "relative_path": "seed42/m4qgrt/mismatch/matched_samples.jsonl",
+      "sha256": "04C50CF96B887E59597D225DAAE649B80434F9E29441113336440C8A9E9EE57A",
+      "size_bytes": 1166656
+    },
+    {
+      "relative_path": "seed42/m4qgrt/mismatch/matched_summary.json",
+      "sha256": "757573C3B6627C385FBA1053A0696BCF9390EF308A1B29159FE7D36104CFC331",
+      "size_bytes": 2872
+    },
+    {
+      "relative_path": "seed42/m4qgrt/mismatch/mismatched_samples.jsonl",
+      "sha256": "9865E734DDD3804335A8B4F1C4FF2E77BB8486BD76C10B6D6B6D727D4D889D6B",
+      "size_bytes": 1191251
+    },
+    {
+      "relative_path": "seed42/m4qgrt/mismatch/mismatched_summary.json",
+      "sha256": "78377B2BEE1A68D3B8D7C52A6C521ADEF5BDAC364960A6E7D7207AB375C4592A",
+      "size_bytes": 3184
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/clean_samples.jsonl",
+      "sha256": "705D9D3A4B947853C9EA55FA1D420FF2A322EBE84E823B1AB796945C578969B6",
+      "size_bytes": 1163276
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/clean_summary.json",
+      "sha256": "3257F2EE5078BEBB0943FB5BC3B8A5E1967ECDC3447398CD72E25AE9A5FD2A19",
+      "size_bytes": 2985
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "F9B9AE9DD681CC2E04E2B4F5DDC86CC32610B35E8F12843777A085F22D9F64E0",
+      "size_bytes": 1190237
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "B9DF89305098D314D9E66E8FA23B6B74C806D9D08E3F93A7B7CB8ED6AEF747D2",
+      "size_bytes": 2998
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "78A5AC3B210ABD1C2A758F4317511C8055376D93B4F60CE98C1FC9537FAD73D0",
+      "size_bytes": 1188027
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "E1964B820FC7FF70EC803DD400A368066B51546C0EA0525A7A44CFACC40292A9",
+      "size_bytes": 2999
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "C8F6AF784B6CB6486173288A2BEFFFF18AE9C1D52CB664DC6CE788BC749D1C72",
+      "size_bytes": 1191645
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "2C11B94605DCB9D862BB920A88260863483D161502A5098019D1CC0AD3116FEE",
+      "size_bytes": 2998
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "4A85DC7F00C9DF40E8E4F3785C7BDC0725E79820F440270A5344D4404CF00AB5",
+      "size_bytes": 1189920
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_attenuation_s1_summary.json",
+      "sha256": "FF7CBCF6B6B9B320E7AE86C6B711CD160236DDB304AECED176A3D179BEA82FB3",
+      "size_bytes": 2940
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "B81DF811DA7B713F39A67B7278FBD350B92B1A1A2923592B745D73A988CD4469",
+      "size_bytes": 1196292
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "FDF8762D09EEB617D0F7CF08CE4BC15591C586483FC1AA0C8971DC72CDB9229C",
+      "size_bytes": 3007
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "DDBC735FAA72A2240B48BF858A7FFD84AF8BAC6B7898BF07DC615BDA9D0FFA75",
+      "size_bytes": 1194288
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "CAAB0618DB8B9613D1426D42B5749810F68E3D057B12DE41BD6DC5606FAF8B3C",
+      "size_bytes": 2998
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "EBD748F2F136CF2DC749738E9F584A58D1DFB499291A04072A03E280590C45F4",
+      "size_bytes": 1196301
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "5BD47EE1A3FEC09E13649F972CAE2D9B38F7CD62CA119C6A9519E2C3665F52B1",
+      "size_bytes": 2998
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "73480327B7DC94570202ACECCF990FD1E8119725AA41AEB7E4A4362A27C9CABE",
+      "size_bytes": 1200093
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "2D36E34CE8E17ADA1377FC5312AB173C6C9D760EB107691C890C6FD9A129274F",
+      "size_bytes": 3001
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "DC3864F9EB076225453C0887CF9B8B98A4CB638D0941D4382577DDCB97A16629",
+      "size_bytes": 1191920
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "58D9CDAF30CCA0CF656ECFF68F9C31BD4E83D0F4CEC1A58200CD9F60DE302838",
+      "size_bytes": 2941
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "DA8AA64864C63DF9A1214E743416F7909BEDC09D922546D774BE29137EEFF163",
+      "size_bytes": 1194252
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "CC085E55725BF31B1601700833F1088D5AAF8812251DCBCFE5F9CF691821EA85",
+      "size_bytes": 3007
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "C438B7A21EE8A70F70573FBA9E84C4E2E203C7EF5E826A34EE331279128CC95E",
+      "size_bytes": 1192176
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "2605817AAAB812FEF62A3E612988AFA5FE79E140015E0CA50E41C4E30EE3B680",
+      "size_bytes": 2989
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "A9241DF2B8FA3F8D7AB0671E350B0F4ACD87BED17540303D3526B460334418E0",
+      "size_bytes": 1196157
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "4D3A198B938773B1E55F508F4A380B62DFFFCE6E12AFBC9CB7213B1B03DD9E55",
+      "size_bytes": 3008
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "AC87295543658D9CF588372C8E674609CE1DD361A3798163BD92A15831B00CA6",
+      "size_bytes": 1196263
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_attenuation_s1_summary.json",
+      "sha256": "BEF4237DB1340FE2BB887B194E75453C68066058BE16D19BEF055DF78BDA2AFF",
+      "size_bytes": 2955
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "C3875B37AC36C297712CD02F0A339CA7DE6FCFBA1953D77C240667AA809DC2FD",
+      "size_bytes": 1200436
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "01C5D170CF1D852E13E3E178E9F4CB995262A70B996A8F7DCF3B7D74DEE0C546",
+      "size_bytes": 3008
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "0F0D2A2047B547ECBC6539BFF65099C2ECB09FDEEDDFAE5433718CA358228E2A",
+      "size_bytes": 1198313
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "678205A9A324F700D35EB5363A5F264CD068CAB3357644971B965DD7EFCCA8FA",
+      "size_bytes": 2986
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "D7517742D5166EB17757BB30FE9D44DC505BDB1B268B5952E8C816699FDD66CC",
+      "size_bytes": 1200375
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "6495DFF2790B12029E7A33D48F10AECB7CE7CD6B1B742F642869C137FCF2A17E",
+      "size_bytes": 3007
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "85A3CB98FD6E566BBC237133B9F6826824146C4BCFC40969FC76A7D2E3C1569C",
+      "size_bytes": 1201910
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "14F82943925B92557E083AD7A4EDCBA3C332DF7013288822AF812EE3154701BB",
+      "size_bytes": 3013
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "EB40832FE4AF5EE952445043941588C26335D13DF67600DC7FA0DE9BDA9C39F0",
+      "size_bytes": 1198263
+    },
+    {
+      "relative_path": "seed42/m4qgrt/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "19D935966CB7D10522EE7263A733776CD3743A748C315675ABE7801B0C8AD232",
+      "size_bytes": 2956
+    },
+    {
+      "relative_path": "seed43/m1b/mismatch/matched_samples.jsonl",
+      "sha256": "3EF4FA40FD0539240A1D482EEAE3F3A234B61E419D907EA8FB87986C0A2A782B",
+      "size_bytes": 1038469
+    },
+    {
+      "relative_path": "seed43/m1b/mismatch/matched_summary.json",
+      "sha256": "5EB19734BEE50FF6AA0DF0AE404D3B2FAA6B96D481A94573531808409359B78D",
+      "size_bytes": 1554
+    },
+    {
+      "relative_path": "seed43/m1b/mismatch/mismatched_samples.jsonl",
+      "sha256": "8A303D92262CAE84DC60C4546F9AD72B24C80E27DB4637AE640FDF6B9F5DADFF",
+      "size_bytes": 1061334
+    },
+    {
+      "relative_path": "seed43/m1b/mismatch/mismatched_summary.json",
+      "sha256": "566CDE8D267C4A8B4DAD7BDB74291D3FED13852EDD8E87203F417FC64A6791E6",
+      "size_bytes": 1864
+    },
+    {
+      "relative_path": "seed43/m1b/quality/clean_samples.jsonl",
+      "sha256": "426DC5E0FC7C7E9FB7456B385BBD6ED3714A5D950DBC0C75D2018E85B2158DE6",
+      "size_bytes": 1035089
+    },
+    {
+      "relative_path": "seed43/m1b/quality/clean_summary.json",
+      "sha256": "C81B6334FB5F85B73CFBBA975C52D556703AD375FAA2D5844461F9DEE00AC261",
+      "size_bytes": 1667
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "3FA7A927C923BD87B12DA3179155977DD0E4806C6EC5157C9517CF8B47385F88",
+      "size_bytes": 1062086
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "21F409358A0FAC3AD79FAE64ACD0ECF914CC49D8C30D354479C6D755AA3BB4FB",
+      "size_bytes": 1682
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "ABA06CDC8FCBC8375EA53CE9999C6C20493B8E1B127093DF1EDA81EE574D9C84",
+      "size_bytes": 1060000
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "C9E0835CD65DC4B3A992F449A8A63CAA69DB656563180C607D7DF0FD02DDC1AB",
+      "size_bytes": 1593
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "74F9F63F89782B350A563EF96418FC6AB291CA26E48B78A86B54E581EFFF78D0",
+      "size_bytes": 1061966
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "18601F639521B2C593E752C5AB7A8F33D7D9D99568CC96397B5CD66E38223D32",
+      "size_bytes": 1671
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "B21DEF07BA4D2F741CC99E79643D631C77A6EEB55F6216C5F28231C1F223A209",
+      "size_bytes": 1057864
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_attenuation_s1_summary.json",
+      "sha256": "DADE021E9FD31BFBBB7AE7593B9B6748EBAA1D2E3E0A6C8B3755A5C999023676",
+      "size_bytes": 1681
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "2632CA28EF49C40FAF55D7F8DA6D40AB10507942E550906C50BF71996CC5E7F5",
+      "size_bytes": 1068087
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "4797C23CEDC91A88566CB478F6EE9728341BECC9E4FA07D90F5094AB1C051B92",
+      "size_bytes": 1685
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "44777AA19D665A1B8CB48EC5180A0DAAB4A7369B19918B2D91A6C79509FB450B",
+      "size_bytes": 1066127
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "E4128407285309A327624A2724697A72BDB35942CF6210D933B77A166EB24CE6",
+      "size_bytes": 1684
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "1F4EF0E13FDFDFC7FE00266D0CC00CBD4794D0675B14E2FFD89D1DD23C7071F2",
+      "size_bytes": 1068069
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "EF91F80E3B50C4311A8B4B9530A0F20CDA83A3AFADF76A35E9D351830EB3386A",
+      "size_bytes": 1685
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "EC8F308C078BF760E3CAE76B7147C97483858CA9531836F7C1ACCC21084BC277",
+      "size_bytes": 1070152
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "DB639697A034B4E1B70DE21EBE82BABA8B44CAB748559FCB873BBC75B8C7F94A",
+      "size_bytes": 1689
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "BC0B59AFFA9617A508C8B07045D052099AC6695833C9AE9815DD59DDC07EB3B7",
+      "size_bytes": 1059864
+    },
+    {
+      "relative_path": "seed43/m1b/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "AF8909C91E0379FA7721EBADC2C7EA5047767D6491E118903401C4B08477DBAE",
+      "size_bytes": 1682
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "57FEED53264E6C4DA1BD6813FD8307C3D79C826DF8021069E3585549EB1DEEC6",
+      "size_bytes": 1066067
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "2D558E16E1832BA3E960382DDEF36114668981C6AFB6484F5FC62154FBE876E2",
+      "size_bytes": 1686
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "A5BCB28992F27198A902DEA447B871BDA8429F229143B4F772D7C45E2222FD3E",
+      "size_bytes": 1064026
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "896F1707D14BE8DABA16BE890DFA1EE08BC2A9CDCD1BC764E15BCE2EF77AF71A",
+      "size_bytes": 1684
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "45AB2E023872C29868FEBA00E63C311DD4C2BBA6B72CA9E6385BE6CF80CEE0B4",
+      "size_bytes": 1066029
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "74AFAC72FFFA61E78152F7F2090D14BA93FC572B8DC96C24AB0428DB4027E171",
+      "size_bytes": 1686
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "7D05845BF361E98B3300B443386F25B4B30BFFB33C6E345592BB92797E576D27",
+      "size_bytes": 1062293
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_attenuation_s1_summary.json",
+      "sha256": "E3F36058CCA8E0E214D81316B9B173EC943B9C7F291D530E233DD9DA89FA9B00",
+      "size_bytes": 1672
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "2C505E5BE8B12A9CEF9F9A1E19A369D2C8AF55F59D158F871B8A5FB0C59148A5",
+      "size_bytes": 1072082
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "E2AE9FC0366DF81922DE93FC0049DF0D6944A32B8A0EBA32539EE3191DE6A494",
+      "size_bytes": 1687
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "8433D320446795B75B9CA6BEC24D5AF0330FBEF3D787F98C541AEEC686926414",
+      "size_bytes": 1070062
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "DFBD392E6D9D83B29F24825980B5213FB9782E26A7E39F50A8686393056574D0",
+      "size_bytes": 1689
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "936A072606472BD99A9EBA15AC6E9A4EE048805EC3F00D2FBA86A31CA3F4B356",
+      "size_bytes": 1071936
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "B58578234E36D7B52D4AFF7799771D387E5584BA0564E0E856EABF38A9D21C77",
+      "size_bytes": 1690
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "1341651997945DA13A571DE56E6D5FC5D8AC6BFEE1A9A0A4B7A2BA493F4A8AC9",
+      "size_bytes": 1073801
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "18E02B72240C7D50DE9D35DCCDAEDBC20367C72FA334A49B019671D8EA6080D9",
+      "size_bytes": 1690
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "2D00E4C26CE3E96DBC8773B8474595FEE1449BFB46A35B8743289CD723528FB9",
+      "size_bytes": 1064293
+    },
+    {
+      "relative_path": "seed43/m1b/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "A48E6B9E4EDF149A0655807D00FA96989B0C33DE6DE5A39DE15ECC0BE9696520",
+      "size_bytes": 1673
+    },
+    {
+      "relative_path": "seed43/m4qcf/mismatch/matched_samples.jsonl",
+      "sha256": "49EE75D6503C81FBB3920EE9A7E4A78F93E9DBC0E4D1123058185FA643B44452",
+      "size_bytes": 1165974
+    },
+    {
+      "relative_path": "seed43/m4qcf/mismatch/matched_summary.json",
+      "sha256": "9C1B52B4BDF550D4192ACA58470FBD49F920E85F191F972CE93605DBD0F98BF6",
+      "size_bytes": 2875
+    },
+    {
+      "relative_path": "seed43/m4qcf/mismatch/mismatched_samples.jsonl",
+      "sha256": "CF2FD2A27BCD5C931E84886BC725711341F1048DEFC6A847E68A92E72DEB9D58",
+      "size_bytes": 1191163
+    },
+    {
+      "relative_path": "seed43/m4qcf/mismatch/mismatched_summary.json",
+      "sha256": "4FED185ABB11804DB508980BD9BAC14C49C1170070601D241FED3725E36E3D03",
+      "size_bytes": 3158
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/clean_samples.jsonl",
+      "sha256": "05DB0A260169771C19C7B161236FEA2B75F6099E54A5C43ACEF0B2054821C979",
+      "size_bytes": 1162594
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/clean_summary.json",
+      "sha256": "E898F9774BE053E5D9A805AA7DD7F2CA444A7C4B10D96616CD55A0DB1F44E642",
+      "size_bytes": 2988
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "058FA18F884CBC81A27EE364E5E7EC85407A534405099C256AEE0B589B788037",
+      "size_bytes": 1189406
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "29BC993C00DF6372E415A3C2BA5E9FFD42FC9AD962ADEEE0358758ED636B3975",
+      "size_bytes": 2997
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "6B1E61FE11B6BF21980E9B21E18DD6513AEB50C64A34984FF73C3547A70A3053",
+      "size_bytes": 1187424
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "4E41C3E4A17DE52BADBF6CFE4850061E3D53AF7102482628ABD6BE1E14FE8A07",
+      "size_bytes": 2997
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "3565EA1AF9F7F283A82117812DB35BFCA5BE7C3D69A8D2E2EE1832B0100791BD",
+      "size_bytes": 1191274
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "0CAA0DFCD30741FD63E60960B3A1C618698DB755EB05F0AD848E510CDE53D879",
+      "size_bytes": 3005
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "4D27C7D1A15C6DD70ADB7B1548B4FA334FAE99D3BA533B89D921ED9CB978EA11",
+      "size_bytes": 1189168
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_attenuation_s1_summary.json",
+      "sha256": "F6C6AB35E15F0E95C9A99C974472057D034A9DDEA410C48E24AC5E1108811718",
+      "size_bytes": 2996
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "34E818B0C15C0E181929C105151F8326090BD6CFFC57424B8A9CB578E78BA6E1",
+      "size_bytes": 1195656
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "6AF17047AE64B639D45F27F41093184C0793E5DB3DA870F367B659FB507DB36E",
+      "size_bytes": 3008
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "B050015BBD01996CD1FE9C937C2A18961D44B4EA4C6FDE31678684AAD10F0FB2",
+      "size_bytes": 1193607
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "19069593A404167D9EFFAD308CC1A502B498AFD2F1470A0ED77D3AD8427A7CCC",
+      "size_bytes": 2999
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "1A2AB84ECDFC0FF79D69C4F5A6DF0B6659FAA8DEC0D729315F1E026D2238B637",
+      "size_bytes": 1195660
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "5A44651F80AC32D8780396292729DC0FB40307020ED6C49EEF2F757B787863EB",
+      "size_bytes": 3003
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "6D4B8F37C3604621E73B1BF90E8DE21B9793896E70C155FD119D2BBAA0360F78",
+      "size_bytes": 1199684
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "1F0F93B14593036B315F57200B314FCF494BCB292622504786160FFE655BB954",
+      "size_bytes": 3011
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "A7DE9EFD95D93CFCF7F7F4657B56CBC69418A17B289AF17086605DC79CCF57F9",
+      "size_bytes": 1191168
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "D28C5FC0289BD1CD08BA206BFA332829A69F7A5E6356CB9CA2BB5C3D308D29E8",
+      "size_bytes": 2997
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "5DC84501ED866BDB56642622321FA761C3C85038C639E1F66794EA1B69495568",
+      "size_bytes": 1193461
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "A26BF4B399B12A0CD96BEBF4DA14E62C763E21F79C05C04749411C1A6D6D26AD",
+      "size_bytes": 3004
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "984E4EB85A052C391651037906D01E1A5BA56421F0A41A8B1E558F7E1D0E690F",
+      "size_bytes": 1191399
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "4B54D2E468C6A54D76CB4D2AAB952296407EF7E8B8715000977442C52CEC8741",
+      "size_bytes": 2995
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "2FB0C4A965A00DCD2AAE8DCD59271F8E69D7D88F8148B91B27FB08FBF8194973",
+      "size_bytes": 1195006
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "3397E30AE4EB0035497747E34F88C9021A568149BB43229186218F4423A576EA",
+      "size_bytes": 3004
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "C1CCCE86A3BA599776F4D544D34858F8CBD730622BCF152975B3BD05C80DE1D3",
+      "size_bytes": 1194339
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_attenuation_s1_summary.json",
+      "sha256": "1BE34EAE3A5379FB45504FD38302967B98DD016A63118BF1D02EE495CD037677",
+      "size_bytes": 3006
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "3B91B2AEAEA6C8D2B5029ADF0DC9695BEB03551C0AA0630570C659D905F8315C",
+      "size_bytes": 1199660
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "CF446514EECDEDAD3A61DAA3D956EA97A813E453BEE0B60443C42F9B955F4744",
+      "size_bytes": 2995
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "8F040E9E923ED3773DD0BE10922A06FC8E6486FE727FCCCE5A60FD1FF657DF59",
+      "size_bytes": 1197727
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "4FB89BC97C3AD70E45BFA0969548F6B63E15453DC072DAB9E1F8C0C2874D0764",
+      "size_bytes": 3005
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "9F3931384A6FA9AFC6F5F0125CA34560E236C22C621183931A1970280B6CC6BC",
+      "size_bytes": 1199614
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "D8C9A31BE53D97286A8D3C9DEB68C0665A569F6CCD299BEB20A54886AF6A5AD5",
+      "size_bytes": 2996
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "3F8583305CA217AEAF942678A3EEEEFE146ECF04A3AD9510E1949140D16FE1E9",
+      "size_bytes": 1201172
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "980C66AD6711D42CA753B9A43023CF7FE73CBD14C20DA294D23B279E3414503C",
+      "size_bytes": 3010
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "5844EEED67F78411C538EACDBDD637EB61408294470D13466266AB435118E06D",
+      "size_bytes": 1196339
+    },
+    {
+      "relative_path": "seed43/m4qcf/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "7ABB4B93E6A3E3751413132AACBF7E155D909E592901C1ECB9C410DCA2FA102C",
+      "size_bytes": 3007
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/mismatch/matched_samples.jsonl",
+      "sha256": "72231D1DA844EF4DE091B25811B7A68F1D0EB1DB733038BAC4A37DC42235F229",
+      "size_bytes": 1152485
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/mismatch/matched_summary.json",
+      "sha256": "23DF80779E4047CEE7AE17277607DEEE37E46C01CF60BBD0B908836ACC60D53A",
+      "size_bytes": 2803
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/mismatch/mismatched_samples.jsonl",
+      "sha256": "6F7D20A69B092325857B52E33E5EDEF60B89D97FA75F25A70968E38ED8647B4A",
+      "size_bytes": 1175519
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/mismatch/mismatched_summary.json",
+      "sha256": "84B48870695581AA57275A0A7F4F7D55E178B52DC27C4B4FF6D85D49E22A8F49",
+      "size_bytes": 3116
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/clean_samples.jsonl",
+      "sha256": "F1447A0DBE974594A2030D8DC6D6B2EF09772B648E2D4D8CFA678AAE94858BE8",
+      "size_bytes": 1149105
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/clean_summary.json",
+      "sha256": "04F4BE074E392DCF4F033CB31D0A0D8CF5763DEC5FCF4E6C2A659B8D60DAB7FF",
+      "size_bytes": 2916
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "6D96DBAE3FC1335B7DE9C922997E89286FF253592540DE6AB8CD2C9D7DB0C78A",
+      "size_bytes": 1176079
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "8F93F8C430D125D8F76231F6756C3718A12466E58F830A31C8848365F219AB83",
+      "size_bytes": 2929
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "1D1F4311F1E5BE340273EB56D816E196ADB241874A39469E4B4F06D0BBE199F3",
+      "size_bytes": 1175073
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "B494C0381FEECA4F22119B5F164F5D4C8E18361692725D6E4A72356D351B00B6",
+      "size_bytes": 2935
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "43B838329D37C4DC6C2C8DE645D0DD7E81CF96B6524DB939EFD92C59BCE10D62",
+      "size_bytes": 1178932
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "D111BC4CAC31E24754005DA75CC9D154F95DBB37A76ED04DBEB50854A040AADC",
+      "size_bytes": 2906
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "CE1AB23E2CC8915DFBF21098992408776BF9A239D7F1A57FCE0F465FF0605C3D",
+      "size_bytes": 1177067
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_attenuation_s1_summary.json",
+      "sha256": "7EB8886598241A1122C97B9D2ACE491C2325508729FC108205C05BAD838EC028",
+      "size_bytes": 2914
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "675B2E3E43D32C1830852DFBA3B3BB7F12A6DB713B69A7915712B152E8394A2F",
+      "size_bytes": 1182041
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "4BA7869C122B4428B85075D3FC9F8FD91111FCEB247DD084E26E4461D19C282C",
+      "size_bytes": 2935
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "9EC5F3375A7E374626324E2C8A6CE0C07D54C860FBF69BBA0BD594AC326DD97D",
+      "size_bytes": 1179990
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "5EC1E66DF41AA1F1C6B13356B8BADDED33E564E3AF6382CE8B8EB8E99A811360",
+      "size_bytes": 2933
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "A9AEF58D418C615C693F2682A8141316F3A155B87C08C22A8703B04E41A3B997",
+      "size_bytes": 1181982
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "BB0E530860C7C97C535BBE5DE87022AC571F14BFA389C7E5A180DED63CE9A95C",
+      "size_bytes": 2936
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "C03C0F3CD08148365D758544059F411F3905B5B5FC062F97EA8EA35DE06C0307",
+      "size_bytes": 1188297
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "8D56D97EA8173D2C127B511061CFF4C10726BCE149CD7FAACCC7BB3FE4D55FBD",
+      "size_bytes": 2945
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "FD7804178EFA380BE7A5FEF95B149C2BE5F1A5A7B5AA48C5E1C18DA4901147F5",
+      "size_bytes": 1179067
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "0A7B7C02BC761E551289642B0F8D3FC54DC4EC48547EFCC4E3BC5FED73D906C1",
+      "size_bytes": 2915
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "65A51783AB051C23AFE0380EC2C297E2768A56F6FDFC6AA968EB6F3A6A1D4415",
+      "size_bytes": 1180004
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "EAC5C018068A0B6D1246DBC7A643A9ECA97CF790F4694B419B4D9909A79968B9",
+      "size_bytes": 2939
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "6DD4658B88BD30F5F716697FC0FA3A5E54AAFBC19FA9FDA396F0515A5CC0220D",
+      "size_bytes": 1178148
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "A72C0F81A19BAD2FC3DE7081ED9CFADAE3F4557C94B5880AD27D41EE45C7575B",
+      "size_bytes": 2939
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "6703EB39F31FE92BA14024BF40C5905C7AF25510F500A79571A26B073E696D39",
+      "size_bytes": 1182365
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "5E98690FAA5F6B9E1B5DFEBC627870C84092012F1BB05A7D2E9EC992A35707CC",
+      "size_bytes": 2950
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "98183603D6B02D4629C598105AC1CB7FE736CC0F810117C5BB12966A2246CF82",
+      "size_bytes": 1181064
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_attenuation_s1_summary.json",
+      "sha256": "31628AF905CD41C21EFD7964C36F32F25494F3E418A3F27751F5B702C19F5435",
+      "size_bytes": 2929
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "49FE6939DA0528AD4D7CFE9E580C3EBEF53C3618F09C53DCE444937273A945AA",
+      "size_bytes": 1185917
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "B80C7C5130D849D15BB3C4F7ACEE932BE90B7184BEA6A63F0BAC5FD19390D7E0",
+      "size_bytes": 2934
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "19E44F866B3D23D3764679575B27B76F87E1CEDDF8FD1153A19DB148EE50C37E",
+      "size_bytes": 1184021
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "F386515657D93D96282DE1398EAA5E4F3125F6BCD9B4150F222F4B611B8D9BAF",
+      "size_bytes": 2944
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "5AF1A5D9FBF1B4A0AC0FAA6419E1A4B8790A097EC0130AD5297C52B29CBE9844",
+      "size_bytes": 1185897
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "6FB688C40EA0D84CC7310160AA599881FE9C95E4268F3405D3B7E8A5DC39D71C",
+      "size_bytes": 2945
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "7E41427588A61277D7BCE7BBDE783899D504AECF5B38CA1DA615DAF66698597D",
+      "size_bytes": 1187690
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "CF1E7D9E47AB5D5BC9919DB55FE67DF4B1502514534CBC2325C39D8A9B0BA5AD",
+      "size_bytes": 2944
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "B616777B09EB6DA917F51C19F4C60785CF0735FD636231C26964D3F0C07C1335",
+      "size_bytes": 1183064
+    },
+    {
+      "relative_path": "seed43/m4qcs-w/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "267C990373476864C3C53CBB47B84A6A7D86DF0463130422B8A7845BADE6F8FF",
+      "size_bytes": 2930
+    },
+    {
+      "relative_path": "seed43/m4qesri/mismatch/matched_samples.jsonl",
+      "sha256": "58268D68FEADF533BEC0424B63A0C1C029D67FB89027F34BFC53AEDD6DCE86F8",
+      "size_bytes": 1159319
+    },
+    {
+      "relative_path": "seed43/m4qesri/mismatch/matched_summary.json",
+      "sha256": "6AD56615F6B2D8F24297F9DE716027B33BCBF9A84BAC69D9E8019D9C240FF1D0",
+      "size_bytes": 3370
+    },
+    {
+      "relative_path": "seed43/m4qesri/mismatch/mismatched_samples.jsonl",
+      "sha256": "3417F549BB3054A46C8ADAABC5380B3E8D41AB2C48E5E745E566255BAB64ABEB",
+      "size_bytes": 1213275
+    },
+    {
+      "relative_path": "seed43/m4qesri/mismatch/mismatched_summary.json",
+      "sha256": "88F468B4CEA3810A33394D2AB32211CA5E44304AA7233E04032882D1D2300C0B",
+      "size_bytes": 3676
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/clean_samples.jsonl",
+      "sha256": "E8F9FAB15AA8CEFD9678BD6A4524E4CF0E066B14914438FE4E4AF221F99D0C55",
+      "size_bytes": 1155939
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/clean_summary.json",
+      "sha256": "0445B5E1AFC02E768360F1289DB419AD5565E939E9E23BD1081AEF6CCA0E26AF",
+      "size_bytes": 3483
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "805DD8221DAE83B735F0DAA1BDC0B3DE36F7EBE834B53BFC8E3F0B87B9FC70C0",
+      "size_bytes": 1177301
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "AC6DD0154A93528D9D1E759CCE0B564FCDF0570A8EEA29C64DF0D99CAB6242AA",
+      "size_bytes": 3503
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "CC7DEAB25354DBEF7B574E8E588F86AB0EDD5C470B14FC62C74CEA112D8E3D16",
+      "size_bytes": 1170840
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "D23F56426B3E01FFBBCE13AD5EBA85BC8BA309DBE58068103E38036D39C0B9CF",
+      "size_bytes": 3486
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "B179C5077D7A57212FA153C1A5E9290E0B4468D4AC3B4CF38A8853C48697269B",
+      "size_bytes": 1238019
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "F9D763504BD5CEA07D52D9DF9F5FD000F7313E29A67AB6BB7D37241988635C4E",
+      "size_bytes": 3481
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "79176E3BD9B7CB90407152F5AE8ADB9ABE4AC43A2BA14B9D3147FE5C5DC87D2D",
+      "size_bytes": 1233975
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_attenuation_s1_summary.json",
+      "sha256": "F025EE5EBC1194CDB780ED1FD00BC0E2D6662583ECC8E88BD74F9A9CDB67E866",
+      "size_bytes": 3454
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "CC2043AB38B6A7AFF66927BDEDB6ADDB4BCABEDF2CAD5CA3BC8993304AB33F38",
+      "size_bytes": 1188927
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "94760814F4616439E3F2CFD1B77FBAB07FBAD6AF1C6AE3161163C622B3C15850",
+      "size_bytes": 3503
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "9CA1B51959BF03ACAB95C5335F41C0196BD0742AAA0A5B28C8221F6F456D1307",
+      "size_bytes": 1187010
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "030854FF6484F48A0BA841C26AE2B99585EB81B7E24410EBEC00DC808A92C6BC",
+      "size_bytes": 3471
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "86EF1E8ED57DEF592C0240417F5DDAFC3F98100D3F1CDF54E58ECDC3837BB8AB",
+      "size_bytes": 1191462
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "1329F7228414585B68B4F6FD429982318A3371C7C610F28AAD0B90ADEBAF402D",
+      "size_bytes": 3500
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "0CB8E9E8F08CD32E6EF9D6BCABF84D2BDED996A969A103213F48ECA0AB7186FF",
+      "size_bytes": 1246032
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "D6A37CDB539976DB44021DB9E83038169468FC0E7D75075D7D341BFBF1DE115D",
+      "size_bytes": 3493
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "06396FE08F74405F9BD9F9CD71E9BBC1FC0ED2BFAAC50729685B7A7F315B9F3A",
+      "size_bytes": 1235975
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "AFAFA81CE46F8CE86317D2EA90BE566297F4725E7D8F5D734E738731F77453B3",
+      "size_bytes": 3455
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "309970EDEAECB984519D715C28439DE5114C296FBA75F50219F402C128E032CD",
+      "size_bytes": 1184248
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "67FA8E016B3F43F7E508521475C4D2AB61CAADD1B84B75CA6BB7471925521114",
+      "size_bytes": 3504
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "1B9CD2F4742B78181448D2AB01E66779ABF95A0192C9186E6C7DE54F3BBEA341",
+      "size_bytes": 1180353
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "0AABB62AD4C120831C6EDB02492B35CB3713BE8728BA9A57E32935F11E88FA0F",
+      "size_bytes": 3497
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "6EB5A17C615B88885A7896CF0120BD1502A95B5AD1FD3748AAB8A6C1E1C6AE2E",
+      "size_bytes": 1238305
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "6CC3EF9F87B0D0207729E0B1E6AFE4A301451BEC9752F152B72CF63691C2A404",
+      "size_bytes": 3489
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "3419AF1119A6AD8068CFE031263D0BF59B3E6C989BAF18ACCC424CB9AB53AE9E",
+      "size_bytes": 1238797
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_attenuation_s1_summary.json",
+      "sha256": "CA9BC0667BEA360FC1F89A279E6616BED460E30B21FC888CAA40CF0D4C0749BD",
+      "size_bytes": 3491
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "C1C57F1C42FD13B9565FE313BBBB328B5D8E8092490AD8F20B8D55093E89F5EB",
+      "size_bytes": 1193951
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "599AC3506B004FDBFBF16E06E779BA360FE514267C8BE2A6402A34A1032A8AAF",
+      "size_bytes": 3502
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "6F25BC4D2D1FA922F057A3618F510FBB05B259990EDF20969CE0984C2732272E",
+      "size_bytes": 1191500
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "953D3C0D302873D4589A1B66B3168711BD89A46D83BD47293C6CD5BD5FEAFF67",
+      "size_bytes": 3496
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "85D190C827D27C3FCC8790BBC75CFBEC74B46341DCB5D9A57A302F0ABD6EB258",
+      "size_bytes": 1197033
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "4EB9843CF66AC0C2422EE182BC154EF7987F77A079452341AA1CF07C50254AA7",
+      "size_bytes": 3492
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "6D49FCCD2CD51511E05A365F7F230D8FD5F4C5D4DDCCAA4E8F7D5C97414EC1B8",
+      "size_bytes": 1191859
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "B63A2E7A4DEC56B06687665FC66893ED6E4E3F44AB32C020904D97DD9AA0FF8A",
+      "size_bytes": 3463
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "96CF6072D244D4FFAD822B7F51D359F722A8C5EEDBB75F7735CCB2D3F0698F44",
+      "size_bytes": 1240797
+    },
+    {
+      "relative_path": "seed43/m4qesri/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "F1E56418C7C6CBECEE351E44A886C23EB51A9A27A85CA4F1BF5E0A993AD15D50",
+      "size_bytes": 3492
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/mismatch/matched_samples.jsonl",
+      "sha256": "AE0B805552B87BDCDF17D9587C1C89788CC12B25D2B215504CEA029ADC1C1F22",
+      "size_bytes": 1164762
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/mismatch/matched_summary.json",
+      "sha256": "DFE25B05CA3F72F9AB309B0B54E32CD67EE790219303986282DA374B7F91C397",
+      "size_bytes": 3309
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/mismatch/mismatched_samples.jsonl",
+      "sha256": "6DCA87D1CC865635BC8A9C925A0C05827C1F4110DE7D1D3AE968F0382DB27203",
+      "size_bytes": 1209552
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/mismatch/mismatched_summary.json",
+      "sha256": "54D6C5A29FAEC7BDE5003EAC03045BC05BDB4F52BA04C7B9653B5CC6A8F07560",
+      "size_bytes": 3620
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/clean_samples.jsonl",
+      "sha256": "27A394C5D82C3D1691252534358C1CABF43CC886DE501D89E402237069758346",
+      "size_bytes": 1161382
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/clean_summary.json",
+      "sha256": "7FABEF258CD7B706C4CB9AD26EDF7758D8F4AD7F94E2759EB9698DB211EE4896",
+      "size_bytes": 3422
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "5D472AE771ED0C947816F2EA3D418BC906C9FE4AFED0B26A874FAE740CFF3E96",
+      "size_bytes": 1186013
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "DA2E84DE7219563F6D7D73CFB294F713045B08053FB71826F5473E5406DF3BA0",
+      "size_bytes": 3452
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "1A8E7F32EF49CC692A1040C5AADF5343DE66CD29175F0C1B6491274E8397DA43",
+      "size_bytes": 1174859
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "A916472A9830DC5900D71408108DD674A622F778D6F364820DDFF3B4DC2AD04E",
+      "size_bytes": 3441
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "7F031FD34B5F8B44FDFBEB97C0C32C8EB7EF2D7753C6BDA395064DFDB1940A55",
+      "size_bytes": 1224652
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "C6D2ADCEAD4F697BE68F53B18BE86E55B10EEFA2D7D1CEA1CDF55306E0BB2A98",
+      "size_bytes": 3434
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "1291874F4A25F58E26D7A04698C53A7EA51B7524BFD197EDC9F45BA0C4C0BE24",
+      "size_bytes": 1221443
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_attenuation_s1_summary.json",
+      "sha256": "A2679478194A5550E88A44C88F4D717F0FF0DE398363EF0B3939A0D9995EA901",
+      "size_bytes": 3452
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "4DCE54DADEB00FBAAB5775924189A246E219E571942BDEC5A257600EBB4E7D1E",
+      "size_bytes": 1194496
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "ACEACE0385DC54915545A667BCDBC806FF1FAF95209747506B4C7508075D8BD7",
+      "size_bytes": 3449
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "9E9C13CBC1264F445564F9BB4192661690EEE7029973C9A56BB4C4E3286795C0",
+      "size_bytes": 1193395
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "17B4DA58116414D16E5CB17838267745B7C74EAD71D154785A37170E3B12D956",
+      "size_bytes": 3451
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "8ABB5CFCA3580A9BF5086DA9BD7018CE9C58A1DDE2C7AD03B1C3A97F6B4780AE",
+      "size_bytes": 1195843
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "C507EE52249DC3AB6DDD9B85A9A2D1C6D90EE95EF5B649FD3BE60865C19BC0F1",
+      "size_bytes": 3452
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "A608AE5DEF5EC86476A7701D1BDECBD0155E38EA3B44AC177458C1DB17829DE5",
+      "size_bytes": 1230999
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "FAE6E1A94E44A05700FD89520DFD49F22C2E29EE9BABDB5415C1CA5C4DD100AE",
+      "size_bytes": 3426
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "22E72EB0B986271CB1A9D361DA66DBA781DF497B6286C985A3E7EBD13B460DD0",
+      "size_bytes": 1223443
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "7D6BF4546B78EF27C50F7745C74C7CC9855A3EE68AC8A71B9270182EC4AE5D2B",
+      "size_bytes": 3453
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "59E8DFAE85F84C84DF0C064BD06D89F53420C7D9121BD631AD7D59CA5C2AA1F7",
+      "size_bytes": 1190367
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "CCF34FD5DD48DF23D14589D329160AF16D5A0D9C145C573DBEAD11CE50BC8866",
+      "size_bytes": 3450
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "832E939D62C97B40977029941D25E0EF97F77F254590F57660222EC2DA8086AE",
+      "size_bytes": 1188688
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "64AD1CE8740ACEF4C5C03DE55B7EB1F8B58B1E252FB631C7422281CFBA75BF84",
+      "size_bytes": 3452
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "45CAF0AC4F085C03798B3BDC18B0BB6A5E47178DD9F6FC9506F9812849B920FD",
+      "size_bytes": 1227123
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "5F4063D8893110BE0DFBDD36C811ED5E748C63FBF3BADAD3F487F9DDA712D722",
+      "size_bytes": 3436
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "54A3D1C776F9A7EE424722B159422ECF082EF9F0750AE49500DC8E9E5BCCA465",
+      "size_bytes": 1224851
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_attenuation_s1_summary.json",
+      "sha256": "9EEE07EF45C79F41F528A86299F4433DB27E873CA8B29495A4E84595D0417E73",
+      "size_bytes": 3459
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "86A562EEC4281DB482FD905A299E883B1F398106863053C3DC29EF97CAF9710C",
+      "size_bytes": 1198769
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "0B795F51BCD46E513EC0A94F2F626260B6A70C5D70C1CF8E02774E8526DD442B",
+      "size_bytes": 3454
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "F42298F27934C5A5EBE6380A8008F4E212562FD0BCA644BB4F7EB82109109F31",
+      "size_bytes": 1197769
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "0901454A481D5209DCC63180D7288E8334717CACF50E52AD615741DA24E59F99",
+      "size_bytes": 3446
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "BC02C094DB72B6ACA6E6CD45A0324CC951A154F7051F6AB000C64DCBC0E617EA",
+      "size_bytes": 1201332
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "B46080F0442104AF8DD0D690C764AFE7C7EF2BDF224064ABD37EF95074F22505",
+      "size_bytes": 3456
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "55B69B8D8797971240B32295A1AC911F333D71A6406CF16C794781DBD190509C",
+      "size_bytes": 1199772
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "B2B044AAB61416C547F1B1E0490F951236D638D9ADA62C16C227980D93F858B9",
+      "size_bytes": 3457
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "0DA2C27FF2E06A55614E6932F25AA2214BE58D1FD98EF7D79C2327F0A777F2F2",
+      "size_bytes": 1226851
+    },
+    {
+      "relative_path": "seed43/m4qesri-t/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "DA8E447251FC8DED45A5FB9511F7E68235287535AD44A4C2483A13F3BE1B1208",
+      "size_bytes": 3460
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/mismatch/matched_samples.jsonl",
+      "sha256": "8C8923B24253355701ED728D03D1C0985CDE0E67EFFABA489C13F96B9F0768E7",
+      "size_bytes": 1162302
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/mismatch/matched_summary.json",
+      "sha256": "C46C86BFD0E6D24B75EC0B1A689BEF3E819EF6078BE94DC6A8D342BE9EA23BA3",
+      "size_bytes": 3276
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/mismatch/mismatched_samples.jsonl",
+      "sha256": "6879B8C1BE634992421BBBC2D9FCE21261842F0A1EFBE4097B2AABC29EEC65C0",
+      "size_bytes": 1201411
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/mismatch/mismatched_summary.json",
+      "sha256": "B4178B5CCB180E7AEF0444F27AA9DF42D44DFD1E4D9F73B00692D45E7A98082C",
+      "size_bytes": 3582
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/clean_samples.jsonl",
+      "sha256": "A8227C593933DF3780916E40FD91E1E50762ECAB548887DF5649F9837BAC6CD9",
+      "size_bytes": 1158922
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/clean_summary.json",
+      "sha256": "653FC1B46F9603C4D9047569D7677257E8C71DE6306DEF0BC24BAFCB609CEB0D",
+      "size_bytes": 3389
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "5FD33BBB3600D9B559C4A262CC9B6CCF9DA586D28AEC834A77B4BB05C8F7F6C3",
+      "size_bytes": 1184892
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "9DC087AE22AB7B65A189B83D5FD6086B324F390425498FC9EBC3C6628DCF91B0",
+      "size_bytes": 3404
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "AFC4AD98F88F9483595F5A152D879002DBC61F160AAE8BCE8F8C19F4F6291241",
+      "size_bytes": 1178311
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "4B8420967B9C4243488D845AB0120C6D8092DA285ED293CC58FE8114C41DE3FB",
+      "size_bytes": 3400
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "B09C64B9EBFAD821289EE918A6D603F310DBA47C366A60ACE305A511A48F215A",
+      "size_bytes": 1209859
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "D2DEAE9ACCBF2F2189B582832A09B46816E1427DB42ABD6E67F977FF2562F944",
+      "size_bytes": 3395
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "25C5228C951D2F76CAD0E3B4D817AB30F433D089A8A426E89DA351FE38376388",
+      "size_bytes": 1206797
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_attenuation_s1_summary.json",
+      "sha256": "A0891DD75A38288C0C26B6A619DF4D80E17915A3FCF46E52E8F922BDD26A180C",
+      "size_bytes": 3365
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "3277BB53E638A75CBD4800881E76D4EE2A4284BFDA563C5D1DE53E3ABA8FF8FB",
+      "size_bytes": 1191749
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "997AC014DCD60E20E95CE51D09E073C6AB966BD65EFF73441E96F1611B63A235",
+      "size_bytes": 3407
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "FD341FA80D7DEC0023EDA50C60F7A07EA5DDE56E2E7C55E41F810B1DE1DB1056",
+      "size_bytes": 1190377
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "2805C7EB04D791D015C5D8A9187C8887F212D49F810F021DA79426091CD84A9C",
+      "size_bytes": 3406
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "50A0634EEBEDB07449F4922D58E5A46E5820F79AB96234B1B95462731CE373C0",
+      "size_bytes": 1193584
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "CE73435FAA131CF76CF615471A616EA4384EA22081D615BC88BA83DF2181964D",
+      "size_bytes": 3412
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "B032A0A273C66DE1F9780A453679696209A94B1F85E43AA940E303566EB2A7A7",
+      "size_bytes": 1217195
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "D7AC08CF5A1D305FCBBBDC0354F142F8B0273BFCE58F0307BCB9B3E14A7DCB39",
+      "size_bytes": 3395
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "43DF9CD52308C0F72997CD5AFBF2856BC1DF2A50507B343A37B22220E2157E6E",
+      "size_bytes": 1208797
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "DD44D15CC8E14ADBFD18FA4FC7C4FF198679745BA7262FCB84B87996D81B2445",
+      "size_bytes": 3366
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "1C0638BB6E2792E4AB29D145B9EEF9A3F96AAE42EF11BB37B08B93B4F4D32016",
+      "size_bytes": 1188412
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "13B7AD680137D4BE749525EDD2DC1756491DF7832B485C432DD08DDE4D0EBB57",
+      "size_bytes": 3409
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "F9C03E03B642F55C3FC4F91EA9EF4136F5333F4C40E050A85E9B7AA1DC518896",
+      "size_bytes": 1186506
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "68DFC4DFB6B611B662445D0EEAFC8BD182284F7BB7B538DBDDD6AA769C220BA2",
+      "size_bytes": 3408
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "D8CD6B4981A621BD4009649E7001837AA7B87A0F521642C43BEA8201CF0421C9",
+      "size_bytes": 1213324
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "B98A9FAE509FEB07BB2E7E2EC22CDE73E47B33C7DB5AF25923FD6B0388193F7D",
+      "size_bytes": 3395
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "0D29638CF08DD2A53D0EA3713F78160BC01890889D7139672EC999B01C991D8C",
+      "size_bytes": 1209175
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_attenuation_s1_summary.json",
+      "sha256": "FA76B5368B0A8FFA7653ED0915EF0C7E5E3DAD64D9E17B54A8DB89F2530AC312",
+      "size_bytes": 3362
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "686331829B87DECC5331BBBE913A1ABD52596D16C976F3D8BD2B9068A0B6C9DC",
+      "size_bytes": 1196515
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "859767283E51F304867A70F881B964E3DA70275CB25FE869DC71BA9CD81C928D",
+      "size_bytes": 3409
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "A0171C0E959FC7644FB57A9395381C0D0E8C319733652663F8E01E2846A85945",
+      "size_bytes": 1195044
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "BD015B51701E94FC718FE97879FC88B6F7C8AFB58FCA172AD754408F645BA4F2",
+      "size_bytes": 3409
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "E37C85A3C0E9BBC2147A59DEC81AABD29B1DCC104AEAF4991FD5203D035E11F2",
+      "size_bytes": 1198709
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "0A4F812507DFF1854406BA5D42FAC9BFA8BEB753BF939C7A4EE72BF7B600A82D",
+      "size_bytes": 3413
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "BF3F8B54796C8E185FC5D96B68889F7DCC209527C274E975CCF4E566D554DA15",
+      "size_bytes": 1197580
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "3CC099BE46AD9116D7533E6A48330DC308B3DA470FEAEB2DE4F09532632F595D",
+      "size_bytes": 3417
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "E038A6AB4D8FD33CC522D7DB80C166ADFFE570B11E41897D3EF9B48104DE672A",
+      "size_bytes": 1211175
+    },
+    {
+      "relative_path": "seed43/m4qesri-w/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "38C3E731FDF1A05BAD6CCC1431796761585D8E06617490339A013B7478AB2D03",
+      "size_bytes": 3363
+    },
+    {
+      "relative_path": "seed43/m4qgrt/mismatch/matched_samples.jsonl",
+      "sha256": "13C0AAF1E4DE13F37B7FB07481A65F997CC171EC5DF454912834A089711E6AB3",
+      "size_bytes": 1166405
+    },
+    {
+      "relative_path": "seed43/m4qgrt/mismatch/matched_summary.json",
+      "sha256": "FECED64F74305CE91731AAC584B7B043AC11B1920B34583FBBBF433F2C73F25D",
+      "size_bytes": 2875
+    },
+    {
+      "relative_path": "seed43/m4qgrt/mismatch/mismatched_samples.jsonl",
+      "sha256": "599D1809B89FFA1C1C1BD78E42770E37E19D1385D6087E7528C9CE6D2A4A09C8",
+      "size_bytes": 1190840
+    },
+    {
+      "relative_path": "seed43/m4qgrt/mismatch/mismatched_summary.json",
+      "sha256": "FB32B87D3304F51D4766BAAD11B8F6DEE9521811651F601055EC702BF283B6F9",
+      "size_bytes": 3192
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/clean_samples.jsonl",
+      "sha256": "3F15B76F89E11A69843EE41A3DD04DF34C7AA7830FAFB7E7078DB17E0D6DC8EC",
+      "size_bytes": 1163025
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/clean_summary.json",
+      "sha256": "268A67864A21477115EDE7B39565C20677B7460E3570A5381A0A6DE2EAE11439",
+      "size_bytes": 2988
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "D55C584013F875614325778E923B17E97E7958A3D9DF4F321CD5313D97DE11E0",
+      "size_bytes": 1189872
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "3111EAECDA6DC7F1421C30915F9FC34B1618D9B2C3D9D33BEEFB395ACB94E98B",
+      "size_bytes": 2999
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "419DA0CE079EBB81E69356D49F4043602F90F7F606E55943CF3D2743833CAC59",
+      "size_bytes": 1187654
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "409AF52EDE8C4A444CADF8A91C3BCFC7187B793C2348661B144BB3C1ACB9084F",
+      "size_bytes": 3001
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "9EB14C6F50D9F616EE5783A1A3F7EAED2AA0097A50195F94DBD459BCA388A8E8",
+      "size_bytes": 1191225
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "B9E3635860A0EBDCD5963B529D012B2D17F7F240728C4103B2A022A41DD95DFF",
+      "size_bytes": 3008
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "0009D9CB58C092FA0863C6EA5A494B67F6CD32E2202A012B7B26BB871ED42BD1",
+      "size_bytes": 1189165
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_attenuation_s1_summary.json",
+      "sha256": "0B88EB0BC5CC916E4751ACC7B95A3A5541E5DB10436BE7FEB6BEE42B1DF19CEF",
+      "size_bytes": 2946
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "7E88DC99F03674B737DDFFEBA5AA5C8CA25B2B36D5258E8C99E1E85A832AB53B",
+      "size_bytes": 1196041
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "B4D456F6749F6D676DF77932EBC8BFD067C0C339EA26A4E1681C55CCC55C775A",
+      "size_bytes": 3009
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "34A8DEA7D7976CEA13FC0A7919079623AE5B0EECCA245796355D9A25F1BD55BB",
+      "size_bytes": 1193988
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "782F8067AB2BB36BC2A80962794BD74A0FF658A7A95B030AC3BB29B784BB8A41",
+      "size_bytes": 3011
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "E1EC8A3581320007BC926D7FFE3E4471EB90DFABEE9B4C8F4F9A38DF0C5EB7CF",
+      "size_bytes": 1196035
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "488ACDC55E013005D49BAC269DA85B98BC9675F4D54EC00C0F268B3251BACBDC",
+      "size_bytes": 3002
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "873DCFE2EB614A15ECB1E5A2C9B8D64F12D58D464FD2E2F008183C098C442A12",
+      "size_bytes": 1200122
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "71F6C4AF2051911F5BA6217F7D4296C7868ADDDBBA564997844613D2A1097B41",
+      "size_bytes": 3020
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "22469AF53AC8666A42DB358B347C514F386881EBF814C479613A071536AFB8E9",
+      "size_bytes": 1191165
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "3C604EF04A09670F21DAFC4063DBFDB4E4DB7F1D13616FF9BD2A4045C11560DB",
+      "size_bytes": 2947
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "4F8E9BEEB2F8B2027ABE4294395AD2B6C38760CBF30E3B45DB70435AB9698D7E",
+      "size_bytes": 1193866
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "A2F1BFDF8B8A57C1C800BFA0D4C6A7E1A82C63A66B72593B32858348B43D1B3D",
+      "size_bytes": 3002
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "228BB69FFCC4D8C6C48DE518BE7EA00799403D03508EBC626A0E383815571902",
+      "size_bytes": 1191805
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "6C3BC2C7EB42BEA613861508945997549E20BAB97C72E9075F76956F2B0DDA02",
+      "size_bytes": 3006
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "657CBA490935EFAA00F085E0BE0AC3D6A65A6F91BF4B49A07A3B8C24D91F96F0",
+      "size_bytes": 1195479
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "CD2298552497DB30F391A69F0158B0C09A0BC2473FC937AFE2B770BB18EC975A",
+      "size_bytes": 2995
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "24B39674E657520203115ADDA8ACF12E5775D54EF9D6B9EEA926C548CA9CF53E",
+      "size_bytes": 1195011
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_attenuation_s1_summary.json",
+      "sha256": "CF98347924D49FCF2EC34D9404AB5F3CF2265BB9FCBDE3FBB61D7DB3EF2824D4",
+      "size_bytes": 2954
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "2CD8A3A002F32301DC7A3D18524CBBE3F6AB331DA99600B4F79CC77F4626FC0F",
+      "size_bytes": 1199938
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "F8AB11D95311DA5EA4658AC399DD39F80CB5FA270650323DF76C7E3460599DF7",
+      "size_bytes": 3012
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "5047FB045EEFF73896D854281D828DF6952476F757252EB8E7FC0906D3F4131C",
+      "size_bytes": 1198045
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "03C29166D6EE7EA40D7777CC3245CC23995D5F33EAB850E78807AE55328C08A8",
+      "size_bytes": 3004
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "B8C84C2392A1A89700D64F1F98FD6AC7F90A7E89C73D796239D0891B75706590",
+      "size_bytes": 1199979
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "AB473257CEC23396C2C01F716A1B8FE1C18B80052242BBCAFAA710F9C5955809",
+      "size_bytes": 3008
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "BC4AB67C0709E2542C30FD84E347325233A3EC54411FC0571B143BFC54448128",
+      "size_bytes": 1201704
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "2DB58D02118E122793A73E1AB8BB0938C7E30A9416DDEB77C8D749A920AE68BD",
+      "size_bytes": 3009
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "8D4123D1EE2F37BC30FC6F9F6701D56DBA663CC08E65CDC08136F507B04580A2",
+      "size_bytes": 1197011
+    },
+    {
+      "relative_path": "seed43/m4qgrt/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "6DDA16BEA7E2C5BD8D3EEDADC13B568C649FF4DCF0C021AA72AB2BC8DBECA1F0",
+      "size_bytes": 2955
+    },
+    {
+      "relative_path": "seed44/m1b/mismatch/matched_samples.jsonl",
+      "sha256": "1B0DE0DE55AB3DB7E670EB28ACF53D1B6C92DC8E7FB9660B434D83BE24037118",
+      "size_bytes": 1040303
+    },
+    {
+      "relative_path": "seed44/m1b/mismatch/matched_summary.json",
+      "sha256": "2BD1B96C91A8975F2E2A77ACC037CB619FB1E05E171C012A3D47FD4276BFB6B1",
+      "size_bytes": 1554
+    },
+    {
+      "relative_path": "seed44/m1b/mismatch/mismatched_samples.jsonl",
+      "sha256": "EFCC5723B1DE767B6DC5F41D4B4229B16B316FAAE7A08D165F6112911311FC75",
+      "size_bytes": 1063134
+    },
+    {
+      "relative_path": "seed44/m1b/mismatch/mismatched_summary.json",
+      "sha256": "9BC090A7E95C7B61733E1A46D62F0D9D2A61D6934F0A587D911123EF72384FCC",
+      "size_bytes": 1865
+    },
+    {
+      "relative_path": "seed44/m1b/quality/clean_samples.jsonl",
+      "sha256": "F48E47F52F8C7A0FB640640739C0CB401C96052A170A6145DF77F49502981FE7",
+      "size_bytes": 1036923
+    },
+    {
+      "relative_path": "seed44/m1b/quality/clean_summary.json",
+      "sha256": "C3AE58EDBC4A6C601C72EE2637679E48A59E9FFDBA8103193918846710A210C2",
+      "size_bytes": 1667
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "1F1E6B83040A4F5D3644892AF5B15B5FCACE493ECBAEA4EE46BB95993F1CB5B1",
+      "size_bytes": 1063863
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "F771C9E399E03179A5CCECCE10CCCF5AC9109F01DD307C2482BAAF80F4366D9A",
+      "size_bytes": 1685
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "FF91E5BAD883C434C5E193CC885A21EDA924CCEFA38984AD88A32C8A69C8A469",
+      "size_bytes": 1061689
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "DA38C95E009358CF8CE4C27331FF69893863397798B09DFEB78AF0A5E5EE0203",
+      "size_bytes": 1683
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "3A3BEF27C9750B72DB398A06A8753F5FE087981BFE32556B8BDAF92CEAF89451",
+      "size_bytes": 1063413
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "10F355B1E5CF2FBDA6EDB0679DE951C31629AE13932F95BF945B54713FC9000D",
+      "size_bytes": 1684
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "F00B51642A54B7011298073072BD0340ABE46E9ECA42ED53E0D7FC19A90209A5",
+      "size_bytes": 1059284
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_attenuation_s1_summary.json",
+      "sha256": "FFBB44D7B8F7E107ECAEFFB7BA741690F72D7090932698BCE99EBDD0F77DBFF0",
+      "size_bytes": 1678
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "9CAB609BC1543191668045CBEEBAF94A1973A3354D52465D2B4E361EFAA8F820",
+      "size_bytes": 1069923
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "79DCD577047F82F78B9CC66A10387C93F0865DCBDC90B67D300A5540C1324A6A",
+      "size_bytes": 1686
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "F4EAE6DF6B6F9817239B9661EDA63FE93157069219309A1BE23F1E4C10346BAF",
+      "size_bytes": 1067896
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "2C4DDB9C3736A6C18F40618EC52E4E9DE63FAC28253C2CAF8527E3D1C8A0C9F1",
+      "size_bytes": 1686
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "0A563A09EC1BA6B964B8DEDE51DE05C8DEBC3987C3B10418F4605F356A1EF536",
+      "size_bytes": 1069791
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "9FECD70095C17682335C839B9C64DA245209F7C3AA1AF057C983EE8122A61A79",
+      "size_bytes": 1686
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "CFB1E16B5D4CBFA59E851163E976BB2A4A788E7F63D97D70E419B70325761646",
+      "size_bytes": 1071620
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "70123CAE94708B838D38EBBB1476EB45BF132A21CEE8A4A8BAC8AE02E9C049CC",
+      "size_bytes": 1684
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "5F730702B523E898951A088B45B51F4DF7F25859660F100514D630FCFC528D2C",
+      "size_bytes": 1061284
+    },
+    {
+      "relative_path": "seed44/m1b/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "D31E63308920E74BBCD1FD835AC7C095C0E9FF6ADBE88C579E272DC2BF3E0599",
+      "size_bytes": 1679
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "4F0D1D3EAE55FAD0477C459366008E27971A2EA700108B14760DCB1C0AABA1BC",
+      "size_bytes": 1067898
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "C50BA5DF9030567A1A1C1FD201AB2F82B22CAB9019F150A38BF3BC2E09DB0126",
+      "size_bytes": 1684
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "419CB6F6D56BB09BCB19C8EE7F148ACF9E3E292F7F6BFD0FC14AF1D2C7150FFF",
+      "size_bytes": 1065843
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "05555E18CB883D911A0D045A20CD6B6AD8FAE6C629990560FD51C1B36D3399ED",
+      "size_bytes": 1682
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "7A5A0BF0964097910CCCD15ADA13EBCF48AF6F291FF066EA7A7AC545940E59FF",
+      "size_bytes": 1067819
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "16B13BC1868DBAB0F9C9C236057C8416DC2BD5A72520B6B888D4A3A7B5493C4C",
+      "size_bytes": 1686
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "1D8A949D100776D19AC17FA0715E0CEAF8F97754A99EF1E6EFC27C985FA5A74A",
+      "size_bytes": 1064238
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_attenuation_s1_summary.json",
+      "sha256": "479B2229A4FA963AF64BA1417532CB4132E3BA34039A09A835CCF42A04F394A2",
+      "size_bytes": 1614
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "B4B140B06DFB574A67D17C30B6680529DD742FC0AFDF765BBE999807A85B64BA",
+      "size_bytes": 1073848
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "3B75463E53E077FB541BB5FB5BDA68DD141CFE30FB34A931E684BA020BAE1715",
+      "size_bytes": 1681
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "2FD205A3466A2040DD7153E40F2FE48A83864577DA83D4CA342507DBE90CD81F",
+      "size_bytes": 1071777
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "CE4CE490ADC30A69820E471D58BE08D49C4B0AE694E90DBC87D1830D79EE2543",
+      "size_bytes": 1686
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "571B70EED60E01D9326940073AB32B027A9A9389C0E4ECE16C91DEF5374D7658",
+      "size_bytes": 1073622
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "A7A19941B174E6F84CD55601C3893C0F5B0C186DE373BAD110D055526950F71F",
+      "size_bytes": 1687
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "E21BC9E2E97619208A8B7AB2090AAED19444E4FC8F501F451E19969E3392FFE0",
+      "size_bytes": 1075474
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "BB162EB485AE8F997A17473B3C5C7ACF3189063AA0E0660795C82DE6BF40FD47",
+      "size_bytes": 1692
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "31C2177B84FDD59F3D45A84E4341670860D26BFDF89F5E8CF7B6912993DC6216",
+      "size_bytes": 1066238
+    },
+    {
+      "relative_path": "seed44/m1b/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "B8E53AE68EC84BF323AB24EA5A0AB7D41486EE2EBE4679965E283786E6F2FDB6",
+      "size_bytes": 1615
+    },
+    {
+      "relative_path": "seed44/m4qcf/mismatch/matched_samples.jsonl",
+      "sha256": "8DAB444481319A197864375E92024130E992F270768DFDF35D287C8FDAB84A7E",
+      "size_bytes": 1166641
+    },
+    {
+      "relative_path": "seed44/m4qcf/mismatch/matched_summary.json",
+      "sha256": "4F43E3F85A03D8D52F1CF643420B0FB174031F2E1AF608B5DD166B98F87A0473",
+      "size_bytes": 2870
+    },
+    {
+      "relative_path": "seed44/m4qcf/mismatch/mismatched_samples.jsonl",
+      "sha256": "6A972E2BEBB57BBCF911BAF2EA0D6EC3C292BFFD27AE2E674217274D7AFFF0C8",
+      "size_bytes": 1192170
+    },
+    {
+      "relative_path": "seed44/m4qcf/mismatch/mismatched_summary.json",
+      "sha256": "C8BB67FF45FB39A960BF09EF6EF93DF272554093C3D389B7E6451DDAD5858FA7",
+      "size_bytes": 3192
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/clean_samples.jsonl",
+      "sha256": "3E3DCB406A263F4328352FC89648789957254365DF3B6D3288D484046DBB5620",
+      "size_bytes": 1163261
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/clean_summary.json",
+      "sha256": "C16D2C689C3303CFC4833DFCE41DFA23624AD5706B0A9BDCF7A46BFB40418C06",
+      "size_bytes": 2983
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "9B760F8CEB739E5AA6F29D9F8341A113FE6B12E4CADD58D5FE0CC65F925414AF",
+      "size_bytes": 1190125
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "4DC8E0057674EF75D43AF535941AFDB201EA787A7FF74788BB74E5C437A1DBEB",
+      "size_bytes": 3006
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "9AB07A48E2CC5C21777F97BEAE4077A8911C56EAB45CE681B4C2929481A98091",
+      "size_bytes": 1187972
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "AEF4D6E9CE2BC06F10C76027D5E1B3C9640AADA1CC0BC63DA9B7D3205E5165ED",
+      "size_bytes": 3000
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "604084B335B78DC80832DCCC06728AD2E2209A619FE745E8E527BD3AE2298D05",
+      "size_bytes": 1191237
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "309F9F6796AF37761475B22549479B6E6FF4D3E586F996F1702A548B25D387BC",
+      "size_bytes": 2997
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "729B73C59F0C607F73CC1C65B0F7C75BF87FAB9C08E0E0F2393766DA0894568D",
+      "size_bytes": 1189814
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_attenuation_s1_summary.json",
+      "sha256": "D033EA2A94CDE11B42B764D3403BC3553BEFE4B6096A5A8D86D6DEA032A563E0",
+      "size_bytes": 3001
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "3FC11E9D465EABCBC9BD0329AC3775E87A4D05D8ADBBEC7A3CEED6A6E9299C89",
+      "size_bytes": 1196302
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "ECA8429A6202C0B29861DB4CB8C583B6B503DEC6452B3E58329D7F01B913ACC5",
+      "size_bytes": 3007
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "327C600A0341061657FB4113EEABA983034B0F39AAAD8A137106D0B0F67158AA",
+      "size_bytes": 1194420
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "6BA1BC74BCF488B636FAEB66DED79F0A1B971DEC7B19068401A8B766B5184C65",
+      "size_bytes": 3008
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "809D3A6421CF7C0C34180987FC5E3220FF00F7F7A09C57D1F9E84EA1F65F642E",
+      "size_bytes": 1196274
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "6F9E64C53B8F31E0514A7D7BFCCEDFA20217BE12D55843182107CB35BD3CFDAB",
+      "size_bytes": 3007
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "6EB5CE82534693F8136B5D367E19FA31B91F2892E5B418A14A22DECA0F83A918",
+      "size_bytes": 1199251
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "1266E4463F610CD059997913BECD160087ACD2C8470CBC6960B12D58B72317E1",
+      "size_bytes": 3010
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "3D37D836780A764CE394024C97A6537E9BC6A2CAC90D61DABD986FCF10433D2F",
+      "size_bytes": 1191814
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "229FC26210B14FC059CB621770D42735A45FE8184B28A24D0D0C6888BF2A45D7",
+      "size_bytes": 3002
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "58EB0C0B18A13A6229A49BA2850A47B8D686826E33B226212ED6B95701E93F02",
+      "size_bytes": 1194287
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "F9D90ED33890CB8D4087AA2B1DB2F891C903DA297B38C8584E9613FBDF35EA0A",
+      "size_bytes": 3003
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "0A37A69FEF9CF05C30F0EEC218BD5EA3434E5FD653E4776FD44D1FB29C9F4CD0",
+      "size_bytes": 1192200
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "E544226496E0161A4C92A42C540EBC52F3C5678C111EF5A53478B316556EE67B",
+      "size_bytes": 3003
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "B303149490CD7698781B82622FF793CFF13CF3165AD63C44C40CADC62F437EA0",
+      "size_bytes": 1195593
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "157CC1663E472B22CE3D3D5F91444690AAE37042689C69688FECE90CF0FF9736",
+      "size_bytes": 3008
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "660D6E10AB79F158C4C849C58E814D608169F1BA5308901A110AB7B65E6313C5",
+      "size_bytes": 1192828
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_attenuation_s1_summary.json",
+      "sha256": "1684A4771F742F438FB003716DA7B0513C9FDDAEFBDE1DDC5061DE49A6FD24AE",
+      "size_bytes": 3000
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "6742A739DEA5BA104E64C9419B38C46EA4D22E2B7291303776164D70A223BCD5",
+      "size_bytes": 1200208
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "03A8272611A9D6A542A947D3177E8EBB2ED39BD019FB8A5152208FB4F6A0236D",
+      "size_bytes": 2991
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "CE7F4940F76DDEDADBDD9122C21455B7ACAEE7D49FAE36605F481707E3F56DA5",
+      "size_bytes": 1198471
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "153C709A7AB806F1179F78414C9DF901C47700187DBAD04A39FBEF5494CE6D31",
+      "size_bytes": 3009
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "E913CC5FF42CD7E176BCD8E6E78CF9C4CC2206BAB853676D5A326EEB055A8AD0",
+      "size_bytes": 1200284
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "9246DB6A611924851712BB7B8C2443CCF85DD827FD8A9956FE7841BBDF9D9A6E",
+      "size_bytes": 3008
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "68CAAA3A18DFABA57D212C6C8D973733351E0D1053F9722DF63F5A945B444F50",
+      "size_bytes": 1201671
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "43345667CE0331644922702519991BA84AE1E933B7B987E0FF772EC8762C1974",
+      "size_bytes": 3010
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "7032605708E6387E2D01E074E512C8B13A2E5C4660FE9DD532DB81C04961E706",
+      "size_bytes": 1194828
+    },
+    {
+      "relative_path": "seed44/m4qcf/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "AFD05EA2BD7BCF8EFBA21E370C32A899F1B0144290A633EB9E9E02FCC9A839D4",
+      "size_bytes": 3001
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/mismatch/matched_samples.jsonl",
+      "sha256": "12F8089D2DBF1603ECABA69E4950E1B66106F170D4239B6D2C66A3F81908A258",
+      "size_bytes": 1152252
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/mismatch/matched_summary.json",
+      "sha256": "389FB9C432819450FB1F068CBC5C402D723BB0A61312CFFBEED1DBC85C9A94A5",
+      "size_bytes": 2811
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/mismatch/mismatched_samples.jsonl",
+      "sha256": "51B5022E17688260A965E69A8B31FA1F78BBA90C34DE660954F6FE4E68E071E4",
+      "size_bytes": 1175644
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/mismatch/mismatched_summary.json",
+      "sha256": "3731F06C368410E51AB396E62A4046857C6DC6CE61D73BC1D11E135E99F55C8B",
+      "size_bytes": 3027
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/clean_samples.jsonl",
+      "sha256": "A33D67633C6DBD591004E7501063E05E7A32DB03856FD732183CCE8D128AE457",
+      "size_bytes": 1148872
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/clean_summary.json",
+      "sha256": "CE873B0C1F29CA2F8E91E1DF2C68CEC1C9335D5F8295B1FCAAD2A438300E6D73",
+      "size_bytes": 2924
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "C38A23D552A2F8E75C304B806D1D6B6F8409464A49E864824CCA7E9573C5CB9E",
+      "size_bytes": 1175862
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "ED42AA306C38A715125B87348EB4727946236297FE1F64DC86CC2F708B3580B6",
+      "size_bytes": 2940
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "2E413C0999039938F0707EFC68B0664DFF5668FBA66DD4C132C939045D07D4F0",
+      "size_bytes": 1174457
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "BBFBA07B3E9627703537B4A7EF0993F0CA60A83D2D0EDC5744CA38E85487F3D2",
+      "size_bytes": 2930
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "8DA16F1865AABA28EFA300157762E1131C25A8C19505B60FF8E5FA5CD0D1BA96",
+      "size_bytes": 1178781
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "297B332BF24F3D85FA744A4B77D8BCB600C18CA536AD50E75E75EC11EA6A24C1",
+      "size_bytes": 2946
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "43B3B4C70AAB4D50860765A54ABEA0A9D254125BC97BD7093E471DFC59499A73",
+      "size_bytes": 1177184
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_attenuation_s1_summary.json",
+      "sha256": "4E4CE61A62C8671D9E0C9FC8994D7BB2817EEB6D0F5C6A83BFBE89E90DD2824A",
+      "size_bytes": 2921
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "900949FA8950EC19B01E581ED137EDA3576960963BF94C29171E19541AF19C5C",
+      "size_bytes": 1181832
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "633C230D90386636D7DF52524A66A5C5AE4B3994E95BF222A7E7C199D1F4CDCF",
+      "size_bytes": 2939
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "33C86794580F81BBC9374FCF59763B22FBECC4A97DB298E78162E3C05F7E6003",
+      "size_bytes": 1179930
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "E164A83511097F28FF87ADA6112BEF889A0F43AABDF95F1D245CFD6B6B7D1FC6",
+      "size_bytes": 2941
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "98FCC435B7005D72B4107BC5E8E94726FBEC15FC1CBE66D52F57F597C7DE2446",
+      "size_bytes": 1181892
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "469252F93DF8A8ACA3F0910DD34E17400CFBE7103DDCD1052990BB02BA2AC4C8",
+      "size_bytes": 2935
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "0745C41B0B2F467F2800BC6EA051DD95A028F276D5E3D5AA3A289D83DFDA4BFC",
+      "size_bytes": 1188496
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "91DFEB532EF6EC56E22807C5B45BCD24E312977C5FFFBC120A25B6049FD1F750",
+      "size_bytes": 2958
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "CE19702ACBBFCB13B078A29098D3866870EEA2173F7DB225CFBB40B45956521F",
+      "size_bytes": 1179184
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "8F91471C03A758ED4DA41336E02366A0ED5453B24C37F78C8DFD5DF272D90C8D",
+      "size_bytes": 2922
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "86948AB0DA6B8B765031188DACF5073188420A7AA0013E89F4698D4EF569242F",
+      "size_bytes": 1179833
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "254A289B6F043C358668F10B6EAC8911D7F17FDE11E9392AD1B817AF8B568CD9",
+      "size_bytes": 2915
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "95662AF223DC9A02F4897CD05744BFC6C6F6535660B7F88EA52FEBECB7A4C89B",
+      "size_bytes": 1178091
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "26B0D5585D782C4858546DAC9EC1999E2AF292B10A0E10CFF7FD2E1FE8E39FC8",
+      "size_bytes": 2939
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "4A2A415B024554280C9932CF999572CCB2F5E98BC4C1CD30883A69B5528E5545",
+      "size_bytes": 1182278
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "82663B6FD1326233F0725001D99F1F2C74C47E4BF3AB6433A610E1773DA749EA",
+      "size_bytes": 2948
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "143EB3612827476B21142AFAC40074D5A70753B5FDFF80A59674186E79C97E2F",
+      "size_bytes": 1181950
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_attenuation_s1_summary.json",
+      "sha256": "3F1B0092BCF5BE585DDE45F54498B89A49403849A0CDE01F3B317E6DE16150C8",
+      "size_bytes": 2928
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "26C650F4E16520CED03F95226A0DECF20AC04592869EA03CFFC046FEC5F7A865",
+      "size_bytes": 1185949
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "6AAC27D95077CC3E9E9418D697945B26EC43E58CDC05885253A990DBC72DB984",
+      "size_bytes": 2946
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "DE93CC0C1561DD6E0761C6FC4EF94C080B932321FB32831D3AD5183BAAF227FE",
+      "size_bytes": 1183937
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "22FDB54E079F504FF8B2E5014FFCF2D6374BC40EEC52B79A29DACF26EC980B5A",
+      "size_bytes": 2939
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "908642B1BB1FDA6A9AE8D4BE207442ADC0FC918DE27ADC61875C5123F867CE2E",
+      "size_bytes": 1185925
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "FBD00D9C9BCE1E331ADEF12756B13D1427AC6D06EFF9A116205AC150F4F365D3",
+      "size_bytes": 2942
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "AC942E203966D1F48F572CCE1D3E47455C8168EAA5DF23179BC5A495B3748347",
+      "size_bytes": 1187597
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "CF155184C576C5F7E74E248D20D58988B6BF9CCBDE9F0F8C97499D527104D833",
+      "size_bytes": 2945
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "D87702F126B75C6E327CFFFF5858F6DE6403F95F7D165F52DEA2F00DC17211F1",
+      "size_bytes": 1183950
+    },
+    {
+      "relative_path": "seed44/m4qcs-w/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "C1BA5B016D17C662F3615FAEBD6B3778FD6F9114AF5E6F771260A89A54CBC3F2",
+      "size_bytes": 2929
+    },
+    {
+      "relative_path": "seed44/m4qesri/mismatch/matched_samples.jsonl",
+      "sha256": "4B499730DEFE83A952F001DA508404B98A37939A2E9152EEEA5EF5A310826E83",
+      "size_bytes": 1153052
+    },
+    {
+      "relative_path": "seed44/m4qesri/mismatch/matched_summary.json",
+      "sha256": "DB413311D0DCB88A27852C495AC330C00823766B23A0715C9F6295DAA055C29F",
+      "size_bytes": 3360
+    },
+    {
+      "relative_path": "seed44/m4qesri/mismatch/mismatched_samples.jsonl",
+      "sha256": "D8755D991DA38B3A6BF17736BED2B4E9A5F8F1ADA4449F2C133DD028DF92CE78",
+      "size_bytes": 1199410
+    },
+    {
+      "relative_path": "seed44/m4qesri/mismatch/mismatched_summary.json",
+      "sha256": "7A95CB6A9909E97094BA8D6FB3DC5AF4D873C8E9B7AAF9BA1F0A4DBC080442E8",
+      "size_bytes": 3674
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/clean_samples.jsonl",
+      "sha256": "754AD7F19AAC193B2442FF73B5D86B14583707AE3DA614A46885D70375A3433E",
+      "size_bytes": 1149672
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/clean_summary.json",
+      "sha256": "E5D9237198E348148A0B0ED0C91C114860A437E7524F50D97A7843DFB2B7CC2A",
+      "size_bytes": 3473
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "004875ACB7F3CA3C607B3CA051C79A7BB471116A4323387924C3F73C1E2647C7",
+      "size_bytes": 1174654
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "608DD67813C81F7FF914AE5588CDEB30BCF1BBCAC49CF7D9F72EF22457F241BE",
+      "size_bytes": 3490
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "A7C01E2EE44CBF406BF8813E2BA4E9D73A40064395C18AF9711C8FBA7A39FB26",
+      "size_bytes": 1171766
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "D5A8E10B885D2B85869517D02E7133464760688273A933526B51F07178AFEC7E",
+      "size_bytes": 3476
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "BE4C1EF4B0CCB90747F63D85ACDED60BC3A378C102D02453A480CF7A75820407",
+      "size_bytes": 1238268
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "CEA5D1574EA2028A1D0C74EB15BA6B3988EA9AC0B670159B440CCC49F687DD99",
+      "size_bytes": 3401
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "5A738DC0E4FB005459AB452CE0D3A475F9DC41BDD8617E7E19F79DF58F32E0FE",
+      "size_bytes": 1236208
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_attenuation_s1_summary.json",
+      "sha256": "BC8F0E8C99D5714EBAC072A40E6AD462B0B772551AD81402120CC41AF579C718",
+      "size_bytes": 3491
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "63B96F230757BE141BCABAA2F8532B245137AA99AFBD4A1D3BAF5630E1FA43C7",
+      "size_bytes": 1183009
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "1C51A0D98A551EEEC3C6E411793C5CF4D1D8747C4A15A354B8223CD0E84B2975",
+      "size_bytes": 3494
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "35FB7FB4C94A1BF4174077BF8247710933DC8EFA08A0D7904FD79D51C79FA6E4",
+      "size_bytes": 1180677
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "C0FEA1B15ECC4C70CDF6630668D33D280B2FAF229B76A4A6ED9333B8F07BCFB9",
+      "size_bytes": 3499
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "0C45156598DD70270D3CE973F286556956ED0F3C3F7EEE45323C241C032AD45E",
+      "size_bytes": 1183307
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "51E8B3D5988AAB6BADA4453CEA6AA3A5F58ABD3B0D91039250EE29E2083780E0",
+      "size_bytes": 3494
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "A9FE7FB9549C906D45AC34EDDFC530DA05FCF17734D644BFDA6DF1A4257CED1C",
+      "size_bytes": 1246302
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "7A86FDDD6C1AC9F77D1C7DAFC00370BF4A619C871535DFA8FDB7DF1944A70FB2",
+      "size_bytes": 3518
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "6AAC950B93E96C509139D46D6DA824710D79B41F370AEA17756F2B5FFCCF89EB",
+      "size_bytes": 1238208
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "22D9ACC817A75A2B0617CA555057355AB443B17C3739CD00B3DD19107B4BFD36",
+      "size_bytes": 3492
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "341263FA320AF12D63B5DFEFBA14A81E2EB4F73894F3E2E6ED0A2149F70A7EC2",
+      "size_bytes": 1179378
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "5BA439649EABEE1D3A1E5A58CFACED8ABE17AB9A8CE9111615224C0776058DC8",
+      "size_bytes": 3499
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "CD31399469574BF256DA5D7F114D22B8E5538E44F91179AFF74C05FC2625CF01",
+      "size_bytes": 1177175
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "2830A37AD2C8C1EC024071DF54D37FA5BEAB35849DEE9F03A400174F71A376BA",
+      "size_bytes": 3474
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "584F47E47A6E78C3A6FD8570FB8FA796EC362B107CE4C609458A91001E7E493F",
+      "size_bytes": 1233981
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "6AA5D2B03EE9D588D3FAD66D53563FA891414539FC95535BEEDB6ABD45757900",
+      "size_bytes": 3496
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "AE45E10360A1DBBA1ECAC1F4A6916E7FDF8684A63BC214682C532EE1EB155F95",
+      "size_bytes": 1239880
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_attenuation_s1_summary.json",
+      "sha256": "A21435B95AEC67FCA862C9D4F79CFE5E5B55DBEA2DE00D4D88187C4906A75910",
+      "size_bytes": 3488
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "A1FD5C3725210CF7C900102149E8EA2BB8812898101A65B9DDC250228E6FA9DE",
+      "size_bytes": 1186957
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "EDD68E963A9223F66CE31F387A7F26314361CA967A752E72B86FB0A7E85C187B",
+      "size_bytes": 3502
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "27898E12B8B221D1D4CC676D4223A4AA358B1342146CA955EDBD702F06B6A6B6",
+      "size_bytes": 1185633
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "D11B8FD5FA11D0EF1E419C093A458BCF50E44620839DB4431C9F5378D5C62C44",
+      "size_bytes": 3498
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "C67A29DBA5BFEFD488DD5EA06294BD5245A6D8419DA7A2494DCF62C3220057C1",
+      "size_bytes": 1187174
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "ADB2D7CA0CB2F602122BA2E43F3FAD11E60EE5D6AB2333B8C68E26D286C5BCA0",
+      "size_bytes": 3503
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "C3D42E91BDE9250E5950C6790883DEA2766AE1553FE73FDE5B0D499D8DE1C496",
+      "size_bytes": 1188946
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "6891D74A635870C89A264E1CC02F0685E0D41FD44A1AE549F933EA0FC2C162FC",
+      "size_bytes": 3501
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "B791C3DFE11E5C7B20E2B03107E2823F141E2FAED60FD2A72F899EB9B248D437",
+      "size_bytes": 1241880
+    },
+    {
+      "relative_path": "seed44/m4qesri/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "FA0C6296016C76185E35F9DEB485D6BAD4178A85B5D003C2A1094E0B424E61EC",
+      "size_bytes": 3489
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/mismatch/matched_samples.jsonl",
+      "sha256": "10F33C1B0A501A77CB6B9B03CD4D2C004EEB9F4AF34E44F8E6995F908771D5A9",
+      "size_bytes": 1154364
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/mismatch/matched_summary.json",
+      "sha256": "2505EBBDC73E560E8455F6C0411B74C7681D2AC3BA1B4D92EA585EB3500F57E7",
+      "size_bytes": 3314
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/mismatch/mismatched_samples.jsonl",
+      "sha256": "372BE2C49D68C80226DF994C3280A9002990C3197ED5D7741397B46BE7A5051C",
+      "size_bytes": 1195374
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/mismatch/mismatched_summary.json",
+      "sha256": "A327C2B63CFBB42A271A032C6D6A4EB09D4CDE3FC92328AA5B3BBFDAFE71086A",
+      "size_bytes": 3629
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/clean_samples.jsonl",
+      "sha256": "825EFCB325C7222A283E703D3745BB691CA6779F306F55121BD599F8F489E236",
+      "size_bytes": 1150984
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/clean_summary.json",
+      "sha256": "90CBA6ADB253AF510BD59E2EA9DBAF185372DEDA29B89C0909212A9F2B9DC22F",
+      "size_bytes": 3427
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "36AF99350BA79E2FCCFBF4AF0FF1582F48AABD3FBC7F1CD9D121824CF89551FD",
+      "size_bytes": 1176130
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "2C920536905860335F54A5CC0F2211221D0066177AE676F31604B7BDDD8A92B0",
+      "size_bytes": 3446
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "850247B0508ACD2C9BC48FCF500DA865CE63216816537C08ED1A9616565A4D44",
+      "size_bytes": 1173358
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "946CF18148C15EBF07C8798FB82A5A5E036A941EE214E989235B7DF1C3815525",
+      "size_bytes": 3443
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "AEBF7F4563DA8ECFF8E6606A7DF719869A761E3D0D626C16CF60AFFDA43DC6C8",
+      "size_bytes": 1223849
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "58B731FBEF5F857F02556FC3AC8B97F09CF299619B674622F56076AB2A767F5A",
+      "size_bytes": 3441
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "46782D1B9CEC51DABDB2C10817A2EC967D8B281C0ADA9C9D98ABCD7B3E6B9D4F",
+      "size_bytes": 1222067
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_attenuation_s1_summary.json",
+      "sha256": "DE3560F64FF261A8B8A44407C2FDA1A0D6FE54A80472DC734B3C4D995550724C",
+      "size_bytes": 3462
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "CFD02B7ECD3AB1C806429959ABD66F07D698367E4A0BD41B08C9F1D39134F2AA",
+      "size_bytes": 1184146
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "CA93C39ECEB9AC7D3E253160EAEC7E18E850F47C52F2C27CBBA1DFB649DBA263",
+      "size_bytes": 3423
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "A98BB662E9773181009991CC1E0CF9E684CDB1660A075E2907861CD015177F74",
+      "size_bytes": 1182332
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "317FE3849016BA5C3193D5D1FF0250AE1AF86FC0FAB8A1CD5100C4DB49E4D943",
+      "size_bytes": 3445
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "7CDE36C8B364720D138A6EA9453AF4E9801AD21A47FEC9F3E6A942D5C1ED8A93",
+      "size_bytes": 1184543
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "CA6409E6146444153C29E34620A6BF2026EFB62211503E4D9AFABA26FA2CA28D",
+      "size_bytes": 3446
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "A5CC13FFF5F551570BF12B014F09FDAA77C1C982E2B881926A116B3EA868697D",
+      "size_bytes": 1232860
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "1CF4E0A76ABDB01F329540BD12C86D6917145E5A32FA34D5C3368D643FCED5FD",
+      "size_bytes": 3496
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "D232236770C53D631D8EDC9EF8C4E6AB3763B05AAE4354DE348B3E5F44BCC458",
+      "size_bytes": 1224067
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "55FE01DA2FD9F7F73DE53130C5A3A56BA6B981AD4E71092E7D9EAFF79321BDF8",
+      "size_bytes": 3463
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "73239C821AD0C062B9D7F7DC987C93D88613855BA6EF28750FD3A5CD5B52D9F5",
+      "size_bytes": 1180897
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "1528A95E8674E0DEB35F0FCB726F67C685F7107313BFCC8A56921782544B244C",
+      "size_bytes": 3444
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "3F02B31FF5C1E5FDD84CF3FF9F922DFFDE8F3780AAB3749F139D96CB941031B7",
+      "size_bytes": 1178891
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "CE55F324C4E453AC01C3EDF60D9A798EC89905964AE668045758E26C9AF79BBE",
+      "size_bytes": 3449
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "3053497550B330F73C1F0CDBD349AD36F735A9FA187DA8E7CFE087AD4EF039DE",
+      "size_bytes": 1220925
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "127413D756248364195D21C97A2D8F2F73082F94DFBF8617A999B109AD0FF2DD",
+      "size_bytes": 3458
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "177B351E9AE7514F712FDE841EF9ABA2432327B7BE0DFF2837786BB0FBC50D10",
+      "size_bytes": 1226715
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_attenuation_s1_summary.json",
+      "sha256": "6C53BE2C6EA224EB5973A34C8445E060AEED1E0EACEB6596E3BDE48088B3E4A3",
+      "size_bytes": 3474
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "17CD977AEA0C764CCE802C422E9D00777A2AB7578039AEAC5BBBF2D7E192985D",
+      "size_bytes": 1188045
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "5BF77D93C6DDD5D3C4EFF5E4D9E0875CD1177B87107C71343048656E305506A1",
+      "size_bytes": 3455
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "0897B13FCBE8A574BA5E5E1AEF1C072AF1D67A44F2961B1FE5A379FFDF84558E",
+      "size_bytes": 1186876
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "67EE0A5314810C61DEA0978458D56D34F7C7C889416143F76711B6E03C812A29",
+      "size_bytes": 3445
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "435DBCB0E7DFE6EB627B9955F73E7E3EB9830EE133E4DFEAC92C5F06DFC76F1F",
+      "size_bytes": 1188405
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "CBE7DB9CA2593851C7B4ACF50DB27B26FCFB5FA845A4AE1600E9F70EA9B3E92C",
+      "size_bytes": 3452
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "1A0819DB7D692B33E394E57E1CE92DAAF95B2F5D1508B1FD292769902E7739C3",
+      "size_bytes": 1190193
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "8B3DEF31321C70697162DFC24A7EAD722CA8822752215F3C7B4D3E619C18F71E",
+      "size_bytes": 3453
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "866D18B1FBA40456D5C608144F4689DFAEE41B3E2EEF475D1C99613D3F5E2B7D",
+      "size_bytes": 1228715
+    },
+    {
+      "relative_path": "seed44/m4qesri-t/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "3AC9F73FC254A40852EBF818DB2AC9A90542092516B0E3C905B9D13B04111364",
+      "size_bytes": 3475
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/mismatch/matched_samples.jsonl",
+      "sha256": "C2A11BAED1E8A93F83DB009EC537344B825DCAAC20446CBB52F695EFE483D2C0",
+      "size_bytes": 1153364
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/mismatch/matched_summary.json",
+      "sha256": "E6C227AB7D9761F717AB581DF54CD7B9E2927B2A96C586335A922EF4802EB5FC",
+      "size_bytes": 3277
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/mismatch/mismatched_samples.jsonl",
+      "sha256": "D67E0591CE5AEE9D8707D6EE2BF0B0778640CFD07B670CE127D784688FD306E7",
+      "size_bytes": 1191772
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/mismatch/mismatched_summary.json",
+      "sha256": "953239434A4130AC4FE285CEBCF6416B7F3168653B8D0FB0FF551729276ADA57",
+      "size_bytes": 3589
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/clean_samples.jsonl",
+      "sha256": "8D85E58F6977329DE8AE883211E1F0D4F6B52452FEBC9B3447734EBB2F4658C8",
+      "size_bytes": 1149984
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/clean_summary.json",
+      "sha256": "46EBE37F8B565DD7E2488255109449F666620559D7A5AA9BE27CFAE3670C69D0",
+      "size_bytes": 3390
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "D0881E25DE3ABC3212D48D43A54D2BE6ADAE7945F1879783F671EE40C4ED00CB",
+      "size_bytes": 1175596
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "1C7CFAE67240CEB76FB14ECA30D99242182D7658AD3F66F3432626C25A1054E8",
+      "size_bytes": 3399
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "ACD2B55AF270F352307059CFD19C4F313BBF9163BC00BE5CF2094F7941CB72CE",
+      "size_bytes": 1172901
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "82B778820E711167AD47C2628C4A8C814ADDAD8D93C8937095BF7D9BD7EBC7B5",
+      "size_bytes": 3408
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "8D5A1D41584B475A0E90D3D67A032B260E50BBD63E4B8D2A25B744A3EBD3E371",
+      "size_bytes": 1208625
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "68C78EBD83D540D738DA027DD08C9433A01DB0AE454D0F288DEEAE3944E20015",
+      "size_bytes": 3430
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "44D796F0AB051DCD7F38A8048CC69C1C2567A3A086BFB6236E0038859D5D149A",
+      "size_bytes": 1205740
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_attenuation_s1_summary.json",
+      "sha256": "172E68D364FDCEBB2128C5C01078EB9F40ABC64F955A1E03E4E79040C387A414",
+      "size_bytes": 3363
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "C17D1A03D0DFB7C1AACA91583E3A3DBC61ABEA964AA4BDC749AC42533EB0A058",
+      "size_bytes": 1183221
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "8F33F3C8B3CC704110B03534F00B97F2B3B1A0C7B7BD50F998B9F6B1F4AD2C37",
+      "size_bytes": 3408
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "2558E1449D2203F5822E707B4169442844A030DA9B020B463E0394EFA7E452BB",
+      "size_bytes": 1181226
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "B03F253DF5C5E416791ACD56F3DB663D4E6FF5AE576FB6E4D523758BDB70B59F",
+      "size_bytes": 3405
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "4311CD49DF99494B55BD5343701FB1A4F8C909FDABC048B492A2CADB73BCE208",
+      "size_bytes": 1183996
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "CC866CDCD1919A6C3D1BD387ECD52B38A60B1BDCACCF1CAD28103F5AB1A57B44",
+      "size_bytes": 3405
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "A45ED0E5ADCDEF6D8ED36A3D4C363AD705D1608D1CBF86BE1DAE2F83613584E9",
+      "size_bytes": 1216405
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "515633291FF9A2233712A000C5A0748D505B2ACB654D7714E5A9638131BA034E",
+      "size_bytes": 3385
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "71905043EF07EF16C6E105FAD824DEFF9F25127699C118394A414EF57C90354C",
+      "size_bytes": 1207740
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "B611670B89BA83761F905FC7694BF4446431522B9A25D55443EBBB5A5218B9B9",
+      "size_bytes": 3364
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "7E9B24F98A88D5D8910C450501C8D06E72145241E1D105A762449E0D3B85DF5A",
+      "size_bytes": 1180074
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "12EC274BB8E1975A859CA26FFE87AB759AB0AE16F023CA7E3916995C6074CFBD",
+      "size_bytes": 3376
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "D14C3C50DBD59DE67AA962FBAA608D3F38F3A29AA74CB93AC7700F6D405C3841",
+      "size_bytes": 1177759
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "CD1651A0BDE370AC037F04768B2D4EAD20E2FB61C651568C79AA0BF7D66A98ED",
+      "size_bytes": 3401
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "72469B0E8038F06E184A3334CC390EE8A650ED6232C7DDE7792FAAB40D0E6F6C",
+      "size_bytes": 1209263
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "EE4A0A66CAE0DD0E092FB58AFF0E8E0140FFED512B30E4C0A39F38BF8A0E94B3",
+      "size_bytes": 3409
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "C6D6A8BC4C672CC9B27D259F5ED79224572D23993B17D2D0E41B1438FF5F51F9",
+      "size_bytes": 1211379
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_attenuation_s1_summary.json",
+      "sha256": "C9073BC74A85C44101C8FD68A3452094F0941AA8AFB24547A44E51EE7744C680",
+      "size_bytes": 3372
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "ED4794795E229BA43ECD483C68B2DE5879B1A930B7B0091313F21926D09D3CCA",
+      "size_bytes": 1187478
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "EF4B3EE57858EAB03465628B9BF240CA8C03E33ADA69186616C4248021F13A13",
+      "size_bytes": 3416
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "54F7A0D86CFC7433714AA23B8D1C8A2C8D1624DD2ACF01B3DC5105D673877D8D",
+      "size_bytes": 1185892
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "3EE235B562376822265E59F0C55945A0CB4D9A11067D9055032E26EC8548E2D5",
+      "size_bytes": 3413
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "8904C6B1287A757EAFC8F50B1F3F22C9D4668CF1E95107049EFB52433721BE6D",
+      "size_bytes": 1188328
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "02103786C1F94CE163DBEC913B85FD28D9C8A91CFB4CE42965124CA85316078D",
+      "size_bytes": 3411
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "49D97DD62B764697F1E4DD375C75D3AF9A1E78D85BA362D631674144FD29C04E",
+      "size_bytes": 1188134
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "9C9084C0FBF8225843973D696525B8488416D6694861FD4CD0F9AEE0D7300239",
+      "size_bytes": 3412
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "E875F7D88925D8841F33DEF2DEB8A6F4B99C8485267AF037DFE564B7374260B2",
+      "size_bytes": 1213379
+    },
+    {
+      "relative_path": "seed44/m4qesri-w/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "177BB0DE646FE5EC7254CB5308EC71DF603F2020B0E3CAEF48D64947968CD86B",
+      "size_bytes": 3373
+    },
+    {
+      "relative_path": "seed44/m4qgrt/mismatch/matched_samples.jsonl",
+      "sha256": "84F4BBC5372D56D22CBD4FAF45BACB1E06BC96B9AC1C15DD2A751B828A3F5605",
+      "size_bytes": 1166368
+    },
+    {
+      "relative_path": "seed44/m4qgrt/mismatch/matched_summary.json",
+      "sha256": "3F831DCC5BF715B690BFBFFC0C858D690E5EBA13C04596787CDE1C6AD6BEE1F3",
+      "size_bytes": 2860
+    },
+    {
+      "relative_path": "seed44/m4qgrt/mismatch/mismatched_samples.jsonl",
+      "sha256": "C3CC3488913815D7D47AC04BF0804357B5CEFB977312FE12EE0545E04E793810",
+      "size_bytes": 1189930
+    },
+    {
+      "relative_path": "seed44/m4qgrt/mismatch/mismatched_summary.json",
+      "sha256": "06326B582484DF964EB060D88F4F46479F62586FE5EF9A99CBA0E022F590C13F",
+      "size_bytes": 3180
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/clean_samples.jsonl",
+      "sha256": "54D3A95D87A26A23F7B824BA4E6CA26A2BDB4B92036364BFA3E234B72CC165E8",
+      "size_bytes": 1162988
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/clean_summary.json",
+      "sha256": "4C8CCCDCCD5BD8761420CC584846A376F048EFB3DAEF1D681504B4AF882B211D",
+      "size_bytes": 2973
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_attenuation_s0p25_samples.jsonl",
+      "sha256": "0685BD34D95968D5D5E30A1DB43C77B6EC82A69F9A731AE3038CCA2E403202E1",
+      "size_bytes": 1190041
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_attenuation_s0p25_summary.json",
+      "sha256": "D7A3A16A503445A3CDF7EDFFC5C6567B27BD2225CFEF491EA0AE02FAFBF99AB6",
+      "size_bytes": 2998
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_attenuation_s0p5_samples.jsonl",
+      "sha256": "7C33E72696F709A5E759A2B25D6D4D92BD80D94F22E4369D01625B775249D990",
+      "size_bytes": 1188129
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_attenuation_s0p5_summary.json",
+      "sha256": "14F7F253C9CFE54EB4880B56A99FD1F37B570DA5EC6614ACED086E389E53CAE2",
+      "size_bytes": 2997
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_attenuation_s0p75_samples.jsonl",
+      "sha256": "F2D10AB1D166C59A483A2C116C33414EC066825841C3C2964A1BC25EC5B5F43C",
+      "size_bytes": 1192165
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_attenuation_s0p75_summary.json",
+      "sha256": "F1DCF6ED9C6795E49BFC0AF3F5168B4A0CBD859DA8D3B297944DA900CD727449",
+      "size_bytes": 3008
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_attenuation_s1_samples.jsonl",
+      "sha256": "4316C38E9C92F6446F3B989D1B689BE04DD18347A1CFC40E1708BCC74D9F3535",
+      "size_bytes": 1188610
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_attenuation_s1_summary.json",
+      "sha256": "C8192BF61AEB75057761173E6B3B619EE075A6BC31AA5C3199E28A475A080BC1",
+      "size_bytes": 2939
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "3CBA8EB76AA4EC5FB761AF3F6B8F209A5AB7B433F88D189BB6E6B83AA4B130A9",
+      "size_bytes": 1195979
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_gaussian_noise_s0p25_summary.json",
+      "sha256": "CC766E22B54A9964C9B0B1B43D94B172CFB61FD75307FDC8034ED86F234B56DF",
+      "size_bytes": 3002
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "984676F68495B3EAC561D373FE6BE1E746BFD623AB01025F95A2C4E7F6228093",
+      "size_bytes": 1193944
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_gaussian_noise_s0p5_summary.json",
+      "sha256": "C54CEE18927E5C48F3612D46F79FC6A0410617EEC35487AE5D886B6C6ECBA4F1",
+      "size_bytes": 2999
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "F68360784A146178192FCFF260096DF6A0BC5243AFBBD47712568B0AF6518D51",
+      "size_bytes": 1196007
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_gaussian_noise_s0p75_summary.json",
+      "sha256": "C40F4530F5090F158369B4DBDC848F81AD113D9FD4B1AD681543ACB03995DDD8",
+      "size_bytes": 2999
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "555482055E03FAC4133049AE137735AC95EC78FAF41011098E96FE83A96CDA72",
+      "size_bytes": 1201224
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_structured_dropout_s0p5_summary.json",
+      "sha256": "219BBEDDBC7B5AB3C5AB35CCAB1307B2BC7E2247384A9614814887E9E554079A",
+      "size_bytes": 3017
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_zero_dropout_s1_samples.jsonl",
+      "sha256": "FF90BE516EBB44C4F7BDF8CEA8637B29F529DD4285E360244F063322C844839D",
+      "size_bytes": 1190610
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/text_zero_dropout_s1_summary.json",
+      "sha256": "192982411DF33DA8FE863BD48FF8232883E32D0763F2E90914FE1500A3BB92D5",
+      "size_bytes": 2940
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_attenuation_s0p25_samples.jsonl",
+      "sha256": "D2597CDFCE22881E294F310ECDE78F89D33B9DBD950A95A6DF4AEC81B9EB90D1",
+      "size_bytes": 1193954
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_attenuation_s0p25_summary.json",
+      "sha256": "BABDC99A38B1755CAB32D7CF2D2B26E06ECC289AA1A659D31ED80DEACE6BF0D8",
+      "size_bytes": 3001
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_attenuation_s0p5_samples.jsonl",
+      "sha256": "C3F4041B7E80C060D895AFD5CEC79CBEF2EE23B2E05EADB53B672FA1455967F5",
+      "size_bytes": 1192151
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_attenuation_s0p5_summary.json",
+      "sha256": "42D25241AD49F7B0A7DCCD2EED31ADA0B8BA9EA84327D31095A6FC5236DCB9DB",
+      "size_bytes": 2994
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_attenuation_s0p75_samples.jsonl",
+      "sha256": "C3B297D153D36C17F5F3ACB7EC29ABC667C57ACA01F68A9D93E214E68818736F",
+      "size_bytes": 1196021
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_attenuation_s0p75_summary.json",
+      "sha256": "4D20DC14BB6B41BA1D86E2766ADF19E6E07E8019098AFC4FAAE5D353C2E6F484",
+      "size_bytes": 3003
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_attenuation_s1_samples.jsonl",
+      "sha256": "EC5305B187648B261AA94CDD589A90C1E32E3BDEC68ADD76520104BC92DD9678",
+      "size_bytes": 1195229
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_attenuation_s1_summary.json",
+      "sha256": "9968977D68D0C2DF3BEA748FF49F35AF96A51E7E80C154396C2F01DE05B60095",
+      "size_bytes": 2947
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_gaussian_noise_s0p25_samples.jsonl",
+      "sha256": "D3B2E91F00D5844C637C5A30C401BEF6ABEFB5561C137A48A9C2C8381C214BED",
+      "size_bytes": 1200095
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_gaussian_noise_s0p25_summary.json",
+      "sha256": "A4968F719AA401D8A04B4C8890BAFA2D1961C5DCF2F9089DFA4327825FD96E93",
+      "size_bytes": 3002
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_gaussian_noise_s0p5_samples.jsonl",
+      "sha256": "8CD99FF41465495FACE83F6687837D243940941FC00A8708A40DB975A43AFAFA",
+      "size_bytes": 1198045
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_gaussian_noise_s0p5_summary.json",
+      "sha256": "60367A718EE29201F4CEC3D34C252E3C8868165340B45D3ACA03166D86C1FD71",
+      "size_bytes": 2982
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_gaussian_noise_s0p75_samples.jsonl",
+      "sha256": "F6E831B07F3371797B2D76E6593E2BD48FB3A29F5F4D2BFF45448BB7B9F2C787",
+      "size_bytes": 1200007
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_gaussian_noise_s0p75_summary.json",
+      "sha256": "27B97038DDB7E97A4393D07AD2F279FBC2C159DD142C596B763FA6B339AD7156",
+      "size_bytes": 3005
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_structured_dropout_s0p5_samples.jsonl",
+      "sha256": "35838F73CE1A35899E57679F42217163F308724E7AA4A7963032E3DFF2FA916C",
+      "size_bytes": 1201865
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_structured_dropout_s0p5_summary.json",
+      "sha256": "14924730F89241B1F72D4CCF019346BE70C6C0B1C477C4B65251F72CC2C78C7F",
+      "size_bytes": 3002
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_zero_dropout_s1_samples.jsonl",
+      "sha256": "7803B6D4CD76322FB0E04ADFA63A61740A24B9101BB0E8E9EF8E1EFDF82521F0",
+      "size_bytes": 1197229
+    },
+    {
+      "relative_path": "seed44/m4qgrt/quality/vision_zero_dropout_s1_summary.json",
+      "sha256": "F7217ADC644B169161A912E466F0807E2E3B30FA5474639018F1571139A0FB29",
+      "size_bytes": 2948
+    },
+    {
+      "relative_path": "summary.json",
+      "sha256": "CD49A21201525C1F50545658A94ECFB0767C2E1AFCE277B2EF0CCE97CD2C2E7B",
+      "size_bytes": 1108
+    },
+    {
+      "relative_path": "validation_derangement_mapping.json",
+      "sha256": "83352FAC7DA7F78914FF16026AAF726B2F4E3E71A49110BC57B84067AF45391F",
+      "size_bytes": 262574
+    }
+  ],
+  "formal_evaluation_contract": {
+    "architectures": [
+      "M1b",
+      "M4qcf",
+      "M4qcs-w",
+      "M4qgrt",
+      "M4qesri-w",
+      "M4qesri-t",
+      "M4qesri"
+    ],
+    "conditions_per_architecture_seed": 19,
+    "frozen_checkpoints": 21,
+    "mismatch_summary_rows": 42,
+    "quality_summary_rows": 399,
+    "seeds": [
+      42,
+      43,
+      44
+    ]
+  },
+  "next_authorized_step": "v0.30 Step9 one-time formal hypothesis analysis using only this frozen Step8 evidence",
+  "record_type": "formal_unified_evaluation_evidence_provenance_freeze",
+  "schema_version": "1.0",
+  "scientific_safety": {
+    "checkpoint_reselection_performed": false,
+    "formal_hypothesis_analysis_performed": false,
+    "formal_hypothesis_decisions": {
+      "V30_H1": "NOT_COMPUTED",
+      "V30_H2": "NOT_COMPUTED",
+      "V30_H3": "NOT_COMPUTED",
+      "V30_H4": "NOT_COMPUTED"
+    },
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0,
+    "threshold_tuning_performed": false,
+    "training_or_retraining_performed": false
+  },
+  "source_boundary": {
+    "branch": "feature/v0.30-evidence-driven-adaptive-control",
+    "evaluator_path": "scripts/run_fakeddit_unified_evaluation_v030.py",
+    "evaluator_sha256": "3997C7CA42C158984CCE2DB84A3E62CA41524DEA91BDDC5B5BBF6F06AAE31744",
+    "step7_operationalization_sha256": "84ACBA8509CED45E0DBAF7CEC547B5940B423F362D49FED1BDD4364BCA32634B",
+    "step8_evaluator_implementation_commit": "89e244d4cf9c9cac27a7bfbe15a25a7cb5a64552",
+    "step8_implementation_record_sha256": "F933DDB96FE2F8B1EA358C9814D91E29944351DC14F55E2484F8B69AFE8CF5C1"
+  },
+  "status": "FORMAL_EVALUATION_COMPLETE_EVIDENCE_FROZEN_BEFORE_HYPOTHESIS_ANALYSIS",
+  "step": "Step8"
+}
