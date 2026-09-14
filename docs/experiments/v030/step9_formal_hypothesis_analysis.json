@@ -1,0 +1,197 @@
+{
+  "V30_H1": {
+    "catastrophic_floor": -0.01,
+    "catastrophic_mean_delta_vs_M4qcf": 0.004777118984629014,
+    "catastrophic_pass": true,
+    "clean_safeguard": "PASSED",
+    "decision": "NOT_SUPPORTED",
+    "graded_mean_delta_vs_M4qcs-w": 2.34845961648701e-05,
+    "graded_mean_pass": false,
+    "graded_mean_threshold": 0.005,
+    "graded_positive_count": 17,
+    "graded_positive_count_pass": false,
+    "graded_positive_count_threshold": 22,
+    "graded_positive_fraction": 0.4722222222222222,
+    "graded_positive_fraction_pass": false,
+    "graded_positive_fraction_threshold": 0.6
+  },
+  "V30_H2": {
+    "aggregates": {
+      "M4qcs-w": {
+        "beneficial_transitions": 178,
+        "flip_count": 361,
+        "flip_rate": 0.12033333333333333,
+        "harmful_beneficial_ratio": 1.0280898876404494,
+        "harmful_transitions": 183,
+        "matched_macro_f1": 0.8645538215213664,
+        "mismatch_gap": 0.0016402142283803434,
+        "mismatched_macro_f1": 0.862913607292986,
+        "net_harmful": 5,
+        "sample_count": 3000
+      },
+      "M4qesri": {
+        "beneficial_transitions": 177,
+        "flip_count": 363,
+        "flip_rate": 0.121,
+        "harmful_beneficial_ratio": 1.0508474576271187,
+        "harmful_transitions": 186,
+        "matched_macro_f1": 0.8658815163256696,
+        "mismatch_gap": 0.00291086317382927,
+        "mismatched_macro_f1": 0.8629706531518403,
+        "net_harmful": 9,
+        "sample_count": 3000
+      },
+      "M4qgrt": {
+        "beneficial_transitions": 140,
+        "flip_count": 315,
+        "flip_rate": 0.105,
+        "harmful_beneficial_ratio": 1.25,
+        "harmful_transitions": 175,
+        "matched_macro_f1": 0.86082273145109,
+        "mismatch_gap": 0.011609903349964368,
+        "mismatched_macro_f1": 0.8492128281011256,
+        "net_harmful": 35,
+        "sample_count": 3000
+      }
+    },
+    "checks": {
+      "mismatch_gap_le_M4qcs-w_plus_0p005": true,
+      "mismatch_gap_lt_M4qgrt": true,
+      "mismatched_macro_f1_ge_M4qcs-w_minus_0p005": true,
+      "net_harmful_le_M4qcs-w": false,
+      "net_harmful_lt_M4qgrt": true,
+      "ratio_le_M4qcs-w": false,
+      "ratio_lt_M4qgrt": true
+    },
+    "decision": "NOT_SUPPORTED"
+  },
+  "V30_H3": {
+    "comparisons": {
+      "M4qesri-t": {
+        "ablation_net_harmful": 43,
+        "clean_delta": -0.001929351063546414,
+        "clean_floor": -0.005,
+        "clean_pass": true,
+        "graded_mean_delta": 0.0007354995653018399,
+        "graded_pass": false,
+        "graded_threshold": 0.0025,
+        "mismatched_macro_f1_delta": 0.009456042588804059,
+        "mismatched_pass": true,
+        "mismatched_threshold": 0.0025,
+        "net_harmful_pass": true,
+        "primary_net_harmful": 9
+      },
+      "M4qesri-w": {
+        "ablation_net_harmful": -3,
+        "clean_delta": 0.0036403487779924637,
+        "clean_floor": -0.005,
+        "clean_pass": true,
+        "graded_mean_delta": 0.0021657439958688574,
+        "graded_pass": false,
+        "graded_threshold": 0.0025,
+        "mismatched_macro_f1_delta": -0.0003342077645007713,
+        "mismatched_pass": false,
+        "mismatched_threshold": 0.0025,
+        "net_harmful_pass": false,
+        "primary_net_harmful": 9
+      }
+    },
+    "decision": "NOT_SUPPORTED",
+    "selective_invariants_all_true": true
+  },
+  "V30_H4": {
+    "catastrophic_active_rate": 0.0,
+    "checks": {
+      "catastrophic_ge_graded": false,
+      "clean_active_rate_le_0p15": true,
+      "graded_minus_clean_ge_0p10": false,
+      "mismatch_minus_matched_ge_0p10": true,
+      "severity_text_attenuation_nondecreasing_tol_0p02": true,
+      "severity_text_gaussian_nondecreasing_tol_0p02": true,
+      "severity_vision_attenuation_nondecreasing_tol_0p02": true,
+      "severity_vision_gaussian_nondecreasing_tol_0p02": true
+    },
+    "clean_active_rate": 0.009666666666666667,
+    "decision": "NOT_SUPPORTED",
+    "graded_active_rate": 0.008083333333333333,
+    "matched_active_rate": 0.009666666666666667,
+    "mismatched_active_rate": 0.20466666666666666,
+    "severity_active_rate_series": {
+      "text_attenuation": [
+        0.005333333333333333,
+        0.0,
+        0.0
+      ],
+      "text_gaussian": [
+        0.011333333333333334,
+        0.011000000000000001,
+        0.011000000000000001
+      ],
+      "vision_attenuation": [
+        0.006333333333333334,
+        0.006000000000000001,
+        0.006333333333333333
+      ],
+      "vision_gaussian": [
+        0.009333333333333334,
+        0.014,
+        0.016333333333333335
+      ]
+    }
+  },
+  "aegis_version": "0.30",
+  "analysis_timestamp_utc": "2026-09-14T07:08:12.437879Z",
+  "clean_performance_safeguard": {
+    "M1b_mean_clean_macro_f1": 0.8736073771633278,
+    "M4qcs-w_mean_clean_macro_f1": 0.8645538215213664,
+    "M4qesri_mean_clean_macro_f1": 0.8658815163256696,
+    "decision": "PASSED",
+    "delta_vs_M1b": -0.007725860837658249,
+    "delta_vs_M4qcs-w": 0.00132769480430317,
+    "pass_vs_M1b": true,
+    "pass_vs_M4qcs-w": true,
+    "threshold_vs_M1b": -0.01,
+    "threshold_vs_M4qcs-w": -0.01
+  },
+  "evidence_schema": {
+    "active_intervention_rate_path": "diagnostics.active_intervention_indicator.mean",
+    "macro_f1_path": "metrics.macro_f1",
+    "transition_semantics": {
+      "beneficial": "matched incorrect AND mismatched correct",
+      "flip": "matched prediction != mismatched prediction",
+      "harmful": "matched correct AND mismatched incorrect"
+    }
+  },
+  "formal_decisions": {
+    "V30_H1": "NOT_SUPPORTED",
+    "V30_H2": "NOT_SUPPORTED",
+    "V30_H3": "NOT_SUPPORTED",
+    "V30_H4": "NOT_SUPPORTED",
+    "clean_performance_safeguard": "PASSED"
+  },
+  "frozen_input_boundary": {
+    "mismatch_summaries_sha256": "C7CF0901D77A201109D5E5C12276DE219C964B5E2327FBBDC1E0381DB47C482C",
+    "per_sample_transition_evidence_authority": "Step8 888-file provenance inventory; matched/mismatched JSONL SHA verified before analysis",
+    "quality_summaries_sha256": "9DC56A0C95DFD32DC70C635E1DE8216A92FC144893064E1B5914B936ECA53C1A",
+    "step1_protocol_sha256": "CD6559497B864C8B1022F4BF6B0720FE9D8356AE0D1D4A9AC76D217FCF08F9F1",
+    "step8_evidence_freeze_commit": "37f8324996747c3763638a22d766e3f01fe02917",
+    "step8_evidence_provenance_sha256": "3170456C6E3F6E44C336E91AE0AF16C9D74F6EBC9E9157E7EE2610F4739D98F2",
+    "summary_sha256": "CD49A21201525C1F50545658A94ECFB0767C2E1AFCE277B2EF0CCE97CD2C2E7B"
+  },
+  "next_step": "v0.30 Step10 mechanism characterization; Step9 formal decisions immutable",
+  "record_type": "one_time_formal_hypothesis_analysis",
+  "schema_version": "1.0",
+  "scientific_safety": {
+    "checkpoint_reselection_performed": false,
+    "formal_re_evaluation_performed": false,
+    "hypothesis_definition_modified": false,
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0,
+    "retraining_performed": false,
+    "threshold_tuning_performed": false,
+    "training_performed": false
+  },
+  "status": "FORMAL_HYPOTHESIS_ANALYSIS_COMPLETE",
+  "step": "Step9",
+  "successor_recommendation_eligible": true
+}
