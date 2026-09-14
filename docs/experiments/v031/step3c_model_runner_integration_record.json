@@ -1,0 +1,39 @@
+{
+  "aegis_version": "0.31",
+  "architectures": {
+    "M4qcesi": "quality_compatibility_calibrated_intervention",
+    "M4qcesi-c": "quality_compatibility_calibrated_intervention_calibration",
+    "M4qcesi-u": "quality_compatibility_calibrated_intervention_utility"
+  },
+  "frozen_weights": {
+    "calibration_loss_weight": 0.25,
+    "utility_loss_weight": 0.5,
+    "utility_target_temperature": 0.05,
+    "v029_transition_objective_effective_weight": 0.0
+  },
+  "parent_commit": "d41246cbc0f0ff747a4a66f6b4e34b14570c51a2",
+  "schema_version": "1.0",
+  "scientific_safety": {
+    "checkpoint_loading": "NO",
+    "formal_evaluation": "NO",
+    "formal_hypothesis_decisions": "NO",
+    "formal_training": "NO",
+    "official_test_samples_accessed": 0
+  },
+  "source_sha256": {
+    "controller": "296D67DF43B78CF585E0B59D8F9C44F0CFF78B7E92CE0CF0640C548EB2A9D214",
+    "model": "CA94D9FEF5F395C14F69E4B3C9CA222D5F75F9177C1273215D3B956321ED5E58",
+    "regression_test": "524C2E1948F6E4B31D4871FAF1EFC1715B8540AFD03DDC7409AF08A4B815C7CD",
+    "runner": "14220201DCB2715D9201FB5C8E8425D273FD1F1B6309DBB465A0A51F10E62428"
+  },
+  "step": "Step3C model/runner integration",
+  "verification": {
+    "compile": "PASS",
+    "focused_v031": "PASS",
+    "full_regression": "PASS",
+    "inherited": "PASS",
+    "optimizer_membership": "PASS",
+    "real_one_batch_all_three": "PASS",
+    "utility_target_detachment": "PASS"
+  }
+}

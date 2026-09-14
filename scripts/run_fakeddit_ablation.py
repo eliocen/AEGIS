@@ -266,6 +266,24 @@ def is_v030_selective_intervention_architecture(
     return fusion_architecture in V030_SELECTIVE_INTERVENTION_ARCHITECTURES
 
 
+V031_CALIBRATED_INTERVENTION_ARCHITECTURE_MODES = {
+    "quality_compatibility_calibrated_intervention_calibration": "calibration_only",
+    "quality_compatibility_calibrated_intervention_utility": "utility_only",
+    "quality_compatibility_calibrated_intervention": "combined",
+}
+V031_CALIBRATED_INTERVENTION_ARCHITECTURES = frozenset(
+    V031_CALIBRATED_INTERVENTION_ARCHITECTURE_MODES
+)
+V031_CALIBRATION_LOSS_WEIGHT = 0.25
+V031_UTILITY_LOSS_WEIGHT = 0.50
+V031_UTILITY_TARGET_TEMPERATURE = 0.05
+
+def v031_calibrated_intervention_mode(fusion_architecture: str) -> Optional[str]:
+    return V031_CALIBRATED_INTERVENTION_ARCHITECTURE_MODES.get(fusion_architecture)
+
+def is_v031_calibrated_intervention_architecture(fusion_architecture: str) -> bool:
+    return fusion_architecture in V031_CALIBRATED_INTERVENTION_ARCHITECTURES
+
 QUALITY_TRAINING_ARCHITECTURES = frozenset({
     "quality_supervised",
     "quality_compatibility_supervised",
@@ -276,7 +294,7 @@ QUALITY_TRAINING_ARCHITECTURES = frozenset({
     "quality_compatibility_graded_weights",
     "quality_compatibility_transition_control",
     "quality_compatibility_graded_transition_fusion",
-}) | V030_SELECTIVE_INTERVENTION_ARCHITECTURES
+}) | V030_SELECTIVE_INTERVENTION_ARCHITECTURES | V031_CALIBRATED_INTERVENTION_ARCHITECTURES
 
 
 def requires_quality_feature_statistics(fusion_architecture: str) -> bool:
@@ -337,9 +355,15 @@ def parse_args():
             "quality_compatibility_selective_intervention_weights",
             "quality_compatibility_selective_intervention_transition",
             "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             "quality_compatibility_selective_intervention_weights",
             "quality_compatibility_selective_intervention_transition",
             "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             "evidence_aware",
         ],
         help=(
@@ -629,6 +653,15 @@ def validate_args(
         )
 
     if (
+        is_v031_calibrated_intervention_architecture(args.fusion_architecture)
+        and args.transition_objective_weight != 0.0
+    ):
+        raise ValueError(
+            "v0.31 M4qcesi architectures require "
+            "--transition-objective-weight 0.0."
+        )
+
+    if (
         args.fusion_architecture in {
             "quality_compatibility_graded_weights",
             "quality_compatibility_transition_control",
@@ -655,6 +688,9 @@ def validate_args(
             "quality_compatibility_selective_intervention_weights",
             "quality_compatibility_selective_intervention_transition",
             "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
         }
         and args.quality_weight <= 0
     ):
@@ -676,6 +712,9 @@ def validate_args(
             "quality_compatibility_selective_intervention_weights",
             "quality_compatibility_selective_intervention_transition",
             "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
         }
         and args.compatibility_weight <= 0
     ):
@@ -730,6 +769,9 @@ def validate_args(
             "quality_compatibility_selective_intervention_weights",
             "quality_compatibility_selective_intervention_transition",
             "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             "evidence_aware",
         }
         and args.mode != "multimodal"
@@ -1013,6 +1055,9 @@ class FakedditAblationTrainer(
             "quality_compatibility_selective_intervention_weights",
             "quality_compatibility_selective_intervention_transition",
             "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             "evidence_aware",
         }:
             raise ValueError(
@@ -1184,6 +1229,18 @@ class FakedditAblationTrainer(
                 "quality_compatibility_selective_intervention."
             )
 
+        expected_v031_mode = v031_calibrated_intervention_mode(
+            fusion_architecture
+        )
+        if (
+            self.alignment_model.quality_compatibility_calibrated_intervention
+            != expected_v031_mode
+        ):
+            raise ValueError(
+                "fusion_architecture is inconsistent with alignment_model."
+                "quality_compatibility_calibrated_intervention."
+            )
+
         self.fusion_architecture = fusion_architecture
 
         if (
@@ -1257,6 +1314,13 @@ class FakedditAblationTrainer(
             "text_quality": alignment_outputs.get("text_quality"),
             "vision_quality": alignment_outputs.get("vision_quality"),
             "compatibility_score": alignment_outputs.get("compatibility_score"),
+            "v031_control": alignment_outputs.get("v031_control"),
+            "stable_reference_fused_embedding": alignment_outputs.get(
+                "stable_reference_fused_embedding"
+            ),
+            "candidate_fused_embedding": alignment_outputs.get(
+                "candidate_fused_embedding"
+            ),
         }
 
     def forward_batch(
@@ -1270,6 +1334,8 @@ class FakedditAblationTrainer(
         ] = None,
         compatibility_targets: Optional[torch.Tensor] = None,
         compatibility_loss_weight: float = 0.0,
+        calibration_loss_weight: float = 0.0,
+        utility_loss_weight: float = 0.0,
         transition_reference_batch: Optional[BinaryIntegrityBatch] = None,
         transition_loss_weight: float = 0.0,
     ) -> Dict:
@@ -1311,6 +1377,9 @@ class FakedditAblationTrainer(
         text_quality_loss = classification_losses["loss"] * 0.0
         vision_quality_loss = classification_losses["loss"] * 0.0
         compatibility_loss = classification_losses["loss"] * 0.0
+        calibration_loss = classification_losses["loss"] * 0.0
+        utility_loss = classification_losses["loss"] * 0.0
+        utility_target_outputs = None
         transition_loss = classification_losses["loss"] * 0.0
 
         if quality_targets is not None:
@@ -1327,6 +1396,9 @@ class FakedditAblationTrainer(
                 "quality_compatibility_selective_intervention_weights",
                 "quality_compatibility_selective_intervention_transition",
                 "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             }:
                 raise ValueError(
                     "quality_targets are valid only for M4q/M4qc quality "
@@ -1401,6 +1473,9 @@ class FakedditAblationTrainer(
                 "quality_compatibility_selective_intervention_weights",
                 "quality_compatibility_selective_intervention_transition",
                 "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             }:
                 raise ValueError(
                     "compatibility_targets are valid only for M4qc/M4qcf."
@@ -1422,6 +1497,67 @@ class FakedditAblationTrainer(
                 compatibility_score,
                 compatibility_target,
             )
+
+        if is_v031_calibrated_intervention_architecture(
+            self.fusion_architecture
+        ):
+            control = representation_outputs["v031_control"]
+            if control is None:
+                raise RuntimeError("M4qcesi controller output is unavailable.")
+            if quality_targets is None or compatibility_targets is None:
+                if calibration_loss_weight > 0.0 or utility_loss_weight > 0.0:
+                    raise ValueError(
+                        "v0.31 auxiliary training requires training-only "
+                        "quality and compatibility targets."
+                    )
+            else:
+                text_target, vision_target = quality_targets
+                text_target = text_target.to(
+                    device=control.q_text_calibrated.device,
+                    dtype=control.q_text_calibrated.dtype,
+                )
+                vision_target = vision_target.to(
+                    device=control.q_vision_calibrated.device,
+                    dtype=control.q_vision_calibrated.dtype,
+                )
+                compatibility_target = compatibility_targets.to(
+                    device=control.compatibility_calibrated.device,
+                    dtype=control.compatibility_calibrated.dtype,
+                )
+                if self.alignment_model.calibrated_utility_controller.calibration_enabled:
+                    calibration_loss = (
+                        nn.functional.binary_cross_entropy(
+                            control.q_text_calibrated, text_target
+                        )
+                        + nn.functional.binary_cross_entropy(
+                            control.q_vision_calibrated, vision_target
+                        )
+                        + nn.functional.binary_cross_entropy(
+                            control.compatibility_calibrated, compatibility_target
+                        )
+                    ) / 3.0
+                elif calibration_loss_weight != 0.0:
+                    raise ValueError("Calibration loss must be zero when disabled.")
+
+                if self.alignment_model.calibrated_utility_controller.utility_selector_enabled:
+                    ref = representation_outputs["stable_reference_fused_embedding"]
+                    cand = representation_outputs["candidate_fused_embedding"]
+                    if ref is None or cand is None:
+                        raise RuntimeError("M4qcesi counterfactual embeddings unavailable.")
+                    ref_logits = self.classification_model(ref)["integrity_logits"]
+                    cand_logits = self.classification_model(cand)["integrity_logits"]
+                    utility_target_outputs = (
+                        self.alignment_model.calibrated_utility_controller
+                        .utility_target_from_logits(
+                            ref_logits, cand_logits, batch.integrity_targets
+                        )
+                    )
+                    utility_loss = nn.functional.binary_cross_entropy(
+                        control.utility_probability,
+                        utility_target_outputs["u_target"],
+                    )
+                elif utility_loss_weight != 0.0:
+                    raise ValueError("Utility loss must be zero when disabled.")
 
         if transition_reference_batch is not None:
             if self.fusion_architecture not in {
@@ -1495,6 +1631,8 @@ class FakedditAblationTrainer(
             + self.classification_loss_weight * classification_losses["loss"]
             + float(quality_loss_weight) * quality_loss
             + float(compatibility_loss_weight) * compatibility_loss
+            + float(calibration_loss_weight) * calibration_loss
+            + float(utility_loss_weight) * utility_loss
             + float(transition_loss_weight) * transition_loss
         )
 
@@ -1522,6 +1660,10 @@ class FakedditAblationTrainer(
             "text_quality_loss": text_quality_loss,
             "vision_quality_loss": vision_quality_loss,
             "compatibility_loss": compatibility_loss,
+            "calibration_loss": calibration_loss,
+            "utility_loss": utility_loss,
+            "utility_target_outputs": utility_target_outputs,
+            "v031_control": representation_outputs["v031_control"],
             "transition_loss": transition_loss,
             "integrity_loss": classification_losses["integrity_loss"],
             "threat_loss": None,
@@ -1541,6 +1683,8 @@ class FakedditAblationTrainer(
         ] = None,
         compatibility_targets: Optional[torch.Tensor] = None,
         compatibility_loss_weight: float = 0.0,
+        calibration_loss_weight: float = 0.0,
+        utility_loss_weight: float = 0.0,
         transition_reference_batch: Optional[BinaryIntegrityBatch] = None,
         transition_loss_weight: float = 0.0,
     ) -> Dict[str, float]:
@@ -1557,6 +1701,8 @@ class FakedditAblationTrainer(
             quality_sample_weights=quality_sample_weights,
             compatibility_targets=compatibility_targets,
             compatibility_loss_weight=compatibility_loss_weight,
+            calibration_loss_weight=calibration_loss_weight,
+            utility_loss_weight=utility_loss_weight,
             transition_reference_batch=transition_reference_batch,
             transition_loss_weight=transition_loss_weight,
         )
@@ -1592,6 +1738,12 @@ class FakedditAblationTrainer(
             ),
             "compatibility_loss": float(
                 outputs["compatibility_loss"].detach().cpu().item()
+            ),
+            "calibration_loss": float(
+                outputs["calibration_loss"].detach().cpu().item()
+            ),
+            "utility_loss": float(
+                outputs["utility_loss"].detach().cpu().item()
             ),
             "transition_loss": float(
                 outputs["transition_loss"].detach().cpu().item()
@@ -2238,6 +2390,9 @@ def train_one_epoch(
             "quality_compatibility_selective_intervention_weights",
             "quality_compatibility_selective_intervention_transition",
             "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
         }:
             if text_feature_std is None or vision_feature_std is None:
                 raise RuntimeError(
@@ -2270,6 +2425,9 @@ def train_one_epoch(
                 "quality_compatibility_selective_intervention_weights",
                 "quality_compatibility_selective_intervention_transition",
                 "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             }:
                 (
                     training_batch,
@@ -2315,6 +2473,9 @@ def train_one_epoch(
                     "quality_compatibility_selective_intervention_weights",
                     "quality_compatibility_selective_intervention_transition",
                     "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
                 }
                 else 0.0
             ),
@@ -2335,7 +2496,34 @@ def train_one_epoch(
                     "quality_compatibility_selective_intervention_weights",
                     "quality_compatibility_selective_intervention_transition",
                     "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
                 }
+                else 0.0
+            ),
+            calibration_loss_weight=(
+                V031_CALIBRATION_LOSS_WEIGHT
+                if (
+                    is_v031_calibrated_intervention_architecture(
+                        trainer.fusion_architecture
+                    )
+                    and v031_calibrated_intervention_mode(
+                        trainer.fusion_architecture
+                    ) in {"calibration_only", "combined"}
+                )
+                else 0.0
+            ),
+            utility_loss_weight=(
+                V031_UTILITY_LOSS_WEIGHT
+                if (
+                    is_v031_calibrated_intervention_architecture(
+                        trainer.fusion_architecture
+                    )
+                    and v031_calibrated_intervention_mode(
+                        trainer.fusion_architecture
+                    ) in {"utility_only", "combined"}
+                )
                 else 0.0
             ),
             transition_reference_batch=(
@@ -2634,6 +2822,9 @@ def collect_component_fingerprints(
             "quality_compatibility_selective_intervention_weights",
             "quality_compatibility_selective_intervention_transition",
             "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -2844,6 +3035,9 @@ def effective_parameter_counts(
             "quality_compatibility_selective_intervention_weights",
             "quality_compatibility_selective_intervention_transition",
             "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -3306,6 +3500,10 @@ def main():
             quality_compatibility_selective_intervention=(
                 v030_selective_intervention_mode(args.fusion_architecture)
             ),
+            quality_compatibility_calibrated_intervention=(
+                v031_calibrated_intervention_mode(args.fusion_architecture)
+            ),
+            v031_utility_initialization_seed=args.seed,
         )
     )
 
@@ -3577,6 +3775,9 @@ def main():
             "quality_compatibility_selective_intervention_weights",
             "quality_compatibility_selective_intervention_transition",
             "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -3600,6 +3801,14 @@ def main():
             representation_parameters += list(
                 alignment_model.compatibility_estimator.parameters()
             )
+            if is_v031_calibrated_intervention_architecture(
+                args.fusion_architecture
+            ):
+                if alignment_model.calibrated_utility_controller is None:
+                    raise RuntimeError("M4qcesi controller unavailable.")
+                representation_parameters += list(
+                    alignment_model.calibrated_utility_controller.parameters()
+                )
 
         elif args.fusion_architecture == "interaction_reliability":
 
@@ -3784,6 +3993,9 @@ def main():
                 "quality_compatibility_selective_intervention_weights",
                 "quality_compatibility_selective_intervention_transition",
                 "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             }
             else 0.0
         ),
@@ -3805,6 +4017,9 @@ def main():
                 "quality_compatibility_selective_intervention_weights",
                 "quality_compatibility_selective_intervention_transition",
                 "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             }
             else 0.0
         ),
@@ -3950,6 +4165,9 @@ def main():
                 "quality_compatibility_selective_intervention_weights",
                 "quality_compatibility_selective_intervention_transition",
                 "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             }
         ),
 
@@ -3968,6 +4186,9 @@ def main():
                 "quality_compatibility_selective_intervention_weights",
                 "quality_compatibility_selective_intervention_transition",
                 "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             }
             else 0.0
         ),
@@ -3986,6 +4207,9 @@ def main():
                 "quality_compatibility_selective_intervention_weights",
                 "quality_compatibility_selective_intervention_transition",
                 "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             }
             else 0.0
         ),
@@ -4044,6 +4268,9 @@ def main():
                 "quality_compatibility_selective_intervention_weights",
                 "quality_compatibility_selective_intervention_transition",
                 "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             }
             else None
         ),
@@ -4133,6 +4360,9 @@ def main():
                 "quality_compatibility_selective_intervention_weights",
                 "quality_compatibility_selective_intervention_transition",
                 "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
             }
             else None
         ),
@@ -4507,6 +4737,9 @@ def main():
                             "quality_compatibility_selective_intervention_weights",
                             "quality_compatibility_selective_intervention_transition",
                             "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
                         }
                         else 0.0
                     ),
@@ -4525,6 +4758,9 @@ def main():
                             "quality_compatibility_selective_intervention_weights",
                             "quality_compatibility_selective_intervention_transition",
                             "quality_compatibility_selective_intervention",
+            "quality_compatibility_calibrated_intervention_calibration",
+            "quality_compatibility_calibrated_intervention_utility",
+            "quality_compatibility_calibrated_intervention",
                         }
                         else 0.0
                     ),
