@@ -1,0 +1,232 @@
+{
+  "aegis_version": "0.32",
+  "exact_characterization": {
+    "Q1": {
+      "computation": "NONE",
+      "reason": "delta_u, u_target, p_ref_true, and p_candidate_true were not recorded in frozen admissible artifacts.",
+      "status": "NOT_AVAILABLE"
+    },
+    "Q2": {
+      "computation": "NONE",
+      "reason": "delta_u was not recorded in frozen admissible artifacts.",
+      "status": "NOT_AVAILABLE"
+    },
+    "Q3": {
+      "computation": "NONE",
+      "reason": "delta_u and u_target were not recorded in frozen admissible artifacts.",
+      "status": "NOT_AVAILABLE"
+    },
+    "Q4": {
+      "available_computation": {
+        "architecture": "M4qcesi",
+        "frozen_rule": "selector_nonlearning is supported by available evidence iff condition-level utility_probability std < 0.02 AND clean, graded, and catastrophic mean active intervention rates are all exactly 0.0. Missing training diagnostics remain NOT_AVAILABLE and are not reconstructed.",
+        "metrics": [
+          "mean utility_probability by clean, graded, catastrophic, matched, mismatched strata",
+          "std of condition-level utility_probability across the 19 quality conditions",
+          "mean active_intervention_indicator by clean, graded, catastrophic, matched, mismatched strata"
+        ]
+      },
+      "status": "PARTIAL",
+      "unavailable": [
+        "utility loss trajectory",
+        "utility-head parameter movement",
+        "training-time u_hat trajectory",
+        "gradient diagnostics"
+      ]
+    },
+    "Q5": {
+      "aggregation": "For quality conditions, first arithmetic-mean each diagnostic and Macro-F1 across seeds at each frozen condition. For mismatch, arithmetic-mean across seeds separately for matched and class_preserving_mismatched.",
+      "architecture": "M4qcesi",
+      "catastrophic_conditions": [
+        [
+          "text_attenuation",
+          1.0
+        ],
+        [
+          "vision_attenuation",
+          1.0
+        ],
+        [
+          "text_zero_dropout",
+          1.0
+        ],
+        [
+          "vision_zero_dropout",
+          1.0
+        ]
+      ],
+      "correlation_rule": "Pearson and Spearman across the 19 frozen quality-condition means; if cardinality <3 report insufficient cardinality.",
+      "frozen_non_discriminative_rule": "abs(mismatched-minus-matched) < 0.02 AND abs(catastrophic-minus-clean) < 0.02",
+      "graded_conditions": [
+        [
+          "text_gaussian",
+          0.25
+        ],
+        [
+          "text_gaussian",
+          0.5
+        ],
+        [
+          "text_gaussian",
+          0.75
+        ],
+        [
+          "vision_gaussian",
+          0.25
+        ],
+        [
+          "vision_gaussian",
+          0.5
+        ],
+        [
+          "vision_gaussian",
+          0.75
+        ],
+        [
+          "text_attenuation",
+          0.25
+        ],
+        [
+          "text_attenuation",
+          0.5
+        ],
+        [
+          "text_attenuation",
+          0.75
+        ],
+        [
+          "vision_attenuation",
+          0.25
+        ],
+        [
+          "vision_attenuation",
+          0.5
+        ],
+        [
+          "vision_attenuation",
+          0.75
+        ]
+      ],
+      "metrics": [
+        "utility mismatched-minus-matched",
+        "utility catastrophic-minus-clean",
+        "utility mean/std for every frozen quality condition",
+        "severity monotonicity for text_gaussian, vision_gaussian, text_attenuation, vision_attenuation",
+        "Pearson and Spearman correlation of condition-level utility with realized degradation",
+        "Pearson and Spearman correlation of condition-level utility with condition-level Macro-F1 delta M4qcesi minus M4qcs-w"
+      ],
+      "performance_delta": "mean condition Macro-F1 of M4qcesi across seeds minus mean condition Macro-F1 of M4qcs-w across seeds",
+      "realized_degradation": "mean clean Macro-F1 of M4qcesi across seeds minus mean condition Macro-F1 of M4qcesi across seeds",
+      "severity_monotonicity": "non-decreasing utility with increasing severity, tolerance 0.02 between adjacent frozen severities",
+      "status": "AVAILABLE"
+    },
+    "Q6": {
+      "allowed_categories": [
+        "candidate_action_space_failure",
+        "utility_target_signal_failure",
+        "target_transform_compression",
+        "selector_optimization_failure",
+        "evidence_representation_failure",
+        "mixed_or_indeterminate"
+      ],
+      "rule": [
+        "Do not assign candidate_action_space_failure, utility_target_signal_failure, or target_transform_compression when their required frozen evidence is NOT_AVAILABLE.",
+        "selector_optimization_failure may be assigned only if Q4 available selector-nonlearning rule is satisfied; missing training diagnostics must be stated as a limitation.",
+        "evidence_representation_failure may be assigned only if Q5 shows non-discrimination and available reliability diagnostics also fail to separate relevant states under a separately frozen mechanical comparison.",
+        "Otherwise assign mixed_or_indeterminate.",
+        "No new category or threshold may be introduced after results are exposed."
+      ],
+      "status": "ATTRIBUTION_AFTER_Q1_Q5"
+    }
+  },
+  "formal_inputs": {
+    "ablations": [
+      "M4qcesi-c",
+      "M4qcesi-u"
+    ],
+    "matched_label": "matched",
+    "mismatch": "experiments/fakeddit/v031_step9_formal_evaluation/mismatch_summaries.json",
+    "mismatched_label": "class_preserving_mismatched",
+    "primary": "M4qcesi",
+    "quality": "experiments/fakeddit/v031_step9_formal_evaluation/quality_condition_summaries.json",
+    "reference": "M4qcs-w",
+    "seeds": [
+      42,
+      43,
+      44
+    ]
+  },
+  "frozen_evidence_availability": {
+    "Q1": "NOT_AVAILABLE",
+    "Q2": "NOT_AVAILABLE",
+    "Q3": "NOT_AVAILABLE",
+    "Q4": "PARTIAL",
+    "Q5": "AVAILABLE",
+    "Q6": "DEFERRED_ATTRIBUTION",
+    "available_evaluation_values": [
+      "utility_probability",
+      "utility_gate",
+      "intervention_gate",
+      "active_intervention_indicator",
+      "classification_loss",
+      "calibrated_risk",
+      "calibration_only_gate",
+      "q_text_raw",
+      "q_text_calibrated",
+      "q_vision_raw",
+      "q_vision_calibrated",
+      "effective_text_reliability",
+      "effective_vision_reliability",
+      "interaction_suppression_magnitude",
+      "modality_weight_intervention_magnitude"
+    ],
+    "available_training_values": [
+      "classification_loss"
+    ],
+    "unavailable_training_values": [
+      "delta_u",
+      "u_target",
+      "p_ref_true",
+      "p_candidate_true",
+      "utility_probability",
+      "utility_gate",
+      "intervention_gate",
+      "active_intervention_indicator",
+      "utility_loss",
+      "calibration_loss",
+      "utility_head_parameter_delta",
+      "gradient",
+      "grad_norm"
+    ]
+  },
+  "output_contract": {
+    "next_computation_step": "Step5",
+    "no_performance_hypothesis_claim": true,
+    "outputs": [
+      "docs/experiments/v032/step5_failure_characterization_results.json",
+      "docs/experiments/v032/step5_failure_characterization_results.md"
+    ]
+  },
+  "parent_protocol_commit": "42c928f5cbc37c00cbef9af36bd988b10d7be0ff",
+  "schema_version": "1.0",
+  "scientific_boundary": {
+    "Q1_Q6_results_computed": false,
+    "checkpoint_reselection": false,
+    "formal_re_evaluation": false,
+    "missing_evidence_reconstruction": false,
+    "official_test_samples": 0,
+    "threshold_search": false,
+    "training": false
+  },
+  "source_preflights": {
+    "step2_bundle_sha256": "304EC505B0DC3C1081B93B3DC2F9CD33C99194FACD1A2504F08B06719D3A2699",
+    "step3_bundle_sha256": "05CF386619DC7AF64B94CEB188D9E39B8315B76A8C408018370B2EBB29AC4286",
+    "step3_corrections": [
+      "utility_loss_weight is not an observed utility_loss",
+      "gradient_clip is not an observed gradient",
+      "JSONL was explicitly parsed"
+    ]
+  },
+  "step": "Step4",
+  "title": "Admissible Utility-Learning Failure Characterization Computation Contract"
+}
