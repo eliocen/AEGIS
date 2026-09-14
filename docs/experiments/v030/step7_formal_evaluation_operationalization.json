@@ -1,0 +1,565 @@
+{
+  "aegis_version": "0.30",
+  "created_utc": "2026-09-14T06:15:24.835217Z",
+  "evaluation_contract": {
+    "checkpoint_reselection_permitted": false,
+    "checkpoint_selection": "best_model.pt frozen before evaluation",
+    "condition_addition_or_removal_permitted": false,
+    "condition_count_per_architecture_seed": 19,
+    "formal_hypothesis_decisions_permitted": false,
+    "hyperparameter_tuning_permitted": false,
+    "mismatch_summary_count_expected": 42,
+    "official_test_access_permitted": false,
+    "official_test_samples_accessed": 0,
+    "quality_summary_count_expected": 399,
+    "result_based_reweighting_permitted": false,
+    "seed_dropping_permitted": false,
+    "shared_corruption_semantics": "inherit exactly from frozen v0.29 unified evaluation",
+    "shared_mismatch_mapping": "inherit exactly from frozen v0.29 unified evaluation",
+    "training_permitted": false
+  },
+  "formal_evaluation_roster": {
+    "architectures": [
+      "M1b",
+      "M4qcf",
+      "M4qcs-w",
+      "M4qgrt",
+      "M4qesri-w",
+      "M4qesri-t",
+      "M4qesri"
+    ],
+    "checkpoint_count": 21,
+    "checkpoints": [
+      {
+        "architecture": "M1b",
+        "best_checkpoint": {
+          "bytes": 3542135,
+          "path": "experiments/fakeddit/v025_m1b_gated_interaction_seed42/best_model.pt",
+          "sha256": "A4E4C0D974538CEA79CD60983D482425AFBA8B6A26FA40E9FDB4B65B99AAE68A"
+        },
+        "experiment_json": {
+          "bytes": 4087,
+          "path": "experiments/fakeddit/v025_m1b_gated_interaction_seed42/experiment.json",
+          "sha256": "DF70677BD19F73D7385458C35955703B8417A0AC2F2A9BB470AA4E88A2F8BC55"
+        },
+        "experiment_root": "experiments/fakeddit/v025_m1b_gated_interaction_seed42",
+        "seed": 42,
+        "summary_json": {
+          "bytes": 5679,
+          "path": "experiments/fakeddit/v025_m1b_gated_interaction_seed42/summary.json",
+          "sha256": "1E8F8B06323C7C272D9DDB87B9CF252DD15C7F7FDA373B6ABEE2129BFCAEF932"
+        }
+      },
+      {
+        "architecture": "M1b",
+        "best_checkpoint": {
+          "bytes": 3542135,
+          "path": "experiments/fakeddit/v025_m1b_gated_interaction_seed43/best_model.pt",
+          "sha256": "AC35297C54B0BA943C3B3E1FF7F7F518A6C50BE54EF6710AD7090A110701CA72"
+        },
+        "experiment_json": {
+          "bytes": 4087,
+          "path": "experiments/fakeddit/v025_m1b_gated_interaction_seed43/experiment.json",
+          "sha256": "55DC0B4D7B61866EB7C29B72947873A11D17F828C50DD6C4E140188E07BCB483"
+        },
+        "experiment_root": "experiments/fakeddit/v025_m1b_gated_interaction_seed43",
+        "seed": 43,
+        "summary_json": {
+          "bytes": 5734,
+          "path": "experiments/fakeddit/v025_m1b_gated_interaction_seed43/summary.json",
+          "sha256": "31AA582D6848377318422E555659A91E9363FF374ED1637FDB5CC424A59A63EA"
+        }
+      },
+      {
+        "architecture": "M1b",
+        "best_checkpoint": {
+          "bytes": 3542135,
+          "path": "experiments/fakeddit/v025_m1b_gated_interaction_seed44/best_model.pt",
+          "sha256": "855DCD75AA3A0E9D542D6F0328D4E0E2D7A752495512EE7EE9EE5D19D08FE232"
+        },
+        "experiment_json": {
+          "bytes": 4087,
+          "path": "experiments/fakeddit/v025_m1b_gated_interaction_seed44/experiment.json",
+          "sha256": "1AFEBD404A2727D7B609F934056387DC63BCD7E58F19B9E9EA88B4D21D4E40C1"
+        },
+        "experiment_root": "experiments/fakeddit/v025_m1b_gated_interaction_seed44",
+        "seed": 44,
+        "summary_json": {
+          "bytes": 5704,
+          "path": "experiments/fakeddit/v025_m1b_gated_interaction_seed44/summary.json",
+          "sha256": "D0CC55296FE9886BCF09C019DB86D03DC35F6D36415DC8ED9E9282E0CDE7C63D"
+        }
+      },
+      {
+        "architecture": "M4qcf",
+        "best_checkpoint": {
+          "bytes": 6260461,
+          "path": "experiments/fakeddit/v027_m4qcf_seed42/best_model.pt",
+          "sha256": "9DD28D03BF92673FC02E82B7935244168EC1E0ED0A4ADCCFAC3F19E9F4BD90E0"
+        },
+        "experiment_json": {
+          "bytes": 6045,
+          "path": "experiments/fakeddit/v027_m4qcf_seed42/experiment.json",
+          "sha256": "F438C51B4DBA8CFEAB6CC124BC555874AE1076DE64BFBBC7990C30533DAAC406"
+        },
+        "experiment_root": "experiments/fakeddit/v027_m4qcf_seed42",
+        "seed": 42,
+        "summary_json": {
+          "bytes": 8027,
+          "path": "experiments/fakeddit/v027_m4qcf_seed42/summary.json",
+          "sha256": "5589A48EF3162ED06A808D9D7178D52384DBD4B6B8CAC38979D22A0C1CBC5CB9"
+        }
+      },
+      {
+        "architecture": "M4qcf",
+        "best_checkpoint": {
+          "bytes": 6260461,
+          "path": "experiments/fakeddit/v027_m4qcf_seed43/best_model.pt",
+          "sha256": "9028D33301DFB2689748D6B0E139E7EE8CCB85D352C2FD534C0A0B5EC2F04D27"
+        },
+        "experiment_json": {
+          "bytes": 6045,
+          "path": "experiments/fakeddit/v027_m4qcf_seed43/experiment.json",
+          "sha256": "373E0AE70D1BA6C4B326B578FD8650580A9A61B58060B564A7A9053B9497E75B"
+        },
+        "experiment_root": "experiments/fakeddit/v027_m4qcf_seed43",
+        "seed": 43,
+        "summary_json": {
+          "bytes": 8042,
+          "path": "experiments/fakeddit/v027_m4qcf_seed43/summary.json",
+          "sha256": "1D123601BBF352291609F186CBF2CF6DAAC0D4D8B7ADA32F46C440DC185094CA"
+        }
+      },
+      {
+        "architecture": "M4qcf",
+        "best_checkpoint": {
+          "bytes": 6260461,
+          "path": "experiments/fakeddit/v027_m4qcf_seed44/best_model.pt",
+          "sha256": "4A4F8757AAF43F4931F273BB0F638B9B8F2ECEBFA0DF7AB6CAEE7E08C370241B"
+        },
+        "experiment_json": {
+          "bytes": 6045,
+          "path": "experiments/fakeddit/v027_m4qcf_seed44/experiment.json",
+          "sha256": "52D474EA730845ADF49986420901E8FD42A6FB92BBED483E86E987FE34C89B9F"
+        },
+        "experiment_root": "experiments/fakeddit/v027_m4qcf_seed44",
+        "seed": 44,
+        "summary_json": {
+          "bytes": 8018,
+          "path": "experiments/fakeddit/v027_m4qcf_seed44/summary.json",
+          "sha256": "913B00635E764F9723C2E4B67CB13798120BE87704B6F75D99E8CE671262805B"
+        }
+      },
+      {
+        "architecture": "M4qcs-w",
+        "best_checkpoint": {
+          "bytes": 6260013,
+          "path": "experiments/fakeddit/v028_m4qcs_w_seed42/best_model.pt",
+          "sha256": "E5E3FB5652B2D462F71A23AB92D0CF9F5DBEFD2E451CD5DDC54C108FD666D762"
+        },
+        "experiment_json": {
+          "bytes": 5591,
+          "path": "experiments/fakeddit/v028_m4qcs_w_seed42/experiment.json",
+          "sha256": "368BC5A8E5120AE7FC40588755A7FE754E84CB9A5B5436B06BAD9D24B68DF36F"
+        },
+        "experiment_root": "experiments/fakeddit/v028_m4qcs_w_seed42",
+        "seed": 42,
+        "summary_json": {
+          "bytes": 7493,
+          "path": "experiments/fakeddit/v028_m4qcs_w_seed42/summary.json",
+          "sha256": "1DC446478C1F199C9F262E8FFDD7A480AA4746BC3E46E1B4AAB3287171092E88"
+        }
+      },
+      {
+        "architecture": "M4qcs-w",
+        "best_checkpoint": {
+          "bytes": 6260013,
+          "path": "experiments/fakeddit/v028_m4qcs_w_seed43/best_model.pt",
+          "sha256": "D694256545F29671AEB6C07A0DDEB2FC2B70C3D1B67F3B3FA0506B1772ABC296"
+        },
+        "experiment_json": {
+          "bytes": 5591,
+          "path": "experiments/fakeddit/v028_m4qcs_w_seed43/experiment.json",
+          "sha256": "379F9768A7EC4FC3CB58C4163129A4CEFDDD9522D87E5ADABFD1FB6BC86707B8"
+        },
+        "experiment_root": "experiments/fakeddit/v028_m4qcs_w_seed43",
+        "seed": 43,
+        "summary_json": {
+          "bytes": 7600,
+          "path": "experiments/fakeddit/v028_m4qcs_w_seed43/summary.json",
+          "sha256": "7D9F1124B35B1BC4354350A993BDF54B96D0F43F62CBF0A42EC6055EB39A9C7E"
+        }
+      },
+      {
+        "architecture": "M4qcs-w",
+        "best_checkpoint": {
+          "bytes": 6260013,
+          "path": "experiments/fakeddit/v028_m4qcs_w_seed44/best_model.pt",
+          "sha256": "BC871BA6A950489A67DDBA95AD738F1C22D6DB73326319DAA33140609728C213"
+        },
+        "experiment_json": {
+          "bytes": 5591,
+          "path": "experiments/fakeddit/v028_m4qcs_w_seed44/experiment.json",
+          "sha256": "F377F14FC61A7953B51ED7B87E9455485972CF0A077A3D5A686F1836627B16BA"
+        },
+        "experiment_root": "experiments/fakeddit/v028_m4qcs_w_seed44",
+        "seed": 44,
+        "summary_json": {
+          "bytes": 7593,
+          "path": "experiments/fakeddit/v028_m4qcs_w_seed44/summary.json",
+          "sha256": "D7F7A80B4EE255504D7BB6D886518A82D51D1B721A8970313CFE30A8CEE29F80"
+        }
+      },
+      {
+        "architecture": "M4qgrt",
+        "best_checkpoint": {
+          "bytes": 6260397,
+          "path": "experiments/fakeddit/v029_m4qgrt_seed42/best_model.pt",
+          "sha256": "543EEA54A3A34303D2581969347B9C13B2E4DFD6CDEEEED27856A646081AA48A"
+        },
+        "experiment_json": {
+          "bytes": 6013,
+          "path": "experiments/fakeddit/v029_m4qgrt_seed42/experiment.json",
+          "sha256": "0BA5086E782838840020994C112B53F31E2656639384BBD24A48DE2E232121A4"
+        },
+        "experiment_root": "experiments/fakeddit/v029_m4qgrt_seed42",
+        "seed": 42,
+        "summary_json": {
+          "bytes": 7996,
+          "path": "experiments/fakeddit/v029_m4qgrt_seed42/summary.json",
+          "sha256": "8AD888F1397829338001AFCFEEB210351C8C8D854848966CFE2DEE77A1387C65"
+        }
+      },
+      {
+        "architecture": "M4qgrt",
+        "best_checkpoint": {
+          "bytes": 6260397,
+          "path": "experiments/fakeddit/v029_m4qgrt_seed43/best_model.pt",
+          "sha256": "20B655E2AB26F940C6583A8B005400F55DEC84C2B172A5AAFFF201BF75986EB1"
+        },
+        "experiment_json": {
+          "bytes": 6013,
+          "path": "experiments/fakeddit/v029_m4qgrt_seed43/experiment.json",
+          "sha256": "B6A4D997D074AE2F2F4B81BC669CA85D0922C5FAE3F99B80CC32CEC7432563DE"
+        },
+        "experiment_root": "experiments/fakeddit/v029_m4qgrt_seed43",
+        "seed": 43,
+        "summary_json": {
+          "bytes": 8015,
+          "path": "experiments/fakeddit/v029_m4qgrt_seed43/summary.json",
+          "sha256": "06F4A1DDC2DE14049D1DE49DCC5AB6EDFA8AB0018CA0AF8D72AD95322C5DB442"
+        }
+      },
+      {
+        "architecture": "M4qgrt",
+        "best_checkpoint": {
+          "bytes": 6260397,
+          "path": "experiments/fakeddit/v029_m4qgrt_seed44/best_model.pt",
+          "sha256": "EABBD1FC5BECC959967DDA7AB662BEB51B8C452F2B20880C9BEE537F6366752D"
+        },
+        "experiment_json": {
+          "bytes": 6013,
+          "path": "experiments/fakeddit/v029_m4qgrt_seed44/experiment.json",
+          "sha256": "D24AC952CFF03414CA70C6F6F1BAC6D62414057B760B60A37F246EF1FA748E01"
+        },
+        "experiment_root": "experiments/fakeddit/v029_m4qgrt_seed44",
+        "seed": 44,
+        "summary_json": {
+          "bytes": 7992,
+          "path": "experiments/fakeddit/v029_m4qgrt_seed44/summary.json",
+          "sha256": "49BC5080B4266F19D6571B81123FD16688F6E1F75657D1C3481CABF83DED786C"
+        }
+      },
+      {
+        "architecture": "M4qesri-w",
+        "best_checkpoint": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed42/best_model.pt",
+          "sha256": "7EBC399774CE9DAF05BA8E5411B5A70FE7F421FACC25E89E0DFD044D4925B175"
+        },
+        "experiment_json": {
+          "bytes": 6625,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed42/experiment.json",
+          "sha256": "2D84DA4F32018D7EDA8453D0A1463B6013FC0ACDC6C74BECD15D4831D39FAE9F"
+        },
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_w_seed42",
+        "seed": 42,
+        "summary_json": {
+          "bytes": 8545,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed42/summary.json",
+          "sha256": "F2DDD48D678F7834A406629A6EB47E278A287EF91FB203C0F20B15E4361EC3A4"
+        }
+      },
+      {
+        "architecture": "M4qesri-w",
+        "best_checkpoint": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed43/best_model.pt",
+          "sha256": "37198D3B9D0D44BF400380E0F96DA1CE7E6C1EC90A0DA0D469A04D9F4C5E1E5C"
+        },
+        "experiment_json": {
+          "bytes": 6625,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed43/experiment.json",
+          "sha256": "B9098A2D59B4DCDBA8A6D55ED2060AFC77F122F79BBCF3EBA8BF0609076FCB3D"
+        },
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_w_seed43",
+        "seed": 43,
+        "summary_json": {
+          "bytes": 8638,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed43/summary.json",
+          "sha256": "0639DFA4C147A5427756A4332E056F2769D801783AD10CB55DBB13092A5DCD73"
+        }
+      },
+      {
+        "architecture": "M4qesri-w",
+        "best_checkpoint": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed44/best_model.pt",
+          "sha256": "794898A7ADEB9FB35179A99B6E2A6F13B86B961063268503F23A27987FE18D64"
+        },
+        "experiment_json": {
+          "bytes": 6625,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed44/experiment.json",
+          "sha256": "B50949C7E11E1BB95B1951041E702746A069B0A29FEE934A6B2E1CDFD1A7713E"
+        },
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_w_seed44",
+        "seed": 44,
+        "summary_json": {
+          "bytes": 8633,
+          "path": "experiments/fakeddit/v030_m4qesri_w_seed44/summary.json",
+          "sha256": "8993D530E679C9E1CA152F4512EE8310AD3D263893B915486B310112CE95F476"
+        }
+      },
+      {
+        "architecture": "M4qesri-t",
+        "best_checkpoint": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed42/best_model.pt",
+          "sha256": "287DDCE800A14D35A06E1E82B7B76B4B112DEF49B6B2BABF58EA60841EC2CC11"
+        },
+        "experiment_json": {
+          "bytes": 6637,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed42/experiment.json",
+          "sha256": "FD17F27B656F3E90E9C205971518DCE6CDCBEC0C008870FE9B65A000E06C9948"
+        },
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_t_seed42",
+        "seed": 42,
+        "summary_json": {
+          "bytes": 8543,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed42/summary.json",
+          "sha256": "BBD0217A362CE4813B98D0C59542C5FABE0A2753792AEB1C5AB5E31ABF652CB5"
+        }
+      },
+      {
+        "architecture": "M4qesri-t",
+        "best_checkpoint": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed43/best_model.pt",
+          "sha256": "549E9D5BA1956E7AC52975A1A4224773A820826359D2C0B6F558A1F7044E8B07"
+        },
+        "experiment_json": {
+          "bytes": 6637,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed43/experiment.json",
+          "sha256": "AD785160DD7D1CC7D020EA04ED809746412003146CF1211182678151FA50A05F"
+        },
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_t_seed43",
+        "seed": 43,
+        "summary_json": {
+          "bytes": 8540,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed43/summary.json",
+          "sha256": "0A6C45C9A32EE2876392CF9C047C0C58A3634D4BBD170E04BBBE8555B8ADA8C3"
+        }
+      },
+      {
+        "architecture": "M4qesri-t",
+        "best_checkpoint": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed44/best_model.pt",
+          "sha256": "591F8CED16EB1774EFDAC9F0F920DDEE0A55A332EBAF0CC19809EFC1D6A7F866"
+        },
+        "experiment_json": {
+          "bytes": 6637,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed44/experiment.json",
+          "sha256": "05A1331841E591778DBF7BE4186AFAB352D0DA5F24111CEE3075DE1EBE5576C9"
+        },
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_t_seed44",
+        "seed": 44,
+        "summary_json": {
+          "bytes": 8643,
+          "path": "experiments/fakeddit/v030_m4qesri_t_seed44/summary.json",
+          "sha256": "683FC5258ED6185D5371F5336C14E16609D027961B339013F4FBE60AAE58FE82"
+        }
+      },
+      {
+        "architecture": "M4qesri",
+        "best_checkpoint": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_seed42/best_model.pt",
+          "sha256": "3B42178C78DECD2FC73F537F5D35C62CB3F4C90325C431A062F1D466C25E718C"
+        },
+        "experiment_json": {
+          "bytes": 6599,
+          "path": "experiments/fakeddit/v030_m4qesri_seed42/experiment.json",
+          "sha256": "3B751278411B7BC8E10375744434F4D7BEFF54EF52836D73898F131C09EBE4CD"
+        },
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_seed42",
+        "seed": 42,
+        "summary_json": {
+          "bytes": 8512,
+          "path": "experiments/fakeddit/v030_m4qesri_seed42/summary.json",
+          "sha256": "8B09AA0A624F26BA24442D68B3CBD42C7AB2D336C8233731735B505106EB6467"
+        }
+      },
+      {
+        "architecture": "M4qesri",
+        "best_checkpoint": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_seed43/best_model.pt",
+          "sha256": "5B3BE689CE5BAF728408A43B170DC53A8E9D373744D53FD4D283B3A8FF86AFD0"
+        },
+        "experiment_json": {
+          "bytes": 6599,
+          "path": "experiments/fakeddit/v030_m4qesri_seed43/experiment.json",
+          "sha256": "AB865CA1C5ADEA3B24B47F4ACA5348C8FEEC9B7A25D1692E4515E05774060C7C"
+        },
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_seed43",
+        "seed": 43,
+        "summary_json": {
+          "bytes": 8606,
+          "path": "experiments/fakeddit/v030_m4qesri_seed43/summary.json",
+          "sha256": "50CC7BF75E8CC22290882A341860E9B45BD66326948B8B07490D4B29138EE517"
+        }
+      },
+      {
+        "architecture": "M4qesri",
+        "best_checkpoint": {
+          "bytes": 6260973,
+          "path": "experiments/fakeddit/v030_m4qesri_seed44/best_model.pt",
+          "sha256": "8404AB25D6CFD39F1762A95AD6A362292C7A126B8C0DB3F61292D674462DA8A1"
+        },
+        "experiment_json": {
+          "bytes": 6599,
+          "path": "experiments/fakeddit/v030_m4qesri_seed44/experiment.json",
+          "sha256": "7A14DC6FDC619A7654C33F85E864B2BE7BBE3439AB5E274B8686E466A6BA5476"
+        },
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_seed44",
+        "seed": 44,
+        "summary_json": {
+          "bytes": 8589,
+          "path": "experiments/fakeddit/v030_m4qesri_seed44/summary.json",
+          "sha256": "769B0D429348F407EE2AB8607B5E1AA5350CB642FFF4902A7F823206916C025A"
+        }
+      }
+    ],
+    "rationale": {
+      "M1b": "clean-performance safeguard and transition baseline",
+      "M4qcf": "catastrophic-corruption comparator required by V30-H1",
+      "M4qcs-w": "stable-reference comparator required by V30-H1/V30-H2",
+      "M4qesri": "v0.30 primary combined architecture",
+      "M4qesri-t": "v0.30 selective-transition ablation",
+      "M4qesri-w": "v0.30 selective-weighting ablation",
+      "M4qgrt": "v0.29 transition-control comparator required by V30-H2"
+    },
+    "seeds": [
+      42,
+      43,
+      44
+    ]
+  },
+  "formal_hypothesis_boundary": {
+    "V30_H1": "NOT_COMPUTED",
+    "V30_H2": "NOT_COMPUTED",
+    "V30_H3": "NOT_COMPUTED",
+    "V30_H4": "NOT_COMPUTED",
+    "analysis_stage": "later one-time formal hypothesis analysis only",
+    "clean_performance_safeguard": "NOT_COMPUTED"
+  },
+  "next_stage": "v0.30 Step8 \u9225?Formal Unified Evaluation",
+  "required_v030_evaluator_adaptation": {
+    "base_implementation": "scripts/run_fakeddit_unified_evaluation_v029.py",
+    "diagnostic_strata_required": [
+      "clean",
+      "graded_corruption",
+      "catastrophic_corruption",
+      "matched_pairs",
+      "mismatched_pairs",
+      "text_gaussian_severity_0.25",
+      "text_gaussian_severity_0.50",
+      "text_gaussian_severity_0.75",
+      "vision_gaussian_severity_0.25",
+      "vision_gaussian_severity_0.50",
+      "vision_gaussian_severity_0.75",
+      "attenuation_severity_0.25",
+      "attenuation_severity_0.50",
+      "attenuation_severity_0.75"
+    ],
+    "must_emit_mismatch_summaries": 42,
+    "must_emit_quality_summaries": 399,
+    "must_support_architectures": [
+      "M1b",
+      "M4qcf",
+      "M4qcs-w",
+      "M4qgrt",
+      "M4qesri-w",
+      "M4qesri-t",
+      "M4qesri"
+    ],
+    "no_intervention_diagnostics_for_legacy_baselines_may_be_zero_or_not_applicable": true,
+    "required_intervention_diagnostics": [
+      "gate_value_or_equivalent_gate_intensity",
+      "active_intervention_indicator_at_threshold_0.5",
+      "modality_weight_intervention_magnitude",
+      "interaction_suppression_magnitude"
+    ],
+    "rule": "adapt only architecture/checkpoint routing and v0.30 intervention diagnostics; preserve inherited corruption/mismatch semantics"
+  },
+  "schema_version": "1.0",
+  "source_boundary": {
+    "current_runner": {
+      "bytes": 159493,
+      "path": "scripts/run_fakeddit_ablation.py",
+      "sha256": "2AB9072852A578E1CFC4A87DBD5553E40A5501EE132833440119526E48973D1A"
+    },
+    "step1_protocol": {
+      "bytes": 11225,
+      "path": "docs/experiments/v030/step1_selective_reliability_intervention_protocol.json",
+      "sha256": "CD6559497B864C8B1022F4BF6B0720FE9D8356AE0D1D4A9AC76D217FCF08F9F1"
+    },
+    "step6_evidence_commit": "17392055ee2f153007791775e6836bdf4bf2e4fe",
+    "step6_evidence_record": {
+      "bytes": 48425,
+      "path": "docs/experiments/v030/step6_formal_training_evidence_provenance.json",
+      "sha256": "AEC2144D0E92D25AC229243AAF28DC87BCBE22A2ABCD175A2C18787BA7106C7E"
+    },
+    "v029_evaluation_operationalization_json": {
+      "bytes": 5602,
+      "path": "docs/experiments/v029/step4_unified_evaluation_operationalization.json",
+      "sha256": "81B9CD377397C963C64935DE9D2C988CA35730940B2E25EEF70357C297C34591"
+    },
+    "v029_evaluation_operationalization_markdown": {
+      "bytes": 2502,
+      "path": "docs/experiments/v029/step4_unified_evaluation_operationalization.md",
+      "sha256": "92A1AFE4AD104479FC4B39F1BC169C20AAD260AF59EBF12269FB6AD1A55936C9"
+    },
+    "v029_formal_analysis_source_reference_only": {
+      "bytes": 15958,
+      "path": "scripts/analyze_fakeddit_v029_formal.py",
+      "sha256": "5AE774B1F8647618AEB5953DF31D45F9AFBFCDEB0556B5D18C307968344FD1A2"
+    },
+    "v029_unified_evaluator_source": {
+      "bytes": 65557,
+      "path": "scripts/run_fakeddit_unified_evaluation_v029.py",
+      "sha256": "14E8160637FEDDB738D29AF2C29D01DA5F89E79C76FCFFE257F38BC199B8AFE9"
+    }
+  },
+  "stage": "Step7",
+  "status": "PROSPECTIVELY_FROZEN_BEFORE_FORMAL_EVALUATION",
+  "step7_execution_status": {
+    "checkpoints_loaded_for_evaluation": false,
+    "formal_decisions_generated": false,
+    "formal_evaluation_executed": false,
+    "formal_results_generated": false,
+    "official_test_samples_accessed": 0
+  },
+  "title": "Formal Evaluation Operationalization"
+}
