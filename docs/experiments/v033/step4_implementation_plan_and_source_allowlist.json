@@ -1,0 +1,129 @@
+{
+  "aegis_version": "0.33",
+  "audited_findings": {
+    "conclusion": "reuse existing counterfactual/candidate-action machinery but implement a separate v0.33 selector-learning path",
+    "delta_u": "PRESENT",
+    "existing_v031_selector": "Linear(7,16) -> ReLU -> Linear(16,1) -> Sigmoid",
+    "existing_v031_target_transform": "sigmoid(delta_u / 0.05)",
+    "existing_v031_utility_loss": "binary_cross_entropy(utility_probability, u_target)",
+    "gate_diagnostics": "AVAILABLE",
+    "m4qcesi_routing": "AVAILABLE",
+    "p_candidate_true": "PRESENT",
+    "p_ref_true": "PRESENT",
+    "u_target": "PRESENT",
+    "utility_probability_path": "AVAILABLE"
+  },
+  "audited_source_identities": {
+    "aegis/alignment/model.py": "CA94D9FEF5F395C14F69E4B3C9CA222D5F75F9177C1273215D3B956321ED5E58",
+    "aegis/reliability/reliability_controller.py": "296D67DF43B78CF585E0B59D8F9C44F0CFF78B7E92CE0CF0640C548EB2A9D214",
+    "scripts/run_fakeddit_ablation.py": "14220201DCB2715D9201FB5C8E8425D273FD1F1B6309DBB465A0A51F10E62428",
+    "tests/test_v031_calibrated_evidence_utility_controller.py": "D18D0816B9B89375A2AFD5F0B2AC33B6DAD9B2319698922B0C3E14A9756909E3",
+    "tests/test_v031_step3c_training_path.py": "524C2E1948F6E4B31D4871FAF1EFC1715B8540AFD03DDC7409AF08A4B815C7CD"
+  },
+  "file_responsibilities": {
+    "aegis/alignment/model.py": [
+      "route M4qusli to the v0.33 controller",
+      "reuse stable-reference and candidate fused-embedding construction",
+      "expose v0.33 diagnostics without altering v0.31 output semantics"
+    ],
+    "aegis/reliability/reliability_controller.py": [
+      "define v0.33 constants and controller/output type",
+      "implement detached counterfactual target transform exactly as Step2",
+      "expose selector_logit and utility_probability",
+      "implement exact v0.33 utility gate and inactive-default behavior",
+      "preserve candidate-action equations from v0.31",
+      "expose architecture metadata"
+    ],
+    "scripts/run_fakeddit_ablation.py": [
+      "add centralized M4qusli architecture predicate/routing",
+      "compute v0.33 counterfactual logits on the real training path",
+      "compute exact magnitude-weighted BCEWithLogits utility loss",
+      "persist required training diagnostics in machine-readable metrics",
+      "record effective loss weights actually used",
+      "record selector gradient norm/equivalent and parameter movement/equivalent",
+      "keep transition loss zero for M4qusli"
+    ],
+    "tests/test_v033_training_path.py": [
+      "controlled positive and negative utility target smoke",
+      "real one-batch training-path regression",
+      "finite positive utility loss",
+      "selector optimization signal > 1e-8",
+      "selector parameter L2 movement > 1e-8",
+      "effective utility loss weight exactly 0.50",
+      "machine-readable diagnostic presence"
+    ],
+    "tests/test_v033_utility_supervision_selector.py": [
+      "tensor shape/range/finiteness/detach tests",
+      "anchor target transform tests",
+      "inactive-default threshold/gate tests",
+      "candidate-action parity against frozen v0.31 controller for identical inputs",
+      "v0.31 regression preservation checks"
+    ]
+  },
+  "hard_implementation_invariants": [
+    "v0.31 architecture identifiers and controller modes remain behaviorally unchanged",
+    "M4qusli candidate action numerically matches inherited v0.31 candidate action for identical controller inputs within atol=1e-7 and rtol=1e-6",
+    "p_ref_true, p_candidate_true, delta_u, and u_target are detached from classifier/counterfactual target construction",
+    "selector_logit remains differentiable to v0.33 selector parameters",
+    "utility_probability equals sigmoid(selector_logit)",
+    "utility target uses no post-exposure adaptation",
+    "utility loss is BCEWithLogits, not BCE on a sigmoid probability",
+    "effective utility loss weight recorded by runtime equals 0.50",
+    "M4qusli transition objective weight is exactly 0.0",
+    "utility_probability below 0.60 yields zero applied intervention strength",
+    "no official test access"
+  ],
+  "implementation_source_allowlist": {
+    "all_other_tracked_files": "PROHIBITED_DURING_STEP5_IMPLEMENTATION",
+    "existing_files_allowed_to_modify": [
+      "aegis/reliability/reliability_controller.py",
+      "aegis/alignment/model.py",
+      "scripts/run_fakeddit_ablation.py"
+    ],
+    "new_test_files_allowed": [
+      "tests/test_v033_utility_supervision_selector.py",
+      "tests/test_v033_training_path.py"
+    ]
+  },
+  "implementation_strategy": {
+    "active_threshold": 0.6,
+    "calibrated_risk_multiplier": "not used in M4qusli primary gate",
+    "candidate_action_policy": "inherit v0.31 candidate action exactly and verify parity mechanically",
+    "max_intervention_strength": 0.15,
+    "new_controller_policy": "implement a distinct v0.33 controller/path; do not change v0.31 controller outputs or equations",
+    "new_primary_architecture": "M4qusli",
+    "preserve_v031_semantics": "MANDATORY",
+    "selector_output_policy": "v0.33 controller must expose selector_logit and utility_probability=sigmoid(selector_logit)",
+    "soft_gate": "clip((utility_probability - 0.60)/0.40, 0.0, 1.0)",
+    "target_transform": "clip(0.5 + delta_u / 0.20, 0.0, 1.0)",
+    "transition_objective_weight": 0.0,
+    "utility_loss": "magnitude-weighted BCEWithLogits against detached u_target",
+    "utility_loss_weight": 0.5
+  },
+  "official_test_samples": 0,
+  "parent_step2_commit": "c579c987750be7e520dcf111003508a697e075db",
+  "schema_version": "1.0",
+  "step": "Step4",
+  "step3_audit_bundle": {
+    "file": "AEGIS_v033_step3_source_layout_candidate_action_audit.zip",
+    "sha256": "08141183B4F9CFF1B72C437A12FBC5B45B6705286E21A1EA8FE0C49891107197"
+  },
+  "step5_freeze_policy": {
+    "formal_evaluation": "PROHIBITED",
+    "formal_training_after_step5": "STILL_PROHIBITED",
+    "implementation_commit": "DEFERRED_UNTIL_ALL_HARD_GATES_PASS",
+    "next_after_successful_step5": "freeze a separate formal-training operationalization step",
+    "official_test_access": "PROHIBITED"
+  },
+  "step5_verification_order": [
+    "python compile for modified/new Python files",
+    "focused v0.33 controller tests",
+    "focused v0.33 real training-path tests",
+    "inherited v0.31 controller tests",
+    "inherited v0.31 training-path tests",
+    "relevant reliability/alignment regression subset",
+    "full regression suite only after focused gates pass",
+    "exact implementation file allowlist and diff check"
+  ],
+  "title": "Implementation Plan and Source Allowlist"
+}
