@@ -1,0 +1,381 @@
+{
+  "V31_H5_operationalization_freeze": {
+    "criterion_A": "mean utility in high-degradation band >= mean utility in low-degradation band + 0.05",
+    "criterion_B": "mean performance delta in high-utility band >= mean performance delta in low-utility band - 0.0025",
+    "degradation_metric": "clean Macro-F1 minus condition Macro-F1 for M4qcesi",
+    "formal_decision": "SUPPORTED only if criterion_A and criterion_B both pass",
+    "high_degradation_band": "degradation >= 0.10",
+    "high_utility_band": "condition mean utility_probability_u_hat >= 0.60",
+    "insufficient_band_rule": "If either compared band has fewer than 3 condition-level observations, the corresponding criterion is NOT_SUPPORTED rather than re-binned.",
+    "low_degradation_band": "degradation <= 0.05",
+    "low_utility_band": "condition mean utility_probability_u_hat <= 0.40",
+    "minimum_band_cardinality": 3,
+    "performance_metric": "condition Macro-F1 delta M4qcesi - M4qcs-w",
+    "post_exposure_rebinning": "PROHIBITED",
+    "utility_metric": "mean utility_probability_u_hat"
+  },
+  "actual_intervention": {
+    "constants": {
+      "max_interaction_suppression": 0.5,
+      "max_modality_weight": 0.9,
+      "max_weight_shift": 0.15,
+      "min_modality_weight": 0.1
+    },
+    "equations": [
+      "alpha_T = clamp(alpha_T_ref + g*0.15*(q_T_star-q_V_star), 0.10, 0.90)",
+      "alpha_V = 1 - alpha_T",
+      "g_I = clamp(1 - g*0.50*r, 0.50, 1.00)",
+      "z_final = alpha_T*h_T + alpha_V*h_V + g_I*z_I"
+    ],
+    "gate_by_architecture": {
+      "M4qcesi": "g = g_u",
+      "M4qcesi-c": "g = g_c",
+      "M4qcesi-u": "g = g_u"
+    },
+    "required_invariants": [
+      "0.10 <= alpha_T <= 0.90",
+      "0.10 <= alpha_V <= 0.90",
+      "alpha_T + alpha_V = 1 within numerical tolerance",
+      "0.50 <= g_I <= 1.00",
+      "g=0 reproduces stable reference",
+      "no label enters inference-time intervention computation"
+    ]
+  },
+  "aegis_version": "0.31",
+  "architectures": {
+    "M4qcesi": {
+      "calibrator_enabled": true,
+      "intervention_gate_source": "utility_gate",
+      "mode": "combined",
+      "utility_selector_enabled": true
+    },
+    "M4qcesi-c": {
+      "calibrator_enabled": true,
+      "intervention_gate_source": "calibrated_risk_gate",
+      "mode": "calibration_only",
+      "utility_selector_enabled": false
+    },
+    "M4qcesi-u": {
+      "calibrator_enabled": false,
+      "intervention_gate_source": "utility_gate",
+      "mode": "utility_selector_only",
+      "utility_selector_enabled": true
+    }
+  },
+  "calibration_only_gate": {
+    "architecture": "M4qcesi-c",
+    "constants": {
+      "risk_floor": 0.25,
+      "risk_width": 0.5
+    },
+    "equations": [
+      "g_c = clamp((r - 0.25)/0.50, 0, 1)"
+    ],
+    "purpose": "tests whether calibrated evidence alone improves the inherited v0.30 risk-to-action mapping"
+  },
+  "calibration_transform": {
+    "M4qcesi-u_behavior": "identity calibration: q_T_star=q_T_raw_detached, q_V_star=q_V_raw_detached, c_TV_star=c_TV_raw_detached",
+    "calibration_supervision": {
+      "c_TV_cal_target": "existing training-only compatibility target",
+      "loss": "mean binary cross entropy over available calibrated channels",
+      "loss_weight": 0.25,
+      "q_T_cal_target": "existing training-only text quality target",
+      "q_V_cal_target": "existing training-only vision quality target",
+      "validation_feedback_used": false
+    },
+    "channels": [
+      "q_T",
+      "q_V",
+      "c_TV"
+    ],
+    "enabled_for": [
+      "M4qcesi-c",
+      "M4qcesi"
+    ],
+    "epsilon": 0.0001,
+    "equations": [
+      "x_clip = clamp(x, 1e-4, 1-1e-4)",
+      "logit_x = log(x_clip) - log1p(-x_clip)",
+      "slope = softplus(a_raw) + 1e-4",
+      "x_cal = sigmoid(slope*logit_x + b)"
+    ],
+    "monotonicity": "strictly monotone increasing in each calibrated scalar because slope > 0",
+    "output_bounds": [
+      0.0,
+      1.0
+    ],
+    "parameterization": {
+      "a_raw_initial_value": 0.541324854612918,
+      "b_initial_value": 0.0,
+      "initial_behavior": "approximately identity, with +1e-4 positive-slope floor",
+      "per_channel_a_raw": "scalar trainable parameter",
+      "per_channel_b": "scalar trainable parameter"
+    }
+  },
+  "current_state": {
+    "formal_evaluation": "NO",
+    "formal_hypothesis_decisions": {
+      "V31_H1": "NOT_COMPUTED",
+      "V31_H2": "NOT_COMPUTED",
+      "V31_H3": "NOT_COMPUTED",
+      "V31_H4": "NOT_COMPUTED",
+      "V31_H5": "NOT_COMPUTED"
+    },
+    "implementation": "NO",
+    "official_test_samples_accessed": 0,
+    "training": "NO"
+  },
+  "diagnostics_contract": {
+    "active_indicator_equation": "1[effective_intervention_gate_g >= 0.50]",
+    "active_intervention_reporting_threshold": 0.5,
+    "per_sample_required": [
+      "q_T_raw",
+      "q_V_raw",
+      "c_TV_raw",
+      "q_T_star",
+      "q_V_star",
+      "c_TV_star",
+      "d_q",
+      "d_c",
+      "d_delta",
+      "calibrated_risk_r",
+      "utility_probability_u_hat",
+      "utility_gate_g_u",
+      "calibration_only_gate_g_c",
+      "effective_intervention_gate_g",
+      "active_intervention_indicator",
+      "alpha_T_ref",
+      "alpha_V_ref",
+      "alpha_T_final",
+      "alpha_V_final",
+      "modality_weight_intervention_magnitude",
+      "interaction_multiplier_g_I",
+      "interaction_suppression_magnitude"
+    ],
+    "training_only_additional": [
+      "p_ref_true",
+      "p_candidate_true",
+      "delta_u",
+      "u_target"
+    ]
+  },
+  "gradient_flow": {
+    "actual_intervened_path": "receives normal classification gradients through bounded intervention and utility selector",
+    "base_quality_compatibility_supervision": "UNCHANGED; original estimators continue receiving their inherited training supervision",
+    "calibrator_parameters": "TRAINABLE only where calibrator_enabled",
+    "candidate_reference_probabilities_for_utility_target": "FULLY DETACHED",
+    "raw_evidence_into_calibrator": "DETACHED from q_T/q_V/c_TV estimators for calibration and utility paths",
+    "stable_reference_path": "receives normal classification gradients",
+    "utility_selector_parameters": "TRAINABLE only where utility_selector_enabled",
+    "utility_target": "FULLY DETACHED",
+    "validation_or_test_feedback": "PROHIBITED"
+  },
+  "implementation_test_requirements": [
+    "tensor shape/dtype/bounds tests",
+    "finite-value rejection tests",
+    "calibrator monotonicity tests",
+    "identity initialization test",
+    "utility selector initial u_hat=0.5 and g_u=0 test",
+    "utility target detachment test",
+    "training-label-only utility target test",
+    "no validation/test label dependency test",
+    "g=0 exact stable-reference test",
+    "bounded modality-weight test",
+    "bounded interaction multiplier test",
+    "architecture ablation separation tests",
+    "real one-batch training-path regression for all three architectures",
+    "optimizer membership audit for calibrator/utility parameters",
+    "v0.29 transition-objective isolation test"
+  ],
+  "input_contract": {
+    "c_TV": {
+      "bounds": [
+        0.0,
+        1.0
+      ],
+      "dtype": "floating",
+      "finite_required": true,
+      "meaning": "raw text-vision compatibility estimate",
+      "shape": "[B,1]"
+    },
+    "integrity_targets_training_only": {
+      "allowed_values": [
+        0,
+        1
+      ],
+      "availability": "training split only",
+      "dtype": "long_class_index",
+      "forbidden_at_inference": true,
+      "forbidden_from_validation_or_test": true,
+      "purpose": "training-only utility-target construction",
+      "shape": "[B]"
+    },
+    "q_T": {
+      "bounds": [
+        0.0,
+        1.0
+      ],
+      "dtype": "floating",
+      "finite_required": true,
+      "meaning": "raw text quality/reliability estimate",
+      "shape": "[B,1]"
+    },
+    "q_V": {
+      "bounds": [
+        0.0,
+        1.0
+      ],
+      "dtype": "floating",
+      "finite_required": true,
+      "meaning": "raw vision quality/reliability estimate",
+      "shape": "[B,1]"
+    }
+  },
+  "loss_contract": {
+    "formal_training_hyperparameter_search": "PROHIBITED",
+    "inherited_losses": {
+      "alignment_weight": 0.5,
+      "classification_weight": 1.0,
+      "compatibility_weight": 1.0,
+      "quality_weight": 1.0,
+      "v029_transition_objective_weight": 0.0
+    },
+    "new_losses": {
+      "calibration_loss_weight": {
+        "M4qcesi": 0.25,
+        "M4qcesi-c": 0.25,
+        "M4qcesi-u": 0.0
+      },
+      "utility_selector_loss_weight": {
+        "M4qcesi": 0.5,
+        "M4qcesi-c": 0.0,
+        "M4qcesi-u": 0.5
+      }
+    }
+  },
+  "next_step": "v0.31 Step3 \u9225?implement the exact frozen calibrator, utility selector, bounded intervention, diagnostics, and regression tests without changing this contract.",
+  "parent_step1_commit": "cfbddce17e5ee73d7eff00237087bf08c9c0a1d7",
+  "prohibitions": [
+    "No implementation before this contract is remotely frozen",
+    "No validation-derived calibration constants",
+    "No validation/test labels in calibration or utility target",
+    "No official test access",
+    "No post-result change to utility temperature 0.05",
+    "No post-result change to calibration loss weight 0.25",
+    "No post-result change to utility loss weight 0.50",
+    "No post-result change to intervention bounds",
+    "No post-result change to active reporting threshold 0.50",
+    "No V31-H5 re-binning after exposure",
+    "No v0.29 transition auxiliary loss"
+  ],
+  "record_type": "exact_calibrated_evidence_utility_tensor_contract",
+  "risk_features": {
+    "equations": [
+      "d_q = 1 - 0.5*(q_T_star + q_V_star)",
+      "d_c = 1 - c_TV_star",
+      "d_delta = abs(q_T_star - q_V_star)",
+      "r = clamp(0.50*d_c + 0.25*d_q + 0.25*d_delta, 0, 1)"
+    ],
+    "utility_feature_vector": {
+      "order": [
+        "q_T_star",
+        "q_V_star",
+        "c_TV_star",
+        "d_q",
+        "d_c",
+        "d_delta",
+        "r"
+      ],
+      "shape": "[B,7]"
+    }
+  },
+  "schema_version": "1.0",
+  "stable_reference": {
+    "allocation_exponent": 2.0,
+    "epsilon": 0.1,
+    "equations": [
+      "s_T = (0.10 + q_T_raw_detached)^2",
+      "s_V = (0.10 + q_V_raw_detached)^2",
+      "alpha_T_ref = s_T / (s_T + s_V)",
+      "alpha_V_ref = s_V / (s_T + s_V)",
+      "z_ref = alpha_T_ref*h_T + alpha_V_ref*h_V + z_I"
+    ],
+    "identity_requirement": "When final intervention gate g=0, final fused representation must equal z_ref within absolute tolerance 1e-7 and relative tolerance 1e-6.",
+    "note": "Reference weights intentionally preserve M4qcs-w-compatible stable semantics using raw detached evidence."
+  },
+  "status": "EXACT_CONTRACT_FROZEN_BEFORE_IMPLEMENTATION",
+  "step": "Step2",
+  "training_only_utility_target": {
+    "applies_to": [
+      "M4qcesi-u",
+      "M4qcesi"
+    ],
+    "candidate_intervention": {
+      "equations": [
+        "alpha_T_candidate = clamp(alpha_T_ref + 0.15*(q_T_star-q_V_star), 0.10, 0.90)",
+        "alpha_V_candidate = 1 - alpha_T_candidate",
+        "g_I_candidate = clamp(1 - 0.50*r, 0.50, 1.00)",
+        "z_candidate = alpha_T_candidate*h_T + alpha_V_candidate*h_V + g_I_candidate*z_I"
+      ],
+      "interaction_suppression_max": 0.5,
+      "max_modality_weight": 0.9,
+      "min_modality_weight": 0.1,
+      "note": "Candidate uses maximum prospectively permitted evidence-directed intervention and does not use u_hat.",
+      "weight_shift_max": 0.15
+    },
+    "construction": "counterfactual max-permitted candidate compared with stable reference on the same training example",
+    "labels": "training split only",
+    "selector_loss": "binary cross entropy(u_hat, u_target)",
+    "selector_loss_weight": 0.5,
+    "target_bounds": [
+      0.0,
+      1.0
+    ],
+    "target_detached": true,
+    "target_equations": [
+      "p_ref_true = softmax(classifier(z_ref)).gather(true_class)",
+      "p_candidate_true = softmax(classifier(z_candidate)).gather(true_class)",
+      "delta_u = detach(p_candidate_true - p_ref_true)",
+      "u_target = sigmoid(delta_u / 0.05)"
+    ],
+    "target_shape": "[B,1]",
+    "temperature": 0.05,
+    "validation_or_test_labels": "PROHIBITED"
+  },
+  "utility_selector": {
+    "enabled_for": [
+      "M4qcesi-u",
+      "M4qcesi"
+    ],
+    "network": {
+      "dropout": 0.0,
+      "hidden_dim": 16,
+      "initialization": {
+        "final_linear_bias": 0.0,
+        "final_linear_weight": 0.0,
+        "first_linear_bias": 0.0,
+        "first_linear_weight": "Xavier uniform using the run seed",
+        "initial_u_hat": 0.5,
+        "initial_utility_gate": 0.0
+      },
+      "input_dim": 7,
+      "layers": [
+        "Linear(7,16)",
+        "ReLU",
+        "Linear(16,1)",
+        "Sigmoid"
+      ],
+      "output_bounds": [
+        0.0,
+        1.0
+      ],
+      "output_name": "u_hat",
+      "output_shape": "[B,1]"
+    },
+    "utility_gate": {
+      "do_no_harm_property": "u_hat <= 0.50 gives zero intervention",
+      "equation": "g_u = clamp((u_hat - 0.50)/0.50, 0, 1)",
+      "neutral_point": 0.5
+    }
+  }
+}
