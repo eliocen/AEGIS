@@ -1,0 +1,67 @@
+{
+  "clean_performance_safeguard": {
+    "comparators": {
+      "M1b": {
+        "criterion": ">=-0.01",
+        "observed": -0.012784645712237697,
+        "passed": false
+      },
+      "M4qcf": {
+        "criterion": ">=-0.01",
+        "observed": -0.006592636536926433,
+        "passed": true
+      },
+      "M4qcs-w": {
+        "criterion": ">=-0.01",
+        "observed": -0.0037310900702763883,
+        "passed": true
+      }
+    },
+    "passed": false
+  },
+  "closure_controls": {
+    "additional_v029_evaluation_permitted": false,
+    "additional_v029_training_permitted": false,
+    "analyzer_rerun_permitted": false,
+    "checkpoint_reselection_permitted": false,
+    "formal_gate_modification_permitted": false,
+    "next_development_line": "v0.30",
+    "seed_or_condition_dropping_permitted": false,
+    "threshold_tuning_permitted": false,
+    "v029_closed": true
+  },
+  "evidence_classification": "CONTROLLED_VALIDATION_DEVELOPMENT_EVIDENCE",
+  "formal_decisions": {
+    "V29_H1": "NOT_SUPPORTED",
+    "V29_H2": "NOT_SUPPORTED",
+    "V29_H3": "NOT_SUPPORTED",
+    "V29_H4": "NOT_SUPPORTED"
+  },
+  "record_version": "0.29.0-step6",
+  "scientific_safety": {
+    "causal_claim_made": false,
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0,
+    "universal_robustness_claim_made": false
+  },
+  "scientific_synthesis": {
+    "formal_seeds": 3,
+    "h4_cardinality_clarification_frozen_before_evaluation": true,
+    "independent_confirmation": false,
+    "mismatch_summary_rows": 42,
+    "official_test_evidence": false,
+    "quality_summary_rows": 399,
+    "structured_dropout_clarification_frozen_before_evaluation": true,
+    "training_runs": 9
+  },
+  "source_commits": {
+    "step5_parent": "caef2f8b90d523774934bd46a24527f18d2deb0d"
+  },
+  "source_document_sha256": {
+    "step3_results": "F484FE4FC5FE8B18900967CDDB5B7C6384C7204A7D3CD9B306E1D00C7CCD3834",
+    "step4_operationalization": "81B9CD377397C963C64935DE9D2C988CA35730940B2E25EEF70357C297C34591",
+    "step4_results": "5E77E1A1433131DBA713B4BCEA5BB2B59944182CDDD7A4766F9D4C5FBFACB3E5",
+    "step5_results": "24CA16974A93DE7B4632E28847D6EF9BD15C375228EEA0EF7C14996FA799BC36"
+  },
+  "status": "V029_SCIENTIFIC_RECORD_READY_FOR_RELEASE_FREEZE"
+}
