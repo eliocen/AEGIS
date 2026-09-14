@@ -1,0 +1,456 @@
+{
+  "branch": "feature/v0.30-evidence-driven-adaptive-control",
+  "checkpoint_selection": {
+    "compatibility_metrics_used": false,
+    "intervention_metrics_used": false,
+    "mismatch_metrics_used": false,
+    "post_result_reselection_permitted": false,
+    "primary_metric": "clean_validation_macro_f1",
+    "quality_metrics_used": false,
+    "robustness_metrics_used": false,
+    "tie_breaker": "clean_validation_classification_loss"
+  },
+  "environment_provenance_at_freeze": {
+    "cuda_available_at_step4_freeze": true,
+    "cuda_device_names_at_step4_freeze": [
+      "NVIDIA GeForce GTX 1660 SUPER"
+    ],
+    "formal_training_cuda_required": true,
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python_executable": "D:\\Research\\AEGIS\\.venv\\Scripts\\python.exe",
+    "python_version": "3.10.11",
+    "torch_cuda_version": "13.2",
+    "torch_version": "2.13.0+cu132"
+  },
+  "evidence_classification": "CONTROLLED_VALIDATION_DEVELOPMENT_EVIDENCE",
+  "expected_run_artifacts": [
+    "experiment.json",
+    "metrics.jsonl",
+    "best_model.pt",
+    "final_model.pt",
+    "best_validation_predictions.json",
+    "summary.json"
+  ],
+  "experiment": "aegis_v030_evidence_conditioned_selective_reliability_intervention",
+  "failure_and_recovery_policy": {
+    "architecture_substitution_permitted": false,
+    "checkpoint_reselection_after_result_permitted": false,
+    "completed_run_overwrite_permitted": false,
+    "completed_run_rerun_for_better_result_permitted": false,
+    "failed_seed_or_run_exclusion_permitted": false,
+    "hyperparameter_change_after_any_formal_result_permitted": false,
+    "technical_failure_handling": "Preserve failure evidence and resume only under the same locked scientific configuration unless a prospective correction is frozen before resumed formal training."
+  },
+  "formal_training": {
+    "architecture_order": [
+      "M4qesri-w",
+      "M4qesri-t",
+      "M4qesri"
+    ],
+    "execution_policy": "SEQUENTIAL_LOCKED_ORDER",
+    "run_count": 9,
+    "runs": [
+      {
+        "architecture": "M4qesri-w",
+        "command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention_weights --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_w_seed42 --seed 42 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+        "controller_mode": "weights_only",
+        "expected_artifacts": [
+          "experiment.json",
+          "metrics.jsonl",
+          "best_model.pt",
+          "final_model.pt",
+          "best_validation_predictions.json",
+          "summary.json"
+        ],
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_w_seed42",
+        "fusion_architecture": "quality_compatibility_selective_intervention_weights",
+        "run_index": 1,
+        "seed": 42,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qesri-w",
+        "command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention_weights --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_w_seed43 --seed 43 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+        "controller_mode": "weights_only",
+        "expected_artifacts": [
+          "experiment.json",
+          "metrics.jsonl",
+          "best_model.pt",
+          "final_model.pt",
+          "best_validation_predictions.json",
+          "summary.json"
+        ],
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_w_seed43",
+        "fusion_architecture": "quality_compatibility_selective_intervention_weights",
+        "run_index": 2,
+        "seed": 43,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qesri-w",
+        "command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention_weights --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_w_seed44 --seed 44 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+        "controller_mode": "weights_only",
+        "expected_artifacts": [
+          "experiment.json",
+          "metrics.jsonl",
+          "best_model.pt",
+          "final_model.pt",
+          "best_validation_predictions.json",
+          "summary.json"
+        ],
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_w_seed44",
+        "fusion_architecture": "quality_compatibility_selective_intervention_weights",
+        "run_index": 3,
+        "seed": 44,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qesri-t",
+        "command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention_transition --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_t_seed42 --seed 42 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+        "controller_mode": "transition_only",
+        "expected_artifacts": [
+          "experiment.json",
+          "metrics.jsonl",
+          "best_model.pt",
+          "final_model.pt",
+          "best_validation_predictions.json",
+          "summary.json"
+        ],
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_t_seed42",
+        "fusion_architecture": "quality_compatibility_selective_intervention_transition",
+        "run_index": 4,
+        "seed": 42,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qesri-t",
+        "command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention_transition --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_t_seed43 --seed 43 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+        "controller_mode": "transition_only",
+        "expected_artifacts": [
+          "experiment.json",
+          "metrics.jsonl",
+          "best_model.pt",
+          "final_model.pt",
+          "best_validation_predictions.json",
+          "summary.json"
+        ],
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_t_seed43",
+        "fusion_architecture": "quality_compatibility_selective_intervention_transition",
+        "run_index": 5,
+        "seed": 43,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qesri-t",
+        "command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention_transition --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_t_seed44 --seed 44 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+        "controller_mode": "transition_only",
+        "expected_artifacts": [
+          "experiment.json",
+          "metrics.jsonl",
+          "best_model.pt",
+          "final_model.pt",
+          "best_validation_predictions.json",
+          "summary.json"
+        ],
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_t_seed44",
+        "fusion_architecture": "quality_compatibility_selective_intervention_transition",
+        "run_index": 6,
+        "seed": 44,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qesri",
+        "command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_seed42 --seed 42 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+        "controller_mode": "combined",
+        "expected_artifacts": [
+          "experiment.json",
+          "metrics.jsonl",
+          "best_model.pt",
+          "final_model.pt",
+          "best_validation_predictions.json",
+          "summary.json"
+        ],
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_seed42",
+        "fusion_architecture": "quality_compatibility_selective_intervention",
+        "run_index": 7,
+        "seed": 42,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qesri",
+        "command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_seed43 --seed 43 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+        "controller_mode": "combined",
+        "expected_artifacts": [
+          "experiment.json",
+          "metrics.jsonl",
+          "best_model.pt",
+          "final_model.pt",
+          "best_validation_predictions.json",
+          "summary.json"
+        ],
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_seed43",
+        "fusion_architecture": "quality_compatibility_selective_intervention",
+        "run_index": 8,
+        "seed": 43,
+        "status": "LOCKED_NOT_STARTED"
+      },
+      {
+        "architecture": "M4qesri",
+        "command": "python -m scripts.run_fakeddit_ablation --mode multimodal --fusion-architecture quality_compatibility_selective_intervention --train-cache data/processed/fakeddit/frozen_embeddings/train_n5000_seed42 --validation-cache data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42 --experiment-root experiments/fakeddit/v030_m4qesri_seed44 --seed 44 --epochs 50 --batch-size 32 --learning-rate 0.001 --weight-decay 0.0001 --shared-dim 128 --hidden-dim 128 --dropout 0.1 --temperature 0.07 --alignment-weight 0.5 --classification-weight 1.0 --quality-weight 1.0 --compatibility-weight 1.0 --transition-objective-weight 0.0 --gradient-clip 1.0 --patience 8 --min-epochs 5 --min-delta 0.000001 --log-every 1",
+        "controller_mode": "combined",
+        "expected_artifacts": [
+          "experiment.json",
+          "metrics.jsonl",
+          "best_model.pt",
+          "final_model.pt",
+          "best_validation_predictions.json",
+          "summary.json"
+        ],
+        "experiment_root": "experiments/fakeddit/v030_m4qesri_seed44",
+        "fusion_architecture": "quality_compatibility_selective_intervention",
+        "run_index": 9,
+        "seed": 44,
+        "status": "LOCKED_NOT_STARTED"
+      }
+    ],
+    "seed_order_within_architecture": [
+      42,
+      43,
+      44
+    ]
+  },
+  "locked_hyperparameters": {
+    "alignment_weight": 0.5,
+    "batch_size": 32,
+    "classification_weight": 1.0,
+    "compatibility_weight": 1.0,
+    "dropout": 0.1,
+    "epochs": 50,
+    "gradient_clip": 1.0,
+    "hidden_dim": 128,
+    "learning_rate": 0.001,
+    "log_every": 1,
+    "min_delta": 1e-06,
+    "min_epochs": 5,
+    "patience": 8,
+    "quality_weight": 1.0,
+    "shared_dim": 128,
+    "temperature": 0.07,
+    "transition_objective_weight": 0.0,
+    "weight_decay": 0.0001
+  },
+  "next_step": "v0.30 Step5 formal training execution in exact frozen order.",
+  "record_version": "0.30.0-step4-formal-training-operationalization",
+  "runner": {
+    "entrypoint": "python -m scripts.run_fakeddit_ablation",
+    "mode": "multimodal",
+    "path": "scripts/run_fakeddit_ablation.py",
+    "sha256": "D73F7C95504D0BB3122A99A00322ECDB483BA6AC7A73DA52BEFDA11A2B572CF5"
+  },
+  "scientific_safety": {
+    "formal_evaluation_performed_in_step4": false,
+    "formal_hypothesis_decisions_performed_in_step4": false,
+    "formal_run_condition_dropping_permitted": false,
+    "formal_training_performed_in_step4": false,
+    "hyperparameter_search_permitted": false,
+    "new_formal_architecture_after_step4_permitted": false,
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0,
+    "result_driven_tuning_permitted": false
+  },
+  "status": "FROZEN_BEFORE_FORMAL_V030_TRAINING",
+  "step3b_parent_commit": "477b0026fba5b2bc49ebe4910924b341efb0d505",
+  "training_data": {
+    "cache_change_after_step4_permitted": false,
+    "train_cache": {
+      "file_count": 24,
+      "files": [
+        {
+          "relative_path": "cache_manifest.json",
+          "sha256": "5BC8BF53F988B3DD5299A1D940DB6676F48E37250F52C8B3569150BE153417C5",
+          "size_bytes": 503
+        },
+        {
+          "relative_path": "excluded_samples.jsonl",
+          "sha256": "2F67A26EA196882D0B5D2D1824C2EFF9EE4BAE01A207DC44A334DE650C616E41",
+          "size_bytes": 590
+        },
+        {
+          "relative_path": "index.jsonl",
+          "sha256": "B37C05C34A7FB57B11A931146516511BC76ABA34C861CFFDDC77B7765D4D1662",
+          "size_bytes": 543977
+        },
+        {
+          "relative_path": "selection.json",
+          "sha256": "9EBC98C2172476B7F4A4373AADAFB1806F218FA5575FFA6302910FB17CF08B4C",
+          "size_bytes": 77052
+        },
+        {
+          "relative_path": "shards/shard_00000.pt",
+          "sha256": "14705F718160158E684367DD8D76E5E62643BE029CDD8C2DE5EA7002D4A2BB63",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00001.pt",
+          "sha256": "A60911E6B62C0ACC19CEF0B71D42E5D28CD0EB97E6D83A44B8B1FB70D5B07CB3",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00002.pt",
+          "sha256": "FB91B0AF5EAEA2EA05449EB725F8F6C837B8FD3FFFD0D9DF1075B2EBCB396C63",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00003.pt",
+          "sha256": "BAA2F4B91491294ED7C51A990FBFC79B60A7F492424E3B76BEBF268A649F4DEF",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00004.pt",
+          "sha256": "433C13E7687AD5716736F9725ADE27D30FD2771F8DB6BE198D0189DF5DA95BD4",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00005.pt",
+          "sha256": "8476AD0FF696F0C871B275C2D0229995ED9C0302452DDB703B9DCB3D0A4F205C",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00006.pt",
+          "sha256": "C81913179CCF16140CD0A43F3128F461AD2F260387F5452FDB2E0443D9F079B6",
+          "size_bytes": 1289925
+        },
+        {
+          "relative_path": "shards/shard_00007.pt",
+          "sha256": "E3736AE56269DD4B3B48FDE7F58B3AD91821C7D4CFA309515271653800D4DBC0",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00008.pt",
+          "sha256": "C4B9B793B62F9339BF100EBE645F6AADCD0FB6E91F037A4CAE555FA00BFAB8B5",
+          "size_bytes": 1289925
+        },
+        {
+          "relative_path": "shards/shard_00009.pt",
+          "sha256": "BE73A72372F13B99D49D0141F7BC952C8A79B54D5EA616B80C47EBDBA13896E2",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00010.pt",
+          "sha256": "24CE92C457E0E160E376C4FD6FBA7DBA162498E83908EF31242629D25FD36B67",
+          "size_bytes": 1289925
+        },
+        {
+          "relative_path": "shards/shard_00011.pt",
+          "sha256": "CA017FF24B5EA3FE782C3449A78C6D18CEC413CF2F007FFC692F1D6DA8FE2EDC",
+          "size_bytes": 1289925
+        },
+        {
+          "relative_path": "shards/shard_00012.pt",
+          "sha256": "C48B6004369D3117CDACBCD580127A8FD4B8ADD099C04383023F10392E4582D0",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00013.pt",
+          "sha256": "2B4904850C482730CC47E9B35ABA8FB3818095C74DE5D7B08F99A5BB69010573",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00014.pt",
+          "sha256": "6F64667E9E6E50AE9AC315F24E057E4C48B58F2782D352D78E729870AD568F52",
+          "size_bytes": 1289925
+        },
+        {
+          "relative_path": "shards/shard_00015.pt",
+          "sha256": "50F93215FC70B5D146F614D76132948E88F71917FC8C005618D1DB0F51A2D4CB",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00016.pt",
+          "sha256": "53C6D4A595D67EE66325956F316D4381ED9F0DFABCB9F4E11D5B41770A8617D2",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00017.pt",
+          "sha256": "23B3044DC97CCAB2D48E069548D1A6700378D8422A6EA0268A75AC896ED5996B",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00018.pt",
+          "sha256": "F4F2ED0C9DECFF5F16CF19B253973F3D5F648F2CFCA6BCBF1734AD35D6CC7D69",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00019.pt",
+          "sha256": "E2AF3962CC35EB6E9CA7B6136ED438BE885ADB3AFA428C8F4FF4868E5299047A",
+          "size_bytes": 1289925
+        }
+      ],
+      "identity_definition": "SHA256 over relative-path, size and per-file SHA256 entries in lexicographic order.",
+      "path": "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+      "total_bytes": 26419726,
+      "tree_sha256": "5FB8F4DDAC94211B44D5CDFC54ADC824D24D5B4073B2EF8B22BA08D179981CC2"
+    },
+    "train_sample_count_from_frozen_protocol": 5000,
+    "validation_cache": {
+      "file_count": 8,
+      "files": [
+        {
+          "relative_path": "cache_manifest.json",
+          "sha256": "C4E95F818C24043DB1DEE9C0CFC0DE85C2E591E9E77B98CB2490046D1BC04F87",
+          "size_bytes": 507
+        },
+        {
+          "relative_path": "excluded_samples.jsonl",
+          "sha256": "2797CA9FF7591CD7519E66698726AE64857ED20B1062E27ADB6E1C03E028A9E1",
+          "size_bytes": 295
+        },
+        {
+          "relative_path": "index.jsonl",
+          "sha256": "DC628D7B685682F6D072D20A35A7A011B8E10EAAEBF8392A19C1A258353ED363",
+          "size_bytes": 108805
+        },
+        {
+          "relative_path": "selection.json",
+          "sha256": "50F9ACDAE213B3A2C34B7C1B09F2414243BC84191964950631E52339CFF4883F",
+          "size_bytes": 16120
+        },
+        {
+          "relative_path": "shards/shard_00000.pt",
+          "sha256": "8397D89322DAED4A4281B0A1408C070A8AA68AE5686C65AEFCA4CE888692000B",
+          "size_bytes": 1289925
+        },
+        {
+          "relative_path": "shards/shard_00001.pt",
+          "sha256": "5D6DF35149B48FF658E2165FF0EDBDD7277B869B937197858023E5FBF7439C2D",
+          "size_bytes": 1289861
+        },
+        {
+          "relative_path": "shards/shard_00002.pt",
+          "sha256": "AE244690B5780975FEA4C9A0458F07F44A642D780E5BCDCB43EA499C44C3F425",
+          "size_bytes": 1289925
+        },
+        {
+          "relative_path": "shards/shard_00003.pt",
+          "sha256": "6D654A47A50458176F96E261371BBFAA166964783B1D06C4685C20274EDFECBB",
+          "size_bytes": 1289925
+        }
+      ],
+      "identity_definition": "SHA256 over relative-path, size and per-file SHA256 entries in lexicographic order.",
+      "path": "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42",
+      "total_bytes": 5285363,
+      "tree_sha256": "88BD8D27A4C9E48409FDA3E2B08A1A14EBC0A4F0F8F995266B49BA9CAAA7167E"
+    },
+    "validation_sample_count_from_frozen_protocol": 1000
+  },
+  "training_semantics": {
+    "architecture_difference_rule": "Only the frozen selective intervention pathway differs across the three v0.30 variants.",
+    "compatibility_supervision": true,
+    "quality_feature_statistics": true,
+    "quality_supervision": true,
+    "selective_intervention_controller_parameter_free": true,
+    "shared_training_mixture": "M4qcs-compatible",
+    "v029_transition_auxiliary_objective_enabled": false,
+    "v029_transition_reference_batch_used": false
+  }
+}
