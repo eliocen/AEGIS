@@ -1,0 +1,243 @@
+{
+  "aegis_version": "0.33",
+  "architecture": {
+    "candidate_action_modification_in_v033": "PROHIBITED",
+    "candidate_intervention_action": "INHERIT_UNCHANGED_FROM_FROZEN_V0.31_M4QCESI_SOURCE",
+    "name": "M4 Quality Utility-Supervised Learned Intervention",
+    "primary": "M4qusli",
+    "reason": "v0.33 isolates utility supervision, selector learning, and gate activation before changing the candidate action space.",
+    "reference_architectures": [
+      "M1b",
+      "M4qcf",
+      "M4qcs-w",
+      "M4qcesi"
+    ]
+  },
+  "evaluation_policy": {
+    "checkpoint_reselection": "PROHIBITED",
+    "formal_evaluation": "DEFERRED",
+    "official_test_access": "PROHIBITED",
+    "post_exposure_rule_change": "PROHIBITED",
+    "threshold_tuning": "PROHIBITED"
+  },
+  "formal_characterization_hypotheses": {
+    "V33_H1_TARGET_SIGNAL": {
+      "supported_if": [
+        "std(delta_u) >= 0.01",
+        "fraction abs(delta_u) >= 0.01 >= 0.20",
+        "fraction u_target in [0.45,0.55] < 0.75"
+      ]
+    },
+    "V33_H2_SELECTOR_LEARNING": {
+      "supported_if": [
+        "final validation utility_probability std across 19 frozen condition means >= 0.02",
+        "selector parameter L2 movement from initialization > 1e-6",
+        "median recorded selector gradient norm on non-neutral-target steps > 1e-8",
+        "active intervention rate > 0 in at least one degraded validation stratum"
+      ]
+    },
+    "V33_H3_UTILITY_DISCRIMINATION": {
+      "supported_if": [
+        "mismatched minus matched mean utility_probability >= 0.02",
+        "catastrophic minus clean mean utility_probability >= 0.02"
+      ]
+    },
+    "V33_H4_CLEAN_SAFEGUARD": {
+      "failure_rule": "failure prohibits successor performance recommendation",
+      "supported_if": [
+        "mean clean Macro-F1 delta vs M1b >= -0.01",
+        "mean clean Macro-F1 delta vs M4qcs-w >= -0.01"
+      ]
+    },
+    "V33_H5_GRADED_ROBUSTNESS": {
+      "supported_if": [
+        "V33_H4_CLEAN_SAFEGUARD supported",
+        "graded mean Macro-F1 delta vs M4qcs-w >= +0.005 across the frozen 36 paired seed-condition comparisons",
+        "positive graded count >= 22 of 36",
+        "catastrophic mean Macro-F1 delta vs M4qcf >= -0.01"
+      ]
+    }
+  },
+  "formal_training_plan": {
+    "additional_architecture_runs": "NONE_AT_STEP2",
+    "primary_architecture": "M4qusli",
+    "reason": "first establish whether the redesigned supervision and selector pathway learns before expanding ablations.",
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "status": "NOT_AUTHORIZED_UNTIL_IMPLEMENTATION_AND_PREFLIGHT_FREEZE"
+  },
+  "frozen_validation_strata": {
+    "catastrophic": [
+      "text_attenuation_s1",
+      "vision_attenuation_s1",
+      "text_zero_dropout_s1",
+      "vision_zero_dropout_s1"
+    ],
+    "graded": [
+      "text_gaussian_noise_s0p25",
+      "text_gaussian_noise_s0p5",
+      "text_gaussian_noise_s0p75",
+      "vision_gaussian_noise_s0p25",
+      "vision_gaussian_noise_s0p5",
+      "vision_gaussian_noise_s0p75",
+      "text_attenuation_s0p25",
+      "text_attenuation_s0p5",
+      "text_attenuation_s0p75",
+      "vision_attenuation_s0p25",
+      "vision_attenuation_s0p5",
+      "vision_attenuation_s0p75"
+    ],
+    "matched": "matched",
+    "mismatched": "class_preserving_mismatched",
+    "structured_dropout_s0p5_role": "neither graded nor catastrophic for H5"
+  },
+  "implementation_boundary": {
+    "next_step": "Step3 exact source-layout and inherited-candidate-action audit",
+    "source_modification_before_step3_audit": "PROHIBITED",
+    "step2_source_changes": "NONE"
+  },
+  "intervention_gate": {
+    "active_intervention_indicator": "1 if utility_probability >= 0.60 else 0",
+    "active_threshold": 0.6,
+    "applied_strength": "0.15 * soft_gate",
+    "calibrated_risk_multiplier": "NOT_USED_IN_V033_PRIMARY_GATE",
+    "default_behavior": "NO_INTERVENTION when utility_probability < 0.60",
+    "max_intervention_strength": 0.15,
+    "reason": "separate utility learning from the v0.31 calibrated-risk gate so selector learning and activation can be directly diagnosed.",
+    "soft_gate": "clip((utility_probability - 0.60)/0.40, 0.0, 1.0)",
+    "threshold_search": "PROHIBITED"
+  },
+  "mandatory_persisted_diagnostics": {
+    "format": "machine-readable JSON/JSONL summaries plus existing checkpoint metadata",
+    "terminal_only_evidence": "INSUFFICIENT",
+    "training": [
+      "p_ref_true",
+      "p_candidate_true",
+      "delta_u",
+      "u_target",
+      "utility_probability",
+      "utility_gate",
+      "intervention_gate",
+      "active_intervention_indicator",
+      "utility_loss",
+      "classification_loss",
+      "calibration_loss_if_present",
+      "selector_parameter_delta_or_equivalent",
+      "selector_gradient_norm_or_equivalent",
+      "effective_classification_loss_weight",
+      "effective_utility_loss_weight"
+    ],
+    "validation": [
+      "utility_probability",
+      "utility_gate",
+      "intervention_gate",
+      "active_intervention_indicator",
+      "macro_f1",
+      "classification_loss"
+    ]
+  },
+  "official_test_samples": 0,
+  "parent_freeze_commit": "a209668f0914eb1f0e30e4d54d183fe7381ef74f",
+  "pretraining_hard_gates": {
+    "G1_tensor_contract": {
+      "fail_action": "FORMAL_TRAINING_PROHIBITED",
+      "pass": "all frozen shape/range/detach/directionality tests pass"
+    },
+    "G2_target_signal_controlled_smoke": {
+      "fail_action": "FORMAL_TRAINING_PROHIBITED",
+      "pass": "controlled examples include delta_u >= +0.01 and <= -0.01 and yield u_target >= 0.55 and <= 0.45 respectively"
+    },
+    "G3_real_one_batch_learning_path": {
+      "fail_action": "FORMAL_TRAINING_PROHIBITED",
+      "pass": [
+        "finite utility loss > 0",
+        "selector gradient norm or equivalent > 1e-8",
+        "selector parameter L2 movement after optimizer step > 1e-8",
+        "effective utility loss weight == 0.50",
+        "non-neutral targets present"
+      ]
+    },
+    "G4_runtime_weight_assertion": {
+      "fail_action": "FORMAL_TRAINING_PROHIBITED",
+      "pass": "runtime-recorded effective weights equal the Step2 contract"
+    },
+    "G5_inactive_default": {
+      "fail_action": "FORMAL_TRAINING_PROHIBITED",
+      "pass": "utility_probability < 0.60 produces exactly zero intervention strength and active indicator 0"
+    }
+  },
+  "schema_version": "1.0",
+  "scientific_role": "prospective exact mechanism freeze before implementation",
+  "selector_inputs": {
+    "modification_before_step3_audit": "PROHIBITED",
+    "policy": "inherit the frozen v0.31 M4qcesi evidence-vector semantics unless Step3 source audit proves an incompatibility",
+    "required_properties": [
+      "finite",
+      "batch-aligned",
+      "training-time available without official-test information"
+    ]
+  },
+  "step": "Step2",
+  "tensor_contract": {
+    "batch_axis": "B",
+    "delta_u": {
+      "definition": "p_candidate_true - p_ref_true",
+      "finite": true,
+      "gradient": "DETACHED",
+      "range": "[-1,1]",
+      "shape": "[B]"
+    },
+    "p_candidate_true": {
+      "dtype": "floating",
+      "finite": true,
+      "gradient": "DETACHED_FOR_UTILITY_TARGET",
+      "range": "[0,1]",
+      "shape": "[B]"
+    },
+    "p_ref_true": {
+      "dtype": "floating",
+      "finite": true,
+      "gradient": "DETACHED_FOR_UTILITY_TARGET",
+      "range": "[0,1]",
+      "shape": "[B]"
+    },
+    "selector_output": {
+      "definition": "sigmoid(selector_logit)",
+      "finite": true,
+      "name": "utility_probability",
+      "range": "[0,1]",
+      "shape": "[B]"
+    },
+    "u_target": {
+      "anchor_examples": {
+        "delta_u_+0.01": 0.55,
+        "delta_u_+0.10": 1.0,
+        "delta_u_-0.01": 0.45,
+        "delta_u_-0.10": 0.0,
+        "delta_u_0.00": 0.5
+      },
+      "definition": "clip(0.5 + delta_u / 0.20, 0.0, 1.0)",
+      "directionality": "delta_u > 0 => u_target > 0.5; delta_u < 0 => u_target < 0.5",
+      "finite": true,
+      "neutral_point": 0.5,
+      "range": "[0,1]",
+      "shape": "[B]"
+    }
+  },
+  "title": "Exact Utility-Supervision and Selector-Learning Mechanism Contract",
+  "utility_loss": {
+    "base_loss": "binary_cross_entropy_with_logits(selector_logit, u_target)",
+    "effective_weight_assertion_required": true,
+    "final_loss": "mean(per_sample_magnitude_weight * BCEWithLogits(selector_logit, u_target))",
+    "per_sample_magnitude_weight": {
+      "definition": "1.0 + 4.0 * min(abs(delta_u)/0.10, 1.0)",
+      "purpose": "increase optimization signal for materially non-neutral counterfactual utility while retaining neutral examples",
+      "range": "[1,5]"
+    },
+    "transition_objective_weight": 0.0,
+    "utility_loss_weight": 0.5
+  }
+}
