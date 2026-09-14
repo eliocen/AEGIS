@@ -1,0 +1,54 @@
+{
+  "architecture_mapping": {
+    "quality_compatibility_selective_intervention": {
+      "label": "M4qesri",
+      "model_mode": "combined"
+    },
+    "quality_compatibility_selective_intervention_transition": {
+      "label": "M4qesri-t",
+      "model_mode": "transition_only"
+    },
+    "quality_compatibility_selective_intervention_weights": {
+      "label": "M4qesri-w",
+      "model_mode": "weights_only"
+    }
+  },
+  "implementation": {
+    "focused_test": {
+      "path": "tests/test_v030_runner_integration.py",
+      "sha256": "1B4D22E6AF691F18671C13508DA17B5C47C99944119B2EEC5AE828FC4C8F81EA"
+    },
+    "runner": {
+      "path": "scripts/run_fakeddit_ablation.py",
+      "sha256": "D73F7C95504D0BB3122A99A00322ECDB483BA6AC7A73DA52BEFDA11A2B572CF5"
+    }
+  },
+  "next_step": "Step4 ??freeze exact nine-run formal-training operationalization and hyperparameter/run-directory matrix before any formal v0.30 training.",
+  "parent_step3a_commit": "bef83dc65443c1a7fbe84639994e2342a3d220de",
+  "record_version": "0.30.0-step3b",
+  "scientific_safety": {
+    "formal_decisions_computed": false,
+    "formal_evaluation_performed": false,
+    "formal_training_performed": false,
+    "official_test_samples_accessed": 0
+  },
+  "status": "RUNNER_ABLATION_INTEGRATION_VERIFIED_BEFORE_FORMAL_TRAINING",
+  "training_integration": {
+    "compatibility_supervision_active": true,
+    "controller_parameter_count": 0,
+    "formal_training_operationalized": false,
+    "quality_feature_statistics_required": true,
+    "quality_supervision_active": true,
+    "same_training_mixture_all_v030_variants": true,
+    "training_mixture": "prepare_m4qcs_training_batch",
+    "v029_transition_objective_active": false,
+    "v029_transition_reference_batch_used": false
+  },
+  "verification": {
+    "focused_runner_step2_v029_suite": "PASS",
+    "full_repository_regression_suite": "PASS",
+    "python_compile": "PASS",
+    "structural_transition_objective_isolation": "PASS",
+    "synthetic_forward_smoke": "PASS"
+  }
+}

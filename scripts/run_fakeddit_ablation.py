@@ -240,6 +240,32 @@ DEFAULT_EXPERIMENT_ROOT = Path(
     "ablation"
 )
 
+V030_SELECTIVE_INTERVENTION_ARCHITECTURE_MODES = {
+    "quality_compatibility_selective_intervention_weights": "weights_only",
+    "quality_compatibility_selective_intervention_transition": "transition_only",
+    "quality_compatibility_selective_intervention": "combined",
+}
+V030_SELECTIVE_INTERVENTION_ARCHITECTURES = frozenset(
+    V030_SELECTIVE_INTERVENTION_ARCHITECTURE_MODES
+)
+
+
+def v030_selective_intervention_mode(
+    fusion_architecture: str,
+) -> Optional[str]:
+    """Map a v0.30 runner architecture to the frozen Step2 model mode."""
+    return V030_SELECTIVE_INTERVENTION_ARCHITECTURE_MODES.get(
+        fusion_architecture
+    )
+
+
+def is_v030_selective_intervention_architecture(
+    fusion_architecture: str,
+) -> bool:
+    """Return whether the runner architecture belongs to frozen v0.30."""
+    return fusion_architecture in V030_SELECTIVE_INTERVENTION_ARCHITECTURES
+
+
 QUALITY_TRAINING_ARCHITECTURES = frozenset({
     "quality_supervised",
     "quality_compatibility_supervised",
@@ -250,7 +276,7 @@ QUALITY_TRAINING_ARCHITECTURES = frozenset({
     "quality_compatibility_graded_weights",
     "quality_compatibility_transition_control",
     "quality_compatibility_graded_transition_fusion",
-})
+}) | V030_SELECTIVE_INTERVENTION_ARCHITECTURES
 
 
 def requires_quality_feature_statistics(fusion_architecture: str) -> bool:
@@ -308,6 +334,12 @@ def parse_args():
             "quality_compatibility_graded_weights",
             "quality_compatibility_transition_control",
             "quality_compatibility_graded_transition_fusion",
+            "quality_compatibility_selective_intervention_weights",
+            "quality_compatibility_selective_intervention_transition",
+            "quality_compatibility_selective_intervention",
+            "quality_compatibility_selective_intervention_weights",
+            "quality_compatibility_selective_intervention_transition",
+            "quality_compatibility_selective_intervention",
             "evidence_aware",
         ],
         help=(
@@ -620,6 +652,9 @@ def validate_args(
             "quality_compatibility_graded_weights",
             "quality_compatibility_transition_control",
             "quality_compatibility_graded_transition_fusion",
+            "quality_compatibility_selective_intervention_weights",
+            "quality_compatibility_selective_intervention_transition",
+            "quality_compatibility_selective_intervention",
         }
         and args.quality_weight <= 0
     ):
@@ -638,6 +673,9 @@ def validate_args(
             "quality_compatibility_graded_weights",
             "quality_compatibility_transition_control",
             "quality_compatibility_graded_transition_fusion",
+            "quality_compatibility_selective_intervention_weights",
+            "quality_compatibility_selective_intervention_transition",
+            "quality_compatibility_selective_intervention",
         }
         and args.compatibility_weight <= 0
     ):
@@ -689,6 +727,9 @@ def validate_args(
             "quality_compatibility_selective_weights",
             "quality_compatibility_selective_interaction",
             "quality_compatibility_selective_fusion",
+            "quality_compatibility_selective_intervention_weights",
+            "quality_compatibility_selective_intervention_transition",
+            "quality_compatibility_selective_intervention",
             "evidence_aware",
         }
         and args.mode != "multimodal"
@@ -795,6 +836,12 @@ def mode_description(
         return "M4qtc transition-aware interaction control with equal allocation"
     if fusion_architecture == "quality_compatibility_graded_transition_fusion":
         return "M4qgrt combined graded reliability and transition control"
+    if fusion_architecture == "quality_compatibility_selective_intervention_weights":
+        return "M4qesri-w evidence-conditioned selective modality weighting"
+    if fusion_architecture == "quality_compatibility_selective_intervention_transition":
+        return "M4qesri-t evidence-conditioned selective transition intervention"
+    if fusion_architecture == "quality_compatibility_selective_intervention":
+        return "M4qesri combined evidence-conditioned selective intervention"
 
     if fusion_architecture == "evidence_aware":
         return (
@@ -963,6 +1010,9 @@ class FakedditAblationTrainer(
             "quality_compatibility_graded_weights",
             "quality_compatibility_transition_control",
             "quality_compatibility_graded_transition_fusion",
+            "quality_compatibility_selective_intervention_weights",
+            "quality_compatibility_selective_intervention_transition",
+            "quality_compatibility_selective_intervention",
             "evidence_aware",
         }:
             raise ValueError(
@@ -971,7 +1021,9 @@ class FakedditAblationTrainer(
                 "['evidence_aware', 'gated_interaction', "
                 "'interaction_only', 'interaction_reliability', 'legacy', "
                 "'quality_compatibility_fusion', 'quality_compatibility_supervised', 'quality_supervised', "
-                "'reliability_only']."
+                "'quality_compatibility_selective_intervention_weights', "
+                "'quality_compatibility_selective_intervention_transition', "
+                "'quality_compatibility_selective_intervention', 'reliability_only']."
             )
 
         if (
@@ -1118,6 +1170,18 @@ class FakedditAblationTrainer(
             raise ValueError(
                 "fusion_architecture is inconsistent with alignment_model."
                 "quality_compatibility_graded_transition_fusion."
+            )
+
+        expected_v030_selective_intervention_mode = (
+            v030_selective_intervention_mode(fusion_architecture)
+        )
+        if (
+            self.alignment_model.quality_compatibility_selective_intervention
+            != expected_v030_selective_intervention_mode
+        ):
+            raise ValueError(
+                "fusion_architecture is inconsistent with alignment_model."
+                "quality_compatibility_selective_intervention."
             )
 
         self.fusion_architecture = fusion_architecture
@@ -2165,6 +2229,9 @@ def train_one_epoch(
             "quality_compatibility_graded_weights",
             "quality_compatibility_transition_control",
             "quality_compatibility_graded_transition_fusion",
+            "quality_compatibility_selective_intervention_weights",
+            "quality_compatibility_selective_intervention_transition",
+            "quality_compatibility_selective_intervention",
         }:
             if text_feature_std is None or vision_feature_std is None:
                 raise RuntimeError(
@@ -2194,6 +2261,9 @@ def train_one_epoch(
                 "quality_compatibility_selective_fusion",
                 "quality_compatibility_graded_weights",
                 "quality_compatibility_graded_transition_fusion",
+                "quality_compatibility_selective_intervention_weights",
+                "quality_compatibility_selective_intervention_transition",
+                "quality_compatibility_selective_intervention",
             }:
                 (
                     training_batch,
@@ -2549,6 +2619,9 @@ def collect_component_fingerprints(
             "quality_compatibility_graded_weights",
             "quality_compatibility_transition_control",
             "quality_compatibility_graded_transition_fusion",
+            "quality_compatibility_selective_intervention_weights",
+            "quality_compatibility_selective_intervention_transition",
+            "quality_compatibility_selective_intervention",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -2756,6 +2829,9 @@ def effective_parameter_counts(
             "quality_compatibility_graded_weights",
             "quality_compatibility_transition_control",
             "quality_compatibility_graded_transition_fusion",
+            "quality_compatibility_selective_intervention_weights",
+            "quality_compatibility_selective_intervention_transition",
+            "quality_compatibility_selective_intervention",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -3214,6 +3290,10 @@ def main():
                 "quality_compatibility_transition_control": "transition_only",
                 "quality_compatibility_graded_transition_fusion": "combined",
             }.get(args.fusion_architecture),
+
+            quality_compatibility_selective_intervention=(
+                v030_selective_intervention_mode(args.fusion_architecture)
+            ),
         )
     )
 
@@ -3320,6 +3400,18 @@ def main():
             print("M4qcf reliability-informed fusion supervision: ENABLED")
             print("M4qcf quality loss weight:", args.quality_weight)
             print("M4qcf compatibility loss weight:", args.compatibility_weight)
+        elif is_v030_selective_intervention_architecture(
+            args.fusion_architecture
+        ):
+            print("M4qesri selective intervention supervision: ENABLED")
+            print("M4qesri architecture:", args.fusion_architecture)
+            print(
+                "M4qesri mode:",
+                v030_selective_intervention_mode(args.fusion_architecture),
+            )
+            print("M4qesri quality loss weight:", args.quality_weight)
+            print("M4qesri compatibility loss weight:", args.compatibility_weight)
+            print("M4qesri v0.29 transition objective: DISABLED")
         else:
             print("M4qcs selective reliability supervision: ENABLED")
             print("M4qcs architecture:", args.fusion_architecture)
@@ -3467,6 +3559,9 @@ def main():
             "quality_compatibility_graded_weights",
             "quality_compatibility_transition_control",
             "quality_compatibility_graded_transition_fusion",
+            "quality_compatibility_selective_intervention_weights",
+            "quality_compatibility_selective_intervention_transition",
+            "quality_compatibility_selective_intervention",
         }:
 
             if alignment_model.gated_interaction_fusion is None:
@@ -3788,6 +3883,37 @@ def main():
             and args.fusion_architecture == "quality_compatibility_fusion"
         ),
 
+        "quality_compatibility_selective_intervention": (
+            v030_selective_intervention_mode(args.fusion_architecture)
+            if args.mode == "multimodal"
+            else None
+        ),
+
+        "v030_selective_intervention_protocol": (
+            {
+                "protocol_version": "0.30.0-step2a1",
+                "architecture_label": {
+                    "quality_compatibility_selective_intervention_weights": "M4qesri-w",
+                    "quality_compatibility_selective_intervention_transition": "M4qesri-t",
+                    "quality_compatibility_selective_intervention": "M4qesri",
+                }[args.fusion_architecture],
+                "mode": v030_selective_intervention_mode(
+                    args.fusion_architecture
+                ),
+                "stable_reference": "M4qcs-w",
+                "training_mixture": "M4qcs-compatible corruption/mismatch mixture",
+                "v029_transition_objective_active": False,
+                "controller_parameter_free": True,
+                "controller_inputs_stop_gradient": True,
+                "formal_hypotheses_computed": False,
+                "official_test_accessed": False,
+            }
+            if is_v030_selective_intervention_architecture(
+                args.fusion_architecture
+            )
+            else None
+        ),
+
         "quality_supervision_enabled": (
             args.mode == "multimodal"
             and args.fusion_architecture in {
@@ -3971,6 +4097,9 @@ def main():
                 "quality_compatibility_selective_weights",
                 "quality_compatibility_selective_interaction",
                 "quality_compatibility_selective_fusion",
+                "quality_compatibility_selective_intervention_weights",
+                "quality_compatibility_selective_intervention_transition",
+                "quality_compatibility_selective_intervention",
             }
             else None
         ),
