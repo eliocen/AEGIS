@@ -1,0 +1,146 @@
+{
+  "aegis_version": "0.32",
+  "aggregation_rules": {
+    "correlation": "Pearson and Spearman when cardinality >= 3; otherwise report insufficient cardinality",
+    "matched_mismatched": "use the frozen v0.31 matched and class-preserving-mismatched mappings",
+    "missing_metric_rule": "If a required diagnostic was not recorded in frozen artifacts, mark NOT_AVAILABLE; do not recreate it via retraining or modified evaluation.",
+    "training_diagnostics": "aggregate per formal architecture and seed, then report pooled and seed-stratified summaries",
+    "validation_diagnostics": "use frozen condition-level means across seeds when comparing corruption strata"
+  },
+  "analysis_type": "post-hoc characterization of already-frozen training/validation evidence",
+  "architectures": {
+    "ablations": [
+      "M4qcesi-c",
+      "M4qcesi-u"
+    ],
+    "comparators": [
+      "M4qcs-w",
+      "M4qgrt"
+    ],
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "primary": "M4qcesi"
+  },
+  "decision_status": {
+    "characterization_questions": "NOT_COMPUTED",
+    "official_test_samples_accessed": 0,
+    "performance_hypotheses": "NONE"
+  },
+  "evidence_boundary": {
+    "allowed": [
+      "v0.31 frozen training artifacts from Step5/Step6",
+      "v0.31 frozen validation evaluation artifacts from Step9/Step10",
+      "v0.31 frozen Step11 decision record",
+      "training-only diagnostics already generated during v0.31 runs"
+    ],
+    "prohibited": [
+      "new training",
+      "checkpoint reselection",
+      "new formal evaluation",
+      "validation-feedback-driven parameter changes",
+      "official test access",
+      "new labels or manually curated post-exposure subsets"
+    ]
+  },
+  "frozen_characterization_questions": {
+    "V32_Q1_target_signal": {
+      "interpretation_rule": {
+        "directionally_sparse": "fraction abs(delta_u) >= 0.01 < 0.20",
+        "weak_target_signal": "std(delta_u) < 0.01 OR >= 0.75 of u_target lies in [0.45,0.55]"
+      },
+      "purpose": "Determine whether delta_u/u_target contain sufficient learning signal.",
+      "required_metrics": [
+        "delta_u mean/std/median/IQR/min/max",
+        "fraction delta_u > 0",
+        "fraction delta_u < 0",
+        "fraction abs(delta_u) >= 0.01",
+        "u_target mean/std/median/IQR",
+        "fraction u_target in [0.45,0.55]",
+        "fraction u_target >= 0.60",
+        "fraction u_target <= 0.40"
+      ]
+    },
+    "V32_Q2_candidate_action_quality": {
+      "interpretation_rule": {
+        "candidate_space_failure": "beneficial candidate fraction < 0.40 AND harmful candidate fraction >= beneficial candidate fraction"
+      },
+      "purpose": "Determine whether the frozen candidate action is beneficial often enough to justify utility learning.",
+      "required_metrics": [
+        "beneficial candidate fraction delta_u > 0",
+        "harmful candidate fraction delta_u < 0",
+        "neutral fraction abs(delta_u) < 0.005",
+        "mean positive delta_u conditional on benefit",
+        "mean negative delta_u conditional on harm"
+      ]
+    },
+    "V32_Q3_target_transform_compression": {
+      "interpretation_rule": {
+        "compression_failure": "central-mass fraction [0.45,0.55] >= 0.75"
+      },
+      "purpose": "Assess whether the fixed temperature 0.05 maps available delta_u variation into a useful utility-target distribution.",
+      "required_metrics": [
+        "delta_u to u_target monotonic consistency",
+        "u_target dispersion",
+        "central-mass fraction [0.45,0.55]",
+        "tail fractions <=0.40 and >=0.60"
+      ]
+    },
+    "V32_Q4_selector_learning": {
+      "interpretation_rule": {
+        "selector_nonlearning": "final u_hat std < 0.02 AND active intervention rate == 0.0"
+      },
+      "purpose": "Determine whether the utility head moved away from neutral initialization.",
+      "required_metrics": [
+        "u_hat mean/std by epoch if recorded",
+        "final u_hat mean/std",
+        "utility loss trajectory if recorded",
+        "utility-head parameter delta from initialization if recoverable without retraining",
+        "active intervention rate"
+      ]
+    },
+    "V32_Q5_evidence_utility_discrimination": {
+      "interpretation_rule": {
+        "non_discriminative": "abs(mismatched-minus-matched) < 0.02 AND abs(catastrophic-minus-clean) < 0.02"
+      },
+      "purpose": "Test whether learned utility separates meaningful reliability states.",
+      "required_metrics": [
+        "mean/std u_hat per stratum",
+        "difference mismatched - matched",
+        "difference catastrophic - clean",
+        "severity monotonicity",
+        "correlation between u_hat and realized degradation",
+        "correlation between u_hat and realized performance delta vs M4qcs-w"
+      ],
+      "strata": [
+        "clean",
+        "graded corruption",
+        "catastrophic corruption",
+        "matched",
+        "class-preserving mismatched",
+        "text Gaussian severity",
+        "vision Gaussian severity",
+        "text attenuation severity",
+        "vision attenuation severity"
+      ]
+    },
+    "V32_Q6_failure_attribution": {
+      "allowed_categories": [
+        "candidate_action_space_failure",
+        "utility_target_signal_failure",
+        "target_transform_compression",
+        "selector_optimization_failure",
+        "evidence_representation_failure",
+        "mixed_or_indeterminate"
+      ],
+      "decision_rule": "Attribution must follow the frozen Q1-Q5 diagnostic rules. No new category or threshold may be introduced after characterization results are exposed."
+    }
+  },
+  "next_step": "Step2 read-only evidence availability and schema preflight before any v0.32 characterization computation.",
+  "schema_version": "1.0",
+  "scientific_role": "mechanism diagnosis only; no new performance claim",
+  "step": "Step1",
+  "title": "Prospective Utility-Learning Failure Characterization Protocol"
+}

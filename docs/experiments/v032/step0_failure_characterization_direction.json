@@ -1,0 +1,102 @@
+{
+  "aegis_version": "0.32",
+  "core_failure_questions": [
+    {
+      "diagnostic_focus": [
+        "delta_u",
+        "u_target",
+        "p_ref_true",
+        "p_candidate_true"
+      ],
+      "id": "FQ1",
+      "question": "Did the counterfactual candidate intervention produce sufficiently variable and directionally useful delta_u targets?"
+    },
+    {
+      "diagnostic_focus": [
+        "delta_u sign",
+        "delta_u magnitude",
+        "candidate-vs-reference true-class probability"
+      ],
+      "id": "FQ2",
+      "question": "Was the candidate intervention itself beneficial often enough to support learnable utility supervision?"
+    },
+    {
+      "diagnostic_focus": [
+        "u_target distribution",
+        "delta_u distribution",
+        "temperature=0.05"
+      ],
+      "id": "FQ3",
+      "question": "Did the utility target transformation compress most targets near 0.5?"
+    },
+    {
+      "diagnostic_focus": [
+        "utility loss trajectory",
+        "utility head parameter movement",
+        "gradient availability if already recorded",
+        "u_hat dispersion"
+      ],
+      "id": "FQ4",
+      "question": "Did the utility selector receive and express meaningful optimization signal?"
+    },
+    {
+      "diagnostic_focus": [
+        "utility by condition",
+        "utility by severity",
+        "utility by matched/mismatched state",
+        "utility-performance association"
+      ],
+      "id": "FQ5",
+      "question": "Did learned utility discriminate corruption severity, modality failure, mismatch state, or realized intervention benefit?"
+    },
+    {
+      "diagnostic_focus": [
+        "mechanism attribution synthesis"
+      ],
+      "id": "FQ6",
+      "question": "Was the failure primarily caused by the candidate action space, utility-target construction, selector optimization, or evidence representation?"
+    }
+  ],
+  "motivation": {
+    "primary_observed_failure": [
+      "clean, graded, and catastrophic active-intervention rates were all 0.0",
+      "utility probabilities remained near the neutral 0.5 initialization",
+      "utility selectivity and evidence-utility alignment were not established"
+    ],
+    "v031_clean_performance_safeguard": "PASSED",
+    "v031_formal_hypotheses": {
+      "V31_H1": "NOT_SUPPORTED",
+      "V31_H2": "NOT_SUPPORTED",
+      "V31_H3": "NOT_SUPPORTED",
+      "V31_H4": "NOT_SUPPORTED",
+      "V31_H5": "NOT_SUPPORTED"
+    }
+  },
+  "parent_release": {
+    "commit": "2cb405546be70d7109b8019317cbc52a179ed8f5",
+    "status": "scientifically closed",
+    "tag": "v0.31.0"
+  },
+  "prohibited_actions": [
+    "modify v0.31 source or checkpoints",
+    "retrain any v0.31 architecture",
+    "rerun v0.31 formal evaluation",
+    "change v0.31 thresholds or H5 bins",
+    "access official test split",
+    "introduce a new intervention architecture before v0.32 characterization is frozen",
+    "post-exposure threshold search"
+  ],
+  "research_direction": {
+    "analysis_only": true,
+    "architecture_change": false,
+    "formal_re_evaluation": false,
+    "name": "Utility-Learning Failure Characterization",
+    "objective": "Determine why the v0.31 utility-learning pathway failed to produce a discriminative intervention signal before designing any successor intervention mechanism.",
+    "official_test_access": false,
+    "retraining": false
+  },
+  "schema_version": "1.0",
+  "step": "Step0",
+  "successor_rule": "Any architecture or loss redesign must occur only in a later prospectively frozen version after v0.32 failure characterization is complete.",
+  "title": "Utility-Learning Failure Characterization Direction"
+}
