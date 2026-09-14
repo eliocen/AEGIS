@@ -1,0 +1,279 @@
+{
+  "aegis_version": "0.32",
+  "formal_input_cardinality": {
+    "mismatch_rows": 42,
+    "quality_rows": 399
+  },
+  "questions": {
+    "Q1_target_signal": {
+      "decision": "NOT_AVAILABLE",
+      "reason": "delta_u, u_target, p_ref_true, and p_candidate_true were not recorded in frozen admissible artifacts.",
+      "status": "NOT_AVAILABLE"
+    },
+    "Q2_candidate_action_quality": {
+      "decision": "NOT_AVAILABLE",
+      "reason": "delta_u was not recorded in frozen admissible artifacts.",
+      "status": "NOT_AVAILABLE"
+    },
+    "Q3_target_transform_compression": {
+      "decision": "NOT_AVAILABLE",
+      "reason": "delta_u and u_target were not recorded in frozen admissible artifacts.",
+      "status": "NOT_AVAILABLE"
+    },
+    "Q4_selector_learning": {
+      "catastrophic_active_intervention_rate": 0.0,
+      "catastrophic_utility_probability": 0.49193729461232816,
+      "clean_active_intervention_rate": 0.0,
+      "clean_utility_probability": 0.49877981637914975,
+      "condition_level_utility_probability_std_19": 0.003421955725554737,
+      "decision": "SELECTOR_NONLEARNING",
+      "frozen_rule_satisfied": true,
+      "graded_active_intervention_rate": 0.0,
+      "graded_utility_probability": 0.4978442969264256,
+      "matched_active_intervention_rate": 0.0,
+      "matched_utility_probability": 0.49877981637914975,
+      "mismatched_active_intervention_rate": 0.0,
+      "mismatched_utility_probability": 0.49811080131928126,
+      "status": "PARTIAL",
+      "unavailable": [
+        "utility loss trajectory",
+        "utility-head parameter movement",
+        "training-time u_hat trajectory",
+        "gradient diagnostics"
+      ]
+    },
+    "Q5_evidence_utility_discrimination": {
+      "catastrophic_minus_clean_utility": -0.0068425217668215965,
+      "condition_level_means": {
+        "clean": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8642380099760988,
+          "utility_probability": 0.49877981637914975
+        },
+        "text_attenuation_s0p25": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8629266081391028,
+          "utility_probability": 0.4989660420616468
+        },
+        "text_attenuation_s0p5": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8619342139455468,
+          "utility_probability": 0.4974553525447846
+        },
+        "text_attenuation_s0p75": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8628825833924951,
+          "utility_probability": 0.491025414009889
+        },
+        "text_attenuation_s1": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8140836129523764,
+          "utility_probability": 0.4895581695735454
+        },
+        "text_gaussian_noise_s0p25": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8589218481003682,
+          "utility_probability": 0.49877455616990723
+        },
+        "text_gaussian_noise_s0p5": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8562621089850166,
+          "utility_probability": 0.49879612862070405
+        },
+        "text_gaussian_noise_s0p75": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8449419965452947,
+          "utility_probability": 0.4987806565364202
+        },
+        "text_structured_dropout_s0p5": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8370201424855406,
+          "utility_probability": 0.49121392246087386
+        },
+        "text_zero_dropout_s1": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8140836129523764,
+          "utility_probability": 0.4895581695735454
+        },
+        "vision_attenuation_s0p25": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8625749296209201,
+          "utility_probability": 0.49885688412189483
+        },
+        "vision_attenuation_s0p5": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8585779042988982,
+          "utility_probability": 0.4988033446272215
+        },
+        "vision_attenuation_s0p75": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8406031769141643,
+          "utility_probability": 0.4963147544761499
+        },
+        "vision_attenuation_s1": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.7952055543594696,
+          "utility_probability": 0.49431641965111095
+        },
+        "vision_gaussian_noise_s0p25": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8589106299978657,
+          "utility_probability": 0.4987814506391685
+        },
+        "vision_gaussian_noise_s0p5": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8569309258830599,
+          "utility_probability": 0.4987740635375182
+        },
+        "vision_gaussian_noise_s0p75": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8419162696179449,
+          "utility_probability": 0.4988029157718023
+        },
+        "vision_structured_dropout_s0p5": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.8398979197583861,
+          "utility_probability": 0.49866906629006064
+        },
+        "vision_zero_dropout_s1": {
+          "active_intervention_indicator": 0.0,
+          "macro_f1": 0.7952055543594696,
+          "utility_probability": 0.49431641965111095
+        }
+      },
+      "correlation_utility_vs_performance_delta_vs_M4qcs_w": {
+        "n": 19,
+        "pearson": -0.6798984188157233,
+        "spearman": -0.6063268892794376
+      },
+      "correlation_utility_vs_realized_degradation": {
+        "n": 19,
+        "pearson": -0.5965252401736496,
+        "spearman": -0.5694200351493849
+      },
+      "decision": "NON_DISCRIMINATIVE",
+      "frozen_non_discriminative_rule_satisfied": true,
+      "mismatched_minus_matched_utility": -0.0006690150598684941,
+      "reference_condition_macro_f1": {
+        "clean": 0.8645538215213664,
+        "text_attenuation_s0p25": 0.8635510006972643,
+        "text_attenuation_s0p5": 0.8615704147372911,
+        "text_attenuation_s0p75": 0.8558194726471203,
+        "text_attenuation_s1": 0.800185335572778,
+        "text_gaussian_noise_s0p25": 0.8585314608261939,
+        "text_gaussian_noise_s0p5": 0.8648721150911994,
+        "text_gaussian_noise_s0p75": 0.8489010979925161,
+        "text_structured_dropout_s0p5": 0.840999991114748,
+        "text_zero_dropout_s1": 0.800185335572778,
+        "vision_attenuation_s0p25": 0.8648394203059739,
+        "vision_attenuation_s0p5": 0.8611237448815001,
+        "vision_attenuation_s0p75": 0.8440490475324823,
+        "vision_attenuation_s1": 0.7878408545059754,
+        "vision_gaussian_noise_s0p25": 0.8611979901444516,
+        "vision_gaussian_noise_s0p5": 0.850194075981392,
+        "vision_gaussian_noise_s0p75": 0.8455675209265899,
+        "vision_structured_dropout_s0p5": 0.836484939151991,
+        "vision_zero_dropout_s1": 0.7878408545059754
+      },
+      "severity_monotonicity": {
+        "text_attenuation": {
+          "adjacent_differences": [
+            -0.0015106895168621737,
+            -0.006429938534895596
+          ],
+          "conditions": [
+            "text_attenuation_s0p25",
+            "text_attenuation_s0p5",
+            "text_attenuation_s0p75"
+          ],
+          "non_decreasing_with_tolerance_0p02": true,
+          "utility_probability": [
+            0.4989660420616468,
+            0.4974553525447846,
+            0.491025414009889
+          ]
+        },
+        "text_gaussian_noise": {
+          "adjacent_differences": [
+            2.1572450796814024e-05,
+            -1.5472084283874032e-05
+          ],
+          "conditions": [
+            "text_gaussian_noise_s0p25",
+            "text_gaussian_noise_s0p5",
+            "text_gaussian_noise_s0p75"
+          ],
+          "non_decreasing_with_tolerance_0p02": true,
+          "utility_probability": [
+            0.49877455616990723,
+            0.49879612862070405,
+            0.4987806565364202
+          ]
+        },
+        "vision_attenuation": {
+          "adjacent_differences": [
+            -5.3539494673349175e-05,
+            -0.002488590151071557
+          ],
+          "conditions": [
+            "vision_attenuation_s0p25",
+            "vision_attenuation_s0p5",
+            "vision_attenuation_s0p75"
+          ],
+          "non_decreasing_with_tolerance_0p02": true,
+          "utility_probability": [
+            0.49885688412189483,
+            0.4988033446272215,
+            0.4963147544761499
+          ]
+        },
+        "vision_gaussian_noise": {
+          "adjacent_differences": [
+            -7.3871016503246345e-06,
+            2.8852234284115763e-05
+          ],
+          "conditions": [
+            "vision_gaussian_noise_s0p25",
+            "vision_gaussian_noise_s0p5",
+            "vision_gaussian_noise_s0p75"
+          ],
+          "non_decreasing_with_tolerance_0p02": true,
+          "utility_probability": [
+            0.4987814506391685,
+            0.4987740635375182,
+            0.4988029157718023
+          ]
+        }
+      },
+      "status": "AVAILABLE"
+    },
+    "Q6_failure_attribution": {
+      "basis": "Q4 available evidence satisfies the prospectively frozen selector_nonlearning rule; Q1-Q3 causal alternatives remain untestable and training-time optimization diagnostics are unavailable.",
+      "categories_not_assertable": {
+        "candidate_action_space_failure": "Q2 evidence NOT_AVAILABLE",
+        "evidence_representation_failure": "No separately frozen mechanical reliability-diagnostic comparison was authorized before exposure.",
+        "target_transform_compression": "Q3 evidence NOT_AVAILABLE",
+        "utility_target_signal_failure": "Q1 evidence NOT_AVAILABLE"
+      },
+      "decision": "selector_optimization_failure",
+      "status": "ATTRIBUTED_WITH_FROZEN_EVIDENCE_LIMITATIONS"
+    }
+  },
+  "record_type": "one_time_frozen_failure_characterization_results",
+  "schema_version": "1.0",
+  "scientific_boundary": {
+    "checkpoint_reselection": false,
+    "formal_re_evaluation": false,
+    "missing_evidence_reconstruction": false,
+    "new_training": false,
+    "official_test_samples": 0,
+    "threshold_search": false
+  },
+  "scientific_interpretation": {
+    "causal_limit": "The frozen evidence cannot determine whether this arose from weak counterfactual utility targets, poor candidate actions, target compression, or another upstream cause because the required training-time values were not recorded.",
+    "performance_claim": "NONE",
+    "primary_observation": "The final utility selector remained tightly concentrated near its neutral initialization and produced zero intervention activation across clean, graded, and catastrophic quality strata."
+  },
+  "step": "Step5",
+  "step4_commit": "dd325a97e6ebd736e32929ce41e6ec0469595163"
+}
