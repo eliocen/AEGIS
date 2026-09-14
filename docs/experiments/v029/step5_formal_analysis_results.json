@@ -1,0 +1,507 @@
+{
+  "clean_performance_safeguard": {
+    "comparators": {
+      "M1b": {
+        "criterion": ">=-0.01",
+        "observed": -0.012784645712237697,
+        "passed": false
+      },
+      "M4qcf": {
+        "criterion": ">=-0.01",
+        "observed": -0.006592636536926433,
+        "passed": true
+      },
+      "M4qcs-w": {
+        "criterion": ">=-0.01",
+        "observed": -0.0037310900702763883,
+        "passed": true
+      }
+    },
+    "passed": false
+  },
+  "evidence_classification": "CONTROLLED_VALIDATION_DEVELOPMENT_EVIDENCE",
+  "formal_decisions": {
+    "V29_H1": {
+      "decision": "NOT_SUPPORTED",
+      "gates": {
+        "catastrophic_mean_delta": {
+          "criterion": ">=-0.01 across 12",
+          "observed": -0.009990354381825587,
+          "passed": true
+        },
+        "graded_mean_delta": {
+          "criterion": ">=0.01",
+          "observed": -0.00506921129043952,
+          "passed": false
+        },
+        "graded_positive_count": {
+          "criterion": ">=26 of 36",
+          "observed": 9,
+          "passed": false
+        },
+        "graded_positive_fraction": {
+          "criterion": ">=0.70",
+          "observed": 0.25,
+          "passed": false
+        }
+      }
+    },
+    "V29_H2": {
+      "decision": "NOT_SUPPORTED",
+      "gates": {
+        "flip_rate_vs_M1b": {
+          "criterion": "<= M1b",
+          "observed": {
+            "M1b": 0.18466666666666667,
+            "M4qgrt": 0.105
+          },
+          "passed": true
+        },
+        "mean_gap_vs_M1b": {
+          "criterion": "M4qgrt gap strictly lower",
+          "observed": -0.0030971868967782177,
+          "passed": true
+        },
+        "mean_gap_vs_M4qcs_w": {
+          "criterion": "M4qgrt gap strictly lower",
+          "observed": 0.009969689121583877,
+          "passed": false
+        },
+        "net_harmful_vs_M1b": {
+          "criterion": "strictly lower",
+          "observed": {
+            "M1b": 44,
+            "M4qgrt": 35
+          },
+          "passed": true
+        },
+        "net_harmful_vs_M4qcs_w": {
+          "criterion": "strictly lower",
+          "observed": {
+            "M4qcs-w": 5,
+            "M4qgrt": 35
+          },
+          "passed": false
+        },
+        "ratio_vs_M1b": {
+          "criterion": "strictly lower",
+          "observed": {
+            "M1b": 1.1725490196078432,
+            "M4qgrt": 1.25
+          },
+          "passed": false
+        },
+        "ratio_vs_M4qcs_w": {
+          "criterion": "strictly lower",
+          "observed": {
+            "M4qcs-w": 1.0280898876404494,
+            "M4qgrt": 1.25
+          },
+          "passed": false
+        }
+      },
+      "mismatch_aggregates": {
+        "M1b": {
+          "beneficial_flip_count": 255,
+          "harmful_flip_count": 299,
+          "harmful_to_beneficial_ratio": 1.1725490196078432,
+          "mean_matched_macro_f1": 0.8736073771633278,
+          "mean_mismatch_gap": 0.014707090246742474,
+          "mean_mismatched_macro_f1": 0.8589002869165853,
+          "net_harmful_flips": 44,
+          "prediction_flip_count": 554,
+          "prediction_flip_rate": 0.18466666666666667,
+          "sample_pairs": 3000,
+          "seed_results": [
+            {
+              "beneficial_flip_count": 88,
+              "harmful_flip_count": 102,
+              "matched_macro_f1": 0.8719979519672315,
+              "mismatch_gap": 0.014094008901719302,
+              "mismatched_macro_f1": 0.8579039430655122,
+              "net_harmful_flips": 14,
+              "prediction_flip_count": 190,
+              "seed": 42
+            },
+            {
+              "beneficial_flip_count": 88,
+              "harmful_flip_count": 91,
+              "matched_macro_f1": 0.8718518607510282,
+              "mismatch_gap": 0.0028813423843957464,
+              "mismatched_macro_f1": 0.8689705183666324,
+              "net_harmful_flips": 3,
+              "prediction_flip_count": 179,
+              "seed": 43
+            },
+            {
+              "beneficial_flip_count": 79,
+              "harmful_flip_count": 106,
+              "matched_macro_f1": 0.8769723187717235,
+              "mismatch_gap": 0.027145919454112377,
+              "mismatched_macro_f1": 0.8498263993176112,
+              "net_harmful_flips": 27,
+              "prediction_flip_count": 185,
+              "seed": 44
+            }
+          ]
+        },
+        "M4qcs-w": {
+          "beneficial_flip_count": 178,
+          "harmful_flip_count": 183,
+          "harmful_to_beneficial_ratio": 1.0280898876404494,
+          "mean_matched_macro_f1": 0.8645538215213664,
+          "mean_mismatch_gap": 0.0016402142283803804,
+          "mean_mismatched_macro_f1": 0.862913607292986,
+          "net_harmful_flips": 5,
+          "prediction_flip_count": 361,
+          "prediction_flip_rate": 0.12033333333333333,
+          "sample_pairs": 3000,
+          "seed_results": [
+            {
+              "beneficial_flip_count": 56,
+              "harmful_flip_count": 64,
+              "matched_macro_f1": 0.8617323137594384,
+              "mismatch_gap": 0.007990312869869065,
+              "mismatched_macro_f1": 0.8537420008895693,
+              "net_harmful_flips": 8,
+              "prediction_flip_count": 120,
+              "seed": 42
+            },
+            {
+              "beneficial_flip_count": 61,
+              "harmful_flip_count": 57,
+              "matched_macro_f1": 0.8649771811436133,
+              "mismatch_gap": -0.0040216398457755265,
+              "mismatched_macro_f1": 0.8689988209893889,
+              "net_harmful_flips": -4,
+              "prediction_flip_count": 118,
+              "seed": 43
+            },
+            {
+              "beneficial_flip_count": 61,
+              "harmful_flip_count": 62,
+              "matched_macro_f1": 0.8669519696610476,
+              "mismatch_gap": 0.0009519696610476025,
+              "mismatched_macro_f1": 0.866,
+              "net_harmful_flips": 1,
+              "prediction_flip_count": 123,
+              "seed": 44
+            }
+          ]
+        },
+        "M4qgr": {
+          "beneficial_flip_count": 175,
+          "harmful_flip_count": 206,
+          "harmful_to_beneficial_ratio": 1.177142857142857,
+          "mean_matched_macro_f1": 0.8642504131490948,
+          "mean_mismatch_gap": 0.01027466177103912,
+          "mean_mismatched_macro_f1": 0.8539757513780558,
+          "net_harmful_flips": 31,
+          "prediction_flip_count": 381,
+          "prediction_flip_rate": 0.127,
+          "sample_pairs": 3000,
+          "seed_results": [
+            {
+              "beneficial_flip_count": 55,
+              "harmful_flip_count": 79,
+              "matched_macro_f1": 0.8659351125944956,
+              "mismatch_gap": 0.023998337884611698,
+              "mismatched_macro_f1": 0.8419367747098839,
+              "net_harmful_flips": 24,
+              "prediction_flip_count": 134,
+              "seed": 42
+            },
+            {
+              "beneficial_flip_count": 58,
+              "harmful_flip_count": 60,
+              "matched_macro_f1": 0.8618756881193075,
+              "mismatch_gap": 0.0018846486927841521,
+              "mismatched_macro_f1": 0.8599910394265233,
+              "net_harmful_flips": 2,
+              "prediction_flip_count": 118,
+              "seed": 43
+            },
+            {
+              "beneficial_flip_count": 62,
+              "harmful_flip_count": 67,
+              "matched_macro_f1": 0.8649404387334815,
+              "mismatch_gap": 0.0049409987357215135,
+              "mismatched_macro_f1": 0.85999943999776,
+              "net_harmful_flips": 5,
+              "prediction_flip_count": 129,
+              "seed": 44
+            }
+          ]
+        },
+        "M4qgrt": {
+          "beneficial_flip_count": 140,
+          "harmful_flip_count": 175,
+          "harmful_to_beneficial_ratio": 1.25,
+          "mean_matched_macro_f1": 0.86082273145109,
+          "mean_mismatch_gap": 0.011609903349964257,
+          "mean_mismatched_macro_f1": 0.8492128281011259,
+          "net_harmful_flips": 35,
+          "prediction_flip_count": 315,
+          "prediction_flip_rate": 0.105,
+          "sample_pairs": 3000,
+          "seed_results": [
+            {
+              "beneficial_flip_count": 46,
+              "harmful_flip_count": 63,
+              "matched_macro_f1": 0.8588067063810356,
+              "mismatch_gap": 0.01683768045195355,
+              "mismatched_macro_f1": 0.8419690259290821,
+              "net_harmful_flips": 17,
+              "prediction_flip_count": 109,
+              "seed": 42
+            },
+            {
+              "beneficial_flip_count": 36,
+              "harmful_flip_count": 53,
+              "matched_macro_f1": 0.8598379726964371,
+              "mismatch_gap": 0.01705320034308544,
+              "mismatched_macro_f1": 0.8427847723533517,
+              "net_harmful_flips": 17,
+              "prediction_flip_count": 89,
+              "seed": 43
+            },
+            {
+              "beneficial_flip_count": 58,
+              "harmful_flip_count": 59,
+              "matched_macro_f1": 0.8638235152757974,
+              "mismatch_gap": 0.0009388292548537791,
+              "mismatched_macro_f1": 0.8628846860209436,
+              "net_harmful_flips": 1,
+              "prediction_flip_count": 117,
+              "seed": 44
+            }
+          ]
+        },
+        "M4qtc": {
+          "beneficial_flip_count": 116,
+          "harmful_flip_count": 214,
+          "harmful_to_beneficial_ratio": 1.8448275862068966,
+          "mean_matched_macro_f1": 0.8612184788905276,
+          "mean_mismatch_gap": 0.03273144969008509,
+          "mean_mismatched_macro_f1": 0.8284870292004425,
+          "net_harmful_flips": 98,
+          "prediction_flip_count": 330,
+          "prediction_flip_rate": 0.11,
+          "sample_pairs": 3000,
+          "seed_results": [
+            {
+              "beneficial_flip_count": 38,
+              "harmful_flip_count": 69,
+              "matched_macro_f1": 0.8548605209606431,
+              "mismatch_gap": 0.03137523787516583,
+              "mismatched_macro_f1": 0.8234852830854773,
+              "net_harmful_flips": 31,
+              "prediction_flip_count": 107,
+              "seed": 42
+            },
+            {
+              "beneficial_flip_count": 44,
+              "harmful_flip_count": 80,
+              "matched_macro_f1": 0.8658948615714721,
+              "mismatch_gap": 0.03589486157147215,
+              "mismatched_macro_f1": 0.83,
+              "net_harmful_flips": 36,
+              "prediction_flip_count": 124,
+              "seed": 43
+            },
+            {
+              "beneficial_flip_count": 34,
+              "harmful_flip_count": 65,
+              "matched_macro_f1": 0.8629000541394676,
+              "mismatch_gap": 0.030924249623617284,
+              "mismatched_macro_f1": 0.8319758045158503,
+              "net_harmful_flips": 31,
+              "prediction_flip_count": 99,
+              "seed": 44
+            }
+          ]
+        }
+      }
+    },
+    "V29_H3": {
+      "decision": "NOT_SUPPORTED",
+      "gates": {
+        "graded_above_M4qgr": {
+          "criterion": "strictly above",
+          "observed": -0.0030473694261373696,
+          "passed": false
+        },
+        "graded_above_M4qtc": {
+          "criterion": "strictly above",
+          "observed": -0.0036775930527059852,
+          "passed": false
+        },
+        "mismatch_above_M4qgr": {
+          "criterion": "strictly above",
+          "observed": -0.004762923276929953,
+          "passed": false
+        },
+        "mismatch_above_M4qtc": {
+          "criterion": "strictly above",
+          "observed": 0.02072579890068338,
+          "passed": true
+        },
+        "net_harmful_below_M4qgr": {
+          "criterion": "strictly lower",
+          "observed": {
+            "M4qgr": 31,
+            "M4qgrt": 35
+          },
+          "passed": false
+        },
+        "net_harmful_below_M4qtc": {
+          "criterion": "strictly lower",
+          "observed": {
+            "M4qgrt": 35,
+            "M4qtc": 98
+          },
+          "passed": true
+        },
+        "separation_invariants": {
+          "criterion": "all frozen invariants true",
+          "observed": true,
+          "passed": true
+        }
+      },
+      "graded_means": {
+        "M4qgr": 0.8556618038757582,
+        "M4qgrt": 0.8526144344496208,
+        "M4qtc": 0.8562920275023268
+      }
+    },
+    "V29_H4": {
+      "cardinality_clarification": "Frozen matrix contains 3 text-Gaussian severities x 3 seeds = 9 observations. Numeric count threshold >=9 and fraction >=0.75 are unchanged.",
+      "comparators": {
+        "M4qcf": {
+          "gates": {
+            "clean_mean_delta": {
+              "criterion": ">=-0.01",
+              "observed": -0.006592636536926433,
+              "passed": true
+            },
+            "other_nonclean_mean_delta": {
+              "criterion": ">=-0.01",
+              "observed": -0.008461064797372313,
+              "passed": true
+            },
+            "text_gaussian_mean_delta": {
+              "criterion": ">=0.01",
+              "observed": -0.009142510962746838,
+              "passed": false
+            },
+            "text_gaussian_positive_count": {
+              "criterion": ">=9 of 9 available frozen observations",
+              "observed": 1,
+              "passed": false
+            },
+            "text_gaussian_positive_fraction": {
+              "criterion": ">=0.75",
+              "observed": 0.1111111111111111,
+              "passed": false
+            }
+          },
+          "observation_count_text_gaussian": 9
+        },
+        "M4qcs": {
+          "gates": {
+            "clean_mean_delta": {
+              "criterion": ">=-0.01",
+              "observed": -0.005248592691731761,
+              "passed": true
+            },
+            "other_nonclean_mean_delta": {
+              "criterion": ">=-0.01",
+              "observed": -0.005891399600326877,
+              "passed": true
+            },
+            "text_gaussian_mean_delta": {
+              "criterion": ">=0.01",
+              "observed": -0.004384285931934394,
+              "passed": false
+            },
+            "text_gaussian_positive_count": {
+              "criterion": ">=9 of 9 available frozen observations",
+              "observed": 2,
+              "passed": false
+            },
+            "text_gaussian_positive_fraction": {
+              "criterion": ">=0.75",
+              "observed": 0.2222222222222222,
+              "passed": false
+            }
+          },
+          "observation_count_text_gaussian": 9
+        }
+      },
+      "decision": "NOT_SUPPORTED",
+      "gates": {
+        "clean_mean_delta_vs_M4qcf": {
+          "criterion": ">=-0.01",
+          "observed": -0.006592636536926433,
+          "passed": true
+        },
+        "clean_mean_delta_vs_M4qcs": {
+          "criterion": ">=-0.01",
+          "observed": -0.005248592691731761,
+          "passed": true
+        },
+        "other_nonclean_mean_delta_vs_M4qcf": {
+          "criterion": ">=-0.01",
+          "observed": -0.008461064797372313,
+          "passed": true
+        },
+        "other_nonclean_mean_delta_vs_M4qcs": {
+          "criterion": ">=-0.01",
+          "observed": -0.005891399600326877,
+          "passed": true
+        },
+        "text_gaussian_mean_delta_vs_M4qcf": {
+          "criterion": ">=0.01",
+          "observed": -0.009142510962746838,
+          "passed": false
+        },
+        "text_gaussian_mean_delta_vs_M4qcs": {
+          "criterion": ">=0.01",
+          "observed": -0.004384285931934394,
+          "passed": false
+        },
+        "text_gaussian_positive_count_vs_M4qcf": {
+          "criterion": ">=9 of 9 available frozen observations",
+          "observed": 1,
+          "passed": false
+        },
+        "text_gaussian_positive_count_vs_M4qcs": {
+          "criterion": ">=9 of 9 available frozen observations",
+          "observed": 2,
+          "passed": false
+        },
+        "text_gaussian_positive_fraction_vs_M4qcf": {
+          "criterion": ">=0.75",
+          "observed": 0.1111111111111111,
+          "passed": false
+        },
+        "text_gaussian_positive_fraction_vs_M4qcs": {
+          "criterion": ">=0.75",
+          "observed": 0.2222222222222222,
+          "passed": false
+        }
+      }
+    }
+  },
+  "record_version": "0.29.0-step5",
+  "scientific_safety": {
+    "checkpoint_reselection_performed": false,
+    "evaluation_rerun_by_analyzer": false,
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0,
+    "threshold_tuning_performed": false,
+    "training_performed": false
+  },
+  "status": "V029_FORMAL_ANALYSIS_COMPLETE",
+  "successor_recommendation_permitted": false
+}
