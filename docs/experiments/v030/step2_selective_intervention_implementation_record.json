@@ -1,0 +1,55 @@
+{
+  "architecture_family": {
+    "ablations": [
+      "M4qesri-w",
+      "M4qesri-t"
+    ],
+    "controller_inputs_stop_gradient": true,
+    "controller_parameter_free": true,
+    "gate_zero_exact_reference_identity_required": true,
+    "mode_specific_weight_bound": {
+      "M4qesri": [
+        0.1,
+        0.9
+      ],
+      "M4qesri-t": "exact_stable_reference_weights_no_additional_clamp",
+      "M4qesri-w": [
+        0.1,
+        0.9
+      ]
+    },
+    "primary": "M4qesri",
+    "stable_reference": "M4qcs-w",
+    "training_runner_integration": false
+  },
+  "implementation": {
+    "alignment_model": {
+      "path": "aegis/alignment/model.py",
+      "sha256": "3DE7CB0E88A4EC5C1180DA0A8ADEB283D84AB8471AB614A9CCC46A7153359FEE"
+    },
+    "controller": {
+      "path": "aegis/reliability/reliability_controller.py",
+      "sha256": "551CFD4BAC77716D768C0C76AB1BF635829BF127E0056A012BF35842DAD9C48A"
+    },
+    "focused_test": {
+      "path": "tests/test_selective_intervention_v030.py",
+      "sha256": "14AA70E294DAD169915852567DF037F30E63AD98AF50407D683F0E56B5A3A13A"
+    }
+  },
+  "next_step": "Step3 ??runner integration, architecture naming, ablation wiring, and non-evidentiary smoke verification before training operationalization.",
+  "parent_step2a_commit": "5ae986c1f453bcc7da4f55f407b2d01c12aab78f",
+  "record_version": "0.30.0-step2b",
+  "scientific_safety": {
+    "formal_decisions_computed": false,
+    "formal_evaluation_performed": false,
+    "formal_training_performed": false,
+    "official_test_samples_accessed": 0
+  },
+  "status": "IMPLEMENTATION_VERIFIED_BEFORE_FORMAL_TRAINING",
+  "step2a1_clarification_commit": "f095ff3355f4071dc4632219f3ac0148b49ce072",
+  "verification": {
+    "focused_v030_and_inherited_v029_invariants": "PASS",
+    "full_regression_suite": "PASS",
+    "python_compile": "PASS"
+  }
+}
