@@ -1,0 +1,71 @@
+{
+  "aegis_version": "0.32",
+  "closure_boundary": {
+    "additional_v032_characterization_computation": "PROHIBITED",
+    "additional_v032_formal_evaluation": "PROHIBITED",
+    "additional_v032_training": "PROHIBITED",
+    "official_test_samples": 0,
+    "post_hoc_threshold_search": "PROHIBITED",
+    "release_tag": "v0.32.0"
+  },
+  "frozen_characterization": {
+    "Q1_target_signal": "NOT_AVAILABLE",
+    "Q2_candidate_action_quality": "NOT_AVAILABLE",
+    "Q3_target_transform_compression": "NOT_AVAILABLE",
+    "Q4_selector_learning": "SELECTOR_NONLEARNING",
+    "Q5_evidence_utility_discrimination": "NON_DISCRIMINATIVE",
+    "Q6_failure_attribution": "selector_optimization_failure"
+  },
+  "key_mechanistic_evidence": {
+    "catastrophic_active_intervention_rate": 0.0,
+    "catastrophic_minus_clean_utility": -0.0068425217668215965,
+    "clean_active_intervention_rate": 0.0,
+    "graded_active_intervention_rate": 0.0,
+    "matched_utility_probability": 0.49877981637914975,
+    "mismatched_minus_matched_utility": -0.0006690150598684941,
+    "mismatched_utility_probability": 0.49811080131928126,
+    "utility_probability_std_across_19_condition_means": 0.003421955725554737
+  },
+  "parent_step5_commit": "22be92331d5569e306208c52c1ca3bf61014e0f6",
+  "recommended_successor": {
+    "direction": "Prospective Utility-Supervision and Selector-Learning Redesign",
+    "first_stage": "prospective protocol and observability contract before implementation or training",
+    "not_authorized_in_v032": true,
+    "version": "v0.33"
+  },
+  "record_type": "scientific_synthesis_and_closure",
+  "schema_version": "1.0",
+  "scientific_question": "Why did the v0.31 calibrated utility-learning pathway fail to produce a discriminative intervention signal?",
+  "scientific_synthesis": [
+    "The v0.31 utility selector did not learn a sufficiently variable decision signal. Its utility output remained tightly concentrated near the neutral initialization across the frozen validation conditions.",
+    "The selector did not discriminate class-preserving mismatch from matched evidence, nor catastrophic from clean evidence, under the prospectively frozen discrimination rule.",
+    "The intervention mechanism remained inactive across clean, graded, and catastrophic strata, with zero active intervention rate in all three.",
+    "Within the admissible v0.32 evidence, the failure is therefore characterized as selector optimization failure.",
+    "This attribution is mechanism-level but not fully causal: the frozen v0.31 artifacts did not record delta_u, u_target, p_ref_true, p_candidate_true, utility-loss trajectories, utility-head parameter movement, or gradient diagnostics.",
+    "Consequently, v0.32 cannot determine whether weak candidate actions, weak utility targets, target-transform compression, or another upstream process caused the selector optimization failure."
+  ],
+  "status": "V0.32_CLOSED_FAILURE_CHARACTERIZED",
+  "step": "Step6",
+  "successor_design_constraints": [
+    "Any successor must use a new prospectively frozen version and must not modify or reopen v0.31 or v0.32.",
+    "Before training a successor utility selector, the implementation must record the counterfactual utility supervision needed to distinguish target-signal, candidate-action, transform-compression, and optimization failures.",
+    "The successor protocol should require persistent diagnostics for delta_u, u_target, p_ref_true, p_candidate_true, utility loss, utility output distribution, selector parameter movement, and gradient or equivalent optimization-signal diagnostics.",
+    "A real one-batch training-path regression should verify that the selector receives non-zero optimization signal when non-neutral utility targets are present.",
+    "The intervention gate should remain inactive-by-default until a prospectively specified evidence-to-utility learning criterion is satisfied.",
+    "No threshold search or intervention redesign may be justified using the official test split."
+  ],
+  "what_v032_does_not_establish": [
+    "candidate_action_space_failure",
+    "utility_target_signal_failure",
+    "target_transform_compression",
+    "evidence_representation_failure",
+    "a unique causal origin of the selector optimization failure",
+    "any new robustness or performance claim"
+  ],
+  "what_v032_establishes": [
+    "final utility signal non-learning under the frozen Q4 rule",
+    "final utility signal non-discrimination under the frozen Q5 rule",
+    "zero intervention activation across clean, graded, and catastrophic quality strata",
+    "selector_optimization_failure as the admissible constrained failure attribution"
+  ]
+}
