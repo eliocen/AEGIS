@@ -42,7 +42,7 @@
     "shared_corruption_realizations": true,
     "validation_samples": 1000
   },
-  "evaluator_sha256": "A7F38EE1CF889DAC0314FC505EBEFF34396E71BB8CFD0682E93DC25266AEFF6B",
+  "evaluator_sha256": "14E8160637FEDDB738D29AF2C29D01DA5F89E79C76FCFFE257F38BC199B8AFE9",
   "evidence_classification": "CONTROLLED_VALIDATION_DEVELOPMENT_EVIDENCE",
   "formal_analysis_contract": {
     "all_gates_conjunctive": true,
@@ -65,6 +65,23 @@
     "threshold_modification_permitted": false
   },
   "formal_analyzer_sha256": "5AE774B1F8647618AEB5953DF31D45F9AFBFCDEB0556B5D18C307968344FD1A2",
+  "implementation_correction": {
+    "cause": "Step3 checkpoint SHA256 strings were stored uppercase, while Python hashlib.hexdigest() returned lowercase and the evaluator compared the hexadecimal strings case-sensitively.",
+    "checkpoint_bytes_changed": false,
+    "conditions_changed": false,
+    "corrected_evaluator_sha256": "14E8160637FEDDB738D29AF2C29D01DA5F89E79C76FCFFE257F38BC199B8AFE9",
+    "correction": "Normalize both SHA256 strings to lowercase for equality comparison.",
+    "evaluation_matrix_changed": false,
+    "failed_smoke_scientific_evidence": false,
+    "formal_hypothesis_rules_changed": false,
+    "model_or_checkpoint_selection_changed": false,
+    "official_test_accessed": false,
+    "official_test_samples_accessed": 0,
+    "pre_correction_evaluator_sha256": "A7F38EE1CF889DAC0314FC505EBEFF34396E71BB8CFD0682E93DC25266AEFF6B",
+    "thresholds_changed": false,
+    "timing": "After non-evidentiary smoke failure and before any formal Step4 evaluation.",
+    "type": "SHA256_STRING_CASE_NORMALIZATION"
+  },
   "parent_step3_results_commit": "3e8f32b306b5c1815add338dd0636214407a8b4e",
   "record_version": "0.29.0-step4a",
   "scientific_safety": {

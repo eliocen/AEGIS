@@ -25,3 +25,18 @@ The frozen condition matrix contains three text-Gaussian severities (`0.25`, `0.
 ## Scientific boundary
 
 No v0.29 formal evaluation or formal hypothesis decision has been performed at this freeze. Checkpoint reselection, threshold tuning, new conditions, dropped seeds/conditions, and official-test access remain prohibited.
+
+## Pre-formal evaluator implementation correction
+
+The first non-evidentiary Step4 smoke stopped before the first v0.29 checkpoint
+evaluation because the evaluator compared hexadecimal SHA256 strings
+case-sensitively. Step3 stored checkpoint hashes in uppercase, while Python
+`hashlib.hexdigest()` emitted lowercase. Independent byte hashing verified that
+all nine v0.29 selected checkpoints exactly match the frozen Step3 identities.
+
+Before any formal Step4 evaluation, the evaluator was corrected to compare
+SHA256 strings case-insensitively. No checkpoint bytes, models, evaluation
+conditions, thresholds, decision gates, seeds, or official-test boundaries were
+changed.
+
+Corrected evaluator SHA256: `14E8160637FEDDB738D29AF2C29D01DA5F89E79C76FCFFE257F38BC199B8AFE9`

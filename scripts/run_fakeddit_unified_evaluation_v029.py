@@ -1590,12 +1590,12 @@ def main() -> None:
             checkpoint_sha256 = sha256_file(path)
             if architecture in GRADED_TRANSITION_ARCHITECTURES:
                 require(
-                    checkpoint_sha256 == expected_v029_hashes[(architecture, int(seed))],
+                    checkpoint_sha256.lower() == str(expected_v029_hashes[(architecture, int(seed))]).lower(),
                     f"{architecture} seed{seed}: checkpoint hash differs from the frozen v0.29 Step3 record.",
                 )
             else:
                 require(
-                    checkpoint_sha256 == expected_comparator_hashes[(architecture, int(seed))],
+                    checkpoint_sha256.lower() == str(expected_comparator_hashes[(architecture, int(seed))]).lower(),
                     f"{architecture} seed{seed}: comparator checkpoint hash differs from frozen v0.28 evidence.",
                 )
 
