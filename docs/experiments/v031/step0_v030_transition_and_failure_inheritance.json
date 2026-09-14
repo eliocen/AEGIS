@@ -1,0 +1,34 @@
+{
+  "aegis_version": "0.31",
+  "explicit_non_goals": [
+    "Do not increase v0.30 gate strength post hoc.",
+    "Do not carry the v0.30 evidence-to-action mapping unchanged.",
+    "Do not reopen v0.30 hypotheses or evaluation.",
+    "Do not access the official Fakeddit test split."
+  ],
+  "inherited_failures": [
+    "V30-H1 NOT_SUPPORTED: evidence-conditioned intervention did not produce broad graded-corruption robustness.",
+    "V30-H2 NOT_SUPPORTED: harmful/beneficial transition balance was not improved against both required comparators.",
+    "V30-H3 NOT_SUPPORTED: combined intervention did not establish stable superiority over both ablations.",
+    "V30-H4 NOT_SUPPORTED: gate activation did not exhibit the prospectively required corruption-, severity-, and mismatch-selective response."
+  ],
+  "inherited_positive_findings": [
+    "The stable-reference design preserved the clean-performance safeguard.",
+    "Bounded intervention prevented catastrophic clean-path degradation.",
+    "Prospective freezing, immutable evidence, and official-test sealing remain effective research controls."
+  ],
+  "official_test_samples_accessed": 0,
+  "parent_release": {
+    "closure_json_sha256": "AD3C94E4380E85FB2EF0017C93029DD1B3414802D257C4B35485F02966AF8A6D",
+    "commit": "91cbf6a88a9713198deb311f81708da4becc20f8",
+    "tag": "v0.30.0"
+  },
+  "primary_mechanistic_inference_from_frozen_v030_synthesis": {
+    "design_consequence": "v0.31 must redesign calibration and decision translation from reliability evidence to intervention while preserving stable-reference and bounded-action principles.",
+    "finding": "The dominant limitation is the evidence-to-intervention mapping rather than failure of the stable reference itself."
+  },
+  "record_type": "v030_transition_and_failure_inheritance",
+  "schema_version": "1.0",
+  "status": "TRANSITION_CONTEXT_FROZEN",
+  "step": "Step0"
+}

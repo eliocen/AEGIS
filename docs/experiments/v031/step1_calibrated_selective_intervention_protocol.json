@@ -1,0 +1,199 @@
+{
+  "ablations": [
+    {
+      "description": "Calibrated reliability evidence with stable reference and no learned intervention-utility selector.",
+      "name": "M4qcesi-c",
+      "role": "calibration_only"
+    },
+    {
+      "description": "Frozen/raw reliability evidence feeding the intervention-utility selector without calibration transform.",
+      "name": "M4qcesi-u",
+      "role": "utility_selector_only"
+    },
+    {
+      "description": "Calibrated evidence plus intervention-utility selector with bounded selective action.",
+      "name": "M4qcesi",
+      "role": "combined"
+    }
+  ],
+  "aegis_version": "0.31",
+  "architecture_family": "calibrated_evidence_selective_intervention",
+  "clean_performance_safeguard": {
+    "delta_vs_M1b_min": -0.01,
+    "delta_vs_M4qcs-w_min": -0.01,
+    "failure_effect": "successor recommendation prohibited",
+    "primary": "M4qcesi"
+  },
+  "current_state": {
+    "formal_evaluation": "NO",
+    "formal_hypothesis_decisions": {
+      "V31_H1": "NOT_COMPUTED",
+      "V31_H2": "NOT_COMPUTED",
+      "V31_H3": "NOT_COMPUTED",
+      "V31_H4": "NOT_COMPUTED",
+      "V31_H5": "NOT_COMPUTED"
+    },
+    "implementation": "NO",
+    "official_test_samples_accessed": 0,
+    "training": "NO"
+  },
+  "evaluation_protocol": {
+    "mismatch_mapping": "same class-preserving frozen construction semantics",
+    "official_test_samples_accessed": 0,
+    "quality_conditions": "same frozen 19-condition validation matrix used in v0.30",
+    "required_diagnostics": [
+      "raw text quality",
+      "raw vision quality",
+      "compatibility",
+      "calibrated text reliability",
+      "calibrated vision reliability",
+      "calibrated risk",
+      "intervention utility",
+      "active intervention indicator",
+      "modality-weight intervention magnitude",
+      "interaction-suppression magnitude"
+    ],
+    "seeds": [
+      42,
+      43,
+      44
+    ]
+  },
+  "formal_hypotheses": {
+    "V31_H1": {
+      "criteria": [
+        "clean safeguard PASSED",
+        "graded mean Macro-F1 delta vs M4qcs-w >= +0.005 across 36 paired seed-condition comparisons",
+        "positive graded count >= 22/36",
+        "positive graded fraction >= 0.60",
+        "catastrophic mean delta vs M4qcf >= -0.01"
+      ],
+      "name": "graded_corruption_robustness"
+    },
+    "V31_H2": {
+      "criteria": [
+        "harmful/beneficial ratio < M4qgrt",
+        "harmful/beneficial ratio <= M4qcs-w",
+        "net harmful < M4qgrt",
+        "net harmful <= M4qcs-w",
+        "mismatch gap < M4qgrt",
+        "mismatch gap <= M4qcs-w + 0.005",
+        "mismatched Macro-F1 >= M4qcs-w - 0.005"
+      ],
+      "name": "mismatch_transition_quality"
+    },
+    "V31_H3": {
+      "criteria": [
+        "graded mean >= +0.0025 vs M4qcesi-c",
+        "graded mean >= +0.0025 vs M4qcesi-u",
+        "mismatched Macro-F1 >= +0.0025 vs each ablation",
+        "net harmful lower than each ablation",
+        "clean delta >= -0.005 vs each ablation"
+      ],
+      "name": "combined_mechanism_superiority"
+    },
+    "V31_H4": {
+      "criteria": [
+        "clean active intervention rate <= 0.15",
+        "graded active rate - clean active rate >= 0.10",
+        "catastrophic active rate >= graded active rate",
+        "mismatch active rate - matched active rate >= 0.10",
+        "intervention utility mean higher in mismatched than matched conditions",
+        "intervention utility severity response non-decreasing for text Gaussian, vision Gaussian, text attenuation, and vision attenuation with tolerance 0.02"
+      ],
+      "name": "utility_selectivity"
+    },
+    "V31_H5": {
+      "criteria": [
+        "conditions with larger clean-to-corruption degradation must not systematically receive lower mean intervention utility than low-degradation conditions",
+        "high-utility conditions must not show a lower mean performance delta vs M4qcs-w than low-utility conditions",
+        "criterion bins and any reporting thresholds must be prospectively frozen before formal evaluation"
+      ],
+      "name": "evidence_utility_alignment",
+      "note": "Exact binning/reporting thresholds must be frozen in Step2 or later operationalization before any formal evaluation; until then V31_H5 remains structurally defined but NOT_COMPUTED."
+    }
+  },
+  "new_design_principles": {
+    "calibrated_evidence": {
+      "forbidden": "Validation-result-derived calibration constants.",
+      "goal": "Map raw quality/compatibility/transition-risk evidence into a calibrated reliability-risk representation before intervention selection.",
+      "requirement": "Calibration mechanism and constants must be frozen in Step2 before formal training."
+    },
+    "do_no_harm_default": {
+      "default_state": "stable reference",
+      "intervention_trigger": "requires prospective evidence of likely utility",
+      "requirement": "low utility must converge toward no intervention"
+    },
+    "intervention_utility_selector": {
+      "goal": "Estimate whether intervention is likely to be useful, not merely whether corruption risk is high.",
+      "inputs": "Training-split-available evidence only; no validation/test labels.",
+      "output": "bounded intervention utility score in [0,1]",
+      "requirement": "Utility score must modulate bounded intervention magnitude."
+    }
+  },
+  "next_step": "v0.31 Step2 \u9225?freeze exact calibrated-evidence and intervention-utility tensor/equation contract before implementation.",
+  "parent_step0": "docs/experiments/v031/step0_v030_transition_and_failure_inheritance.json",
+  "primary_architecture": "M4qcesi",
+  "prohibitions": [
+    "official test access",
+    "post-exposure threshold tuning",
+    "checkpoint reselection",
+    "result-driven hyperparameter search",
+    "dropping seeds or conditions",
+    "new evaluation conditions after formal exposure",
+    "changing calibration or utility-selector equations after formal training begins",
+    "modifying v0.30 records",
+    "reusing v0.30 Step9 decisions as v0.31 evidence"
+  ],
+  "record_type": "prospective_calibrated_selective_intervention_protocol",
+  "research_question": "Can calibration of reliability evidence and explicit intervention-utility estimation improve selective intervention without sacrificing the stable clean reference?",
+  "retained_design_constraints": {
+    "bounded_intervention": true,
+    "no_intervention_identity_required": true,
+    "official_test_access_prohibited": true,
+    "post_result_threshold_tuning_prohibited": true,
+    "stable_reference": "M4qcs-w-compatible stable reference remains the no-intervention anchor.",
+    "validation_feedback_for_gate_thresholds_prohibited": true
+  },
+  "schema_version": "1.0",
+  "status": "PROSPECTIVE_PROTOCOL_FROZEN_BEFORE_IMPLEMENTATION",
+  "step": "Step1",
+  "step2_contract_to_freeze_before_implementation": [
+    "Exact tensor shapes and detach/gradient-flow rules",
+    "Calibration equation",
+    "Calibration bounds",
+    "Utility-selector equation",
+    "Utility-selector inputs",
+    "Intervention activation equation",
+    "Weight-intervention bound",
+    "Interaction-suppression bound",
+    "No-intervention identity tolerance",
+    "Diagnostics schema",
+    "Any reporting threshold"
+  ],
+  "training_protocol": {
+    "checkpoint_selection": {
+      "forbidden_for_selection": [
+        "robustness metrics",
+        "mismatch metrics",
+        "intervention diagnostics",
+        "utility diagnostics"
+      ],
+      "primary": "clean_validation_macro_f1",
+      "tie_breaker": "clean_validation_classification_loss"
+    },
+    "dataset": "Fakeddit",
+    "hyperparameter_search": "PROHIBITED_AFTER_PROTOCOL_FREEZE",
+    "new_run_count": 9,
+    "official_test_samples_accessed": 0,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "train_cache": "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+    "train_samples": 5000,
+    "validation_cache": "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42",
+    "validation_samples": 1000
+  }
+}
