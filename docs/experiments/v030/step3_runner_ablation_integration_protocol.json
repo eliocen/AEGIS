@@ -1,0 +1,68 @@
+{
+  "architecture_mapping": {
+    "quality_compatibility_selective_intervention": {
+      "label": "M4qesri",
+      "model_mode": "combined"
+    },
+    "quality_compatibility_selective_intervention_transition": {
+      "label": "M4qesri-t",
+      "model_mode": "transition_only"
+    },
+    "quality_compatibility_selective_intervention_weights": {
+      "label": "M4qesri-w",
+      "model_mode": "weights_only"
+    }
+  },
+  "next_step": "After verified runner integration, proceed to Step4 locked formal-training operationalization; do not launch the nine formal runs in Step3.",
+  "parent_step2b_commit": "ccb2fd0c4a839e6bac5f1db5fd870c7d46be46dd",
+  "protocol_version": "0.30.0-step3a",
+  "purpose": "Wire the already-frozen Step2 selective-intervention implementation into the Fakeddit ablation runner without changing the Step2 tensor equations, formal hypotheses, evaluation matrix, or checkpoint policy.",
+  "runner_contract": {
+    "compatibility_supervision_required": true,
+    "gate_initialization_control": "copy historical legacy gate state into active gated-interaction base",
+    "mode": "multimodal",
+    "new_trainable_controller_parameters": 0,
+    "optimizer_components": [
+      "text_projection",
+      "vision_projection",
+      "gated_interaction_fusion",
+      "text_quality_estimator",
+      "vision_quality_estimator",
+      "compatibility_estimator",
+      "classifier"
+    ],
+    "quality_feature_statistics_required": true,
+    "quality_supervision_required": true,
+    "same_training_mixture_for_all_three_v030_variants": true,
+    "training_mixture": "M4qcs-compatible corruption/mismatch mixture",
+    "training_mixture_function": "prepare_m4qcs_training_batch",
+    "v029_harmful_transition_objective_active": false,
+    "v029_transition_reference_batch_used": false
+  },
+  "scientific_safety": {
+    "formal_decisions_computed": false,
+    "formal_evaluation_performed": false,
+    "formal_training_performed": false,
+    "official_test_samples_accessed": 0
+  },
+  "scope": {
+    "formal_evaluation": false,
+    "formal_hypothesis_decisions": false,
+    "formal_training": false,
+    "formal_training_operationalization": false,
+    "new_runner_integration_test": true,
+    "official_test_access": false,
+    "runner_source_modification": true
+  },
+  "status": "FROZEN_BEFORE_RUNNER_INTEGRATION_AND_FORMAL_TRAINING",
+  "verification_contract": {
+    "focused_runner_tests_required": true,
+    "formal_cache_training_smoke_permitted": false,
+    "formal_run_directory_creation_permitted": false,
+    "full_repository_regression_required": true,
+    "inherited_v029_tests_required": true,
+    "python_compile_required": true,
+    "step2_tensor_contract_tests_required": true,
+    "synthetic_forward_smoke_only": true
+  }
+}
