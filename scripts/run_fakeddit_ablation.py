@@ -2344,6 +2344,11 @@ def evaluate(
     weighted_total_loss = 0.0
     weighted_alignment_loss = 0.0
     weighted_classification_loss = 0.0
+    weighted_utility_probability_mean = 0.0
+    weighted_utility_gate_mean = 0.0
+    weighted_intervention_gate_mean = 0.0
+    weighted_active_intervention_rate = 0.0
+    v033_validation_diagnostics_seen = False
 
     all_targets = []
     all_predictions = []
@@ -2448,6 +2453,42 @@ def evaluate(
                 * current_batch_size
             )
 
+            if is_v033_utility_supervised_architecture(
+                trainer.fusion_architecture
+            ):
+                control = outputs.get("v033_control")
+                if control is None:
+                    raise RuntimeError(
+                        "M4qusli validation diagnostics require v033_control."
+                    )
+                v033_validation_diagnostics_seen = True
+                weighted_utility_probability_mean += (
+                    float(
+                        control.utility_probability.detach().mean().cpu().item()
+                    )
+                    * current_batch_size
+                )
+                weighted_utility_gate_mean += (
+                    float(control.utility_gate.detach().mean().cpu().item())
+                    * current_batch_size
+                )
+                weighted_intervention_gate_mean += (
+                    float(
+                        control.intervention_gate.detach().mean().cpu().item()
+                    )
+                    * current_batch_size
+                )
+                weighted_active_intervention_rate += (
+                    float(
+                        control.active_intervention_indicator
+                        .detach()
+                        .mean()
+                        .cpu()
+                        .item()
+                    )
+                    * current_batch_size
+                )
+
             all_targets.extend(
                 targets
                 .detach()
@@ -2526,6 +2567,24 @@ def evaluate(
             ),
         }
     )
+
+    if v033_validation_diagnostics_seen:
+        metrics.update(
+            {
+                "utility_probability_mean": (
+                    weighted_utility_probability_mean / total_samples
+                ),
+                "utility_gate_mean": (
+                    weighted_utility_gate_mean / total_samples
+                ),
+                "intervention_gate_mean": (
+                    weighted_intervention_gate_mean / total_samples
+                ),
+                "active_intervention_rate": (
+                    weighted_active_intervention_rate / total_samples
+                ),
+            }
+        )
 
     return metrics
 

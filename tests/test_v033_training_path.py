@@ -100,3 +100,81 @@ def test_v033_magnitude_weight_increases_for_material_delta() -> None:
     )
     expected = torch.tensor([1.0, 1.4, 3.0, 5.0, 5.0])
     assert torch.allclose(weight, expected, atol=1e-7, rtol=0.0)
+
+
+def test_v033_validation_path_persists_control_diagnostics(monkeypatch) -> None:
+    from types import SimpleNamespace
+
+    from scripts import run_fakeddit_ablation as runner_module
+
+    class _EvalOnlyModule:
+        def eval(self) -> None:
+            return None
+
+    class _FakeTrainer:
+        mode = "multimodal"
+        alignment_loss_weight = 0.5
+        fusion_architecture = (
+            "quality_compatibility_utility_supervised_intervention"
+        )
+        alignment_model = _EvalOnlyModule()
+        classification_model = _EvalOnlyModule()
+
+        def forward_batch(self, batch, compute_alignment_loss):
+            del compute_alignment_loss
+            batch_size = batch.integrity_targets.numel()
+            logits = torch.tensor(
+                [[1.5, -0.5], [-0.2, 1.2]],
+                dtype=torch.float32,
+            )[:batch_size]
+            control = SimpleNamespace(
+                utility_probability=torch.full(
+                    (batch_size, 1), 0.65, dtype=torch.float32
+                ),
+                utility_gate=torch.full(
+                    (batch_size, 1), 0.125, dtype=torch.float32
+                ),
+                intervention_gate=torch.full(
+                    (batch_size, 1), 0.125, dtype=torch.float32
+                ),
+                active_intervention_indicator=torch.ones(
+                    (batch_size, 1), dtype=torch.float32
+                ),
+            )
+            zero = torch.tensor(0.0)
+            return {
+                "loss": zero,
+                "alignment_loss": zero,
+                "classification_loss": zero,
+                "classification_outputs": {"integrity_logits": logits},
+                "v033_control": control,
+            }
+
+    fake_batch = SimpleNamespace(
+        integrity_targets=torch.tensor([0, 1], dtype=torch.long),
+        sample_ids=["a", "b"],
+    )
+    monkeypatch.setattr(
+        runner_module,
+        "iter_sequential_batches",
+        lambda full_batch, batch_size: [full_batch],
+    )
+
+    metrics = runner_module.evaluate(
+        trainer=_FakeTrainer(),
+        full_batch=fake_batch,
+        batch_size=2,
+    )
+
+    assert math.isclose(
+        metrics["utility_probability_mean"], 0.65, rel_tol=0.0, abs_tol=1e-7
+    )
+    assert math.isclose(
+        metrics["utility_gate_mean"], 0.125, rel_tol=0.0, abs_tol=1e-7
+    )
+    assert math.isclose(
+        metrics["intervention_gate_mean"], 0.125, rel_tol=0.0, abs_tol=1e-7
+    )
+    assert math.isclose(
+        metrics["active_intervention_rate"], 1.0, rel_tol=0.0, abs_tol=1e-7
+    )
