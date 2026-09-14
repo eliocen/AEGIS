@@ -1,0 +1,208 @@
+{
+  "aegis_version": "0.31",
+  "architecture_specific_auxiliary_weights": {
+    "M4qcesi": {
+      "calibration_loss_weight": 0.25,
+      "utility_loss_weight": 0.5
+    },
+    "M4qcesi-c": {
+      "calibration_loss_weight": 0.25,
+      "utility_loss_weight": 0.0
+    },
+    "M4qcesi-u": {
+      "calibration_loss_weight": 0.0,
+      "utility_loss_weight": 0.5
+    }
+  },
+  "checkpoint_selection": {
+    "direction": "maximize",
+    "forbidden_for_selection": [
+      "robustness metrics",
+      "mismatch metrics",
+      "intervention diagnostics",
+      "utility diagnostics",
+      "calibration diagnostics",
+      "official test metrics"
+    ],
+    "primary_metric": "clean validation Macro-F1",
+    "tie_breaker": "clean validation classification loss",
+    "tie_breaker_direction": "minimize"
+  },
+  "dataset": {
+    "cache_reuse": "same frozen caches as prior locked Fakeddit ablations",
+    "name": "Fakeddit",
+    "training_cache": "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+    "training_cache_tree_sha256": "6E8CF4DEC088D55DFC7D23E03BE4CD7BD03FA5ABE8C2AF73EC08CFC5E4DFC3A7",
+    "training_samples": 5000,
+    "validation_cache": "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42",
+    "validation_cache_tree_sha256": "AE3DEE862A09652DB31F88F66A3150AA194E23D06F6C9A2FBEB4810A250BFD7F",
+    "validation_samples": 1000
+  },
+  "environment": {
+    "cuda_available": true,
+    "cuda_runtime": "13.2",
+    "gpu_name": "NVIDIA GeForce GTX 1660 SUPER",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.10.11",
+    "python_executable": "D:\\Research\\AEGIS\\.venv\\Scripts\\python.exe",
+    "pytorch": "2.13.0+cu132"
+  },
+  "formal_evaluation_started": false,
+  "formal_training_started": false,
+  "hypothesis_state": {
+    "V31_H1": "NOT_COMPUTED",
+    "V31_H2": "NOT_COMPUTED",
+    "V31_H3": "NOT_COMPUTED",
+    "V31_H4": "NOT_COMPUTED",
+    "V31_H5": "NOT_COMPUTED"
+  },
+  "official_test_samples_accessed": 0,
+  "parent_step3c_commit": "713c2dddc1adfa831b6e09dbcd8bfce7da312f6f",
+  "run_roster": {
+    "architectures": [
+      "M4qcesi-c",
+      "M4qcesi-u",
+      "M4qcesi"
+    ],
+    "formal_run_count": 9,
+    "runs": [
+      {
+        "architecture": "M4qcesi-c",
+        "calibration_loss_weight": 0.25,
+        "controller_mode": "calibration_only",
+        "fusion_architecture": "quality_compatibility_calibrated_intervention_calibration",
+        "run_id": "M4qcesi-c_seed42",
+        "seed": 42,
+        "transition_objective_weight": 0.0,
+        "utility_loss_weight": 0.0
+      },
+      {
+        "architecture": "M4qcesi-c",
+        "calibration_loss_weight": 0.25,
+        "controller_mode": "calibration_only",
+        "fusion_architecture": "quality_compatibility_calibrated_intervention_calibration",
+        "run_id": "M4qcesi-c_seed43",
+        "seed": 43,
+        "transition_objective_weight": 0.0,
+        "utility_loss_weight": 0.0
+      },
+      {
+        "architecture": "M4qcesi-c",
+        "calibration_loss_weight": 0.25,
+        "controller_mode": "calibration_only",
+        "fusion_architecture": "quality_compatibility_calibrated_intervention_calibration",
+        "run_id": "M4qcesi-c_seed44",
+        "seed": 44,
+        "transition_objective_weight": 0.0,
+        "utility_loss_weight": 0.0
+      },
+      {
+        "architecture": "M4qcesi-u",
+        "calibration_loss_weight": 0.0,
+        "controller_mode": "utility_only",
+        "fusion_architecture": "quality_compatibility_calibrated_intervention_utility",
+        "run_id": "M4qcesi-u_seed42",
+        "seed": 42,
+        "transition_objective_weight": 0.0,
+        "utility_loss_weight": 0.5
+      },
+      {
+        "architecture": "M4qcesi-u",
+        "calibration_loss_weight": 0.0,
+        "controller_mode": "utility_only",
+        "fusion_architecture": "quality_compatibility_calibrated_intervention_utility",
+        "run_id": "M4qcesi-u_seed43",
+        "seed": 43,
+        "transition_objective_weight": 0.0,
+        "utility_loss_weight": 0.5
+      },
+      {
+        "architecture": "M4qcesi-u",
+        "calibration_loss_weight": 0.0,
+        "controller_mode": "utility_only",
+        "fusion_architecture": "quality_compatibility_calibrated_intervention_utility",
+        "run_id": "M4qcesi-u_seed44",
+        "seed": 44,
+        "transition_objective_weight": 0.0,
+        "utility_loss_weight": 0.5
+      },
+      {
+        "architecture": "M4qcesi",
+        "calibration_loss_weight": 0.25,
+        "controller_mode": "combined",
+        "fusion_architecture": "quality_compatibility_calibrated_intervention",
+        "run_id": "M4qcesi_seed42",
+        "seed": 42,
+        "transition_objective_weight": 0.0,
+        "utility_loss_weight": 0.5
+      },
+      {
+        "architecture": "M4qcesi",
+        "calibration_loss_weight": 0.25,
+        "controller_mode": "combined",
+        "fusion_architecture": "quality_compatibility_calibrated_intervention",
+        "run_id": "M4qcesi_seed43",
+        "seed": 43,
+        "transition_objective_weight": 0.0,
+        "utility_loss_weight": 0.5
+      },
+      {
+        "architecture": "M4qcesi",
+        "calibration_loss_weight": 0.25,
+        "controller_mode": "combined",
+        "fusion_architecture": "quality_compatibility_calibrated_intervention",
+        "run_id": "M4qcesi_seed44",
+        "seed": 44,
+        "transition_objective_weight": 0.0,
+        "utility_loss_weight": 0.5
+      }
+    ],
+    "seeds": [
+      42,
+      43,
+      44
+    ]
+  },
+  "schema_version": "1.0",
+  "shared_hyperparameters": {
+    "active_intervention_threshold": 0.5,
+    "alignment_weight": 0.5,
+    "batch_size": 32,
+    "classification_weight": 1.0,
+    "compatibility_weight": 1.0,
+    "dropout": 0.1,
+    "epochs": 50,
+    "gradient_clip": 1.0,
+    "hidden_dim": 128,
+    "learning_rate": 0.001,
+    "max_interaction_suppression": 0.5,
+    "max_modality_weight_shift": 0.15,
+    "min_delta": 1e-06,
+    "min_epochs": 5,
+    "patience": 8,
+    "quality_weight": 1.0,
+    "shared_dim": 128,
+    "temperature": 0.07,
+    "transition_objective_weight": 0.0,
+    "utility_target_temperature": 0.05,
+    "weight_decay": 0.0001
+  },
+  "source_boundary": {
+    "branch": "feature/v0.31-calibrated-selective-intervention",
+    "controller_sha256": "296D67DF43B78CF585E0B59D8F9C44F0CFF78B7E92CE0CF0640C548EB2A9D214",
+    "head": "713c2dddc1adfa831b6e09dbcd8bfce7da312f6f",
+    "model_sha256": "CA94D9FEF5F395C14F69E4B3C9CA222D5F75F9177C1273215D3B956321ED5E58",
+    "runner_sha256": "14220201DCB2715D9201FB5C8E8425D273FD1F1B6309DBB465A0A51F10E62428"
+  },
+  "status": "REMOTELY_FROZEN_AFTER_COMMIT",
+  "step": "Step4 locked formal-training operationalization",
+  "training_integrity": {
+    "checkpoint_reselection_after_formal_evaluation": "PROHIBITED",
+    "dropping_failed_seeds": "PROHIBITED",
+    "hyperparameter_search": "PROHIBITED",
+    "official_test_use": "PROHIBITED",
+    "post_result_threshold_tuning": "PROHIBITED",
+    "v029_transition_objective": "DISABLED",
+    "validation_feedback_for_calibration_or_utility_thresholds": "PROHIBITED"
+  }
+}
