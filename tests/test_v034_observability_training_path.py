@@ -127,3 +127,39 @@ def test_v034_summary_has_exact_step1_distribution_fields():
         "selector_gradient_norm_median_non_neutral_steps", "selector_parameter_l2_movement_from_initial",
     }
     assert required == set(summary)
+
+
+
+def test_v034_formal_main_loop_wires_observability_root_from_experiment_root():
+    import ast
+    import inspect
+    import textwrap
+    source = textwrap.dedent(inspect.getsource(runner.main))
+    tree = ast.parse(source)
+    calls = []
+    assignments = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Call):
+            fn = node.func
+            name = fn.id if isinstance(fn, ast.Name) else fn.attr if isinstance(fn, ast.Attribute) else None
+            if name == "train_one_epoch":
+                calls.append(node)
+        if isinstance(node, ast.Assign):
+            for target in node.targets:
+                if isinstance(target, ast.Name) and target.id == "v034_observability_root":
+                    assignments.append(node)
+    assert len(assignments) == 1
+    assert len(calls) == 1
+    keywords = {kw.arg: ast.unparse(kw.value) for kw in calls[0].keywords if kw.arg}
+    assert keywords["observability_root"] == "v034_observability_root"
+    assignment_text = ast.unparse(assignments[0].value)
+    assert "args.experiment_root" in assignment_text
+    assert "'v034_observability'" in assignment_text
+    assert "is_v033_utility_supervised_architecture(args.fusion_architecture)" in assignment_text
+
+
+def test_v034_formal_observability_activation_is_restricted_to_m4qusli(tmp_path):
+    primary = tmp_path / "v034_observability" if runner.is_v033_utility_supervised_architecture("quality_compatibility_utility_supervised_intervention") else None
+    inherited = tmp_path / "v034_observability" if runner.is_v033_utility_supervised_architecture("quality_compatibility_calibrated_intervention") else None
+    assert primary == tmp_path / "v034_observability"
+    assert inherited is None

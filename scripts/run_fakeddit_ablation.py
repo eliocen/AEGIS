@@ -3756,6 +3756,17 @@ def main():
         / "best_validation_predictions.json"
     )
 
+    # v0.34 Step8B: operationalization-only activation of the already-frozen
+    # prospective observability path. The scientific mechanism is unchanged.
+    v034_observability_root = (
+        args.experiment_root
+        / "v034_observability"
+        if is_v033_utility_supervised_architecture(
+            args.fusion_architecture
+        )
+        else None
+    )
+
     # =============================================================
     # Header
     # =============================================================
@@ -5426,6 +5437,10 @@ def main():
 
                     vision_feature_std=(
                         vision_feature_std
+                    ),
+
+                    observability_root=(
+                        v034_observability_root
                     ),
                 )
             )
