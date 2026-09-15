@@ -1,0 +1,78 @@
+{
+  "aegis_version": "0.33",
+  "evaluator_sha256": "49678E9B0E4E0CB9F22253DC00B00453D7FFD3CC40C64B5A42EC66D5897B2623",
+  "evaluator_test_sha256": "96E8C50A448A6A66F0A627C4ABD39F938FBD723CFB7A4261DBCBD0923E2FA7EC",
+  "formal_evaluation": {
+    "architectures": [
+      "M1b",
+      "M4qcf",
+      "M4qcs-w",
+      "M4qusli"
+    ],
+    "artifact_count": 510,
+    "checkpoint_count": 12,
+    "mismatch_conditions": [
+      "class_preserving_mismatched",
+      "matched"
+    ],
+    "mismatch_mapping_sha256": "975967D77622BCDAD7E28597CB6F9F967C73BFE16D4A7455C1AB56CC7FBC6464",
+    "mismatch_summary_rows": 24,
+    "model_state_unchanged": true,
+    "output_root": "experiments/fakeddit/v033_step11_formal_evaluation",
+    "output_tree_sha256": "8FCACEA904129574211E3BB63DD25C46D55A2FC218F223577AE01BDF7E777E43",
+    "quality_conditions_per_checkpoint": 19,
+    "quality_summary_rows": 228,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "validation_samples": 1000
+  },
+  "m4qusli_diagnostics": [
+    "utility_probability",
+    "utility_gate",
+    "intervention_gate",
+    "active_intervention_indicator",
+    "p_ref_true",
+    "p_candidate_true",
+    "delta_u",
+    "u_target"
+  ],
+  "m4qusli_formal_summary_rows_with_diagnostics": 63,
+  "next_stage": "Step13 formal hypothesis decision analysis using only frozen Step8 training evidence and frozen Step12 formal evaluation evidence",
+  "parent_step10_commit": "42b8364f4b23c4837163c00a4bb33484a2e5c9cf",
+  "recovery_history": [
+    {
+      "actual_frozen_schema": "formal summary rows use key model_seed",
+      "evaluation_semantics_changed": false,
+      "failed_assumption": "formal summary rows use key seed",
+      "formal_artifacts_changed": false,
+      "formal_evaluator_rerun": false,
+      "scientific_design_changed": false,
+      "stage": "Step11 post-evaluation verifier",
+      "type": "row_schema_only"
+    }
+  ],
+  "schema_version": "1.0",
+  "scientific_boundary": {
+    "V33_H1": "NOT_COMPUTED",
+    "V33_H2": "NOT_COMPUTED",
+    "V33_H3": "NOT_COMPUTED",
+    "V33_H4": "NOT_COMPUTED",
+    "V33_H5": "NOT_COMPUTED",
+    "checkpoint_reselection_performed": false,
+    "formal_evaluation_evidence_frozen": true,
+    "formal_evaluation_performed": true,
+    "formal_hypothesis_decisions_performed": false,
+    "official_test_samples_accessed": 0,
+    "post_exposure_rebinning_performed": false,
+    "seed_dropping_performed": false,
+    "threshold_tuning_performed": false,
+    "training_performed_during_step11_or_step12": false
+  },
+  "status": "FORMAL_EVALUATION_EVIDENCE_FROZEN",
+  "step": "Step12 formal evaluation evidence and provenance freeze",
+  "step10_json_sha256": "44D9ADF811CE7869C8A8ED96EE97FD9A594BF49D4D41216F9446D4045ED08307",
+  "step9_json_sha256": "6AA04BC43546F1D3FECD10E27DA80459AECF1C85441AE0D473359AA9649D7898"
+}
