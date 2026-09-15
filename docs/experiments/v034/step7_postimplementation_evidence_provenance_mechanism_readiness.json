@@ -1,0 +1,70 @@
+{
+  "aegis_version": "0.34",
+  "created_utc": "2026-09-15T03:36:45.532677+00:00",
+  "execution_boundary": {
+    "formal_evaluation_performed": false,
+    "formal_training_performed": false,
+    "hypothesis_decisions_made": false,
+    "official_test_samples_accessed": 0
+  },
+  "mechanism_invariants": {
+    "candidate_action": "UNCHANGED",
+    "checkpoint_selection": "UNCHANGED",
+    "effective_utility_weight": "UNCHANGED",
+    "formal_evaluator": "UNCHANGED",
+    "inactive_identity": "UNCHANGED",
+    "intervention_mapping": "UNCHANGED",
+    "scientific_mechanism_change": false,
+    "selector_architecture_inputs": "UNCHANGED",
+    "selector_loss": "UNCHANGED",
+    "stable_reference": "UNCHANGED",
+    "utility_target_transform": "UNCHANGED"
+  },
+  "next_stage": {
+    "authorization": "NOT_GRANTED_BY_STEP7",
+    "name": "v0.34 Step8 prospective formal-training operationalization",
+    "rule": "A separate exact formal-training operationalization/authorization freeze is required before any formal training."
+  },
+  "readiness": {
+    "GAP1_TRAIN_SAMPLE_COUNTERFACTUALS": "READY",
+    "GAP2_STEP_TARGET_GRADIENT_ALIGNMENT": "READY",
+    "GAP3_PARAMETER_TRAJECTORY": "READY",
+    "GAP4_RUNTIME_WEIGHT_PROVENANCE": "READY",
+    "GAP5_RECOVERABILITY": "READY"
+  },
+  "schema_version": "1.0",
+  "scientific_interpretation": {
+    "Q1_TARGET_INFORMATIVENESS": "NOT_YET_EVALUATED",
+    "Q2_SELECTOR_OPTIMIZATION": "NOT_YET_EVALUATED",
+    "Q3_SELECTOR_LEARNING_CALIBRATION": "NOT_YET_EVALUATED",
+    "Q4_CONDITION_DISCRIMINATION": "NOT_YET_EVALUATED",
+    "Q5_INTERVENTION_MAPPING": "NOT_YET_EVALUATED",
+    "Q6_CLEAN_SAFEGUARD": "NOT_YET_EVALUATED",
+    "rule": "Engineering readiness makes the frozen questions prospectively adjudicable; it does not answer them."
+  },
+  "source_boundary": {
+    "branch": "feature/v0.34-utility-discrimination-failure-resolution",
+    "protected_source_sha256": {
+      "aegis/alignment/model.py": "6EDC8D06233DF4BFB7D868165E1BDA7607D083308370426AAE9E92232252793C",
+      "aegis/reliability/reliability_controller.py": "6807597395E0FAD7D295645A416CB5506825845DEA9F6D342F3642035D6E137F",
+      "scripts/run_fakeddit_unified_evaluation_v033.py": "49678E9B0E4E0CB9F22253DC00B00453D7FFD3CC40C64B5A42EC66D5897B2623",
+      "tests/test_v033_training_path.py": "C5B485D0C36CE4BE17D4149AA4CD5AF133C8164DF7A3F8D6C4C5A0ABBF9E6691",
+      "tests/test_v033_unified_evaluator.py": "96E8C50A448A6A66F0A627C4ABD39F938FBD723CFB7A4261DBCBD0923E2FA7EC",
+      "tests/test_v033_utility_supervision_selector.py": "96C5AC55143D40DE9EB2C8B7194E294B36A1E2B12ECF017D52B5D4335CAC4C9E"
+    },
+    "recoverability_test_sha256": "AF3D210EE148AB97AD65453E0CB472B702669D2B774FBEAB794D85B7850A76CD",
+    "runner_sha256": "48531940C4FB2DE6B02C24EFE49BCA57E656644675FE014F167FD0ED041A200E",
+    "step1_protocol_path": "docs/experiments/v034/step1_prospective_observability_adjudicability_experimental_protocol.json",
+    "step1_protocol_sha256": "8112490CA35BA5206EEC98C2790A361EBE2AC840F620B14C7723B0FF12167885",
+    "step3_gap_contract_path": "docs/experiments/v034/step3_exact_inherited_mechanism_and_diagnostic_gap_contract.json",
+    "step3_gap_contract_sha256": "C926CEEBD3EC95502EAEF5D4E411E0976FD68C0EDDD5D69A0FE57DC1C9600D29",
+    "step5_allowlist_path": "docs/experiments/v034/step5_controlled_observability_implementation_plan_and_source_allowlist.json",
+    "step5_allowlist_sha256": "81A835DA4F826AE2D60B1D1E27A330CA55A9B42B64891D82C1022B02747D48C6",
+    "step5_commit": "42dc66dddadc30c9b10354dd5c2adf74590a5e71",
+    "step6_commit": "6bf58b810101e4249e5794df7050c64711d1a6ae",
+    "training_path_test_sha256": "BA93399E9842B397715D9458EB2B5241D39E324BCC10C480E54B731C81FD32DB"
+  },
+  "stage": "Step7",
+  "status": "POSTIMPLEMENTATION_OBSERVABILITY_READINESS_VERIFIED",
+  "title": "Post-Implementation Evidence, Provenance and Mechanism-Readiness Freeze"
+}
