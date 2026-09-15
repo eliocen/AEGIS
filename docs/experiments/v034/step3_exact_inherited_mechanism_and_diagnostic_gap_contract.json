@@ -1,0 +1,148 @@
+{
+  "aegis_version": "0.34",
+  "exact_diagnostic_gaps_to_close_before_formal_training": [
+    {
+      "gap": "GAP1_TRAIN_SAMPLE_COUNTERFACTUALS",
+      "missing_or_insufficient": "Formal training did not persist the complete Step1 sample-level population of p_ref_true, p_candidate_true, delta_u, u_target, utility_probability and gates.",
+      "required_resolution": "Persist these fields per training sample occurrence with epoch, optimization_step and stable sample identifier."
+    },
+    {
+      "gap": "GAP2_STEP_TARGET_GRADIENT_ALIGNMENT",
+      "missing_or_insufficient": "Inherited epoch summaries do not align selector_gradient_norm with the same optimization step's non-neutral target count/fraction.",
+      "required_resolution": "Persist non_neutral_target_count/fraction, selector_gradient_norm, utility_loss and selector parameter update on every optimization step."
+    },
+    {
+      "gap": "GAP3_PARAMETER_TRAJECTORY",
+      "missing_or_insufficient": "Inherited evidence does not provide the Step1-required optimization-step parameter update trajectory.",
+      "required_resolution": "Persist selector_parameter_l2_update_this_step and movement_from_initial at optimization-step granularity."
+    },
+    {
+      "gap": "GAP4_RUNTIME_WEIGHT_PROVENANCE",
+      "missing_or_insufficient": "Runtime weights must be asserted from effective training state, not merely command-line/configuration values.",
+      "required_resolution": "Persist and verify effective classification, utility and any transition loss weights during the actual training path."
+    },
+    {
+      "gap": "GAP5_RECOVERABILITY",
+      "missing_or_insufficient": "v0.34 has not yet demonstrated that all planned Q1-Q6 statistics can be recovered from persisted engineering artifacts alone.",
+      "required_resolution": "Before formal training, execute an engineering smoke and an independent read-only recoverability verifier."
+    }
+  ],
+  "failure_boundary_rules": {
+    "clean_reference": "PRESERVE.",
+    "evidence_representation": "UNRESOLVED; no causal attribution.",
+    "intervention_mapping": "UNRESOLVED; no causal attribution.",
+    "selector_learning_calibration": "HIGH_PRIORITY_UNRESOLVED; H3 failure motivates investigation but is not causal proof.",
+    "selector_optimization": "UNRESOLVED; do not claim optimization failure without aligned step evidence.",
+    "target_informativeness": "UNRESOLVED; do not change target solely on v0.33 H1 missingness."
+  },
+  "inherited_source_identities": {
+    "controller": {
+      "path": "aegis/reliability/reliability_controller.py",
+      "sha256": "6807597395E0FAD7D295645A416CB5506825845DEA9F6D342F3642035D6E137F"
+    },
+    "controller_test": {
+      "path": "tests/test_v033_utility_supervision_selector.py",
+      "sha256": "96C5AC55143D40DE9EB2C8B7194E294B36A1E2B12ECF017D52B5D4335CAC4C9E"
+    },
+    "evaluator": {
+      "path": "scripts/run_fakeddit_unified_evaluation_v033.py",
+      "sha256": "49678E9B0E4E0CB9F22253DC00B00453D7FFD3CC40C64B5A42EC66D5897B2623"
+    },
+    "evaluator_test": {
+      "path": "tests/test_v033_unified_evaluator.py",
+      "sha256": "96E8C50A448A6A66F0A627C4ABD39F938FBD723CFB7A4261DBCBD0923E2FA7EC"
+    },
+    "model": {
+      "path": "aegis/alignment/model.py",
+      "sha256": "6EDC8D06233DF4BFB7D868165E1BDA7607D083308370426AAE9E92232252793C"
+    },
+    "runner": {
+      "path": "scripts/run_fakeddit_ablation.py",
+      "sha256": "1D6100D5AC0E8858F0B54846FC5167A97E20C0EEF4D70B5762EF7F3BF41B63CF"
+    },
+    "training_test": {
+      "path": "tests/test_v033_training_path.py",
+      "sha256": "C5B485D0C36CE4BE17D4149AA4CD5AF133C8164DF7A3F8D6C4C5A0ABBF9E6691"
+    }
+  },
+  "next_exact_source_audit_requirements": [
+    "Extract exact inherited M4qusli controller/model/runner code regions implementing candidate action, target transform, selector loss, utility probability, intervention mapping and training diagnostics.",
+    "Identify the narrowest source locations required to add Step1 sample-level and optimization-step observability.",
+    "Verify whether candidate-action logits/probabilities are differentiable or detached where intended and document the gradient boundary.",
+    "Verify selector initialization, parameter ownership and optimizer inclusion.",
+    "Verify exact inactive/default identity path.",
+    "Do not edit source during this audit."
+  ],
+  "next_stage": "v0.34 Step4 \u9225?exact inherited mechanism source extraction and gradient/diagnostic-path audit",
+  "official_test_samples_accessed": 0,
+  "preserve_as_scientific_constraints": [
+    "Stable-reference/no-intervention default behavior is preserved as a hard successor constraint.",
+    "Exact inactive/default intervention behavior must remain bitwise/exactly identity-preserving in controlled verification.",
+    "Counterfactual comparison must retain explicit stable-reference and candidate-action branches so p_ref_true and p_candidate_true remain directly observable.",
+    "Official test remains prohibited.",
+    "No post-exposure threshold search, checkpoint reselection, seed dropping, condition regrouping, or decision-rule change."
+  ],
+  "preserve_until_evidence_justifies_change": [
+    {
+      "component": "stable reference path",
+      "reason": "v0.33 H4 clean safeguard was supported.",
+      "status": "PRESERVE"
+    },
+    {
+      "component": "counterfactual stable-versus-candidate observability",
+      "reason": "Required to adjudicate Q1/Q3 and distinguish target/action informativeness from selector failure.",
+      "status": "PRESERVE"
+    },
+    {
+      "component": "machine-readable utility/gate diagnostics already present",
+      "reason": "Existing paths are useful; Step1 requires greater granularity rather than removal.",
+      "status": "PRESERVE_AND_EXTEND"
+    }
+  ],
+  "schema_version": "1.0",
+  "scientifically_eligible_for_modification_after_exact_mechanism_contract": [
+    {
+      "boundary": "May change only if prospectively justified; Step3 does not choose an equation.",
+      "component": "utility target transform",
+      "eligibility": "ELIGIBLE_NOT_SELECTED"
+    },
+    {
+      "boundary": "May change only under a later exact pre-training contract.",
+      "component": "selector supervision/loss/calibration objective",
+      "eligibility": "ELIGIBLE_NOT_SELECTED"
+    },
+    {
+      "boundary": "No inherited evidence establishes representation as causal; modification requires prospective rationale.",
+      "component": "selector evidence representation/input",
+      "eligibility": "ELIGIBLE_NOT_SELECTED"
+    },
+    {
+      "boundary": "Any change must preserve exact inactive/default behavior and be frozen before formal training.",
+      "component": "intervention gate/strength/mapping",
+      "eligibility": "ELIGIBLE_NOT_SELECTED"
+    },
+    {
+      "boundary": "Do not alter merely because H3/H5 failed; first establish whether inherited candidate-action utility signal is informative.",
+      "component": "candidate intervention action",
+      "eligibility": "CONDITIONALLY_ELIGIBLE_NOT_SELECTED"
+    }
+  ],
+  "source_boundary": {
+    "step1_commit": "c5917ce8eb5d4a485176e372dd0aceedf3ee4292",
+    "step1_json_sha256": "8112490CA35BA5206EEC98C2790A361EBE2AC840F620B14C7723B0FF12167885",
+    "step2_audit_json_sha256": "918A705D6889293A5F9A7FC8D4E93BFD63C4AD6ECE991B3FA9064EA128ABDA0E"
+  },
+  "stage": "Step3",
+  "status": "EXACT_INHERITED_MECHANISM_DIAGNOSTIC_GAP_CONTRACT_FROZEN",
+  "step3_decisions": {
+    "candidate_action_changed": false,
+    "formal_evaluation_authorized": false,
+    "new_architecture_selected": false,
+    "new_intervention_mapping_selected": false,
+    "new_selector_loss_selected": false,
+    "new_target_transform_selected": false,
+    "source_modified": false,
+    "training_authorized": false
+  },
+  "title": "Exact Inherited-Mechanism and Diagnostic-Gap Contract"
+}
