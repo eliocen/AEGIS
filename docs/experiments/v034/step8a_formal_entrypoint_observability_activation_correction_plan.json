@@ -1,0 +1,91 @@
+﻿{
+    "aegis_version":  "0.34",
+    "stage":  "Step8A",
+    "title":  "Formal Entry-Point Observability Activation Correction Plan and Allowlist",
+    "status":  "CORRECTION_PLAN_REMOTELY_FREEZABLE",
+    "parent_step8_commit":  "ace5f47406bf639c6b99cafb1d7c130e30e6da7b",
+    "inherited_audit_status":  "NARROW_OPERATIONALIZATION_CORRECTION_REQUIRED",
+    "exact_source_boundary":  {
+                                  "runner_sha256":  "48531940C4FB2DE6B02C24EFE49BCA57E656644675FE014F167FD0ED041A200E",
+                                  "training_path_test_sha256":  "BA93399E9842B397715D9458EB2B5241D39E324BCC10C480E54B731C81FD32DB",
+                                  "recoverability_test_sha256":  "AF3D210EE148AB97AD65453E0CB472B702669D2B774FBEAB794D85B7850A76CD",
+                                  "step8_audit_json_sha256":  "2EE2E41EB262D7083C847FCDE18EAA2C84EFD5AEB340A653E63634C7F625446F",
+                                  "step8_audit_md_sha256":  "6466F54504A39C49259407BEC9307D7C17F502C8D19ED85ECB2A4CE4B85F7C8C"
+                              },
+    "source_mapping":  {
+                           "train_one_epoch_definition_lineno":  2767,
+                           "formal_train_one_epoch_call_lineno":  5348,
+                           "formal_call_has_observability_root":  false,
+                           "definition_has_observability_root":  true,
+                           "formal_call_keywords":  {
+                                                        "batch_size":  "args.batch_size",
+                                                        "compatibility_loss_weight":  "args.compatibility_weight if args.fusion_architecture in {\u0027quality_compatibility_supervised\u0027, \u0027quality_compatibility_fusion\u0027, \u0027quality_compatibility_selective_weights\u0027, \u0027quality_compatibility_selective_interaction\u0027, \u0027quality_compatibility_selective_fusion\u0027, \u0027quality_compatibility_graded_weights\u0027, \u0027quality_compatibility_transition_control\u0027, \u0027quality_compatibility_graded_transition_fusion\u0027, \u0027quality_compatibility_selective_intervention_weights\u0027, \u0027quality_compatibility_selective_intervention_transition\u0027, \u0027quality_compatibility_selective_intervention\u0027, \u0027quality_compatibility_calibrated_intervention_calibration\u0027, \u0027quality_compatibility_calibrated_intervention_utility\u0027, \u0027quality_compatibility_calibrated_intervention\u0027, \u0027quality_compatibility_utility_supervised_intervention\u0027} else 0.0",
+                                                        "epoch":  "epoch",
+                                                        "full_batch":  "train_data",
+                                                        "quality_loss_weight":  "args.quality_weight if args.fusion_architecture in {\u0027quality_supervised\u0027, \u0027quality_compatibility_supervised\u0027, \u0027quality_compatibility_fusion\u0027, \u0027quality_compatibility_selective_weights\u0027, \u0027quality_compatibility_selective_interaction\u0027, \u0027quality_compatibility_selective_fusion\u0027, \u0027quality_compatibility_graded_weights\u0027, \u0027quality_compatibility_transition_control\u0027, \u0027quality_compatibility_graded_transition_fusion\u0027, \u0027quality_compatibility_selective_intervention_weights\u0027, \u0027quality_compatibility_selective_intervention_transition\u0027, \u0027quality_compatibility_selective_intervention\u0027, \u0027quality_compatibility_calibrated_intervention_calibration\u0027, \u0027quality_compatibility_calibrated_intervention_utility\u0027, \u0027quality_compatibility_calibrated_intervention\u0027, \u0027quality_compatibility_utility_supervised_intervention\u0027} else 0.0",
+                                                        "seed":  "args.seed",
+                                                        "text_feature_std":  "text_feature_std",
+                                                        "trainer":  "trainer",
+                                                        "transition_loss_weight":  "args.transition_objective_weight if args.fusion_architecture in {\u0027quality_compatibility_transition_control\u0027, \u0027quality_compatibility_graded_transition_fusion\u0027} else 0.0",
+                                                        "vision_feature_std":  "vision_feature_std"
+                                                    }
+                       },
+    "exact_implementation_allowlist":  [
+                                           "scripts/run_fakeddit_ablation.py",
+                                           "tests/test_v034_observability_training_path.py"
+                                       ],
+    "required_correction":  {
+                                "purpose":  "Activate the already-frozen v0.34 observability path in ordinary formal CLI/main-loop training.",
+                                "runner_requirements":  [
+                                                            "Derive a deterministic per-run observability root from the existing formal run/output root; do not introduce an independent scientific data source.",
+                                                            "Pass that observability root explicitly to the single formal train_one_epoch call.",
+                                                            "Enable the existing trainer v0.34 observability gate only for the authorized v0.34 primary architecture path; preserve disabled-by-default behavior elsewhere.",
+                                                            "Persist diagnostics into the same formal run provenance boundary.",
+                                                            "Do not perform a second model forward or reconstruct diagnostics after training.",
+                                                            "Do not alter loss computation, optimizer semantics, checkpoint selection, dataset/split semantics, or evaluator behavior."
+                                                        ],
+                                "regression_requirements":  [
+                                                                "Exercise the ordinary formal entry-point/main-loop wiring, not only direct train_one_epoch invocation.",
+                                                                "Assert that observability_root is non-null for the authorized v0.34 primary formal path.",
+                                                                "Assert required sample-level and optimization-step JSONL artifacts are created from the live training path.",
+                                                                "Assert recoverability verifier passes on those persisted artifacts.",
+                                                                "Assert non-authorized/inherited paths retain observability-disabled default behavior."
+                                                            ]
+                            },
+    "protected_invariants":  [
+                                 "candidate action unchanged",
+                                 "stable reference unchanged",
+                                 "utility target transform unchanged",
+                                 "selector architecture and inputs unchanged",
+                                 "selector supervision/loss unchanged",
+                                 "effective utility loss weight unchanged",
+                                 "intervention mapping unchanged",
+                                 "inactive/default identity unchanged",
+                                 "checkpoint selection unchanged",
+                                 "formal evaluator unchanged",
+                                 "official test remains sealed"
+                             ],
+    "post_correction_required_gates":  [
+                                           "exact allowlist",
+                                           "protected SHA identities",
+                                           "Python compile",
+                                           "dedicated formal-entry-point observability regression",
+                                           "independent recoverability regression",
+                                           "inherited v0.33 regressions",
+                                           "relevant invariant subset",
+                                           "full regression suite",
+                                           "formal CLI engineering smoke with no formal training",
+                                           "AST verification of explicit formal-call observability wiring",
+                                           "no second-forward reconstruction",
+                                           "official test access remains zero"
+                                       ],
+    "scientific_boundary":  {
+                                "mechanism_change":  false,
+                                "training_performed":  false,
+                                "formal_evaluation_performed":  false,
+                                "q1_q6":  "NOT_YET_EVALUATED",
+                                "official_test_samples_accessed":  0,
+                                "formal_training_authorized":  false
+                            },
+    "next":  "Step8B implement and engineering-verify the narrow operationalization correction; formal training remains prohibited."
+}
