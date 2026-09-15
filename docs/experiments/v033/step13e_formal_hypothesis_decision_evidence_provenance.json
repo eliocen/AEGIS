@@ -1,0 +1,46 @@
+{
+  "aegis_version": "0.33",
+  "formal_decisions": {
+    "V33_H1_TARGET_SIGNAL": "NOT_ADJUDICABLE_FROM_FROZEN_EVIDENCE",
+    "V33_H2_SELECTOR_LEARNING": "NOT_ADJUDICABLE_FROM_FROZEN_EVIDENCE",
+    "V33_H3_UTILITY_DISCRIMINATION": "NOT_SUPPORTED",
+    "V33_H4_CLEAN_SAFEGUARD": "SUPPORTED",
+    "V33_H5_GRADED_ROBUSTNESS": "NOT_SUPPORTED"
+  },
+  "freeze_semantics": {
+    "aggregation_changed": false,
+    "checkpoint_reselection_performed": false,
+    "formal_evaluation_rerun": false,
+    "official_test_samples_accessed": 0,
+    "results_recomputed": false,
+    "step13d_artifact_consumed_as_authoritative": true,
+    "threshold_tuning_performed": false,
+    "thresholds_changed": false,
+    "training_performed": false
+  },
+  "frozen_statistics": {
+    "H3_catastrophic_minus_clean": -0.008737900202473003,
+    "H3_mismatched_minus_matched": -0.0054131266673406175,
+    "H4_delta_vs_M1b": -0.009110242538011626,
+    "H4_delta_vs_M4qcs_w": -5.668689605020649e-05,
+    "H5_catastrophic_delta_vs_M4qcf": 0.009673308956347326,
+    "H5_graded_mean_delta_vs_M4qcs_w": -0.0011410212348917802,
+    "H5_paired_graded_comparisons": 36,
+    "H5_positive_graded_count": 12
+  },
+  "next_stage": "Step14 scientific synthesis and v0.33 closure.",
+  "schema_version": "1.0",
+  "source_boundary": {
+    "formal_artifact_count": 510,
+    "formal_output_tree_sha256": "8FCACEA904129574211E3BB63DD25C46D55A2FC218F223577AE01BDF7E777E43",
+    "step13c_commit": "a9c3cb86bf493e31f8e48aebe0d21b604dc7dfab",
+    "step13c_procedure_sha256": "78509246776DF015F5B6BFD151005F70E27C9CC9C72263EAD47B4F5BB206ACB4",
+    "step13d_bundle_sha256": "5A23F0B1FFA91005E7874413E8535A54FB2B41125312FDD1549E22F83683B539",
+    "step13d_json_sha256": "B15248EEFBE4DF3D54BD8AEA37057094EE128106F1687F2A845FD167EEAEB9FB",
+    "step13d_md_sha256": "3B130844593CA7434E68AFEDCF94C6481CA6FA82BE0ECF2EEFA1C5FC514E5200"
+  },
+  "stage": "Step13E",
+  "status": "FORMAL_HYPOTHESIS_DECISIONS_FROZEN",
+  "successor_performance_recommendation_eligible": true,
+  "title": "Formal Hypothesis Decision Evidence and Provenance"
+}
