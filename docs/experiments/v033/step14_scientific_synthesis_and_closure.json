@@ -1,0 +1,66 @@
+{
+  "aegis_version": "0.33",
+  "closure_policy": {
+    "additional_v0_33_checkpoint_reselection": "PROHIBITED",
+    "additional_v0_33_formal_evaluation": "PROHIBITED",
+    "additional_v0_33_hypothesis_redefinition": "PROHIBITED",
+    "additional_v0_33_threshold_search": "PROHIBITED",
+    "additional_v0_33_training": "PROHIBITED",
+    "future_scientific_work": "MUST_PROCEED_UNDER_A_NEW_VERSION_WITH_A_NEW_PROSPECTIVE_PROTOCOL",
+    "official_test_access": "PROHIBITED",
+    "official_test_samples_accessed": 0
+  },
+  "formal_decisions": {
+    "V33_H1_TARGET_SIGNAL": "NOT_ADJUDICABLE_FROM_FROZEN_EVIDENCE",
+    "V33_H2_SELECTOR_LEARNING": "NOT_ADJUDICABLE_FROM_FROZEN_EVIDENCE",
+    "V33_H3_UTILITY_DISCRIMINATION": "NOT_SUPPORTED",
+    "V33_H4_CLEAN_SAFEGUARD": "SUPPORTED",
+    "V33_H5_GRADED_ROBUSTNESS": "NOT_SUPPORTED"
+  },
+  "frozen_statistics": {
+    "H3_catastrophic_minus_clean": -0.008737900202473003,
+    "H3_mismatched_minus_matched": -0.0054131266673406175,
+    "H4_delta_vs_M1b": -0.009110242538011626,
+    "H4_delta_vs_M4qcs_w": -5.668689605020649e-05,
+    "H5_catastrophic_delta_vs_M4qcf": 0.009673308956347326,
+    "H5_graded_mean_delta_vs_M4qcs_w": -0.0011410212348917802,
+    "H5_paired_graded_comparisons": 36,
+    "H5_positive_graded_count": 12
+  },
+  "next_scientific_version": "v0.34",
+  "release": {
+    "tag": "v0.33.0",
+    "tag_target": "STEP14_CLOSURE_COMMIT"
+  },
+  "schema_version": "1.0",
+  "scientific_synthesis": {
+    "established": [
+      "The v0.33 primary architecture preserved the prospectively frozen clean-performance safeguard (H4 SUPPORTED).",
+      "Because H4 is supported, successor performance research remains eligible under the frozen v0.33 decision policy.",
+      "The catastrophic Macro-F1 comparison used inside H5 was individually non-degrading relative to M4qcf, but the full conjunctive H5 hypothesis was NOT_SUPPORTED."
+    ],
+    "mechanistic_interpretation_boundary": [
+      "The negative H3 utility-discrimination deltas show that the learned utility score did not order the frozen mismatch and catastrophic regimes in the prospectively required direction.",
+      "The H5 result shows no broad graded robustness gain under the frozen criterion despite preservation of the clean safeguard and the individually favorable catastrophic comparator delta.",
+      "H1/H2 missingness prevents a causal claim that target-signal inadequacy, selector optimization failure, or either one alone caused the H3/H5 failures."
+    ],
+    "not_established": [
+      "v0.33 did not establish utility discrimination: H3 was NOT_SUPPORTED.",
+      "v0.33 did not establish graded robustness: H5 was NOT_SUPPORTED.",
+      "v0.33 did not establish H1 target-signal adequacy or H2 selector learning because the prospectively required evidence was insufficient at the required granularity; both remain NOT_ADJUDICABLE_FROM_FROZEN_EVIDENCE."
+    ],
+    "successor_direction": {
+      "constraint": "A successor version may investigate why utility supervision failed to become discriminative and robust while preserving the stable clean reference, but its mechanism, observability contract, and hypotheses must be prospectively frozen in a new version before new training.",
+      "eligible": true,
+      "not_authorized_here": "Step14 does not design, implement, train, or evaluate the successor."
+    }
+  },
+  "source_boundary": {
+    "formal_output_tree_sha256": "8FCACEA904129574211E3BB63DD25C46D55A2FC218F223577AE01BDF7E777E43",
+    "step13e_json_sha256": "78DE7813195A8D607492369F707AE72BE50E8EE416D00FDFA43E50567C294BF5",
+    "step13e_parent_commit": "431b3d212b815a3ea2321ef3f7d00af92f992fe5"
+  },
+  "stage": "Step14",
+  "status": "V0.33_CLOSED_PARTIALLY_SUPPORTED_WITH_NONADJUDICABLE_MECHANISM_CRITERIA",
+  "title": "Scientific Synthesis and Closure"
+}
