@@ -164,6 +164,7 @@ import argparse
 import copy
 import hashlib
 import json
+import math
 import platform
 import random
 import sys
@@ -1812,6 +1813,13 @@ class FakedditAblationTrainer(
                 parameter.detach().clone()
                 for parameter in v033_selector_parameters
             ]
+            if getattr(self, "_v034_observability_enabled", False) and not hasattr(
+                self, "_v034_selector_initial_parameters"
+            ):
+                self._v034_selector_initial_parameters = [
+                    parameter.detach().clone()
+                    for parameter in v033_selector_parameters
+                ]
 
         outputs = self.forward_batch(
             batch,
@@ -1864,6 +1872,22 @@ class FakedditAblationTrainer(
                     (after.detach() - before).pow(2).sum().cpu().item()
                 )
             v033_selector_parameter_l2_movement = movement_sq ** 0.5
+
+        v034_selector_parameter_l2_movement_from_initial = 0.0
+        if v033_selector_parameters and hasattr(
+            self, "_v034_selector_initial_parameters"
+        ):
+            initial_movement_sq = 0.0
+            for initial, current in zip(
+                self._v034_selector_initial_parameters,
+                v033_selector_parameters,
+            ):
+                initial_movement_sq += float(
+                    (current.detach() - initial).pow(2).sum().cpu().item()
+                )
+            v034_selector_parameter_l2_movement_from_initial = (
+                initial_movement_sq ** 0.5
+            )
 
         result = {
             "loss": float(loss.detach().cpu().item()),
@@ -1943,8 +1967,34 @@ class FakedditAblationTrainer(
             ),
             "integrity_loss": float(outputs["integrity_loss"].detach().cpu().item()),
         }
+        if (
+            is_v033_utility_supervised_architecture(self.fusion_architecture)
+            and getattr(self, "_v034_observability_enabled", False)
+        ):
+            target_outputs = outputs.get("utility_target_outputs")
+            control = outputs.get("v033_control")
+            if target_outputs is None or control is None:
+                raise RuntimeError("M4qusli live-path observability tensors unavailable.")
+            result["_v034_observability"] = {
+                "optimization_step": int(self.state.global_step),
+                "p_ref_true": _v034_tensor_values(target_outputs["p_ref_true"]),
+                "p_candidate_true": _v034_tensor_values(target_outputs["p_candidate_true"]),
+                "delta_u": _v034_tensor_values(target_outputs["delta_u"]),
+                "u_target": _v034_tensor_values(target_outputs["u_target"]),
+                "utility_probability": _v034_tensor_values(control.utility_probability),
+                "utility_gate": _v034_tensor_values(control.utility_gate),
+                "intervention_gate": _v034_tensor_values(control.intervention_gate),
+                "active_intervention_indicator": _v034_tensor_values(control.active_intervention_indicator),
+                "selector_parameter_l2_movement_from_initial": float(
+                    v034_selector_parameter_l2_movement_from_initial
+                ),
+                "effective_transition_loss_weight": float(transition_loss_weight),
+            }
         result.update(outputs["metrics"])
-        self.state.metrics = result.copy()
+        self.state.metrics = {
+            key: value for key, value in result.items()
+            if key != "_v034_observability"
+        }
         return result
 
 
@@ -2590,6 +2640,127 @@ def evaluate(
 
 
 # =====================================================================
+# AEGIS v0.34 prospective observability helpers
+# Diagnostic-only: these helpers serialize values already produced by the live
+# M4qusli training path. They do not perform model forwards or alter losses.
+# =====================================================================
+
+V034_NON_NEUTRAL_DELTA_THRESHOLD = 0.01
+
+
+def _v034_tensor_values(value: torch.Tensor) -> list[float]:
+    return [float(item) for item in value.detach().reshape(-1).cpu().tolist()]
+
+
+def _v034_append_jsonl(path: Path, records: Sequence[Dict]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8", newline="\n") as handle:
+        for record in records:
+            handle.write(json.dumps(record, sort_keys=True) + "\n")
+
+
+def _v034_population_summary(values: Sequence[float]) -> Dict[str, float]:
+    if not values:
+        raise ValueError("v0.34 observability summary requires non-empty values.")
+    tensor = torch.tensor(list(values), dtype=torch.float64)
+    return {
+        "mean": float(tensor.mean().item()),
+        "std": float(tensor.std(unbiased=False).item()),
+        "median": float(torch.quantile(tensor, 0.50).item()),
+        "q25": float(torch.quantile(tensor, 0.25).item()),
+        "q75": float(torch.quantile(tensor, 0.75).item()),
+        "min": float(tensor.min().item()),
+        "max": float(tensor.max().item()),
+    }
+
+
+def _v034_summarize_observability(
+    sample_records: Sequence[Dict],
+    step_records: Sequence[Dict],
+) -> Dict[str, float]:
+    if not sample_records or not step_records:
+        raise ValueError("v0.34 observability requires sample and step records.")
+    delta = [float(row["delta_u"]) for row in sample_records]
+    target = [float(row["u_target"]) for row in sample_records]
+    utility = [float(row["utility_probability"]) for row in sample_records]
+    active = [float(row["active_intervention_indicator"]) for row in sample_records]
+    delta_summary = _v034_population_summary(delta)
+    target_summary = _v034_population_summary(target)
+    utility_summary = _v034_population_summary(utility)
+    non_neutral_gradients = [
+        float(row["selector_gradient_norm"])
+        for row in step_records
+        if int(row["non_neutral_target_count"]) > 0
+    ]
+    if not non_neutral_gradients:
+        raise RuntimeError("No non-neutral optimization step was observed.")
+    return {
+        "delta_u_mean": delta_summary["mean"],
+        "delta_u_std": delta_summary["std"],
+        "delta_u_median": delta_summary["median"],
+        "delta_u_q25": delta_summary["q25"],
+        "delta_u_q75": delta_summary["q75"],
+        "delta_u_min": delta_summary["min"],
+        "delta_u_max": delta_summary["max"],
+        "delta_u_positive_fraction": sum(v > 0.0 for v in delta) / len(delta),
+        "delta_u_negative_fraction": sum(v < 0.0 for v in delta) / len(delta),
+        "delta_u_abs_ge_0p01_fraction": (
+            sum(abs(v) >= V034_NON_NEUTRAL_DELTA_THRESHOLD for v in delta)
+            / len(delta)
+        ),
+        "u_target_mean": target_summary["mean"],
+        "u_target_std": target_summary["std"],
+        "u_target_median": target_summary["median"],
+        "u_target_q25": target_summary["q25"],
+        "u_target_q75": target_summary["q75"],
+        "u_target_neutral_0p45_0p55_fraction": (
+            sum(0.45 <= v <= 0.55 for v in target) / len(target)
+        ),
+        "u_target_ge_0p60_fraction": sum(v >= 0.60 for v in target) / len(target),
+        "u_target_le_0p40_fraction": sum(v <= 0.40 for v in target) / len(target),
+        "utility_probability_mean": utility_summary["mean"],
+        "utility_probability_std": utility_summary["std"],
+        "utility_loss_mean": sum(float(r["utility_loss"]) for r in step_records) / len(step_records),
+        "active_intervention_rate": sum(active) / len(active),
+        "selector_gradient_norm_median_non_neutral_steps": float(
+            torch.quantile(
+                torch.tensor(non_neutral_gradients, dtype=torch.float64), 0.50
+            ).item()
+        ),
+        "selector_parameter_l2_movement_from_initial": float(
+            step_records[-1]["selector_parameter_l2_movement_from_initial"]
+        ),
+    }
+
+
+def verify_v034_observability_artifacts(root: Path) -> Dict[str, float]:
+    """Independent persisted-artifact verifier; performs no model forward pass."""
+    root = Path(root)
+    sample_path = root / "training_sample_observability.jsonl"
+    step_path = root / "optimization_step_observability.jsonl"
+    if not sample_path.is_file() or not step_path.is_file():
+        raise FileNotFoundError("Required v0.34 observability JSONL artifact missing.")
+    sample_records = [json.loads(line) for line in sample_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    step_records = [json.loads(line) for line in step_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    summary = _v034_summarize_observability(sample_records, step_records)
+    for row in sample_records:
+        if abs((float(row["p_candidate_true"]) - float(row["p_ref_true"])) - float(row["delta_u"])) > 1e-6:
+            raise RuntimeError("Persisted delta_u violates counterfactual identity.")
+        expected_target = max(0.0, min(1.0, 0.5 + float(row["delta_u"]) / 0.20))
+        if abs(expected_target - float(row["u_target"])) > 1e-6:
+            raise RuntimeError("Persisted u_target violates inherited v0.33 transform.")
+    for row in step_records:
+        if int(row["non_neutral_target_count"]) > 0:
+            if not math.isfinite(float(row["utility_loss"])) or float(row["utility_loss"]) <= 0.0:
+                raise RuntimeError("Non-neutral step lacks finite positive utility loss.")
+            if float(row["selector_gradient_norm"]) <= 1e-8:
+                raise RuntimeError("Non-neutral step lacks selector gradient evidence.")
+        if float(row["effective_utility_loss_weight"]) != V033_UTILITY_LOSS_WEIGHT:
+            raise RuntimeError("Runtime utility weight differs from inherited v0.33 weight.")
+    return summary
+
+
+# =====================================================================
 # Training
 # =====================================================================
 
@@ -2605,6 +2776,7 @@ def train_one_epoch(
     transition_loss_weight: float = 0.0,
     text_feature_std: Optional[torch.Tensor] = None,
     vision_feature_std: Optional[torch.Tensor] = None,
+    observability_root: Optional[Path] = None,
 ) -> Dict:
     weighted_total_loss = 0.0
     weighted_alignment_loss = 0.0
@@ -2625,6 +2797,17 @@ def train_one_epoch(
     total_samples = 0
     batch_count = 0
     corruption_counts = Counter()
+    v034_sample_records = []
+    v034_step_records = []
+    if observability_root is not None and not is_v033_utility_supervised_architecture(
+        trainer.fusion_architecture
+    ):
+        raise ValueError("v0.34 observability is restricted to M4qusli.")
+    trainer._v034_observability_enabled = observability_root is not None
+    if observability_root is not None and hasattr(
+        trainer, "_v034_selector_initial_parameters"
+    ):
+        delattr(trainer, "_v034_selector_initial_parameters")
 
     for batch_index, batch in enumerate(iter_training_batches(
         full_batch=full_batch,
@@ -2815,6 +2998,48 @@ def train_one_epoch(
             ),
         )
 
+        if observability_root is not None:
+            payload = result.get("_v034_observability")
+            if payload is None:
+                raise RuntimeError("M4qusli live-path observability payload missing.")
+            optimization_step = int(payload["optimization_step"])
+            sample_ids = list(training_batch.sample_ids)
+            if len(sample_ids) != len(payload["delta_u"]):
+                raise RuntimeError("v0.34 sample-id/diagnostic cardinality mismatch.")
+            for sample_index, sample_id in enumerate(sample_ids):
+                v034_sample_records.append({
+                    "epoch": int(epoch),
+                    "optimization_step": optimization_step,
+                    "sample_id_or_stable_index": str(sample_id),
+                    "p_ref_true": payload["p_ref_true"][sample_index],
+                    "p_candidate_true": payload["p_candidate_true"][sample_index],
+                    "delta_u": payload["delta_u"][sample_index],
+                    "u_target": payload["u_target"][sample_index],
+                    "utility_probability": payload["utility_probability"][sample_index],
+                    "utility_gate": payload["utility_gate"][sample_index],
+                    "intervention_gate": payload["intervention_gate"][sample_index],
+                    "active_intervention_indicator": payload["active_intervention_indicator"][sample_index],
+                })
+            non_neutral_count = sum(
+                abs(value) >= V034_NON_NEUTRAL_DELTA_THRESHOLD
+                for value in payload["delta_u"]
+            )
+            v034_step_records.append({
+                "epoch": int(epoch),
+                "optimization_step": optimization_step,
+                "batch_sample_count": len(sample_ids),
+                "non_neutral_target_count": int(non_neutral_count),
+                "non_neutral_target_fraction": non_neutral_count / len(sample_ids),
+                "utility_loss": float(result["utility_loss"]),
+                "classification_loss": float(result["classification_loss"]),
+                "selector_gradient_norm": float(result["selector_gradient_norm"]),
+                "selector_parameter_l2_update_this_step": float(result["selector_parameter_l2_movement"]),
+                "selector_parameter_l2_movement_from_initial": float(payload["selector_parameter_l2_movement_from_initial"]),
+                "effective_classification_loss_weight": float(trainer.classification_loss_weight),
+                "effective_utility_loss_weight": float(result["effective_utility_loss_weight"]),
+                "effective_transition_loss_weight_if_present": float(payload["effective_transition_loss_weight"]),
+            })
+
         current_batch_size = batch.batch_size
         total_samples += current_batch_size
         batch_count += 1
@@ -2854,7 +3079,7 @@ def train_one_epoch(
     if total_samples == 0:
         raise RuntimeError("Training epoch contained zero samples.")
 
-    return {
+    metrics = {
         "sample_count": total_samples,
         "batch_count": batch_count,
         "total_loss": weighted_total_loss / total_samples,
@@ -2890,6 +3115,34 @@ def train_one_epoch(
         "transition_loss": weighted_transition_loss / total_samples,
         "corruption_counts": dict(sorted(corruption_counts.items())),
     }
+    if observability_root is not None:
+        observability_root = Path(observability_root)
+        _v034_append_jsonl(
+            observability_root / "training_sample_observability.jsonl",
+            v034_sample_records,
+        )
+        _v034_append_jsonl(
+            observability_root / "optimization_step_observability.jsonl",
+            v034_step_records,
+        )
+        observability_summary = _v034_summarize_observability(
+            v034_sample_records, v034_step_records
+        )
+        metrics.update(observability_summary)
+        save_json(
+            observability_root / f"epoch_{int(epoch):03d}_observability_summary.json",
+            {
+                "epoch": int(epoch),
+                "sample_count": len(v034_sample_records),
+                "optimization_step_count": len(v034_step_records),
+                "effective_classification_loss_weight": float(trainer.classification_loss_weight),
+                "effective_utility_loss_weight": V033_UTILITY_LOSS_WEIGHT,
+                "effective_transition_loss_weight": float(transition_loss_weight),
+                **observability_summary,
+            },
+        )
+    trainer._v034_observability_enabled = False
+    return metrics
 
 
 # =====================================================================
