@@ -1,0 +1,55 @@
+﻿{
+    "aegis_version":  "0.34",
+    "stage":  "Step8",
+    "title":  "Formal Entry-Point Observability Activation Audit",
+    "status":  "NARROW_OPERATIONALIZATION_CORRECTION_REQUIRED",
+    "source_boundary":  {
+                            "branch":  "feature/v0.34-utility-discrimination-failure-resolution",
+                            "step7_commit":  "b50433b9fca4246ef10324a05d09b365586e590f",
+                            "runner_sha256":  "48531940C4FB2DE6B02C24EFE49BCA57E656644675FE014F167FD0ED041A200E",
+                            "training_path_test_sha256":  "BA93399E9842B397715D9458EB2B5241D39E324BCC10C480E54B731C81FD32DB",
+                            "recoverability_test_sha256":  "AF3D210EE148AB97AD65453E0CB472B702669D2B774FBEAB794D85B7850A76CD",
+                            "step7_json_sha256":  "B159133C7E3E0ED94863B1EC0F90A120DE2EFA404813F457B53140F955A56050",
+                            "step7_md_sha256":  "52BE5A1A239FFAF8A2ACB06234ED29D4D981B85B218F829557EF27196ADDA398"
+                        },
+    "audit":  {
+                  "train_one_epoch_definition_supports_observability_root":  true,
+                  "train_one_epoch_call_count":  1,
+                  "train_one_epoch_calls":  [
+                                                {
+                                                    "has_observability_root_keyword":  false,
+                                                    "lineno":  5348,
+                                                    "observability_root_expression":  null
+                                                }
+                                            ],
+                  "observability_related_cli_arguments":  [
+
+                                                          ],
+                  "cli_observability_activation_present":  false,
+                  "main_loop_observability_wiring_present":  false,
+                  "formal_run_diagnostic_production_verified":  false,
+                  "textual_observability_root_occurrences":  11
+              },
+    "scientific_boundary":  {
+                                "mechanism_change":  false,
+                                "training_performed":  false,
+                                "formal_evaluation_performed":  false,
+                                "hypothesis_decisions":  false,
+                                "official_test_samples_accessed":  0,
+                                "q1_q6":  "NOT_YET_EVALUATED"
+                            },
+    "disposition":  {
+                        "correction_required":  true,
+                        "correction_scope_if_required":  [
+                                                             "scripts/run_fakeddit_ablation.py",
+                                                             "tests/test_v034_observability_training_path.py"
+                                                         ],
+                        "protected_sources":  [
+                                                  "aegis/reliability/reliability_controller.py",
+                                                  "aegis/alignment/model.py",
+                                                  "scripts/run_fakeddit_unified_evaluation_v033.py"
+                                              ],
+                        "rule":  "If correction is required, it must be operationalization-only: activate the already-frozen observability path for formal CLI/main-loop training without changing candidate action, stable reference, target transform, selector architecture/inputs/loss, effective utility weight, intervention mapping, inactive identity, checkpoint selection, or formal evaluator.",
+                        "formal_training_authorized":  false
+                    }
+}
