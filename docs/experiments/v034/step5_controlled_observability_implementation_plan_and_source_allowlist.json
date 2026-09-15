@@ -1,0 +1,153 @@
+{
+  "aegis_version": "0.34",
+  "exact_source_allowlist": [
+    "scripts/run_fakeddit_ablation.py",
+    "tests/test_v034_observability_training_path.py",
+    "tests/test_v034_observability_recoverability.py"
+  ],
+  "explicitly_protected_not_allowlisted": [
+    "aegis/reliability/reliability_controller.py",
+    "aegis/alignment/model.py",
+    "scripts/run_fakeddit_unified_evaluation_v033.py",
+    "tests/test_v033_utility_supervision_selector.py",
+    "tests/test_v033_training_path.py",
+    "tests/test_v033_unified_evaluator.py"
+  ],
+  "formal_training_authorization": {
+    "authorized": false,
+    "rule": "Passing Step6 implementation verification does not itself authorize formal training. A separate post-implementation evidence/provenance freeze and exact scientific mechanism decision are required."
+  },
+  "implementation_constraints": [
+    "Observability must be disabled or behaviorally inert for architectures that do not expose the required M4qusli counterfactual fields.",
+    "Diagnostic serialization must not detach or alter tensors before losses/gradients needed by training are computed.",
+    "Diagnostic collection must not modify logits, losses, gates, optimizer membership, gradients, parameter updates, random-number consumption, checkpoint selection or early stopping semantics.",
+    "Sample identifiers must be stable enough to audit occurrence-level records without changing dataset ordering.",
+    "Do not use a second model forward pass merely to reconstruct missing diagnostics.",
+    "No official-test loader/path may be invoked."
+  ],
+  "implementation_objective": "Close v0.34 Step3 GAP1-GAP4 and create engineering evidence for GAP5 using diagnostic-only runner changes and dedicated regressions, without changing the inherited scientific mechanism.",
+  "mechanism_invariants": {
+    "candidate_action": "SOURCE/SEMANTICS UNCHANGED",
+    "checkpoint_selection_rule": "UNCHANGED",
+    "effective_utility_loss_weight": "UNCHANGED FROM INHERITED V0.33",
+    "formal_validation_evaluator": "UNCHANGED",
+    "inactive_default_identity_path": "SOURCE/SEMANTICS UNCHANGED",
+    "intervention_threshold_strength_mapping": "SOURCE/SEMANTICS UNCHANGED",
+    "selector_architecture_and_inputs": "SOURCE/SEMANTICS UNCHANGED",
+    "selector_loss_equation": "SOURCE/SEMANTICS UNCHANGED",
+    "stable_reference_path": "SOURCE/SEMANTICS UNCHANGED",
+    "utility_target_transform": "SOURCE/SEMANTICS UNCHANGED"
+  },
+  "next_stage": "v0.34 Step6 \u9225?controlled observability implementation and engineering verification",
+  "official_test_samples_accessed": 0,
+  "required_engineering_regressions": {
+    "recoverability": [
+      "Independent verifier reads only generated engineering JSON/JSONL artifacts.",
+      "Verifier recomputes target-signal distribution statistics directly from sample records.",
+      "Verifier recomputes median selector gradient over steps with non_neutral_target_count>0.",
+      "Verifier verifies parameter movement/update evidence and runtime weights.",
+      "Verifier computes validation/activation statistics when validation engineering artifacts are present.",
+      "No training rerun, model forward pass, checkpoint reselection or source-derived reconstruction is allowed."
+    ],
+    "training_path": [
+      "Controlled batch contains positive and negative delta_u and at least one abs(delta_u)>=0.01 sample.",
+      "Per-sample p_candidate_true-p_ref_true equals persisted delta_u within frozen numerical tolerance.",
+      "Persisted u_target equals the inherited v0.33 target transform output; Step6 must not redefine the transform.",
+      "A step with non_neutral_target_count>0 has finite utility_loss>0 and selector_gradient_norm>1e-8.",
+      "The same step records selector_parameter_l2_update_this_step>1e-8 and finite movement_from_initial.",
+      "Effective runtime utility loss weight equals the inherited v0.33 effective weight.",
+      "Exact inactive/default intervention identity remains unchanged."
+    ]
+  },
+  "required_runner_observability": {
+    "epoch_summary_extension": {
+      "required_fields": [
+        "delta_u_mean",
+        "delta_u_std",
+        "delta_u_median",
+        "delta_u_q25",
+        "delta_u_q75",
+        "delta_u_min",
+        "delta_u_max",
+        "delta_u_positive_fraction",
+        "delta_u_negative_fraction",
+        "delta_u_abs_ge_0p01_fraction",
+        "u_target_mean",
+        "u_target_std",
+        "u_target_median",
+        "u_target_q25",
+        "u_target_q75",
+        "u_target_neutral_0p45_0p55_fraction",
+        "u_target_ge_0p60_fraction",
+        "u_target_le_0p40_fraction",
+        "utility_probability_mean",
+        "utility_probability_std",
+        "utility_loss_mean",
+        "active_intervention_rate",
+        "selector_gradient_norm_median_non_neutral_steps",
+        "selector_parameter_l2_movement_from_initial"
+      ]
+    },
+    "optimization_step_jsonl": {
+      "constraint": "Gradient norm and non-neutral-target evidence must refer to the same optimization step. Parameter update-this-step is measured across the optimizer step.",
+      "required_fields": [
+        "epoch",
+        "optimization_step",
+        "batch_sample_count",
+        "non_neutral_target_count",
+        "non_neutral_target_fraction",
+        "utility_loss",
+        "classification_loss",
+        "selector_gradient_norm",
+        "selector_parameter_l2_update_this_step",
+        "selector_parameter_l2_movement_from_initial",
+        "effective_classification_loss_weight",
+        "effective_utility_loss_weight",
+        "effective_transition_loss_weight_if_present"
+      ]
+    },
+    "runtime_provenance": {
+      "requirement": "Persist effective runtime weights from the actual training computation and assert them in the engineering regression. CLI/config presence alone is insufficient."
+    },
+    "training_sample_jsonl": {
+      "constraint": "One record per observed training sample occurrence for M4qusli-compatible observability mode. Values must come from the live training forward path, not a retrospective rerun.",
+      "required_fields": [
+        "epoch",
+        "optimization_step",
+        "sample_id_or_stable_index",
+        "p_ref_true",
+        "p_candidate_true",
+        "delta_u",
+        "u_target",
+        "utility_probability",
+        "utility_gate",
+        "intervention_gate",
+        "active_intervention_indicator"
+      ]
+    }
+  },
+  "schema_version": "1.0",
+  "scientific_mechanism_change_authorized": false,
+  "source_boundary": {
+    "step3_commit": "78e17a788b930c86470e7707f0add2c9aac8832a",
+    "step3_json_sha256": "C926CEEBD3EC95502EAEF5D4E411E0976FD68C0EDDD5D69A0FE57DC1C9600D29",
+    "step4_audit_json_sha256": "AAF58F82FD69F75E0A18C0B42CF716261755FEFCAC4A57360159435CA74298D3"
+  },
+  "stage": "Step5",
+  "status": "CONTROLLED_OBSERVABILITY_IMPLEMENTATION_PLAN_ALLOWLIST_FROZEN",
+  "step6_acceptance_gates": [
+    "A1 exact allowlist: only the three Step5 allowlisted files may be created/modified.",
+    "A2 protected inherited controller/model/evaluator and v0.33 tests retain exact pre-Step6 SHA256 identities.",
+    "A3 Python compile passes.",
+    "A4 dedicated v0.34 observability training-path regression passes.",
+    "A5 dedicated recoverability regression passes using persisted artifacts only.",
+    "A6 inherited v0.33 controller/training/evaluator regressions pass.",
+    "A7 relevant invariant subset passes.",
+    "A8 full regression suite passes.",
+    "A9 controlled engineering smoke writes all Step1-required schemas and independent recoverability verifier succeeds.",
+    "A10 model-state/mechanism parity is demonstrated: observability instrumentation does not change controlled-run model outputs/updates beyond any prospectively specified deterministic tolerance.",
+    "A11 tracked staging is restricted to the exact allowlist; unrelated pre-existing untracked workspace artifacts are tolerated.",
+    "A12 official test access remains zero."
+  ],
+  "title": "Controlled Observability Implementation Plan and Exact Source Allowlist"
+}
