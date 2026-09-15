@@ -1,0 +1,75 @@
+{
+  "aegis_version": "0.34",
+  "inherited_facts": {
+    "clean_safeguard_preserved": true,
+    "graded_robustness_established": false,
+    "official_test_samples_accessed_through_v033": 0,
+    "selector_learning_adjudicated": false,
+    "successor_performance_research_eligible": true,
+    "target_signal_adequacy_adjudicated": false,
+    "utility_discrimination_established": false
+  },
+  "inherited_failure_boundary": [
+    "The v0.33 utility-supervised selector preserved the frozen clean-performance safeguard but did not establish utility discrimination.",
+    "The v0.33 primary did not establish broad graded robustness under the frozen H5 criterion.",
+    "H1 target-signal adequacy and H2 selector learning were not adjudicable because required prospective evidence was not persisted at sufficient granularity.",
+    "The evidence does not identify target informativeness, selector optimization, calibration, evidence representation, or intervention mapping as the unique causal failure.",
+    "The favorable clean safeguard must not be discarded without prospective justification."
+  ],
+  "mandatory_observability_inheritance": {
+    "missingness_rule": "A required diagnostic absent from an authorized formal run is NOT_AVAILABLE and may not be reconstructed by retraining after formal results are exposed.",
+    "principle": "No formal run may begin unless every mechanism criterion required for later adjudication is prospectively persisted at its required population and conditioning granularity.",
+    "required_classes": [
+      "sample-level counterfactual target evidence",
+      "optimization-step selector gradient evidence aligned with target neutrality/non-neutrality",
+      "selector parameter movement trajectory",
+      "utility probability and calibration trajectory",
+      "intervention activation/gate trajectory",
+      "effective runtime loss weights",
+      "machine-readable validation condition diagnostics"
+    ]
+  },
+  "next_stage": "v0.34 Step1 \u9225?prospective observability, adjudicability, and experimental protocol freeze",
+  "parent": {
+    "closure_commit": "93e0b376ce383856f7f0353ab6500ad9d9d621ee",
+    "closure_json_sha256": "81E0BF3D019F477847316547725B5D55053432D1021548B8EEBA9929E1C063C1",
+    "formal_decisions": {
+      "V33_H1_TARGET_SIGNAL": "NOT_ADJUDICABLE_FROM_FROZEN_EVIDENCE",
+      "V33_H2_SELECTOR_LEARNING": "NOT_ADJUDICABLE_FROM_FROZEN_EVIDENCE",
+      "V33_H3_UTILITY_DISCRIMINATION": "NOT_SUPPORTED",
+      "V33_H4_CLEAN_SAFEGUARD": "SUPPORTED",
+      "V33_H5_GRADED_ROBUSTNESS": "NOT_SUPPORTED"
+    },
+    "version": "v0.33.0"
+  },
+  "primary_scientific_question": "Why did prospectively defined utility supervision fail to produce discriminative and graded-robust intervention behavior while preserving clean performance, and which observable mechanism boundary\u9225\u6516arget informativeness, selector learnability/calibration, evidence representation, or intervention mapping\u9225\u6501ccounts for that failure?",
+  "prohibited_at_step0": [
+    "new architecture selection",
+    "new loss equation selection",
+    "new target-transform selection",
+    "new intervention threshold selection",
+    "implementation changes",
+    "training",
+    "formal evaluation",
+    "checkpoint reselection",
+    "threshold search",
+    "official test access"
+  ],
+  "schema_version": "1.0",
+  "scientific_boundary": {
+    "architecture_designed": false,
+    "formal_evaluation_performed": false,
+    "implementation_changed": false,
+    "official_test_samples_accessed": 0,
+    "training_performed": false
+  },
+  "stage": "Step0",
+  "status": "SUCCESSOR_QUESTION_AND_FAILURE_BOUNDARY_FROZEN",
+  "step0_subquestions": [
+    "Can the counterfactual utility target provide a sufficiently non-neutral, condition-sensitive supervision signal when measured at sample and optimization-step granularity?",
+    "Does the selector actually receive and act on that supervision, as shown by aligned target, gradient, parameter-movement, probability, calibration, and activation trajectories?",
+    "Does learned utility rank beneficial versus harmful intervention opportunities in the intended direction before intervention strength is allowed to affect formal robustness claims?",
+    "Can the stable clean-reference safeguard be retained while resolving the discrimination failure?"
+  ],
+  "title": "Successor Scientific Question and Failure-Boundary Inheritance"
+}
