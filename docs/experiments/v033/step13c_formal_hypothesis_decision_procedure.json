@@ -1,0 +1,152 @@
+{
+  "aegis_version": "0.33",
+  "global_rules": {
+    "mean_rule": "Unless the prospective hypothesis explicitly says paired comparisons/count, arithmetic means are taken over the exact frozen summary rows named by the criterion, with every seed-condition row weighted equally.",
+    "missing_required_evidence_rule": "NOT_ADJUDICABLE_FROM_FROZEN_EVIDENCE; missingness must never be converted to NOT_SUPPORTED.",
+    "no_checkpoint_reselection": true,
+    "no_evaluator_rerun": true,
+    "no_post_exposure_rule_change": true,
+    "no_threshold_search": true,
+    "no_training": true,
+    "official_test_access": 0,
+    "pairing_rule": "Where a hypothesis specifies paired seed-condition comparisons, pair only identical model_seed and identical frozen condition.",
+    "precision_rule": "Compute from persisted machine-readable numeric values using Python float64 arithmetic; do not round before threshold comparison. Displayed values may be rounded only after the decision.",
+    "strictness_rule": "Preserve the prospectively frozen comparison operators exactly: >=, >, or <."
+  },
+  "hypotheses": {
+    "V33_H1_TARGET_SIGNAL": {
+      "descriptive_reporting": "Existing persisted H1-related diagnostics may be reported descriptively but must not be used to manufacture a formal H1 decision.",
+      "formal_disposition": "NOT_ADJUDICABLE_FROM_FROZEN_EVIDENCE",
+      "numerical_decision_authorized": false,
+      "prospective_supported_if": [
+        "std(delta_u) >= 0.01",
+        "fraction abs(delta_u) >= 0.01 >= 0.20",
+        "fraction u_target in [0.45,0.55] < 0.75"
+      ],
+      "reason": "Step13B found no admissible persisted formal-training evidence sufficient for the two required distributional fractions, and no prospectively frozen aggregation rule converting epoch-level delta_u_std into the single H1 statistic."
+    },
+    "V33_H2_SELECTOR_LEARNING": {
+      "descriptive_reporting": "The three computable subordinate criteria may be reported descriptively; no partial pass/fail pattern may be converted into a formal H2 decision.",
+      "formal_disposition": "NOT_ADJUDICABLE_FROM_FROZEN_EVIDENCE",
+      "numerical_decision_authorized": false,
+      "prospective_supported_if": [
+        "final validation utility_probability std across 19 frozen condition means >= 0.02",
+        "selector parameter L2 movement from initialization > 1e-6",
+        "median recorded selector gradient norm on non-neutral-target steps > 1e-8",
+        "active intervention rate > 0 in at least one degraded validation stratum"
+      ],
+      "reason": "Step13B found no persisted selector-gradient evidence aligned at the required non-neutral-target-step granularity."
+    },
+    "V33_H3_UTILITY_DISCRIMINATION": {
+      "formal_disposition": "TO_BE_COMPUTED",
+      "numerical_decision_authorized": true,
+      "procedure": {
+        "catastrophic_statistic": "For M4qusli only, arithmetic mean of utility_probability.mean across the exact 4 frozen catastrophic conditions x 3 seeds (12 rows) minus arithmetic mean across clean x 3 seeds (3 rows).",
+        "decision": "SUPPORTED iff both prospectively frozen criteria are satisfied; otherwise NOT_SUPPORTED.",
+        "mismatch_statistic": "For M4qusli only, arithmetic mean of utility_probability.mean across the three class_preserving_mismatched rows minus arithmetic mean across the three matched rows."
+      },
+      "prospective_supported_if": [
+        "mismatched minus matched mean utility_probability >= 0.02",
+        "catastrophic minus clean mean utility_probability >= 0.02"
+      ]
+    },
+    "V33_H4_CLEAN_SAFEGUARD": {
+      "formal_disposition": "TO_BE_COMPUTED",
+      "numerical_decision_authorized": true,
+      "procedure": {
+        "decision": "SUPPORTED iff both deltas are >= -0.01; otherwise NOT_SUPPORTED.",
+        "delta_vs_m1b": "primary_clean_mean - m1b_clean_mean.",
+        "delta_vs_m4qcsw": "primary_clean_mean - m4qcsw_clean_mean.",
+        "m1b_clean_mean": "Arithmetic mean clean Macro-F1 for M1b across seeds 42,43,44.",
+        "m4qcsw_clean_mean": "Arithmetic mean clean Macro-F1 for M4qcs-w across seeds 42,43,44.",
+        "primary_clean_mean": "Arithmetic mean clean Macro-F1 for M4qusli across seeds 42,43,44.",
+        "successor_rule": "If NOT_SUPPORTED, successor performance recommendation is prohibited exactly as prospectively frozen."
+      },
+      "prospective_supported_if": [
+        "mean clean Macro-F1 delta vs M1b >= -0.01",
+        "mean clean Macro-F1 delta vs M4qcs-w >= -0.01"
+      ]
+    },
+    "V33_H5_GRADED_ROBUSTNESS": {
+      "formal_disposition": "TO_BE_COMPUTED_AFTER_H4",
+      "frozen_catastrophic_conditions": [
+        "text_attenuation_s1",
+        "vision_attenuation_s1",
+        "text_zero_dropout_s1",
+        "vision_zero_dropout_s1"
+      ],
+      "frozen_graded_conditions": [
+        "text_gaussian_noise_s0p25",
+        "text_gaussian_noise_s0p5",
+        "text_gaussian_noise_s0p75",
+        "vision_gaussian_noise_s0p25",
+        "vision_gaussian_noise_s0p5",
+        "vision_gaussian_noise_s0p75",
+        "text_attenuation_s0p25",
+        "text_attenuation_s0p5",
+        "text_attenuation_s0p75",
+        "vision_attenuation_s0p25",
+        "vision_attenuation_s0p5",
+        "vision_attenuation_s0p75"
+      ],
+      "numerical_decision_authorized": true,
+      "procedure": {
+        "catastrophic_delta": "Arithmetic mean Macro-F1 across exact 4 catastrophic conditions x 3 seeds for M4qusli minus corresponding arithmetic mean for M4qcf.",
+        "decision_if_h4_not_supported": "NOT_SUPPORTED_BY_PREREQUISITE. Subordinate H5 statistics may still be computed and reported descriptively, but cannot override the failed H4 prerequisite.",
+        "decision_if_h4_supported": "SUPPORTED iff graded_mean_delta >= 0.005 AND positive_count >= 22 AND catastrophic_delta >= -0.01. Otherwise NOT_SUPPORTED.",
+        "graded_mean_delta": "Arithmetic mean of the exact 36 paired deltas.",
+        "graded_pairs": "Exactly 12 frozen graded conditions x seeds 42,43,44 = 36 pairs. For each pair: Macro-F1(M4qusli) - Macro-F1(M4qcs-w), matched on model_seed and condition.",
+        "positive_count": "Count exact paired deltas strictly > 0. Zero is not positive.",
+        "prerequisite": "Consume the formal H4 decision first."
+      },
+      "prospective_supported_if": [
+        "V33_H4_CLEAN_SAFEGUARD supported",
+        "graded mean Macro-F1 delta vs M4qcs-w >= +0.005 across the frozen 36 paired seed-condition comparisons",
+        "positive graded count >= 22 of 36",
+        "catastrophic mean Macro-F1 delta vs M4qcf >= -0.01"
+      ]
+    }
+  },
+  "result_stage_contract": {
+    "authorized_formal_decisions": [
+      "V33_H3_UTILITY_DISCRIMINATION",
+      "V33_H4_CLEAN_SAFEGUARD",
+      "V33_H5_GRADED_ROBUSTNESS"
+    ],
+    "before_step13d": {
+      "V33_H1": "NOT_COMPUTED",
+      "V33_H2": "NOT_COMPUTED",
+      "V33_H3": "NOT_COMPUTED",
+      "V33_H4": "NOT_COMPUTED",
+      "V33_H5": "NOT_COMPUTED"
+    },
+    "fixed_non_adjudicable": [
+      "V33_H1_TARGET_SIGNAL",
+      "V33_H2_SELECTOR_LEARNING"
+    ],
+    "next_stage": "Step13D Formal Hypothesis Decision Analysis"
+  },
+  "schema_version": "1.0",
+  "scientific_boundary": {
+    "checkpoint_reselection_performed": false,
+    "formal_evaluation_rerun": false,
+    "hypothesis_decisions_performed": false,
+    "numerical_hypothesis_statistics_computed": false,
+    "official_test_samples_accessed": 0,
+    "threshold_search_performed": false,
+    "training_performed": false
+  },
+  "source_boundary": {
+    "formal_output_tree_sha256": "8FCACEA904129574211E3BB63DD25C46D55A2FC218F223577AE01BDF7E777E43",
+    "parent_step12_commit": "0886b7fd13014363b02cadcd1a66f24a8220f892",
+    "step12_json_sha256": "5642B51691F5040B8BC228C49FA496F3C9E8868E630FD95B3B829AF229F05D0D",
+    "step13b_audit_bundle_sha256": "33DB45E3CF88D7EED7F4264B16356BB3FB5312D73E3F0C08E6EB7302E4BC1915",
+    "step13b_audit_json_sha256": "790EE4FECA196165EF7F31946154E80C75FC278285A27AF5348E66BC991FA51C",
+    "step1_json_sha256": "1C6F7C27A245C3910F0748863E52A0F55DC9143117269B410B90BEF53AD5C919",
+    "step2_json_sha256": "6E17A327D596C72B23CE89A3678416503747F6232BC4C1992CDFB30001B5DD3E",
+    "step8_json_sha256": "02C279DC33DC1C23E2DC6322D649BCAAB0513A38C93FB766BE8DB4D424CEC59F"
+  },
+  "stage": "Step13C",
+  "status": "PROCEDURE_FROZEN_RESULTS_NOT_COMPUTED",
+  "title": "Formal Hypothesis Decision Procedure"
+}
