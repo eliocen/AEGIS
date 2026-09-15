@@ -1,0 +1,213 @@
+{
+  "adjudicability_rules": {
+    "Q1_TARGET_INFORMATIVENESS": [
+      "Requires complete sample-level training delta_u and u_target for every authorized primary formal run.",
+      "Requires exact prospectively frozen aggregation rule; epoch summaries alone are insufficient."
+    ],
+    "Q2_SELECTOR_OPTIMIZATION": [
+      "Requires optimization-step non-neutral-target count/fraction aligned with selector_gradient_norm.",
+      "Requires selector parameter movement from exact initialization.",
+      "Unconditional epoch gradient summaries are insufficient for the conditional gradient criterion."
+    ],
+    "Q3_SELECTOR_LEARNING_CALIBRATION": [
+      "Requires paired target and utility_probability at sample level plus prospectively frozen calibration/discrimination statistics before formal decision exposure."
+    ],
+    "Q4_CONDITION_DISCRIMINATION": [
+      "Requires frozen condition identities and per-seed condition utility summaries.",
+      "No post-exposure condition regrouping is permitted."
+    ],
+    "Q5_INTERVENTION_MAPPING": [
+      "Requires utility probability, gate, active indicator and exact mapping parameters/thresholds frozen before formal training.",
+      "No post-exposure threshold search is permitted."
+    ],
+    "Q6_CLEAN_SAFEGUARD": [
+      "Requires frozen comparator roster, seeds, clean metric, aggregation and margin before formal training."
+    ],
+    "missingness_policy": "If any required criterion evidence is absent at the required granularity, that criterion is NOT_ADJUDICABLE_FROM_FROZEN_EVIDENCE. Missingness must not be converted to NOT_SUPPORTED and may not be repaired by retraining after formal results are exposed."
+  },
+  "aegis_version": "0.34",
+  "experimental_prohibitions": {
+    "architecture_selection_at_step1": true,
+    "checkpoint_reselection": true,
+    "formal_evaluation": true,
+    "implementation_changes": true,
+    "official_test_access": true,
+    "post_exposure_rule_changes": true,
+    "threshold_search": true,
+    "training": true
+  },
+  "formal_decision_design_boundary": {
+    "frozen_now": [
+      "mechanism-question identities Q1-Q6",
+      "required evidence classes and granularity",
+      "non-neutral definition abs(delta_u)>=0.01",
+      "neutral target interval [0.45,0.55]",
+      "population/aggregation principles",
+      "missingness policy",
+      "hard pre-training gates"
+    ],
+    "not_frozen_yet": [
+      "successor architecture",
+      "candidate-action definition",
+      "utility target transform/equation",
+      "selector loss/effective weight",
+      "intervention threshold/strength/mapping",
+      "formal architecture comparator roster",
+      "formal seeds",
+      "numerical support thresholds for Q1-Q6",
+      "formal validation condition matrix if changed from inherited matrix"
+    ],
+    "rule": "Every not-yet-frozen item required for a formal decision must be frozen before formal training. No item may be selected after exposure to formal v0.34 results."
+  },
+  "formal_mechanism_questions": {
+    "Q1_TARGET_INFORMATIVENESS": "Does the prospective counterfactual utility target contain sufficiently non-neutral, heterogeneous, condition-sensitive supervision?",
+    "Q2_SELECTOR_OPTIMIZATION": "Does the selector receive non-trivial gradient signal and exhibit measurable parameter movement when non-neutral supervision is present?",
+    "Q3_SELECTOR_LEARNING_CALIBRATION": "Does learned utility probability track the target and separate beneficial from harmful candidate intervention opportunities?",
+    "Q4_CONDITION_DISCRIMINATION": "Does learned utility order matched, degraded, mismatched, and catastrophic regimes in the intended direction?",
+    "Q5_INTERVENTION_MAPPING": "Conditional on informative learned utility, does the frozen intervention mapping activate selectively while retaining exact inactive/default behavior where intervention is not justified?",
+    "Q6_CLEAN_SAFEGUARD": "Does the successor retain the inherited clean-performance safeguard?"
+  },
+  "hard_pretraining_gates": [
+    {
+      "gate": "G1_DIAGNOSTIC_SCHEMA_CONTRACT",
+      "pass_condition": "A controlled engineering run writes every required sample-level, optimization-step, epoch-summary and validation field to machine-readable JSON/JSONL artifacts with stable schema."
+    },
+    {
+      "gate": "G2_TARGET_OBSERVABILITY",
+      "pass_condition": "Controlled evidence includes both positive and negative delta_u examples and at least one non-neutral target under the frozen abs(delta_u)>=0.01 definition, with exact p_ref_true/p_candidate_true/delta_u/u_target consistency checks."
+    },
+    {
+      "gate": "G3_OPTIMIZATION_ALIGNMENT",
+      "pass_condition": "At least one optimization step with non_neutral_target_count>0 has finite selector_gradient_norm>1e-8, finite utility loss>0, and selector_parameter_l2_update_this_step>1e-8."
+    },
+    {
+      "gate": "G4_RUNTIME_WEIGHT_ASSERTION",
+      "pass_condition": "Effective runtime loss weights are persisted and asserted against the later exact mechanism contract; CLI/config values alone are insufficient."
+    },
+    {
+      "gate": "G5_INACTIVE_DEFAULT_ASSERTION",
+      "pass_condition": "The later exact mechanism contract must include a controlled case proving that the inactive/default intervention path is exact, not merely numerically close."
+    },
+    {
+      "gate": "G6_RECOVERABILITY",
+      "pass_condition": "A separate verifier can compute all planned formal mechanism statistics solely from persisted engineering artifacts without rerunning training or reconstructing missing sample/step evidence."
+    }
+  ],
+  "next_stage": "v0.34 Step2 \u9225?inherited-source and failure-mechanism evidence audit prior to exact mechanism selection",
+  "official_test_samples_accessed": 0,
+  "prospective_aggregation_rules": {
+    "clean_performance": "Macro-F1 on the prospectively frozen clean validation condition, aggregated by arithmetic mean across authorized seeds.",
+    "condition_utility": "Arithmetic mean of sample-level utility_probability within each frozen seed-condition cell; cross-seed condition summaries are arithmetic means of the three seed-cell means unless a later pre-training protocol explicitly freezes another rule.",
+    "neutral_target_interval": "u_target in [0.45,0.55], inclusive.",
+    "non_neutral_target_definition": "abs(delta_u) >= 0.01. This definition is frozen for observability/adjudicability and may not be changed after formal training begins.",
+    "parameter_movement": "L2 distance between current selector parameters and their exact initialized values for that formal run.",
+    "rounding": "Full stored precision is used for formal comparisons; presentation rounding occurs only after decisions.",
+    "selector_gradient_population": "Optimization steps with non_neutral_target_count > 0. Formal gradient summaries are computed only from those prospectively persisted steps.",
+    "target_signal_population": "For formal target-signal adjudication, concatenate the prospectively persisted sample-level training records from all authorized primary formal runs. Each observed training sample occurrence is one observation. No averaging of epoch-level standard deviations is permitted as a substitute."
+  },
+  "required_machine_readable_evidence": {
+    "epoch_training_summary": {
+      "purpose": "Human-auditable summaries; sample/step artifacts remain authoritative for recomputable frozen aggregations.",
+      "required_fields": [
+        "delta_u_mean",
+        "delta_u_std",
+        "delta_u_median",
+        "delta_u_q25",
+        "delta_u_q75",
+        "delta_u_min",
+        "delta_u_max",
+        "delta_u_positive_fraction",
+        "delta_u_negative_fraction",
+        "delta_u_abs_ge_0p01_fraction",
+        "u_target_mean",
+        "u_target_std",
+        "u_target_median",
+        "u_target_q25",
+        "u_target_q75",
+        "u_target_neutral_0p45_0p55_fraction",
+        "u_target_ge_0p60_fraction",
+        "u_target_le_0p40_fraction",
+        "utility_probability_mean",
+        "utility_probability_std",
+        "utility_loss_mean",
+        "active_intervention_rate",
+        "selector_gradient_norm_median_non_neutral_steps",
+        "selector_parameter_l2_movement_from_initial"
+      ]
+    },
+    "optimization_step_training": {
+      "purpose": "Q2 and runtime-weight verification. Gradient evidence must be aligned to the same optimization step's target-neutrality evidence.",
+      "required_fields": [
+        "epoch",
+        "optimization_step",
+        "batch_sample_count",
+        "non_neutral_target_count",
+        "non_neutral_target_fraction",
+        "utility_loss",
+        "classification_loss",
+        "selector_gradient_norm",
+        "selector_parameter_l2_movement_from_initial",
+        "selector_parameter_l2_update_this_step",
+        "effective_classification_loss_weight",
+        "effective_utility_loss_weight",
+        "effective_transition_loss_weight_if_present"
+      ]
+    },
+    "sample_level_training": {
+      "purpose": "Q1/Q3/Q5; permits exact distributional and conditional characterization without retrospective reconstruction.",
+      "required_fields": [
+        "epoch",
+        "optimization_step",
+        "sample_id_or_stable_index",
+        "p_ref_true",
+        "p_candidate_true",
+        "delta_u",
+        "u_target",
+        "utility_probability",
+        "utility_gate",
+        "intervention_gate",
+        "active_intervention_indicator"
+      ]
+    },
+    "validation_condition_summary": {
+      "purpose": "Q3/Q4/Q5/Q6 across the prospectively frozen validation condition matrix.",
+      "required_fields": [
+        "model_seed",
+        "condition",
+        "sample_count",
+        "macro_f1",
+        "classification_loss",
+        "utility_probability_mean",
+        "utility_probability_std",
+        "utility_gate_mean",
+        "intervention_gate_mean",
+        "active_intervention_rate"
+      ]
+    },
+    "validation_sample_level_primary": {
+      "purpose": "Exact discrimination/calibration and condition-sensitive analyses for the primary successor.",
+      "required_fields": [
+        "model_seed",
+        "condition",
+        "sample_id_or_stable_index",
+        "p_ref_true",
+        "p_candidate_true",
+        "delta_u",
+        "u_target",
+        "utility_probability",
+        "utility_gate",
+        "intervention_gate",
+        "active_intervention_indicator"
+      ]
+    }
+  },
+  "schema_version": "1.0",
+  "scientific_objective": "Prospectively distinguish target-signal informativeness, selector optimization/learning, utility discrimination/calibration, and intervention-mapping behavior without sacrificing the inherited clean-reference safeguard.",
+  "source_boundary": {
+    "step0_commit": "da9f9b55def46472a1f9a54988d2b3d898871951",
+    "step0_json_sha256": "5610428886FEB53C5BF9B83CEC79E7CADF0713BBF0574ADC0A9826D602E96B9B"
+  },
+  "stage": "Step1",
+  "status": "PROSPECTIVE_OBSERVABILITY_ADJUDICABILITY_PROTOCOL_FROZEN",
+  "title": "Prospective Observability, Adjudicability and Experimental Protocol Freeze"
+}
