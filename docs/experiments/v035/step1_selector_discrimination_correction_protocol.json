@@ -1,0 +1,133 @@
+{
+    "version":  "0.35",
+    "step":  "Step1",
+    "title":  "Prospective Selector-Discrimination and Intervention-Activation Corrective Protocol Freeze",
+    "status":  "PROTOCOL_FROZEN_NO_V035_RESULTS_COMPUTED",
+    "parent":  {
+                   "version":  "0.34",
+                   "step":  "Step13",
+                   "branch":  "feature/v0.34-utility-discrimination-failure-resolution",
+                   "commit":  "3bac60bb853017422bab3b5c188b410819ef0a37",
+                   "step13_json_sha256":  "74A104B89180A190F26EEFC82E52F514FC2420508FF4B8267B8381766D9EDF82",
+                   "step13_md_sha256":  "0094FF6CC06B0F688FBF5E1592158D8CEC24E9E97648E7B0D07C1A97EECDD11B",
+                   "inherited_formal_training_tree_sha256":  "8D035BB46FC909A1AA21A277160C6CEE2F456BB3EDF3D38401F953B0A709BE45"
+               },
+    "inherited_scientific_finding":  {
+                                         "M1_counterfactual_target_signal":  "SUPPORTED",
+                                         "M2_selector_optimization_signal":  "SUPPORTED",
+                                         "M3_selector_output_discrimination":  "NOT_SUPPORTED",
+                                         "M4_intervention_activation":  "NOT_SUPPORTED",
+                                         "M5_failure_localization":  "SELECTOR_DISCRIMINATION_FAILURE",
+                                         "interpretation":  "v0.34 established material counterfactual-target signal and nonzero selector optimization, but did not establish meaningful selector-output discrimination. Intervention activation was absent. Under the frozen v0.34 localization ordering, the primary localized failure is selector discrimination; v0.34 did not independently establish activation-mapping failure."
+                                     },
+    "corrective_scope":  {
+                             "primary_problem":  "SELECTOR_OUTPUT_DISCRIMINATION",
+                             "secondary_downstream_question":  "INTERVENTION_ACTIVATION_AFTER_DISCRIMINATION_IS_RESTORED",
+                             "primary_objective":  "Prospectively identify and implement the minimum scientifically justified correction needed for the selector to produce meaningfully discriminative utility outputs.",
+                             "secondary_objective":  "After selector discrimination is established under prospectively frozen criteria, determine whether the existing downstream activation mapping produces nonzero intervention.",
+                             "non_objectives":  [
+                                                    "re-argue the frozen v0.34 M1/M2 findings",
+                                                    "repair or rewrite the frozen v0.34 record",
+                                                    "optimize formal robustness test performance",
+                                                    "select a correction using official-test outcomes",
+                                                    "silently change corruption or quality conditions"
+                                                ]
+                         },
+    "causal_investigation_order":  [
+                                       {
+                                           "stage":  "D1",
+                                           "name":  "selector_output_path_audit",
+                                           "question":  "Does the implemented selector output path contain a structural or numerical compression mechanism capable of explaining the frozen low utility-probability variance?",
+                                           "result_space":  [
+                                                                "EXPLANATORY_DEFECT_IDENTIFIED",
+                                                                "NO_EXPLANATORY_DEFECT_IDENTIFIED",
+                                                                "NOT_ADJUDICABLE"
+                                                            ]
+                                       },
+                                       {
+                                           "stage":  "D2",
+                                           "name":  "objective_to_output_coupling_audit",
+                                           "question":  "Given the inherited nonzero optimization signal, does the selector objective provide sufficient coupling to move utility outputs away from near-neutral compression?",
+                                           "result_space":  [
+                                                                "COUPLING_DEFECT_IDENTIFIED",
+                                                                "NO_COUPLING_DEFECT_IDENTIFIED",
+                                                                "NOT_ADJUDICABLE"
+                                                            ]
+                                       },
+                                       {
+                                           "stage":  "D3",
+                                           "name":  "minimal_corrective_design",
+                                           "question":  "What is the minimum correction justified by D1/D2 without broad architecture redesign?",
+                                           "rule":  "Correction must be causally tied to the prospectively audited discrimination mechanism and must be frozen before corrective training."
+                                       },
+                                       {
+                                           "stage":  "D4",
+                                           "name":  "post_correction_discrimination_adjudication",
+                                           "question":  "After prospectively authorized corrective training, does selector-output discrimination satisfy the separately frozen v0.35 success criterion?",
+                                           "rule":  "Criterion and evidence boundary must be frozen before corrective training."
+                                       },
+                                       {
+                                           "stage":  "D5",
+                                           "name":  "downstream_activation_adjudication",
+                                           "question":  "Only if D4 supports restored discrimination, does the existing downstream activation mapping produce nonzero intervention?",
+                                           "rule":  "Failure of D5 after successful D4 may motivate a separately localized activation-mapping investigation; D5 must not be interpreted before D4."
+                                       }
+                                   ],
+    "prospective_success_contract":  {
+                                         "status":  "THRESHOLDS_NOT_YET_AUTHORIZED_FOR_CORRECTIVE_TRAINING",
+                                         "inherited_reference":  "The v0.34 M3 threshold was utility_probability_std \u003e= 0.05 for every formal seed.",
+                                         "rule":  "Step1 preserves the inherited 0.05 discrimination threshold as the default reference and prohibits weakening it. Before any v0.35 corrective training, a later protocol step must freeze the exact v0.35 training design, seeds, observability, and success/adjudication contract.",
+                                         "anti_relaxation":  "No v0.35 protocol may lower the inherited selector-discrimination threshold merely because v0.34 failed it.",
+                                         "activation_reference":  "The inherited v0.34 M4 criterion required active_intervention_rate \u003e 0 for every formal seed.",
+                                         "ordering":  "Discrimination must be adjudicated before downstream activation is interpreted as an independent mechanism result."
+                                     },
+    "evidence_and_data_boundary":  {
+                                       "inherited_v034_evidence":  "READ_ONLY",
+                                       "v035_pre_training_code_audit":  "AUTHORIZED_AFTER_STEP1",
+                                       "v035_corrective_implementation":  "NOT_AUTHORIZED_BY_STEP1",
+                                       "v035_training":  "NOT_AUTHORIZED_BY_STEP1",
+                                       "v035_formal_robustness_evaluation":  "NOT_AUTHORIZED",
+                                       "official_test":  "PROHIBITED",
+                                       "official_test_samples_accessed":  0,
+                                       "checkpoint_reselection":  "PROHIBITED",
+                                       "threshold_search":  "PROHIBITED",
+                                       "post_hoc_success_criterion_changes":  "PROHIBITED"
+                                   },
+    "version_integrity":  {
+                              "v034_record":  "IMMUTABLE",
+                              "v035_changes":  "MUST OCCUR ONLY ON V0.35 BRANCH",
+                              "correction_scope":  "MINIMUM_JUSTIFIED_SELECTOR-DISCRIMINATION CORRECTION",
+                              "broad_redesign":  "NOT AUTHORIZED BY STEP1",
+                              "new_training_seeds":  "NOT AUTHORIZED BY STEP1",
+                              "new_corruption_or_quality_conditions":  "NOT AUTHORIZED BY STEP1"
+                          },
+    "required_next_step":  {
+                               "step":  "v0.35 Step2",
+                               "title":  "Prospective Selector Discrimination Failure-Mechanism Audit Protocol",
+                               "purpose":  "Freeze the exact read-only code/configuration audit questions, admissible source files, evidence outputs, and decision rules for D1/D2 before inspecting or modifying the selector implementation.",
+                               "implementation_changes_authorized":  false,
+                               "training_authorized":  false,
+                               "formal_evaluation_authorized":  false,
+                               "official_test_access_authorized":  false
+                           },
+    "prohibitions":  [
+                         "no modification of frozen v0.34 artifacts",
+                         "no v0.35 corrective implementation in Step1",
+                         "no v0.35 training in Step1",
+                         "no additional training seeds in Step1",
+                         "no checkpoint reselection",
+                         "no threshold search or tuning",
+                         "no weakening of the inherited selector-discrimination threshold based on v0.34 failure",
+                         "no broad architecture or loss redesign without a prospectively frozen causal justification",
+                         "no new corruption or quality conditions",
+                         "no formal robustness evaluation",
+                         "no official-test access",
+                         "no interpretation of M4 as independently proving activation-mapping failure while M3 remains unresolved",
+                         "no use of future v0.35 results to rewrite this Step1 protocol"
+                     ],
+    "results_computed_in_this_step":  false,
+    "implementation_changed_in_this_step":  false,
+    "training_performed_in_this_step":  false,
+    "formal_evaluation_performed_in_this_step":  false,
+    "official_test_samples_accessed":  0
+}
