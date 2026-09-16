@@ -1,0 +1,104 @@
+{
+  "computation_scope": "frozen Step10 prospective observability only",
+  "decisions": {
+    "M1_counterfactual_target_signal": "SUPPORTED",
+    "M2_selector_optimization_signal": "SUPPORTED",
+    "M3_selector_output_discrimination": "NOT_SUPPORTED",
+    "M4_intervention_activation": "NOT_SUPPORTED",
+    "M5_failure_localization": "SELECTOR_DISCRIMINATION_FAILURE"
+  },
+  "descriptive_cross_seed_means": {
+    "active_intervention_rate": 0.0,
+    "delta_u_abs_ge_0p01_fraction": 0.39090456140350877,
+    "delta_u_negative_fraction": 0.5257226315789474,
+    "delta_u_positive_fraction": 0.4742564912280702,
+    "delta_u_std": 0.025099827749912308,
+    "selector_gradient_norm_median_non_neutral_steps": 0.036978482444532196,
+    "selector_parameter_l2_movement_from_initial": 0.1487708184570528,
+    "u_target_ge_0p60_fraction": 0.1138178947368421,
+    "u_target_le_0p40_fraction": 0.12478859649122807,
+    "u_target_neutral_0p45_0p55_fraction": 0.6090954385964912,
+    "u_target_std": 0.1201553894149776,
+    "utility_probability_mean": 0.494618224486123,
+    "utility_probability_std": 0.011862322382832363
+  },
+  "formal_training_tree_sha256": "8D035BB46FC909A1AA21A277160C6CEE2F456BB3EDF3D38401F953B0A709BE45",
+  "interpretation_boundary": {
+    "additional_training_authorized": false,
+    "checkpoint_reselection_performed": false,
+    "formal_evaluation_authorized_by_step12": false,
+    "formal_evaluation_performed": false,
+    "formal_robustness_hypotheses_adjudicated": false,
+    "localization_is_sole_causal_proof": false,
+    "missing_diagnostics_reconstructed": false,
+    "threshold_tuning_performed": false
+  },
+  "next_step": "Separate explicit post-Step12 scientific disposition / formal-evaluation authorization decision.",
+  "official_test_samples_accessed": 0,
+  "parent_step11_commit": "7d1118cfb226cae70d0738102bebaf3a3769f850",
+  "per_seed": [
+    {
+      "metrics": {
+        "active_intervention_rate": 0.0,
+        "delta_u_abs_ge_0p01_fraction": 0.38705263157894737,
+        "delta_u_negative_fraction": 0.5259157894736842,
+        "delta_u_positive_fraction": 0.4740526315789474,
+        "delta_u_std": 0.02431767644313861,
+        "selector_gradient_norm_median_non_neutral_steps": 0.046311032663833344,
+        "selector_parameter_l2_movement_from_initial": 0.08252905305988768,
+        "u_target_ge_0p60_fraction": 0.1118842105263158,
+        "u_target_le_0p40_fraction": 0.12216842105263158,
+        "u_target_neutral_0p45_0p55_fraction": 0.6129473684210527,
+        "u_target_std": 0.11756215892347124,
+        "utility_probability_mean": 0.49477014608791,
+        "utility_probability_std": 0.012056356727677615
+      },
+      "missing": [],
+      "seed": 42
+    },
+    {
+      "metrics": {
+        "active_intervention_rate": 0.0,
+        "delta_u_abs_ge_0p01_fraction": 0.39482105263157896,
+        "delta_u_negative_fraction": 0.5222421052631578,
+        "delta_u_positive_fraction": 0.4777368421052632,
+        "delta_u_std": 0.024703236270153136,
+        "selector_gradient_norm_median_non_neutral_steps": 0.02864261777577873,
+        "selector_parameter_l2_movement_from_initial": 0.14235170802782893,
+        "u_target_ge_0p60_fraction": 0.11518947368421052,
+        "u_target_le_0p40_fraction": 0.12314736842105263,
+        "u_target_neutral_0p45_0p55_fraction": 0.605178947368421,
+        "u_target_std": 0.11793867800924909,
+        "utility_probability_mean": 0.4960478912974659,
+        "utility_probability_std": 0.010378722941974613
+      },
+      "missing": [],
+      "seed": 43
+    },
+    {
+      "metrics": {
+        "active_intervention_rate": 0.0,
+        "delta_u_abs_ge_0p01_fraction": 0.39084,
+        "delta_u_negative_fraction": 0.52901,
+        "delta_u_positive_fraction": 0.47098,
+        "delta_u_std": 0.026278570536445185,
+        "selector_gradient_norm_median_non_neutral_steps": 0.035981796893984515,
+        "selector_parameter_l2_movement_from_initial": 0.22143169428344184,
+        "u_target_ge_0p60_fraction": 0.11438,
+        "u_target_le_0p40_fraction": 0.12905,
+        "u_target_neutral_0p45_0p55_fraction": 0.60916,
+        "u_target_std": 0.12496533131221244,
+        "utility_probability_mean": 0.4930366360729933,
+        "utility_probability_std": 0.01315188747884486
+      },
+      "missing": [],
+      "seed": 44
+    }
+  ],
+  "protocol_sha256": "3FBFEB2CBC8D50C24F57468F2A6BEC47CB08A607A52F5799CB8A0F865CEF5CED",
+  "status": "MECHANISM_ADJUDICATION_RESULTS_FROZEN",
+  "step": "Step12",
+  "step10_evidence_sha256": "480451868271F421916F58DF5E717E6189350C5BEAC429A77754C5FC2C93CB8C",
+  "title": "One-Time Post-Training Observability and Mechanism-Adjudication Results",
+  "version": "0.34"
+}
