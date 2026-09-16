@@ -1,0 +1,31 @@
+{
+  "aegis_version": "0.34",
+  "disposition": {
+    "formal_training_authorized": false,
+    "reason": "Step8C verifies readiness only. A separate formal-training operationalization freeze must define and authorize the exact run roster, hyperparameters, artifact contract, launcher/provenance boundary, and stopping/checkpoint rules before formal training.",
+    "step8b_correction_verified": true
+  },
+  "next_stage": "Step9 formal-training operationalization and authorization freeze.",
+  "schema_version": "1.0",
+  "source_boundary": {
+    "step8a_plan_sha256": "42E5ED40203C80A25C5E54C367CF723231EF1820D6D2ED20D68D7FD830F2C626",
+    "step8b_commit": "69b9acc8b8772cfd6a7b6393c5a27140237142e6",
+    "step8b_runner_sha256": "08E9A9466A641316280739BB948E13EC35DE408700CB07EF7584863A918D4B61",
+    "step8b_training_path_test_sha256": "792EFD6B7DA18F0001AEEBA80B6D4197BE5CEACE8B8934FF6AFFFD02701FF2A6"
+  },
+  "stage": "Step8C",
+  "status": "FORMAL_ENTRYPOINT_OBSERVABILITY_CORRECTION_VERIFIED",
+  "title": "Post-Correction Formal Entrypoint Verification and Readiness",
+  "verification": {
+    "checkpoint_reselection_performed": false,
+    "focused_v034_regression_passed": true,
+    "formal_entrypoint_observability_activation_regression_passed": true,
+    "formal_evaluation_performed": false,
+    "formal_training_performed": false,
+    "inherited_relevant_invariants_passed": true,
+    "official_test_samples_accessed": 0,
+    "python_compile_passed": true,
+    "step8b_exact_two_file_scope": true,
+    "threshold_tuning_performed": false
+  }
+}
