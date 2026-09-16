@@ -1,0 +1,164 @@
+{
+  "admissible_evidence": {
+    "checkpoint_scope": "frozen formal runs only; no checkpoint reselection",
+    "formal_robustness_evaluation": "PROHIBITED during Step11 computation",
+    "missing_required_evidence_rule": "NOT_ADJUDICABLE_FROM_FROZEN_EVIDENCE",
+    "official_test": "PROHIBITED",
+    "reconstruction_of_missing_diagnostics": "PROHIBITED",
+    "required_sources": [
+      "experiment.json",
+      "metrics.jsonl",
+      "summary.json",
+      "v034_observability/training_sample_observability.jsonl",
+      "v034_observability/optimization_step_observability.jsonl",
+      "v034_observability/epoch_*_observability_summary.json"
+    ],
+    "scope": "ONLY prospectively persisted Step10 formal-training and v034_observability artifacts for M4qusli seeds 42,43,44"
+  },
+  "aggregation_contract": {
+    "post_hoc_threshold_changes": "PROHIBITED",
+    "primary_rule": "criteria are applied per seed exactly as frozen; where stated, support requires all three seeds",
+    "reporting": "report each seed metric and arithmetic mean across seeds; means are descriptive and cannot override per-seed criteria",
+    "rounding": "compute using full stored precision; round only for presentation",
+    "seed_set": [
+      42,
+      43,
+      44
+    ],
+    "unit": "formal training seed"
+  },
+  "formal_evaluation_authorization_gate": {
+    "automatic_authorization": false,
+    "rule": "After Step11 results are computed and remotely frozen, a separate explicit authorization step is required before any formal robustness evaluation. Step11 mechanism outcomes alone must not silently trigger evaluation.",
+    "step11_does_not_authorize_evaluation": true
+  },
+  "frozen_mechanism_questions": [
+    {
+      "adjudication": {
+        "NOT_ADJUDICABLE": "any required metric unavailable",
+        "NOT_SUPPORTED": "otherwise, if all required metrics are available",
+        "SUPPORTED": "for every seed: delta_u_abs_ge_0p01_fraction >= 0.10 AND (u_target_ge_0p60_fraction + u_target_le_0p40_fraction) >= 0.10 AND u_target_std >= 0.05"
+      },
+      "id": "M1",
+      "metrics": [
+        "delta_u_abs_ge_0p01_fraction",
+        "delta_u_positive_fraction",
+        "delta_u_negative_fraction",
+        "delta_u_std",
+        "u_target_ge_0p60_fraction",
+        "u_target_le_0p40_fraction",
+        "u_target_neutral_0p45_0p55_fraction",
+        "u_target_std"
+      ],
+      "name": "counterfactual_target_signal",
+      "question": "Did the prospectively persisted counterfactual utility target contain non-neutral supervision at material frequency?"
+    },
+    {
+      "adjudication": {
+        "NOT_ADJUDICABLE": "any required metric unavailable",
+        "NOT_SUPPORTED": "otherwise, if all required metrics are available",
+        "SUPPORTED": "for every seed: selector_gradient_norm_median_non_neutral_steps > 0 AND selector_parameter_l2_movement_from_initial > 0"
+      },
+      "id": "M2",
+      "metrics": [
+        "selector_gradient_norm_median_non_neutral_steps",
+        "selector_parameter_l2_movement_from_initial"
+      ],
+      "name": "selector_optimization_signal",
+      "question": "Did the selector receive nonzero optimization signal and move from initialization?"
+    },
+    {
+      "adjudication": {
+        "NOT_ADJUDICABLE": "any required metric unavailable",
+        "NOT_SUPPORTED": "otherwise, if all required metrics are available",
+        "SUPPORTED": "for every seed: utility_probability_std >= 0.05"
+      },
+      "id": "M3",
+      "metrics": [
+        "utility_probability_mean",
+        "utility_probability_std"
+      ],
+      "name": "selector_output_discrimination",
+      "note": "Mean is descriptive for centering; the frozen discrimination criterion is the per-seed standard-deviation threshold.",
+      "question": "Did learned utility probabilities become meaningfully discriminative rather than remaining near-neutral/compressed?"
+    },
+    {
+      "adjudication": {
+        "NOT_ADJUDICABLE": "any required metric unavailable",
+        "NOT_SUPPORTED": "otherwise, if all required metrics are available",
+        "SUPPORTED": "for every seed: active_intervention_rate > 0"
+      },
+      "id": "M4",
+      "metrics": [
+        "active_intervention_rate"
+      ],
+      "name": "intervention_activation",
+      "question": "Did the frozen selector/gating mechanism activate intervention during formal training?"
+    },
+    {
+      "causal_boundary": "Localization is constrained descriptive/mechanistic attribution, not proof of sole causal responsibility.",
+      "id": "M5",
+      "name": "failure_localization",
+      "ordered_rules": [
+        {
+          "label": "INSUFFICIENT_TARGET_SIGNAL",
+          "when": "M1 NOT_SUPPORTED"
+        },
+        {
+          "label": "SELECTOR_OPTIMIZATION_FAILURE",
+          "when": "M1 SUPPORTED AND M2 NOT_SUPPORTED"
+        },
+        {
+          "label": "SELECTOR_DISCRIMINATION_FAILURE",
+          "when": "M1 SUPPORTED AND M2 SUPPORTED AND M3 NOT_SUPPORTED"
+        },
+        {
+          "label": "ACTIVATION_MAPPING_FAILURE",
+          "when": "M1 SUPPORTED AND M2 SUPPORTED AND M3 SUPPORTED AND M4 NOT_SUPPORTED"
+        },
+        {
+          "label": "MECHANISM_ACTIVE_NO_PRE_EVAL_FAILURE_LOCALIZED",
+          "when": "M1 SUPPORTED AND M2 SUPPORTED AND M3 SUPPORTED AND M4 SUPPORTED"
+        },
+        {
+          "label": "NOT_ADJUDICABLE_FROM_FROZEN_EVIDENCE",
+          "when": "any prerequisite M1-M4 is NOT_ADJUDICABLE"
+        }
+      ],
+      "question": "If activation/discrimination fails, where can failure be localized using only the frozen prospective evidence?"
+    }
+  ],
+  "next_step_if_frozen": "Step12 one-time post-training observability and mechanism-adjudication computation under this exact contract.",
+  "official_test_samples_accessed": 0,
+  "parent_evidence": {
+    "formal_architecture": "M4qusli",
+    "formal_seeds": [
+      42,
+      43,
+      44
+    ],
+    "formal_training_tree_sha256": "8D035BB46FC909A1AA21A277160C6CEE2F456BB3EDF3D38401F953B0A709BE45",
+    "shared_cache_sampling_seed": 42,
+    "step10_json_sha256": "480451868271F421916F58DF5E717E6189350C5BEAC429A77754C5FC2C93CB8C",
+    "step10_md_sha256": "0214E663641D2C35459DA2A5C8BDDCE0D6F70D1F2B79D459758CD7E53923C764"
+  },
+  "parent_step10_commit": "7efbe6524428a79116d0f7aa54c6cca3ef7e8eda",
+  "prohibitions": [
+    "no retraining",
+    "no additional training seeds",
+    "no checkpoint reselection",
+    "no threshold tuning or search",
+    "no architecture or loss redesign",
+    "no new corruption/quality conditions",
+    "no formal robustness evaluation",
+    "no official test access",
+    "no reconstruction of missing prospective diagnostics",
+    "no hypothesis decision using evidence outside this frozen contract"
+  ],
+  "purpose": "Prospectively define how already-frozen v0.34 training observability will be used to adjudicate the inherited utility-supervision/selector-learning mechanism before any formal robustness evaluation is authorized.",
+  "results_computed_in_this_step": false,
+  "status": "PROTOCOL_FROZEN_NO_RESULTS_COMPUTED",
+  "step": "Step11",
+  "title": "Post-Training Observability and Mechanism-Adjudication Protocol Freeze",
+  "version": "0.34"
+}
