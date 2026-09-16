@@ -1,0 +1,145 @@
+{
+  "aegis_version": "0.34",
+  "authorization": {
+    "authorization_effective_only_after_step9_remote_freeze": true,
+    "authorized_runs_only": [
+      "M4qusli_seed42",
+      "M4qusli_seed43",
+      "M4qusli_seed44"
+    ],
+    "formal_evaluation_authorized": false,
+    "formal_training_authorized": true,
+    "official_test_samples_accessed": 0
+  },
+  "checkpoint_selection": {
+    "early_stopping": {
+      "max_epochs": 50,
+      "min_delta": 1e-06,
+      "min_epochs": 5,
+      "patience": 8
+    },
+    "primary_metric": "validation_macro_f1",
+    "reselection_after_formal_results": "PROHIBITED",
+    "tie_breaker": "validation_classification_loss"
+  },
+  "formal_roster": [
+    {
+      "architecture": "M4qusli",
+      "experiment_root": "experiments/fakeddit/v034/step10_formal_training/M4qusli_seed42",
+      "required_observability": {
+        "epoch_summary_pattern": "epoch_NNN_observability_summary.json",
+        "optimization_step_file": "optimization_step_observability.jsonl",
+        "root": "experiments/fakeddit/v034/step10_formal_training/M4qusli_seed42/observability",
+        "sample_file": "training_sample_observability.jsonl"
+      },
+      "seed": 42,
+      "train_cache": "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+      "validation_cache": "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42"
+    },
+    {
+      "architecture": "M4qusli",
+      "experiment_root": "experiments/fakeddit/v034/step10_formal_training/M4qusli_seed43",
+      "required_observability": {
+        "epoch_summary_pattern": "epoch_NNN_observability_summary.json",
+        "optimization_step_file": "optimization_step_observability.jsonl",
+        "root": "experiments/fakeddit/v034/step10_formal_training/M4qusli_seed43/observability",
+        "sample_file": "training_sample_observability.jsonl"
+      },
+      "seed": 43,
+      "train_cache": "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+      "validation_cache": "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42"
+    },
+    {
+      "architecture": "M4qusli",
+      "experiment_root": "experiments/fakeddit/v034/step10_formal_training/M4qusli_seed44",
+      "required_observability": {
+        "epoch_summary_pattern": "epoch_NNN_observability_summary.json",
+        "optimization_step_file": "optimization_step_observability.jsonl",
+        "root": "experiments/fakeddit/v034/step10_formal_training/M4qusli_seed44/observability",
+        "sample_file": "training_sample_observability.jsonl"
+      },
+      "seed": 44,
+      "train_cache": "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+      "validation_cache": "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42"
+    }
+  ],
+  "formal_training_configuration": {
+    "alignment_weight": 0.0,
+    "architecture_label": "M4qusli",
+    "batch_size": 32,
+    "classification_weight": 1.0,
+    "compatibility_weight": 1.0,
+    "dropout": 0.1,
+    "effective_utility_loss_weight": 0.5,
+    "epochs": 50,
+    "fusion_architecture": "quality_compatibility_utility_supervised_intervention",
+    "gradient_clip": 1.0,
+    "hidden_dim": 128,
+    "learning_rate": 0.001,
+    "log_every": 1,
+    "min_delta": 1e-06,
+    "min_epochs": 5,
+    "mode": "multimodal",
+    "patience": 8,
+    "quality_weight": 1.0,
+    "shared_dim": 128,
+    "temperature": 0.07,
+    "transition_objective_weight": 0.0,
+    "weight_decay": 0.0001
+  },
+  "inherited_mechanism": {
+    "candidate_intervention_action": "UNCHANGED_FROM_V0.33",
+    "effective_utility_loss_weight": 0.5,
+    "intervention_threshold": 0.6,
+    "max_intervention_strength": 0.15,
+    "selector_architecture_and_inputs": "UNCHANGED_FROM_V0.33",
+    "transition_objective_weight": 0.0,
+    "utility_target": "clip(0.5 + delta_u / 0.20, 0, 1)"
+  },
+  "next_stage": "Step10 execute exactly the three authorized formal training runs and freeze training evidence/provenance.",
+  "preflight_before_each_run": [
+    "exact Step9 source boundary and runner SHA",
+    "exact architecture and seed",
+    "effective transition objective weight == 0.0",
+    "effective utility loss weight == 0.50",
+    "train/validation cache validation succeeds",
+    "run root is new",
+    "observability formal-entrypoint wiring active",
+    "official test remains sealed"
+  ],
+  "prospective_adjudicability": {
+    "Q1_non_neutral_definition": "abs(delta_u) >= 0.01",
+    "Q1_target_signal_population": "Concatenate prospectively persisted sample-level training records from all three authorized primary formal runs; each observed training sample occurrence is one observation.",
+    "Q3_required_pairing": "sample-level paired u_target and utility_probability",
+    "condition_utility_aggregation": "Arithmetic mean of sample-level utility_probability within each frozen seed-condition cell; cross-seed condition summaries are arithmetic means of the three seed-cell means.",
+    "missing_required_diagnostic_rule": "NOT_AVAILABLE; no reconstruction by retraining after formal results are exposed",
+    "neutral_target_interval": "u_target in [0.45,0.55], inclusive",
+    "selector_gradient_population": "optimization steps with non_neutral_target_count > 0"
+  },
+  "required_machine_readable_evidence": [
+    "training_sample_observability.jsonl",
+    "optimization_step_observability.jsonl",
+    "epoch_NNN_observability_summary.json",
+    "standard runner configuration/metadata/history/checkpoint artifacts"
+  ],
+  "schema_version": "1.0",
+  "scientific_scope": {
+    "architecture_change_authorized": false,
+    "checkpoint_reselection_authorized": false,
+    "comparator_retraining_authorized": false,
+    "loss_change_authorized": false,
+    "official_test_access_authorized": false,
+    "purpose": "Resolve v0.33 target-informativeness and selector-learning/calibration adjudicability gaps prospectively without redesigning the inherited mechanism.",
+    "target_transform_change_authorized": false,
+    "threshold_change_authorized": false,
+    "threshold_search_authorized": false
+  },
+  "source_boundary": {
+    "parent_step8c_commit": "b938c64a2873707239cee0f851ad235ea1ee74f7",
+    "runner_sha256": "08E9A9466A641316280739BB948E13EC35DE408700CB07EF7584863A918D4B61",
+    "step8c_record_sha256": "8F54F2692F46E60FA21FF1E2FD2126A17C3885ACB86405D7DAFF7464EDFA7BD6"
+  },
+  "stage": "Step9",
+  "status": "FORMAL_TRAINING_OPERATIONALIZATION_AUTHORIZED_AND_FROZEN",
+  "title": "Formal Training Operationalization and Authorization Freeze"
+}
