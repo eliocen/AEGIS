@@ -1,0 +1,1333 @@
+{
+  "branch": "feature/v0.34-utility-discrimination-failure-resolution",
+  "formal_training": {
+    "architecture": "M4qusli",
+    "cache_sampling_seed": 42,
+    "checkpoint_selection": "highest validation Macro-F1; tie-break lowest validation classification loss",
+    "effective_utility_loss_weight": 0.5,
+    "evidentiary_file_count": 82,
+    "formal_root": "experiments/fakeddit/v034/step10_formal_training",
+    "runner_architecture_identifier": "quality_compatibility_utility_supervised_intervention",
+    "runs_completed": 3,
+    "runs_expected": 3,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "train_cache": "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+    "train_cache_manifest_sha256": "5BC8BF53F988B3DD5299A1D940DB6676F48E37250F52C8B3569150BE153417C5",
+    "training_rng_seeds": [
+      42,
+      43,
+      44
+    ],
+    "transition_objective_weight": 0.0,
+    "tree_sha256": "8D035BB46FC909A1AA21A277160C6CEE2F456BB3EDF3D38401F953B0A709BE45",
+    "validation_cache": "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42",
+    "validation_cache_manifest_sha256": "C4E95F818C24043DB1DEE9C0CFC0DE85C2E591E9E77B98CB2490046D1BC04F87"
+  },
+  "invariants": {
+    "checkpoint_reselection_performed": false,
+    "formal_evaluation_executed": false,
+    "hypothesis_decisions_made": false,
+    "official_test_samples_accessed": 0,
+    "official_test_split": "SEALED_NOT_ACCESSED",
+    "prospective_observability_verified_all_three_seeds": "PASS",
+    "seed42_preserved_not_rerun": "PASS",
+    "shared_frozen_cache_contract": "PASS",
+    "threshold_search_performed": false,
+    "transition_objective_zero": "PASS",
+    "utility_loss_weight_exact_0_50": "PASS"
+  },
+  "next_step": "Separate post-training operationalization/authorization step; formal evaluation remains unauthorized until explicitly frozen.",
+  "parent_step9_commit": "cb7099002b683eff2c9060df8b6af70efd836e72",
+  "runs": [
+    {
+      "artifact_sha256": {
+        "best_model.pt": {
+          "sha256": "71B36536871D47623CAF36CD63A0492BA067CB3212A3CB6C327C801A295C5D39",
+          "size_bytes": 6268029
+        },
+        "best_validation_predictions.json": {
+          "sha256": "9DC5A89A5B398A2DC275993DCC26D9A1E7E32E3BF3FC0F00A042608542083BAE",
+          "size_bytes": 101061
+        },
+        "experiment.json": {
+          "sha256": "ACA18B14E41978B6466339E7A8B70BE9973CCB9DB1A72412137F0989493087DC",
+          "size_bytes": 6707
+        },
+        "final_model.pt": {
+          "sha256": "0DAAC4BC2C5FACF7F7986F554E4C22BABDAB378D570D9183439ABA2C2CA0CB28",
+          "size_bytes": 6268207
+        },
+        "metrics.jsonl": {
+          "sha256": "D31D5703B16F89EE5650C7519A03F3B24BD402FE7FE9F45CE5F407BE7F6B8E07",
+          "size_bytes": 36614
+        },
+        "summary.json": {
+          "sha256": "CF40ED1770B0B21EC6CAD977A73EC4F78A82153EBF986BE7567EA849E8468C2A",
+          "size_bytes": 9132
+        }
+      },
+      "configuration": {
+        "ablation_mode": "multimodal",
+        "alignment_weight": 0.0,
+        "batch_size": 32,
+        "classification_weight": 1.0,
+        "classifier_initialization_seed": 1000045,
+        "compatibility_weight": 1.0,
+        "dropout": 0.1,
+        "fusion_architecture": "quality_compatibility_utility_supervised_intervention",
+        "hidden_dim": 128,
+        "learning_rate": 0.001,
+        "max_epochs": 50,
+        "min_delta": 1e-06,
+        "min_epochs": 5,
+        "patience": 8,
+        "quality_weight": 1.0,
+        "seed": 42,
+        "shared_dim": 128,
+        "temperature": 0.07,
+        "training_rng_reset_seed": 42,
+        "transition_objective": {
+          "beneficial_transition_penalty": 0.0,
+          "definition": "mean_relu(matched_true_class_probability_detached_minus_mismatched_true_class_probability)_over_mismatch_samples",
+          "effective_weight": 0.0,
+          "enabled": false,
+          "matched_reference_detached": true,
+          "requested_weight": 0.0,
+          "training_split_only": true,
+          "validation_feedback_used": false
+        },
+        "weight_decay": 0.0001
+      },
+      "metrics_rows": 19,
+      "observability_artifact_sha256": {
+        "epoch_001_observability_summary.json": {
+          "sha256": "8D55733E2818642A7FDE1054936C66C43F2E3A4CA9DAFFFDA9ABF7428F34E362",
+          "size_bytes": 1277
+        },
+        "epoch_002_observability_summary.json": {
+          "sha256": "D6A27862A4E531CC4623AC0B5C3E775CDAD58EA5A4EC59DC4476DEF6A004D760",
+          "size_bytes": 1276
+        },
+        "epoch_003_observability_summary.json": {
+          "sha256": "19B34E7BE2787A1C683EB222F30C56CD1AEC8E65C23D8810DE6E125BCCC05899",
+          "size_bytes": 1279
+        },
+        "epoch_004_observability_summary.json": {
+          "sha256": "73733630F1711403D602C3E8B6A3D786FF0D7AD23AB68ACA6B859FD083754CEE",
+          "size_bytes": 1278
+        },
+        "epoch_005_observability_summary.json": {
+          "sha256": "91CA9978FBDDB8358533F66780AD89D297359BA3098EC77058ED8BEF879ADCBB",
+          "size_bytes": 1281
+        },
+        "epoch_006_observability_summary.json": {
+          "sha256": "E94558130F637964DE516869898627F6E7BCEDE8F25F6A19331DCE6B289662FF",
+          "size_bytes": 1283
+        },
+        "epoch_007_observability_summary.json": {
+          "sha256": "35FA0B22583A42C1673974E40B288E2F039879FB6320A1540388DE8180A85FC9",
+          "size_bytes": 1276
+        },
+        "epoch_008_observability_summary.json": {
+          "sha256": "D186D4FD3F4733EDD466CE6759910DCE4AADAEDD9CD5600E01326EC4746AF144",
+          "size_bytes": 1279
+        },
+        "epoch_009_observability_summary.json": {
+          "sha256": "FBF2F535488913C57002F9F94278875F40C2B079A8D2096A471941A671C985A2",
+          "size_bytes": 1278
+        },
+        "epoch_010_observability_summary.json": {
+          "sha256": "DB8DCA2229D3A1C26A49FB67C85B4578B92791E4E557F596DBA7A1CD05FDAA86",
+          "size_bytes": 1284
+        },
+        "epoch_011_observability_summary.json": {
+          "sha256": "C03A9D8638117651271DDF38BECA329AB34F52456D838A5BEBD7B89AC6655BBF",
+          "size_bytes": 1284
+        },
+        "epoch_012_observability_summary.json": {
+          "sha256": "7D10EA4E89FF476D7CD80DB4E81BAC7A0A532415059E82786834F46DC94A5F9C",
+          "size_bytes": 1286
+        },
+        "epoch_013_observability_summary.json": {
+          "sha256": "A7054666FDE8D3089790C740908983989805AB121CB2E48AE818ED8CC0C65CAD",
+          "size_bytes": 1279
+        },
+        "epoch_014_observability_summary.json": {
+          "sha256": "445FF2849521B17CA924A9A831D045A75E0E38F5836663AF7F9947AC9B3D57A5",
+          "size_bytes": 1277
+        },
+        "epoch_015_observability_summary.json": {
+          "sha256": "BCC00DFAE3389501A08030052AA7916DD39B582077696F63E5D5A0423F7BD2CB",
+          "size_bytes": 1281
+        },
+        "epoch_016_observability_summary.json": {
+          "sha256": "2391340FCF49F54B1B348F354FD49CAE71F8DDEFE4C8E57FA9FE7BC65CCBCDCB",
+          "size_bytes": 1286
+        },
+        "epoch_017_observability_summary.json": {
+          "sha256": "E202C28552CCEB3F02827EAFF27A12E5B61E5ED0E1FEF785BE7C74A343FFD115",
+          "size_bytes": 1283
+        },
+        "epoch_018_observability_summary.json": {
+          "sha256": "7EE47094D1D13EF1330D805AC2784F40C909E513D926DE114F5018F05BE4303D",
+          "size_bytes": 1280
+        },
+        "epoch_019_observability_summary.json": {
+          "sha256": "D7933BBCDCA2DF06EA0F91B6E994983DF99BC15ADE0655D642A430C1F8F60E5D",
+          "size_bytes": 1280
+        },
+        "optimization_step_observability.jsonl": {
+          "sha256": "0029A7802D9A858594EB8733FBEF83EB7185A969A11A8D44CFDD6373B1C100A4",
+          "size_bytes": 1584320
+        },
+        "training_sample_observability.jsonl": {
+          "sha256": "F986DA82977C2FC9D266167ADEDEA9C60A05923BA9280D3F053AB97798CDEB34",
+          "size_bytes": 32992537
+        }
+      },
+      "observability_verification": {
+        "active_intervention_rate": 0.0,
+        "delta_u_abs_ge_0p01_fraction": 0.38705263157894737,
+        "delta_u_max": 0.239096999168396,
+        "delta_u_mean": -0.0006723351016040205,
+        "delta_u_median": -0.00021001696586608887,
+        "delta_u_min": -0.25017115473747253,
+        "delta_u_negative_fraction": 0.5259157894736842,
+        "delta_u_positive_fraction": 0.4740526315789474,
+        "delta_u_q25": -0.006447121500968933,
+        "delta_u_q75": 0.005139097571372986,
+        "delta_u_std": 0.02431767644313861,
+        "selector_gradient_norm_median_non_neutral_steps": 0.046311032663833344,
+        "selector_parameter_l2_movement_from_initial": 0.08252905305988768,
+        "u_target_ge_0p60_fraction": 0.1118842105263158,
+        "u_target_le_0p40_fraction": 0.12216842105263158,
+        "u_target_mean": 0.4966595680086236,
+        "u_target_median": 0.49894991517066956,
+        "u_target_neutral_0p45_0p55_fraction": 0.6129473684210527,
+        "u_target_q25": 0.46776439249515533,
+        "u_target_q75": 0.5256954878568649,
+        "u_target_std": 0.11756215892347124,
+        "utility_loss_mean": 1.077371096654982,
+        "utility_probability_mean": 0.49477014608791,
+        "utility_probability_std": 0.012056356727677615
+      },
+      "run_root": "experiments/fakeddit/v034/step10_formal_training/M4qusli_seed42",
+      "seed": 42,
+      "summary": {
+        "ablation_mode": "multimodal",
+        "best_checkpoint": "D:\\Research\\AEGIS\\experiments\\fakeddit\\v034\\step10_formal_training\\M4qusli_seed42\\best_model.pt",
+        "best_epoch": 11,
+        "best_validation": {
+          "accuracy": 0.866,
+          "active_intervention_rate": 0.0,
+          "alignment_loss": 0.0,
+          "class_0": {
+            "f1": 0.866,
+            "precision": 0.866,
+            "recall": 0.866
+          },
+          "class_1": {
+            "f1": 0.866,
+            "precision": 0.866,
+            "recall": 0.866
+          },
+          "classification_loss": 0.36844146609306333,
+          "confusion_matrix": {
+            "fn": 67,
+            "fp": 67,
+            "tn": 433,
+            "tp": 433
+          },
+          "f1": 0.866,
+          "intervention_gate_mean": 0.0,
+          "macro_f1": 0.866,
+          "macro_precision": 0.866,
+          "macro_recall": 0.866,
+          "precision": 0.866,
+          "recall": 0.866,
+          "sample_count": 1000,
+          "total_loss": 0.36844146609306333,
+          "utility_gate_mean": 0.0,
+          "utility_probability_mean": 0.507899498462677
+        },
+        "best_validation_predictions": "D:\\Research\\AEGIS\\experiments\\fakeddit\\v034\\step10_formal_training\\M4qusli_seed42\\best_validation_predictions.json",
+        "completed_at_utc": "2026-09-16T12:37:29.718308+00:00",
+        "configuration": {
+          "ablation_mode": "multimodal",
+          "alignment_weight": 0.0,
+          "batch_size": 32,
+          "classification_weight": 1.0,
+          "classifier_initialization_seed": 1000045,
+          "compatibility_weight": 1.0,
+          "dropout": 0.1,
+          "evidence_aware": false,
+          "fusion_architecture": "quality_compatibility_utility_supervised_intervention",
+          "gated_interaction": false,
+          "gradient_clip": 1.0,
+          "hidden_dim": 128,
+          "initialization_protocol": "paired_common_components_v1",
+          "interaction_only": false,
+          "interaction_reliability": false,
+          "learning_rate": 0.001,
+          "m1b_gate_initialization_control": "copy_legacy_gate_state_v1",
+          "m2_gate_initialization_control": null,
+          "m2b_gate_initialization_control": null,
+          "m4q_corruption_protocol": {
+            "clean_probability": 0.4,
+            "continuous_severities": [
+              0.25,
+              0.5,
+              0.75,
+              1.0
+            ],
+            "gaussian_scale_source": "training_cache_per_feature_population_std",
+            "mismatch_probability": 0.2,
+            "permutation_quality_targets": [
+              1.0,
+              1.0
+            ],
+            "quality_family_probabilities": {
+              "attenuation": 0.4,
+              "gaussian_noise": 0.4,
+              "zero_dropout": 0.2
+            },
+            "quality_target_rule": "1_minus_severity",
+            "sampling_level": "per_sample",
+            "text_quality_probability": 0.2,
+            "vision_quality_probability": 0.2
+          },
+          "m4qc_compatibility_protocol": null,
+          "m4qcf_reliability_fusion_protocol": null,
+          "max_epochs": 50,
+          "min_delta": 1e-06,
+          "min_epochs": 5,
+          "patience": 8,
+          "quality_compatibility_fusion": false,
+          "quality_compatibility_selective_intervention": null,
+          "quality_compatibility_supervised": false,
+          "quality_supervised": false,
+          "quality_supervision_enabled": true,
+          "quality_weight": 1.0,
+          "reliability_only": false,
+          "seed": 42,
+          "shared_dim": 128,
+          "temperature": 0.07,
+          "training_rng_reset_seed": 42,
+          "transition_objective": {
+            "beneficial_transition_penalty": 0.0,
+            "definition": "mean_relu(matched_true_class_probability_detached_minus_mismatched_true_class_probability)_over_mismatch_samples",
+            "effective_weight": 0.0,
+            "enabled": false,
+            "matched_reference_detached": true,
+            "requested_weight": 0.0,
+            "training_split_only": true,
+            "validation_feedback_used": false
+          },
+          "uses_cross_modal_alignment": false,
+          "uses_fusion": true,
+          "uses_text": true,
+          "uses_vision": true,
+          "v030_selective_intervention_protocol": null,
+          "v033_utility_supervised_intervention": {
+            "active_threshold": 0.6,
+            "architecture_label": "M4qusli",
+            "effective_utility_loss_weight": 0.5,
+            "implementation_version": "0.33.0-step5",
+            "max_intervention_strength": 0.15,
+            "official_test_accessed": false,
+            "protocol_version": "0.33.0-step2",
+            "transition_objective_weight": 0.0,
+            "utility_target": "clip(0.5 + delta_u / 0.20, 0, 1)"
+          },
+          "weight_decay": 0.0001
+        },
+        "elapsed_seconds": 143.91198160000022,
+        "epochs_completed": 19,
+        "experiment": "AEGIS-Fakeddit-modality-ablation",
+        "final_checkpoint": "D:\\Research\\AEGIS\\experiments\\fakeddit\\v034\\step10_formal_training\\M4qusli_seed42\\final_model.pt",
+        "final_current_model_validation": {
+          "accuracy": 0.835,
+          "active_intervention_rate": 0.0,
+          "alignment_loss": 0.0,
+          "class_0": {
+            "f1": 0.8264984227129337,
+            "precision": 0.8713968957871396,
+            "recall": 0.786
+          },
+          "class_1": {
+            "f1": 0.8427073403241182,
+            "precision": 0.8051001821493625,
+            "recall": 0.884
+          },
+          "classification_loss": 0.450473837852478,
+          "confusion_matrix": {
+            "fn": 58,
+            "fp": 107,
+            "tn": 393,
+            "tp": 442
+          },
+          "f1": 0.8427073403241182,
+          "intervention_gate_mean": 0.0,
+          "macro_f1": 0.834602881518526,
+          "macro_precision": 0.838248538968251,
+          "macro_recall": 0.835,
+          "precision": 0.8051001821493625,
+          "recall": 0.884,
+          "sample_count": 1000,
+          "total_loss": 0.450473837852478,
+          "utility_gate_mean": 0.0,
+          "utility_probability_mean": 0.4973501522541046
+        },
+        "final_state_fingerprints": {
+          "classifier": "53bc827bfe79175859ec4357dfb7ba78a823ad8f60b2a235a652b60a2e7b743c",
+          "compatibility_estimator": "028f29b5b235b541b3c6ff5511763e5aa58f9a8dfc4364b981f5e187230ebc96",
+          "gated_base_fusion": "7fb050f8a8fe1540b403dea88dab60d8508de0149007572e71e63ca66677429b",
+          "gated_interaction_fusion": "be7139670304d6bce17d18fae888da2fb99a887278685c6e0e053c7dd73be41b",
+          "text_projection": "d83b03d310e5f887fcc7eced1c0e5860e3e39159d870388e7c082accb652bf01",
+          "text_quality_estimator": "e9d5c83f81bb51868ab69ea5c2f5c7dcbfbf8d32403727d47d719ac131092914",
+          "v033_utility_selector": "02598ac477612a4963abf8d9f9fb4704820e882cc3c3e3880c69c8388727adff",
+          "vision_projection": "e4d8d19055fcd6ff3133e4c315241f45bcc5ed408d6f8c5323dc89e92cc892e3",
+          "vision_quality_estimator": "9f2fb7a1268f4821799b938851abf1bceea3b4c2f2b998dc8ac4b54f55702990"
+        },
+        "fusion_architecture": "quality_compatibility_utility_supervised_intervention",
+        "global_steps": 2983,
+        "important_interpretation": "This is a held-out development-set modality ablation. It is not the final Fakeddit benchmark result. The official test split was not accessed.",
+        "initial_state_fingerprints": {
+          "classifier": "b8a6a219c49d691128de9aca79573cf96faabcbd0c6699f8711f6e416d4eb872",
+          "compatibility_estimator": "33b8495739d9b915b72f29f0d7d923b6717c94e265e89a8832c525139398c987",
+          "gated_base_fusion": "7fb050f8a8fe1540b403dea88dab60d8508de0149007572e71e63ca66677429b",
+          "gated_interaction_fusion": "888fd661e17760d686d8df0f5ffc440687df52762d664c169bc1bad702a8e25e",
+          "text_projection": "3fc63fc292e6b132f62da6b796722f602a750b37364ae917d5792216c769f806",
+          "text_quality_estimator": "39fee082d4fc0244cfe1c318dc1b319a9ea293d11ec31b07d7eaccf439efaea5",
+          "v033_utility_selector": "66140c22c3b8f09a12b23e5b30b26a820c80ba2d9e4fe81b02ac3a3ef02f9ad2",
+          "vision_projection": "445df7370bcc72980d5751a6995173a0ccfa18bce07ec34dbee93516ea98075b",
+          "vision_quality_estimator": "327055f2b4074da1312f9015a716b1e4fd7e85fd8802fe3343d9244b17d83664"
+        },
+        "initial_validation": {
+          "accuracy": 0.5,
+          "active_intervention_rate": 0.0,
+          "alignment_loss": 0.0,
+          "class_0": {
+            "f1": 0.6666666666666666,
+            "precision": 0.5,
+            "recall": 1.0
+          },
+          "class_1": {
+            "f1": 0.0,
+            "precision": 0.0,
+            "recall": 0.0
+          },
+          "classification_loss": 0.7961198329925537,
+          "confusion_matrix": {
+            "fn": 500,
+            "fp": 0,
+            "tn": 500,
+            "tp": 0
+          },
+          "f1": 0.0,
+          "intervention_gate_mean": 0.0,
+          "macro_f1": 0.3333333333333333,
+          "macro_precision": 0.25,
+          "macro_recall": 0.5,
+          "precision": 0.0,
+          "recall": 0.0,
+          "sample_count": 1000,
+          "total_loss": 0.7961198329925537,
+          "utility_gate_mean": 0.0,
+          "utility_probability_mean": 0.5
+        },
+        "parameter_update_audit": {
+          "classifier": true,
+          "compatibility_estimator": true,
+          "gated_base_fusion": false,
+          "gated_interaction_fusion": true,
+          "text_projection": true,
+          "text_quality_estimator": true,
+          "v033_utility_selector": true,
+          "vision_projection": true,
+          "vision_quality_estimator": true
+        },
+        "protocol": "train5000-validation1000-ablation",
+        "selection_metric": "validation_macro_f1",
+        "selection_tie_breaker": "validation_classification_loss",
+        "status": "completed",
+        "stop_reason": "early_stopping",
+        "test_split_status": "sealed_not_accessed",
+        "trainable_parameters": {
+          "classification": 17542,
+          "effective_total": 528922,
+          "full_alignment_module": 544532,
+          "representation": 511380
+        }
+      },
+      "test_split_status": "sealed_not_accessed"
+    },
+    {
+      "artifact_sha256": {
+        "best_model.pt": {
+          "sha256": "5D500AFBA7EBAE01986E0E6E16A13AD332BC83F16BE2DD410EFBAF980D88206B",
+          "size_bytes": 6268029
+        },
+        "best_validation_predictions.json": {
+          "sha256": "F123B8157F5F23BC02E8B31AD3DDC32851680CF28B84EE371056390FE537DF43",
+          "size_bytes": 101222
+        },
+        "experiment.json": {
+          "sha256": "06711A4C1FF9B654080919CFCD4A652104AED773D72FED2B88C1C80682E34DC2",
+          "size_bytes": 6707
+        },
+        "final_model.pt": {
+          "sha256": "90AB630BF4F83EA8BA3FE0D64B9E73A247BA3043DBB09CE079B185AB92B2B88E",
+          "size_bytes": 6268207
+        },
+        "metrics.jsonl": {
+          "sha256": "36AF5921DB6BFD2AA5DE93F78753B563E448F96CC8AC3471218335134E710097",
+          "size_bytes": 36756
+        },
+        "summary.json": {
+          "sha256": "45E256DD012F8B3EE09836E8CA79AA8676D75C57F7CAC2FBBDB21E96CF56FEAD",
+          "size_bytes": 9335
+        }
+      },
+      "configuration": {
+        "ablation_mode": "multimodal",
+        "alignment_weight": 0.0,
+        "batch_size": 32,
+        "classification_weight": 1.0,
+        "classifier_initialization_seed": 1000046,
+        "compatibility_weight": 1.0,
+        "dropout": 0.1,
+        "fusion_architecture": "quality_compatibility_utility_supervised_intervention",
+        "hidden_dim": 128,
+        "learning_rate": 0.001,
+        "max_epochs": 50,
+        "min_delta": 1e-06,
+        "min_epochs": 5,
+        "patience": 8,
+        "quality_weight": 1.0,
+        "seed": 43,
+        "shared_dim": 128,
+        "temperature": 0.07,
+        "training_rng_reset_seed": 43,
+        "transition_objective": {
+          "beneficial_transition_penalty": 0.0,
+          "definition": "mean_relu(matched_true_class_probability_detached_minus_mismatched_true_class_probability)_over_mismatch_samples",
+          "effective_weight": 0.0,
+          "enabled": false,
+          "matched_reference_detached": true,
+          "requested_weight": 0.0,
+          "training_split_only": true,
+          "validation_feedback_used": false
+        },
+        "weight_decay": 0.0001
+      },
+      "metrics_rows": 19,
+      "observability_artifact_sha256": {
+        "epoch_001_observability_summary.json": {
+          "sha256": "6A1115A2347A6ECB64F0D98BD52974FE386ABD8D87288E59CA68B7A884D18C53",
+          "size_bytes": 1275
+        },
+        "epoch_002_observability_summary.json": {
+          "sha256": "957E0F9E5F952DD9B17D52DF95CF0DEEF15F93E01227608E85061E8D36EC3CA5",
+          "size_bytes": 1282
+        },
+        "epoch_003_observability_summary.json": {
+          "sha256": "0C1A4FA386148F0101B17586D0F862FB07F91717568AD286B849F99E895A04A0",
+          "size_bytes": 1283
+        },
+        "epoch_004_observability_summary.json": {
+          "sha256": "3FC0D1210C29648CA386BACB8E3C89578CC2C161CF438AB47F489FD6F97A4EB5",
+          "size_bytes": 1281
+        },
+        "epoch_005_observability_summary.json": {
+          "sha256": "D43FE06900CA564D48D52ADF70B38E56CA20844225DC526B8D6D86510360DCE2",
+          "size_bytes": 1276
+        },
+        "epoch_006_observability_summary.json": {
+          "sha256": "CE54D32C7837DAB6F82314AB1587F0586E0A8DF32303ECD70F94C068500A3BAC",
+          "size_bytes": 1283
+        },
+        "epoch_007_observability_summary.json": {
+          "sha256": "56191A2A4F5A94A7FC399C411E39A58EA43A014FA327F8ABEA2C96C4A4E0C002",
+          "size_bytes": 1280
+        },
+        "epoch_008_observability_summary.json": {
+          "sha256": "0268093BF4979020CD09F0544E998CA441BEAF0B35A75441D1FBD2F69E8735FC",
+          "size_bytes": 1281
+        },
+        "epoch_009_observability_summary.json": {
+          "sha256": "4DC8897A6E7C1ECE0489911EE2C089BB9D4ED6AAD05FA444E931272BA15371F4",
+          "size_bytes": 1282
+        },
+        "epoch_010_observability_summary.json": {
+          "sha256": "C6DCC18600B534A435865788BCFB36AC611E21FCBDE27AFDB1E1784AF727FCBC",
+          "size_bytes": 1284
+        },
+        "epoch_011_observability_summary.json": {
+          "sha256": "A66461A1C5A7F7AE2C019AB108FC2ABFD546B93FDEFF827F4BC049A1E0718089",
+          "size_bytes": 1283
+        },
+        "epoch_012_observability_summary.json": {
+          "sha256": "A83140BA488ADB589FA4CBB98526674A1F91F96833F634B2DAA192D19FDE3832",
+          "size_bytes": 1281
+        },
+        "epoch_013_observability_summary.json": {
+          "sha256": "D2CABB8E5CCE39261EE65D6E70349DB2796A86C9C8A0B85F535E04377A65AB71",
+          "size_bytes": 1286
+        },
+        "epoch_014_observability_summary.json": {
+          "sha256": "4828851A84C7699154643C9FF62396FA58D36E65E912C69108EFBDDA18E2C144",
+          "size_bytes": 1283
+        },
+        "epoch_015_observability_summary.json": {
+          "sha256": "5623610A5626845A9424CF5E86E722263EF8483817BB861BCE7E4DB59981A220",
+          "size_bytes": 1282
+        },
+        "epoch_016_observability_summary.json": {
+          "sha256": "A344AEE0144D8B17C6E345439181CD7A92EB6027088850E0AD6355751E99C8EE",
+          "size_bytes": 1280
+        },
+        "epoch_017_observability_summary.json": {
+          "sha256": "11C3F1FD5662DBB18C72B1FED1E9A15C2CC874740D8B80B72EA2C3DE07F83A29",
+          "size_bytes": 1284
+        },
+        "epoch_018_observability_summary.json": {
+          "sha256": "6D4F5CC6F7FE2096A76E53CFE4905E30741CBF52259F167A159702BDF9E3EF95",
+          "size_bytes": 1279
+        },
+        "epoch_019_observability_summary.json": {
+          "sha256": "98E599B6B1DD260E17A9B7E3F6CB0228A680852F1CD4C0B310EE03471C466F93",
+          "size_bytes": 1278
+        },
+        "optimization_step_observability.jsonl": {
+          "sha256": "DE461C71067A2EB72DEE59A0A1F2BE952386A02742847C67A3E78D949FBF6E41",
+          "size_bytes": 1584995
+        },
+        "training_sample_observability.jsonl": {
+          "sha256": "76934148E6890B3D229D139B3F48D3C1E13281D7764E99F50FD6BFBDCC20A0E4",
+          "size_bytes": 32989042
+        }
+      },
+      "observability_verification": {
+        "active_intervention_rate": 0.0,
+        "delta_u_abs_ge_0p01_fraction": 0.39482105263157896,
+        "delta_u_max": 0.2314009964466095,
+        "delta_u_mean": -0.0005714136778413759,
+        "delta_u_median": -0.0001742839813232422,
+        "delta_u_min": -0.2849957048892975,
+        "delta_u_negative_fraction": 0.5222421052631578,
+        "delta_u_positive_fraction": 0.4777368421052632,
+        "delta_u_q25": -0.006646588444709778,
+        "delta_u_q75": 0.0053891390562057495,
+        "delta_u_std": 0.024703236270153136,
+        "selector_gradient_norm_median_non_neutral_steps": 0.02864261777577873,
+        "selector_parameter_l2_movement_from_initial": 0.14235170802782893,
+        "u_target_ge_0p60_fraction": 0.11518947368421052,
+        "u_target_le_0p40_fraction": 0.12314736842105263,
+        "u_target_mean": 0.49723689244075825,
+        "u_target_median": 0.4991285800933838,
+        "u_target_neutral_0p45_0p55_fraction": 0.605178947368421,
+        "u_target_q25": 0.4667670577764511,
+        "u_target_q75": 0.5269456952810287,
+        "u_target_std": 0.11793867800924909,
+        "utility_loss_mean": 1.0810664521540885,
+        "utility_probability_mean": 0.4960478912974659,
+        "utility_probability_std": 0.010378722941974613
+      },
+      "run_root": "experiments/fakeddit/v034/step10_formal_training/M4qusli_seed43",
+      "seed": 43,
+      "summary": {
+        "ablation_mode": "multimodal",
+        "best_checkpoint": "D:\\Research\\AEGIS\\experiments\\fakeddit\\v034\\step10_formal_training\\M4qusli_seed43\\best_model.pt",
+        "best_epoch": 11,
+        "best_validation": {
+          "accuracy": 0.859,
+          "active_intervention_rate": 0.0,
+          "alignment_loss": 0.0,
+          "class_0": {
+            "f1": 0.8671065032987748,
+            "precision": 0.8199643493761141,
+            "recall": 0.92
+          },
+          "class_1": {
+            "f1": 0.8498402555910542,
+            "precision": 0.908883826879271,
+            "recall": 0.798
+          },
+          "classification_loss": 0.47663841032981874,
+          "confusion_matrix": {
+            "fn": 101,
+            "fp": 40,
+            "tn": 460,
+            "tp": 399
+          },
+          "f1": 0.8498402555910542,
+          "intervention_gate_mean": 0.0,
+          "macro_f1": 0.8584733794449145,
+          "macro_precision": 0.8644240881276926,
+          "macro_recall": 0.859,
+          "precision": 0.908883826879271,
+          "recall": 0.798,
+          "sample_count": 1000,
+          "total_loss": 0.47663841032981874,
+          "utility_gate_mean": 0.0,
+          "utility_probability_mean": 0.5000925102233886
+        },
+        "best_validation_predictions": "D:\\Research\\AEGIS\\experiments\\fakeddit\\v034\\step10_formal_training\\M4qusli_seed43\\best_validation_predictions.json",
+        "completed_at_utc": "2026-09-16T13:10:09.923327+00:00",
+        "configuration": {
+          "ablation_mode": "multimodal",
+          "alignment_weight": 0.0,
+          "batch_size": 32,
+          "classification_weight": 1.0,
+          "classifier_initialization_seed": 1000046,
+          "compatibility_weight": 1.0,
+          "dropout": 0.1,
+          "evidence_aware": false,
+          "fusion_architecture": "quality_compatibility_utility_supervised_intervention",
+          "gated_interaction": false,
+          "gradient_clip": 1.0,
+          "hidden_dim": 128,
+          "initialization_protocol": "paired_common_components_v1",
+          "interaction_only": false,
+          "interaction_reliability": false,
+          "learning_rate": 0.001,
+          "m1b_gate_initialization_control": "copy_legacy_gate_state_v1",
+          "m2_gate_initialization_control": null,
+          "m2b_gate_initialization_control": null,
+          "m4q_corruption_protocol": {
+            "clean_probability": 0.4,
+            "continuous_severities": [
+              0.25,
+              0.5,
+              0.75,
+              1.0
+            ],
+            "gaussian_scale_source": "training_cache_per_feature_population_std",
+            "mismatch_probability": 0.2,
+            "permutation_quality_targets": [
+              1.0,
+              1.0
+            ],
+            "quality_family_probabilities": {
+              "attenuation": 0.4,
+              "gaussian_noise": 0.4,
+              "zero_dropout": 0.2
+            },
+            "quality_target_rule": "1_minus_severity",
+            "sampling_level": "per_sample",
+            "text_quality_probability": 0.2,
+            "vision_quality_probability": 0.2
+          },
+          "m4qc_compatibility_protocol": null,
+          "m4qcf_reliability_fusion_protocol": null,
+          "max_epochs": 50,
+          "min_delta": 1e-06,
+          "min_epochs": 5,
+          "patience": 8,
+          "quality_compatibility_fusion": false,
+          "quality_compatibility_selective_intervention": null,
+          "quality_compatibility_supervised": false,
+          "quality_supervised": false,
+          "quality_supervision_enabled": true,
+          "quality_weight": 1.0,
+          "reliability_only": false,
+          "seed": 43,
+          "shared_dim": 128,
+          "temperature": 0.07,
+          "training_rng_reset_seed": 43,
+          "transition_objective": {
+            "beneficial_transition_penalty": 0.0,
+            "definition": "mean_relu(matched_true_class_probability_detached_minus_mismatched_true_class_probability)_over_mismatch_samples",
+            "effective_weight": 0.0,
+            "enabled": false,
+            "matched_reference_detached": true,
+            "requested_weight": 0.0,
+            "training_split_only": true,
+            "validation_feedback_used": false
+          },
+          "uses_cross_modal_alignment": false,
+          "uses_fusion": true,
+          "uses_text": true,
+          "uses_vision": true,
+          "v030_selective_intervention_protocol": null,
+          "v033_utility_supervised_intervention": {
+            "active_threshold": 0.6,
+            "architecture_label": "M4qusli",
+            "effective_utility_loss_weight": 0.5,
+            "implementation_version": "0.33.0-step5",
+            "max_intervention_strength": 0.15,
+            "official_test_accessed": false,
+            "protocol_version": "0.33.0-step2",
+            "transition_objective_weight": 0.0,
+            "utility_target": "clip(0.5 + delta_u / 0.20, 0, 1)"
+          },
+          "weight_decay": 0.0001
+        },
+        "elapsed_seconds": 141.34916689999955,
+        "epochs_completed": 19,
+        "experiment": "AEGIS-Fakeddit-modality-ablation",
+        "final_checkpoint": "D:\\Research\\AEGIS\\experiments\\fakeddit\\v034\\step10_formal_training\\M4qusli_seed43\\final_model.pt",
+        "final_current_model_validation": {
+          "accuracy": 0.834,
+          "active_intervention_rate": 0.0,
+          "alignment_loss": 0.0,
+          "class_0": {
+            "f1": 0.8359683794466403,
+            "precision": 0.826171875,
+            "recall": 0.846
+          },
+          "class_1": {
+            "f1": 0.8319838056680161,
+            "precision": 0.8422131147540983,
+            "recall": 0.822
+          },
+          "classification_loss": 0.5103262453079224,
+          "confusion_matrix": {
+            "fn": 89,
+            "fp": 77,
+            "tn": 423,
+            "tp": 411
+          },
+          "f1": 0.8319838056680161,
+          "intervention_gate_mean": 0.0,
+          "macro_f1": 0.8339760925573282,
+          "macro_precision": 0.8341924948770492,
+          "macro_recall": 0.834,
+          "precision": 0.8422131147540983,
+          "recall": 0.822,
+          "sample_count": 1000,
+          "total_loss": 0.5103262453079224,
+          "utility_gate_mean": 0.0,
+          "utility_probability_mean": 0.4960702931880951
+        },
+        "final_state_fingerprints": {
+          "classifier": "00d96fda0d8a65d6b90e11d472d0fe4042ea231ac21b9ea4fc6b13b8327507e5",
+          "compatibility_estimator": "c69560cc7f55fe1ab71a4ece2e2e597bc4d0e2db8bf175e98f6a9c8a85f6389e",
+          "gated_base_fusion": "ccce16cccae0dead97c6b84eb0be04a07f6f977d5a0d7eec0a380695314d7157",
+          "gated_interaction_fusion": "74ded224dcab421cab734846a68762ed3d17c8740c682d247a2aa1016cead4ca",
+          "text_projection": "2206a2958d684d9146325ab4a5215a1d415767959533a08c7ebcaaf4a23ff4fc",
+          "text_quality_estimator": "d74707157d8fd5cf5ce61ffa60b9bdd1563905ce08619a1cf15c623300116cbf",
+          "v033_utility_selector": "e6f0399579183094c8d3099a7a44a15adb77e2e38da3d1f11b8b4df684be430f",
+          "vision_projection": "f2f4654d29dcf4f2b88703c8cf95f4962e648400d57118ed68933fea6d72758d",
+          "vision_quality_estimator": "dc8c86b397a2ce92ec93a62a5f85882882a342b1518bf51da4fbf5e4ae2f2ea9"
+        },
+        "fusion_architecture": "quality_compatibility_utility_supervised_intervention",
+        "global_steps": 2983,
+        "important_interpretation": "This is a held-out development-set modality ablation. It is not the final Fakeddit benchmark result. The official test split was not accessed.",
+        "initial_state_fingerprints": {
+          "classifier": "e183a53c1b665293f6ceb795cf596e06fe53f313f0c7ab6cc670ab43f5637402",
+          "compatibility_estimator": "645b804caf6ff0e6853cb8c3b6eed5367184d799321a1095ea0a01cd59f61cfb",
+          "gated_base_fusion": "ccce16cccae0dead97c6b84eb0be04a07f6f977d5a0d7eec0a380695314d7157",
+          "gated_interaction_fusion": "6522ca135ffd78711a2b7aff1e40f6489be818bbf9df7e1af78870e28f0d866f",
+          "text_projection": "be25fea1dadb50990c0b62341842e58f039b57114a3c19896f261f88a1647e0e",
+          "text_quality_estimator": "1395878b5304db5d7dde6f1295b82beb013aef9a83763ff2181d0063cf02b16b",
+          "v033_utility_selector": "af143c4a6b4c038f69a1e78e8a8c3b6c96e11d49577039c0b594f43088a501fb",
+          "vision_projection": "bac559c685cc65c94a9e403c4f89c2b5df5220099a6e8159979b93651d58b285",
+          "vision_quality_estimator": "e78c41ce3d9957018b4e4208e088b2819f05a49d90d28b4bffe03dfcc9ae0ab6"
+        },
+        "initial_validation": {
+          "accuracy": 0.471,
+          "active_intervention_rate": 0.0,
+          "alignment_loss": 0.0,
+          "class_0": {
+            "f1": 0.6084381939304219,
+            "precision": 0.48296122209165687,
+            "recall": 0.822
+          },
+          "class_1": {
+            "f1": 0.18489984591679506,
+            "precision": 0.40268456375838924,
+            "recall": 0.12
+          },
+          "classification_loss": 0.7467699847221374,
+          "confusion_matrix": {
+            "fn": 440,
+            "fp": 89,
+            "tn": 411,
+            "tp": 60
+          },
+          "f1": 0.18489984591679506,
+          "intervention_gate_mean": 0.0,
+          "macro_f1": 0.3966690199236085,
+          "macro_precision": 0.4428228929250231,
+          "macro_recall": 0.471,
+          "precision": 0.40268456375838924,
+          "recall": 0.12,
+          "sample_count": 1000,
+          "total_loss": 0.7467699847221374,
+          "utility_gate_mean": 0.0,
+          "utility_probability_mean": 0.5
+        },
+        "parameter_update_audit": {
+          "classifier": true,
+          "compatibility_estimator": true,
+          "gated_base_fusion": false,
+          "gated_interaction_fusion": true,
+          "text_projection": true,
+          "text_quality_estimator": true,
+          "v033_utility_selector": true,
+          "vision_projection": true,
+          "vision_quality_estimator": true
+        },
+        "protocol": "train5000-validation1000-ablation",
+        "selection_metric": "validation_macro_f1",
+        "selection_tie_breaker": "validation_classification_loss",
+        "status": "completed",
+        "stop_reason": "early_stopping",
+        "test_split_status": "sealed_not_accessed",
+        "trainable_parameters": {
+          "classification": 17542,
+          "effective_total": 528922,
+          "full_alignment_module": 544532,
+          "representation": 511380
+        }
+      },
+      "test_split_status": "sealed_not_accessed"
+    },
+    {
+      "artifact_sha256": {
+        "best_model.pt": {
+          "sha256": "616A27E5B381145A68EB3741FE54E4E28E0354884C52992E72544DE652B333C9",
+          "size_bytes": 6268029
+        },
+        "best_validation_predictions.json": {
+          "sha256": "6E9ADDFA7E63164D905EBB607FE00C6BEF4FE69280AE32F8AEC256257D36BF82",
+          "size_bytes": 100597
+        },
+        "experiment.json": {
+          "sha256": "999BA93C2B2E27E2B3C186E3583EB0F64406DB346983E9D3142EDA1276705B24",
+          "size_bytes": 6707
+        },
+        "final_model.pt": {
+          "sha256": "A5310A19AA5F95DFE54B6F4E2FE08A03C53B3E39B57296A5A5D4F5F81FC0FBD0",
+          "size_bytes": 6268207
+        },
+        "metrics.jsonl": {
+          "sha256": "0227B9986E30AF53E841DA33946C0EA0AA554BB5767F211D4C356F6EBD20CDAA",
+          "size_bytes": 38759
+        },
+        "summary.json": {
+          "sha256": "255D511BDCDDD23627BA29631AE4A2F9AA03CBA5EBE8A37F8CD6CC44785837E9",
+          "size_bytes": 9307
+        }
+      },
+      "configuration": {
+        "ablation_mode": "multimodal",
+        "alignment_weight": 0.0,
+        "batch_size": 32,
+        "classification_weight": 1.0,
+        "classifier_initialization_seed": 1000047,
+        "compatibility_weight": 1.0,
+        "dropout": 0.1,
+        "fusion_architecture": "quality_compatibility_utility_supervised_intervention",
+        "hidden_dim": 128,
+        "learning_rate": 0.001,
+        "max_epochs": 50,
+        "min_delta": 1e-06,
+        "min_epochs": 5,
+        "patience": 8,
+        "quality_weight": 1.0,
+        "seed": 44,
+        "shared_dim": 128,
+        "temperature": 0.07,
+        "training_rng_reset_seed": 44,
+        "transition_objective": {
+          "beneficial_transition_penalty": 0.0,
+          "definition": "mean_relu(matched_true_class_probability_detached_minus_mismatched_true_class_probability)_over_mismatch_samples",
+          "effective_weight": 0.0,
+          "enabled": false,
+          "matched_reference_detached": true,
+          "requested_weight": 0.0,
+          "training_split_only": true,
+          "validation_feedback_used": false
+        },
+        "weight_decay": 0.0001
+      },
+      "metrics_rows": 20,
+      "observability_artifact_sha256": {
+        "epoch_001_observability_summary.json": {
+          "sha256": "BFD117FDF16AB77A3C0C6F27360A55F2625C81533FFA367A4429DFDA7E2189BC",
+          "size_bytes": 1278
+        },
+        "epoch_002_observability_summary.json": {
+          "sha256": "2F42AA818C75BB6C9CFAF840F44BA67CE4D7AE212650FEE15C1F16F63FE6E5F8",
+          "size_bytes": 1281
+        },
+        "epoch_003_observability_summary.json": {
+          "sha256": "ECD05E165EDA60E3BB423FC30FBB8733A9BA154A9F3E5C04EE622DDDF556C693",
+          "size_bytes": 1279
+        },
+        "epoch_004_observability_summary.json": {
+          "sha256": "72E8899FE75A469DFF3C8DEB826D3A7882167DFF41A7BC3CAEEA90E48C655C9C",
+          "size_bytes": 1283
+        },
+        "epoch_005_observability_summary.json": {
+          "sha256": "EBBC29D52E44FAFD9D2389F993402CC9F6394624D9B1602142427EA10C0308D8",
+          "size_bytes": 1280
+        },
+        "epoch_006_observability_summary.json": {
+          "sha256": "1AEFD669B7F662C4FE46EFF1232876D2B60EC372B0DC3EFFCBCDC3B90472F058",
+          "size_bytes": 1282
+        },
+        "epoch_007_observability_summary.json": {
+          "sha256": "CE457EA8711BE4195216BD5299C611382CD4193EC4736CA5112C3EF58536B2C8",
+          "size_bytes": 1283
+        },
+        "epoch_008_observability_summary.json": {
+          "sha256": "0BC2CD1D566E5EDA9AC21FBFC73ABD8110672F53A417779EF145568DD0D7B9B6",
+          "size_bytes": 1276
+        },
+        "epoch_009_observability_summary.json": {
+          "sha256": "FBE345DD320620181DB2FC3DB9D21BED25748D28C9F26E727FA29634B9424A63",
+          "size_bytes": 1278
+        },
+        "epoch_010_observability_summary.json": {
+          "sha256": "416D5059F539B6BF109574F467B40B51AD1B73A59304BDC5790F2104A222917A",
+          "size_bytes": 1286
+        },
+        "epoch_011_observability_summary.json": {
+          "sha256": "145498DC80036C8C2BB605EE9B1A7D10FC4C6E24D02FDD929BCD56A5325084CF",
+          "size_bytes": 1284
+        },
+        "epoch_012_observability_summary.json": {
+          "sha256": "FA23757559F7159D8A289AF78725C034459FDC8C7503560E9034E9C447312B25",
+          "size_bytes": 1285
+        },
+        "epoch_013_observability_summary.json": {
+          "sha256": "ACD907D274FF500848EE542FF5C4462EBBBB143E3115FB6EC6FCF1EF0FF48663",
+          "size_bytes": 1285
+        },
+        "epoch_014_observability_summary.json": {
+          "sha256": "01341DAC6446F5DF095A7A909D14211DB818DB01D56AAA0E65114D6559C8CE5E",
+          "size_bytes": 1281
+        },
+        "epoch_015_observability_summary.json": {
+          "sha256": "AAE4053E75FC5DD2157D6F04D12A6E46131F0B85948AE170691ED352EA6B4C00",
+          "size_bytes": 1286
+        },
+        "epoch_016_observability_summary.json": {
+          "sha256": "A88D96CEC2D8846C57656F37E9B9EEEFF2287E97F5A3224DFD3D976267D91A7A",
+          "size_bytes": 1281
+        },
+        "epoch_017_observability_summary.json": {
+          "sha256": "6ED574D1801CEDF838E0A70657413561960BDFBF0837167A7E950C38BD4AB98C",
+          "size_bytes": 1282
+        },
+        "epoch_018_observability_summary.json": {
+          "sha256": "32149E37130854B7344BDA48228CA616D42BE787BFB02962BFDA058709B7EDCF",
+          "size_bytes": 1285
+        },
+        "epoch_019_observability_summary.json": {
+          "sha256": "869A49B0CE44F40F65F2A5E6473AAA4E2B0ACDC98AB5C614309146B9ED8FB83C",
+          "size_bytes": 1285
+        },
+        "epoch_020_observability_summary.json": {
+          "sha256": "01A328ACF632B6F52891DEAF4215352E8D76CC5F747C79B4EAA13451EF4081EF",
+          "size_bytes": 1281
+        },
+        "optimization_step_observability.jsonl": {
+          "sha256": "B8B072A2CFC2B7EF5307A707A31132B9FAB4EE854201FCA2F0E981AE9F48918B",
+          "size_bytes": 1668197
+        },
+        "training_sample_observability.jsonl": {
+          "sha256": "202D8603C1C171DD9E99E88036340307F66DB8FB44D05328A858ED79858508D7",
+          "size_bytes": 34735349
+        }
+      },
+      "observability_verification": {
+        "active_intervention_rate": 0.0,
+        "delta_u_abs_ge_0p01_fraction": 0.39084,
+        "delta_u_max": 0.22735124826431274,
+        "delta_u_mean": -0.0008845963554526679,
+        "delta_u_median": -0.000263899564743042,
+        "delta_u_min": -0.2329811453819275,
+        "delta_u_negative_fraction": 0.52901,
+        "delta_u_positive_fraction": 0.47098,
+        "delta_u_q25": -0.00680948793888092,
+        "delta_u_q75": 0.004949137568473816,
+        "delta_u_std": 0.026278570536445185,
+        "selector_gradient_norm_median_non_neutral_steps": 0.035981796893984515,
+        "selector_parameter_l2_movement_from_initial": 0.22143169428344184,
+        "u_target_ge_0p60_fraction": 0.11438,
+        "u_target_le_0p40_fraction": 0.12905,
+        "u_target_mean": 0.4955943125283718,
+        "u_target_median": 0.4986805021762848,
+        "u_target_neutral_0p45_0p55_fraction": 0.60916,
+        "u_target_q25": 0.4659525603055954,
+        "u_target_q75": 0.5247456878423691,
+        "u_target_std": 0.12496533131221244,
+        "utility_loss_mean": 1.0984405861918334,
+        "utility_probability_mean": 0.4930366360729933,
+        "utility_probability_std": 0.01315188747884486
+      },
+      "run_root": "experiments/fakeddit/v034/step10_formal_training/M4qusli_seed44",
+      "seed": 44,
+      "summary": {
+        "ablation_mode": "multimodal",
+        "best_checkpoint": "D:\\Research\\AEGIS\\experiments\\fakeddit\\v034\\step10_formal_training\\M4qusli_seed44\\best_model.pt",
+        "best_epoch": 12,
+        "best_validation": {
+          "accuracy": 0.857,
+          "active_intervention_rate": 0.0,
+          "alignment_loss": 0.0,
+          "class_0": {
+            "f1": 0.8533333333333334,
+            "precision": 0.8757894736842106,
+            "recall": 0.832
+          },
+          "class_1": {
+            "f1": 0.8604878048780488,
+            "precision": 0.84,
+            "recall": 0.882
+          },
+          "classification_loss": 0.3597683773040771,
+          "confusion_matrix": {
+            "fn": 59,
+            "fp": 84,
+            "tn": 416,
+            "tp": 441
+          },
+          "f1": 0.8604878048780488,
+          "intervention_gate_mean": 0.0,
+          "macro_f1": 0.8569105691056911,
+          "macro_precision": 0.8578947368421053,
+          "macro_recall": 0.857,
+          "precision": 0.84,
+          "recall": 0.882,
+          "sample_count": 1000,
+          "total_loss": 0.3597683773040771,
+          "utility_gate_mean": 0.0,
+          "utility_probability_mean": 0.4965356888771057
+        },
+        "best_validation_predictions": "D:\\Research\\AEGIS\\experiments\\fakeddit\\v034\\step10_formal_training\\M4qusli_seed44\\best_validation_predictions.json",
+        "completed_at_utc": "2026-09-16T13:12:51.127664+00:00",
+        "configuration": {
+          "ablation_mode": "multimodal",
+          "alignment_weight": 0.0,
+          "batch_size": 32,
+          "classification_weight": 1.0,
+          "classifier_initialization_seed": 1000047,
+          "compatibility_weight": 1.0,
+          "dropout": 0.1,
+          "evidence_aware": false,
+          "fusion_architecture": "quality_compatibility_utility_supervised_intervention",
+          "gated_interaction": false,
+          "gradient_clip": 1.0,
+          "hidden_dim": 128,
+          "initialization_protocol": "paired_common_components_v1",
+          "interaction_only": false,
+          "interaction_reliability": false,
+          "learning_rate": 0.001,
+          "m1b_gate_initialization_control": "copy_legacy_gate_state_v1",
+          "m2_gate_initialization_control": null,
+          "m2b_gate_initialization_control": null,
+          "m4q_corruption_protocol": {
+            "clean_probability": 0.4,
+            "continuous_severities": [
+              0.25,
+              0.5,
+              0.75,
+              1.0
+            ],
+            "gaussian_scale_source": "training_cache_per_feature_population_std",
+            "mismatch_probability": 0.2,
+            "permutation_quality_targets": [
+              1.0,
+              1.0
+            ],
+            "quality_family_probabilities": {
+              "attenuation": 0.4,
+              "gaussian_noise": 0.4,
+              "zero_dropout": 0.2
+            },
+            "quality_target_rule": "1_minus_severity",
+            "sampling_level": "per_sample",
+            "text_quality_probability": 0.2,
+            "vision_quality_probability": 0.2
+          },
+          "m4qc_compatibility_protocol": null,
+          "m4qcf_reliability_fusion_protocol": null,
+          "max_epochs": 50,
+          "min_delta": 1e-06,
+          "min_epochs": 5,
+          "patience": 8,
+          "quality_compatibility_fusion": false,
+          "quality_compatibility_selective_intervention": null,
+          "quality_compatibility_supervised": false,
+          "quality_supervised": false,
+          "quality_supervision_enabled": true,
+          "quality_weight": 1.0,
+          "reliability_only": false,
+          "seed": 44,
+          "shared_dim": 128,
+          "temperature": 0.07,
+          "training_rng_reset_seed": 44,
+          "transition_objective": {
+            "beneficial_transition_penalty": 0.0,
+            "definition": "mean_relu(matched_true_class_probability_detached_minus_mismatched_true_class_probability)_over_mismatch_samples",
+            "effective_weight": 0.0,
+            "enabled": false,
+            "matched_reference_detached": true,
+            "requested_weight": 0.0,
+            "training_split_only": true,
+            "validation_feedback_used": false
+          },
+          "uses_cross_modal_alignment": false,
+          "uses_fusion": true,
+          "uses_text": true,
+          "uses_vision": true,
+          "v030_selective_intervention_protocol": null,
+          "v033_utility_supervised_intervention": {
+            "active_threshold": 0.6,
+            "architecture_label": "M4qusli",
+            "effective_utility_loss_weight": 0.5,
+            "implementation_version": "0.33.0-step5",
+            "max_intervention_strength": 0.15,
+            "official_test_accessed": false,
+            "protocol_version": "0.33.0-step2",
+            "transition_objective_weight": 0.0,
+            "utility_target": "clip(0.5 + delta_u / 0.20, 0, 1)"
+          },
+          "weight_decay": 0.0001
+        },
+        "elapsed_seconds": 148.15683750000062,
+        "epochs_completed": 20,
+        "experiment": "AEGIS-Fakeddit-modality-ablation",
+        "final_checkpoint": "D:\\Research\\AEGIS\\experiments\\fakeddit\\v034\\step10_formal_training\\M4qusli_seed44\\final_model.pt",
+        "final_current_model_validation": {
+          "accuracy": 0.851,
+          "active_intervention_rate": 0.0,
+          "alignment_loss": 0.0,
+          "class_0": {
+            "f1": 0.8455958549222798,
+            "precision": 0.8774193548387097,
+            "recall": 0.816
+          },
+          "class_1": {
+            "f1": 0.8560386473429952,
+            "precision": 0.8280373831775701,
+            "recall": 0.886
+          },
+          "classification_loss": 0.4483616168498993,
+          "confusion_matrix": {
+            "fn": 57,
+            "fp": 92,
+            "tn": 408,
+            "tp": 443
+          },
+          "f1": 0.8560386473429952,
+          "intervention_gate_mean": 0.0,
+          "macro_f1": 0.8508172511326375,
+          "macro_precision": 0.85272836900814,
+          "macro_recall": 0.851,
+          "precision": 0.8280373831775701,
+          "recall": 0.886,
+          "sample_count": 1000,
+          "total_loss": 0.4483616168498993,
+          "utility_gate_mean": 0.0,
+          "utility_probability_mean": 0.4962013053894043
+        },
+        "final_state_fingerprints": {
+          "classifier": "e08561bee2423f44a9cbddcdd340b9604c9af96976cf9daa694bff3f096a3b7f",
+          "compatibility_estimator": "3185836f30e32800f7a5d229a728434449b4fa712947be1ca348f97cc20ee8e5",
+          "gated_base_fusion": "87b71f6cf31aa5af9382ab54425bc243b829f184412b194b5257f545de60f2c0",
+          "gated_interaction_fusion": "c62b67d14b031a0170fe38e0e29e57620a85c3e55f2590f6276d97b35e4db9f8",
+          "text_projection": "c70bd41e599a88a5713b8d7d624370aa8e5375c9d9475a9be2a047a2d5e0052a",
+          "text_quality_estimator": "15e470e88c78804e8e9359331e1ed1f5fccae891c936992b8de0959cd702dab7",
+          "v033_utility_selector": "3d9671faf1175016c874cb1342de8ceda8e0f458a83c86483ddc5ade49cb3134",
+          "vision_projection": "d7f17b2c45d2b6d15ebaf353a8eca3531c03c89f9e9144c9151afc41cdd4a300",
+          "vision_quality_estimator": "cf87b2df51d4976f8e0e326b7d84d873c555a66c868c4e6414ee828a3e9b0710"
+        },
+        "fusion_architecture": "quality_compatibility_utility_supervised_intervention",
+        "global_steps": 3140,
+        "important_interpretation": "This is a held-out development-set modality ablation. It is not the final Fakeddit benchmark result. The official test split was not accessed.",
+        "initial_state_fingerprints": {
+          "classifier": "1c22fba8fab0c100c844caa0148b9229bf82999744a919028276aed05f79e967",
+          "compatibility_estimator": "d45cd54e66bf88775a688ca2f801c348443e3890b67e1f8adcfe57a0274eace6",
+          "gated_base_fusion": "87b71f6cf31aa5af9382ab54425bc243b829f184412b194b5257f545de60f2c0",
+          "gated_interaction_fusion": "9b47b375a6a10269acbfa86a0c53595e344a9643284d9c2709debae1a63030a7",
+          "text_projection": "eb95e9f4d13e56d00d965ffe0c8962b9058ed90c24c4553fc6d2da01416739e9",
+          "text_quality_estimator": "8bc76ae0455de85aa1bf1d7a3465ea1599c40897f475b06915f5c6317da9a69d",
+          "v033_utility_selector": "01bc59e63f1a8eaa4b22e05bb9224a7c5141fe5309270f1f71ba43709d9e70fb",
+          "vision_projection": "36d17c578e9ca81f7ade031e53ea869e28ab466d19f3be488e8f90d567b7b525",
+          "vision_quality_estimator": "d4857d5cf7ed3e13204a4a4359e646a02c1517ec00bb90f4af0a1d78d541c4e1"
+        },
+        "initial_validation": {
+          "accuracy": 0.501,
+          "active_intervention_rate": 0.0,
+          "alignment_loss": 0.0,
+          "class_0": {
+            "f1": 0.007952286282306164,
+            "precision": 0.6666666666666666,
+            "recall": 0.004
+          },
+          "class_1": {
+            "f1": 0.6666666666666666,
+            "precision": 0.5005015045135406,
+            "recall": 0.998
+          },
+          "classification_loss": 0.754426233291626,
+          "confusion_matrix": {
+            "fn": 1,
+            "fp": 498,
+            "tn": 2,
+            "tp": 499
+          },
+          "f1": 0.6666666666666666,
+          "intervention_gate_mean": 0.0,
+          "macro_f1": 0.3373094764744864,
+          "macro_precision": 0.5835840855901036,
+          "macro_recall": 0.501,
+          "precision": 0.5005015045135406,
+          "recall": 0.998,
+          "sample_count": 1000,
+          "total_loss": 0.754426233291626,
+          "utility_gate_mean": 0.0,
+          "utility_probability_mean": 0.5
+        },
+        "parameter_update_audit": {
+          "classifier": true,
+          "compatibility_estimator": true,
+          "gated_base_fusion": false,
+          "gated_interaction_fusion": true,
+          "text_projection": true,
+          "text_quality_estimator": true,
+          "v033_utility_selector": true,
+          "vision_projection": true,
+          "vision_quality_estimator": true
+        },
+        "protocol": "train5000-validation1000-ablation",
+        "selection_metric": "validation_macro_f1",
+        "selection_tie_breaker": "validation_classification_loss",
+        "status": "completed",
+        "stop_reason": "early_stopping",
+        "test_split_status": "sealed_not_accessed",
+        "trainable_parameters": {
+          "classification": 17542,
+          "effective_total": 528922,
+          "full_alignment_module": 544532,
+          "representation": 511380
+        }
+      },
+      "test_split_status": "sealed_not_accessed"
+    }
+  ],
+  "scientific_boundary": {
+    "additional_training_authorized_by_this_step": false,
+    "formal_evaluation_authorized_by_this_step": false,
+    "formal_hypothesis_adjudication_performed": false,
+    "training_evidence_only": true
+  },
+  "source_sha256": {
+    "runner": "08E9A9466A641316280739BB948E13EC35DE408700CB07EF7584863A918D4B61"
+  },
+  "status": "FORMAL_TRAINING_EVIDENCE_AND_PROVENANCE_FROZEN",
+  "step": "Step10",
+  "step9_authorization_record_sha256": "7F027BE122C1DB74256662317504AD63C1E4F5D916CF369066D328F51078E440",
+  "version": "0.34"
+}
