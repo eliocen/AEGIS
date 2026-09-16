@@ -1,0 +1,62 @@
+{
+    "version":  "0.34",
+    "step":  "Step13",
+    "title":  "Scientific Disposition and Formal-Evaluation Authorization Freeze",
+    "status":  "SCIENTIFIC_DISPOSITION_FROZEN",
+    "parent_step12_commit":  "1c0b78195a89d93ad5bdeebbce861ec5f76ddef2",
+    "parent_step12_identities":  {
+                                     "json_sha256":  "3167C267B8FCB3FBED5F711F06956AD929B6E2B7C5F6083F6AA7EBA5565A56CE",
+                                     "md_sha256":  "C3007FA125F738A848E683A3CDB3E98B6F65C8D8BBFAFD0E9B584DEFE36EA4A7",
+                                     "formal_training_tree_sha256":  "8D035BB46FC909A1AA21A277160C6CEE2F456BB3EDF3D38401F953B0A709BE45"
+                                 },
+    "frozen_step12_mechanism_disposition":  {
+                                                "M1_counterfactual_target_signal":  "SUPPORTED",
+                                                "M2_selector_optimization_signal":  "SUPPORTED",
+                                                "M3_selector_output_discrimination":  "NOT_SUPPORTED",
+                                                "M4_intervention_activation":  "NOT_SUPPORTED",
+                                                "M5_failure_localization":  "SELECTOR_DISCRIMINATION_FAILURE"
+                                            },
+    "authorization_basis":  {
+                                "step11_automatic_authorization":  false,
+                                "step11_requires_separate_explicit_authorization":  true,
+                                "decision_type":  "EXPLICIT_POST_STEP12_SCIENTIFIC_DISPOSITION",
+                                "rationale":  "Formal robustness evaluation is not authorized because the frozen pre-evaluation mechanism adjudication localizes an unresolved selector discrimination failure: target signal and selector optimization are supported, but selector output discrimination is not supported and intervention activation is absent. Preserving the untouched official-test boundary is scientifically preferable to evaluating the unresolved v0.34 candidate.",
+                                "retrospective_automatic_gate_claimed":  false
+                            },
+    "scientific_disposition":  "PRE_EVALUATION_MECHANISM_FAILURE_CONFIRMED",
+    "failure_localization":  "SELECTOR_DISCRIMINATION_FAILURE",
+    "formal_evaluation_authorization":  "NOT_AUTHORIZED",
+    "candidate_evaluation_status":  "NOT_ELIGIBLE_FOR_FORMAL_ROBUSTNESS_EVALUATION",
+    "official_test_samples_accessed":  0,
+    "actions_authorized_by_step13":  {
+                                         "formal_robustness_evaluation":  false,
+                                         "official_test_access":  false,
+                                         "retraining_within_v034":  false,
+                                         "additional_v034_training_seeds":  false,
+                                         "checkpoint_reselection":  false,
+                                         "threshold_tuning_or_search":  false,
+                                         "architecture_or_loss_redesign_within_v034":  false,
+                                         "post_hoc_repair_of_v034_candidate":  false
+                                     },
+    "v034_closure":  {
+                         "close_current_candidate":  true,
+                         "closure_reason":  "PRE_EVALUATION_SELECTOR_DISCRIMINATION_FAILURE",
+                         "formal_robustness_hypotheses_adjudicated":  false,
+                         "official_test_boundary_preserved":  true
+                     },
+    "next_step":  "Open a new prospective corrective version before any further training or formal robustness evaluation.",
+    "next_version_target":  "v0.35",
+    "next_version_problem_statement":  "Prospectively address selector output discrimination and downstream intervention activation without modifying the frozen v0.34 record.",
+    "prohibitions":  [
+                         "no formal robustness evaluation of the frozen v0.34 candidate",
+                         "no official-test access",
+                         "no retraining within v0.34",
+                         "no additional v0.34 training seeds",
+                         "no checkpoint reselection",
+                         "no threshold tuning or search",
+                         "no architecture or loss redesign within the frozen v0.34 candidate",
+                         "no post-hoc repair of the frozen v0.34 candidate",
+                         "no rewriting of Step11 or Step12 criteria/results",
+                         "no claim that Step11 prospectively defined automatic evaluation rejection"
+                     ]
+}
