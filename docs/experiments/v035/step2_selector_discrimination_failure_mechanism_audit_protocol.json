@@ -1,0 +1,216 @@
+{
+    "version":  "0.35",
+    "step":  "Step2",
+    "title":  "Prospective Selector Discrimination Failure-Mechanism Audit Protocol",
+    "status":  "AUDIT_PROTOCOL_FROZEN_NO_AUDIT_RESULTS_COMPUTED",
+    "parent":  {
+                   "branch":  "feature/v0.35-selector-discrimination-correction",
+                   "step1_commit":  "8660af5c749f0368254c73ea32ee09cce0546e46",
+                   "step1_json_sha256":  "B8766F2C7C89817FE517E9F3CBDCF13E597A433DB170023DDE7C56F79FC42DF5",
+                   "step1_md_sha256":  "8E3FA8A3C2835D6E3DBC26C827C7DB716666D2971716DA7C529BC48E9AF2785C",
+                   "v034_step13_commit":  "3bac60bb853017422bab3b5c188b410819ef0a37"
+               },
+    "inherited_boundary":  {
+                               "M1_counterfactual_target_signal":  "SUPPORTED",
+                               "M2_selector_optimization_signal":  "SUPPORTED",
+                               "M3_selector_output_discrimination":  "NOT_SUPPORTED",
+                               "M4_intervention_activation":  "NOT_SUPPORTED",
+                               "M5_failure_localization":  "SELECTOR_DISCRIMINATION_FAILURE",
+                               "primary_problem":  "SELECTOR_OUTPUT_DISCRIMINATION",
+                               "official_test_samples_accessed":  0
+                           },
+    "audit_mode":  {
+                       "type":  "READ_ONLY_SOURCE_AND_CONFIGURATION_AUDIT",
+                       "purpose":  "Determine whether a prospectively defined structural, numerical, or objective-to-output coupling mechanism can explain the inherited selector-output compression.",
+                       "implementation_modification":  "PROHIBITED",
+                       "training":  "PROHIBITED",
+                       "checkpoint_reselection":  "PROHIBITED",
+                       "threshold_search":  "PROHIBITED",
+                       "formal_robustness_evaluation":  "PROHIBITED",
+                       "official_test":  "PROHIBITED",
+                       "result_computation_in_step2":  false
+                   },
+    "admissible_source_scope":  {
+                                    "principle":  "Step3 may inspect only source/configuration objects necessary to trace the selector target, objective, optimization path, selector output transformation, utility/delta construction, and intervention mapping.",
+                                    "discovery_rule":  "Because Step2 is frozen before implementation inspection, exact repository file paths are not asserted here unless already established by the frozen parent record. Step3 must first produce a deterministic source manifest using symbol/content discovery, and every inspected file must be included in that manifest with SHA256 before substantive audit findings are recorded.",
+                                    "permitted_source_categories":  [
+                                                                        "selector module/class/function definitions",
+                                                                        "utility or selector output transformation functions",
+                                                                        "counterfactual target construction functions",
+                                                                        "selector objective/loss construction",
+                                                                        "optimizer parameter-group configuration relevant to selector parameters",
+                                                                        "delta_u or equivalent utility-difference construction",
+                                                                        "intervention activation/mapping logic",
+                                                                        "training-runner wiring that connects the above components",
+                                                                        "configuration values directly controlling the above components",
+                                                                        "existing tests directly exercising the above components"
+                                                                    ],
+                                    "prohibited_source_categories":  [
+                                                                         "official-test samples or labels",
+                                                                         "formal robustness evaluation results",
+                                                                         "new post-Step1 experimental outputs",
+                                                                         "unrelated model components except where needed to establish an interface boundary",
+                                                                         "new external evidence introduced to select a correction"
+                                                                     ],
+                                    "source_manifest_required":  true,
+                                    "source_sha256_required":  true,
+                                    "tracked_source_preferred":  true
+                                },
+    "D1_selector_output_path_audit":  {
+                                          "identifier":  "D1",
+                                          "name":  "SELECTOR_OUTPUT_PATH_AUDIT",
+                                          "frozen_question":  "Does the implemented selector output path contain a structural or numerical mechanism capable of explaining the inherited low utility-probability variance?",
+                                          "required_trace":  [
+                                                                 "raw selector-producing representation",
+                                                                 "selector logits or pre-activation scalar/vector",
+                                                                 "activation function or probability mapping",
+                                                                 "temperature, scale, clamp, normalization, detach, cast, or equivalent transformation if present",
+                                                                 "utility_probability or equivalent selector output",
+                                                                 "delta_u or equivalent utility-difference construction",
+                                                                 "intervention threshold/mapping input"
+                                                             ],
+                                          "required_static_checks":  [
+                                                                         "tensor shapes and dimensions across the output path",
+                                                                         "activation semantics",
+                                                                         "softmax/sigmoid/logit use and dimensional axis",
+                                                                         "fixed scaling or temperature values",
+                                                                         "clamping, clipping, normalization, centering, averaging or reduction",
+                                                                         "detach/no_grad/stop-gradient operations on the output path",
+                                                                         "dtype conversions capable of reducing numerical resolution",
+                                                                         "constant/default/fallback paths capable of forcing near-neutral outputs",
+                                                                         "batch/sample reductions capable of collapsing per-sample discrimination",
+                                                                         "reuse or overwrite of selector outputs before intervention mapping"
+                                                                     ],
+                                          "evidence_required":  [
+                                                                    "source manifest with repository-relative path and SHA256",
+                                                                    "symbol/function/class name for each relevant operation",
+                                                                    "line-local or AST-equivalent source excerpt identifier",
+                                                                    "ordered output-path trace",
+                                                                    "explicit presence/absence table for each required static check",
+                                                                    "candidate explanatory mechanisms stated without modifying code"
+                                                                ],
+                                          "adjudication":  {
+                                                               "EXPLANATORY_DEFECT_IDENTIFIED":  "At least one concrete source/configuration mechanism is present on the selector output path, is directionally capable of compressing or collapsing sample-level selector discrimination, and the causal link can be stated from code semantics without using post-correction results.",
+                                                               "NO_EXPLANATORY_DEFECT_IDENTIFIED":  "The complete admissible output path is traced and none of the prospectively enumerated structural/numerical mechanisms provides a concrete code-semantic explanation for the inherited compression.",
+                                                               "NOT_ADJUDICABLE":  "The complete output path cannot be established from admissible frozen source/configuration evidence, or required semantics depend on unavailable runtime evidence.",
+                                                               "anti_overclaim":  "D1 identifies a code-semantic explanatory mechanism, not sole causal proof. No code change or post-correction performance evidence is permitted in D1 adjudication."
+                                                           }
+                                      },
+    "D2_objective_to_output_coupling_audit":  {
+                                                  "identifier":  "D2",
+                                                  "name":  "OBJECTIVE_TO_OUTPUT_COUPLING_AUDIT",
+                                                  "frozen_question":  "Given inherited nonzero selector optimization signal and parameter movement, does the implemented training objective provide a structurally adequate coupling from counterfactual target signal to the discriminative selector output used downstream?",
+                                                  "required_trace":  [
+                                                                         "counterfactual target source",
+                                                                         "target transformation and range",
+                                                                         "selector prediction used by the objective",
+                                                                         "selector loss/objective expression",
+                                                                         "loss weighting or scaling",
+                                                                         "aggregation/reduction",
+                                                                         "backpropagation connection to selector parameters",
+                                                                         "optimizer inclusion of selector parameters",
+                                                                         "relationship between optimized prediction and downstream utility_probability",
+                                                                         "relationship between optimized prediction and intervention input"
+                                                                     ],
+                                                  "required_static_checks":  [
+                                                                                 "prediction-target tensor contract",
+                                                                                 "target range versus output activation/range",
+                                                                                 "loss function semantics",
+                                                                                 "loss weight magnitude and configuration source",
+                                                                                 "mean/sum/normalization reductions",
+                                                                                 "detach/no_grad operations between objective and downstream selector output",
+                                                                                 "whether the optimized tensor is the same semantic quantity consumed downstream",
+                                                                                 "whether multiple heads/branches cause the optimized selector output to differ from the intervention selector output",
+                                                                                 "whether selector parameters are actually included in the intended optimizer group",
+                                                                                 "whether any frozen/default value bypasses learned selector output downstream"
+                                                                             ],
+                                                  "evidence_required":  [
+                                                                            "source manifest with repository-relative path and SHA256",
+                                                                            "ordered target-to-objective-to-output trace",
+                                                                            "prediction/target tensor-contract table",
+                                                                            "objective expression and reduction semantics",
+                                                                            "selector optimizer-membership evidence",
+                                                                            "optimized-output versus downstream-output identity/relationship",
+                                                                            "candidate coupling defects stated without modifying code"
+                                                                        ],
+                                                  "adjudication":  {
+                                                                       "COUPLING_DEFECT_IDENTIFIED":  "At least one concrete source/configuration mechanism is present that structurally weakens, mismatches, bypasses, or semantically disconnects the counterfactual target/objective from the discriminative selector quantity consumed downstream.",
+                                                                       "NO_COUPLING_DEFECT_IDENTIFIED":  "The complete admissible target-to-objective-to-downstream-output path is traced and no prospectively enumerated structural coupling defect is identified.",
+                                                                       "NOT_ADJUDICABLE":  "The complete coupling path cannot be established from admissible frozen source/configuration evidence, or required semantics depend on unavailable runtime evidence.",
+                                                                       "anti_overclaim":  "D2 is a structural coupling adjudication. It does not infer that a different loss, weight, architecture, or hyperparameter would improve results unless separately tested under a later prospective protocol."
+                                                                   }
+                                              },
+    "cross_audit_decision_logic":  {
+                                       "ordering":  [
+                                                        "Adjudicate D1 from D1 evidence.",
+                                                        "Adjudicate D2 independently from D2 evidence.",
+                                                        "Do not force D2 to agree with D1.",
+                                                        "Multiple defects may coexist.",
+                                                        "No correction is selected in Step3."
+                                                    ],
+                                       "allowed_joint_outcomes":  [
+                                                                      "D1_EXPLANATORY_DEFECT__D2_COUPLING_DEFECT",
+                                                                      "D1_EXPLANATORY_DEFECT__D2_NO_COUPLING_DEFECT",
+                                                                      "D1_NO_EXPLANATORY_DEFECT__D2_COUPLING_DEFECT",
+                                                                      "D1_NO_EXPLANATORY_DEFECT__D2_NO_COUPLING_DEFECT",
+                                                                      "D1_OR_D2_NOT_ADJUDICABLE"
+                                                                  ],
+                                       "correction_gate":  "Any Step4/Step5 corrective disposition must be based only on remotely frozen Step3 audit evidence and must select the minimum correction justified by that evidence. Step2 and Step3 do not authorize modification."
+                                   },
+    "step3_execution_contract":  {
+                                     "next_step":  "v0.35 Step3",
+                                     "title":  "Read-Only Selector Discrimination Failure-Mechanism Audit Execution",
+                                     "required_outputs":  [
+                                                              "step3_selector_discrimination_failure_mechanism_audit_results.json",
+                                                              "step3_selector_discrimination_failure_mechanism_audit_results.md",
+                                                              "step3_selector_discrimination_source_manifest.json"
+                                                          ],
+                                     "source_manifest_fields":  [
+                                                                    "repository_relative_path",
+                                                                    "git_blob_or_file_sha256",
+                                                                    "tracked_status",
+                                                                    "relevant_symbols",
+                                                                    "audit_role"
+                                                                ],
+                                     "results_must_include":  [
+                                                                  "exact parent Step2 commit and protocol hashes",
+                                                                  "exact source-manifest hash",
+                                                                  "D1 ordered trace",
+                                                                  "D1 static-check table",
+                                                                  "D1 adjudication",
+                                                                  "D2 ordered trace",
+                                                                  "D2 static-check table",
+                                                                  "D2 adjudication",
+                                                                  "joint outcome",
+                                                                  "limitations",
+                                                                  "official-test samples accessed"
+                                                              ],
+                                     "code_modification_authorized":  false,
+                                     "training_authorized":  false,
+                                     "corrective_design_selection_authorized":  false,
+                                     "formal_evaluation_authorized":  false,
+                                     "official_test_access_authorized":  false
+                                 },
+    "frozen_prohibitions":  [
+                                "no implementation modification during Step2",
+                                "no implementation modification during Step3 audit execution",
+                                "no corrective patch selected before Step3 evidence is frozen",
+                                "no training or retraining",
+                                "no additional seeds",
+                                "no checkpoint reselection",
+                                "no threshold search or tuning",
+                                "no lowering of the inherited discrimination threshold because v0.34 failed",
+                                "no architecture or loss redesign during audit",
+                                "no formal robustness evaluation",
+                                "no official-test access",
+                                "no use of post-correction outcomes to reinterpret D1 or D2",
+                                "no claim that absent intervention independently proves activation-mapping failure while selector discrimination remains unresolved",
+                                "no rewriting of frozen v0.34 or v0.35 Step1 artifacts"
+                            ],
+    "results_computed_in_this_step":  false,
+    "source_audit_executed_in_this_step":  false,
+    "implementation_changed_in_this_step":  false,
+    "training_performed_in_this_step":  false,
+    "formal_evaluation_performed_in_this_step":  false,
+    "official_test_samples_accessed":  0
+}
