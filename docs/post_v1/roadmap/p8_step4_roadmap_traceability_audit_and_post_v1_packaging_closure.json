@@ -1,0 +1,46 @@
+{
+  "schema": "aegis.post_v1.p8.step4.packaging_closure.v1",
+  "status": "AEGIS_POST_V1_RESEARCH_PACKAGING_P1_P8_CLOSED",
+  "parent_commit": "05cf12874672b0d241ef41939d2193873fac9103",
+  "authoritative_v1_release": {
+    "tag": "v1.0.0-research-core",
+    "commit": "39492cf6d93987fdf9ebee29b95fdb826b8391e4",
+    "state": "IMMUTABLE_SCIENTIFIC_BASELINE"
+  },
+  "packages": {
+    "P1_architecture": "CLOSED",
+    "P2_scientific_results_and_limitations": "CLOSED",
+    "P3_reproducibility": "CLOSED",
+    "P4_figures_and_system_diagrams": "CLOSED",
+    "P5_research_manuscript": "CLOSED",
+    "P6_demonstration": "CLOSED",
+    "P7_repository_presentation": "CLOSED",
+    "P8_post_v1_research_roadmap": "CLOSED"
+  },
+  "p8_roadmap": {
+    "authorization_effect": "NONE",
+    "T6_full_multimodal_integration": "DEFERRED",
+    "future_tracks_require_separate_prospective_protocols": true
+  },
+  "inherited_scientific_boundaries": {
+    "M3": "NOT_SUPPORTED",
+    "M4": "NOT_SUPPORTED",
+    "v035_correction": "CORRECTION_NOT_SUPPORTED",
+    "v036_active_intervention_robustness": "NOT_COMPUTED",
+    "P6_D4_bounded_inference": "NOT_INCLUDED",
+    "production_readiness": "NOT_ESTABLISHED",
+    "autonomous_attribution": "NOT_ESTABLISHED",
+    "official_test_samples": 0
+  },
+  "closure_execution": {
+    "scientific_baseline_modified": false,
+    "model_source_behavior_modified": false,
+    "future_track_implementation": "NONE",
+    "model_execution": "NONE",
+    "training": "NONE",
+    "new_evaluation": "NONE",
+    "official_test_samples": 0
+  },
+  "post_closure_rule": "Any future AEGIS experiment must begin in a separately governed post-v1 experimental lineage with its own prospective protocol and must not mutate the v1.0 baseline.",
+  "next": "SEPARATELY_GOVERNED_POST_V1_EXPERIMENTAL_LINEAGE_WHEN_EXPLICITLY_AUTHORIZED"
+}
