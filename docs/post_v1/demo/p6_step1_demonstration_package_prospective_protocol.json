@@ -1,0 +1,65 @@
+{
+  "schema": "aegis.post_v1.p6.step1.demonstration_protocol.v1",
+  "status": "POST_V1_P6_STEP1_DEMONSTRATION_PACKAGE_PROSPECTIVE_PROTOCOL_FROZEN",
+  "parent_commit": "10cd35eb3176f7933061d9cc7d2a94f0cdf1a6e5",
+  "purpose": "Define a bounded, reproducible research demonstration package for AEGIS Research Core v1.0 without implying production deployment, autonomous intelligence operation, or unsupported adaptive robustness.",
+  "authoritative_release": {
+    "tag": "v1.0.0-research-core",
+    "commit": "39492cf6d93987fdf9ebee29b95fdb826b8391e4"
+  },
+  "demonstration_modes": [
+    "D1_ARCHITECTURE_AND_DATAFLOW_WALKTHROUGH",
+    "D2_FROZEN_EVIDENCE_AND_RESULT_EXPLORATION",
+    "D3_REPRODUCIBILITY_AND_PROVENANCE_WALKTHROUGH",
+    "D4_BOUNDED_INFERENCE_DEMONSTRATION_IF_EXISTING_V1_INTERFACE_SUPPORTS_IT",
+    "D5_FAILURE_AND_LIMITATION_EXPLANATION"
+  ],
+  "mandatory_surfaces": [
+    "research-core identity and release boundary",
+    "multimodal input and architecture explanation",
+    "classifier/reliability/selector/intervention separation",
+    "frozen v0.35 result display",
+    "negative findings and v0.36 NOT_COMPUTED robustness state",
+    "evidence/provenance traceability",
+    "limitations and non-production disclaimer"
+  ],
+  "frozen_results": {
+    "validation_macro_f1": {"seed42": 0.8669, "seed43": 0.8716, "seed44": 0.8610},
+    "utility_probability_std": {"seed42": 0.016633, "seed43": 0.012812, "seed44": 0.009565},
+    "M3_criterion": "utility_probability_std >= 0.05",
+    "M3_status": "NOT_SUPPORTED",
+    "active_intervention_rate": {"seed42": 0, "seed43": 0, "seed44": 0},
+    "M4_criterion": "active_intervention_rate > 0",
+    "M4_status": "NOT_SUPPORTED",
+    "v035_correction": "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+    "v035_correction_result": "CORRECTION_NOT_SUPPORTED",
+    "v036_active_intervention_robustness": "NOT_COMPUTED"
+  },
+  "prohibited_demo_claims": [
+    "production readiness or deployment readiness",
+    "autonomous attribution or autonomous threat determination",
+    "demonstrated active adaptive robustness",
+    "classifier non-robustness inferred from selector failure",
+    "official-test performance",
+    "state-of-the-art or comparative superiority",
+    "future Vision, Audio, Video, multilingual, cross-lingual, or broader multimodal capabilities presented as v1.0 functionality"
+  ],
+  "execution_policy": {
+    "step1_demo_execution": "PROHIBITED",
+    "step1_model_execution": "PROHIBITED",
+    "step1_training": "PROHIBITED",
+    "step1_new_evaluation": "PROHIBITED",
+    "official_test_samples": 0,
+    "future_inference_demo": "Only if an already-existing v1.0 interface and frozen artifacts support it; must be separately audited and must not generate new scientific evaluation claims."
+  },
+  "planned_outputs": [
+    "P6 demonstration evidence inventory",
+    "research demonstration guide",
+    "demo scenario and script ledger",
+    "capability and limitation display specification",
+    "reproducibility/provenance walkthrough",
+    "optional bounded inference demo specification if admissible",
+    "P6 final traceability audit and closure"
+  ],
+  "next": "POST_V1_P6_STEP2_DEMONSTRATION_EVIDENCE_INVENTORY_AND_PACKAGE_DRAFT"
+}
