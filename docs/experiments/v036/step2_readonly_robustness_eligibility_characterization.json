@@ -1,0 +1,101 @@
+{
+    "version":  "0.36",
+    "step":  "Step2",
+    "title":  "Read-Only Robustness-Eligibility Characterization",
+    "status":  "READ_ONLY_ROBUSTNESS_ELIGIBILITY_CHARACTERIZATION_FROZEN",
+    "parent_step1_commit":  "322aa6eff06eed8eef004142af37ae9b19d43042",
+    "evidence_sources":  {
+                             "step1_protocol":  "docs/experiments/v036/step1_failure_aware_robustness_prospective_protocol.json",
+                             "v035_scientific_closure":  "docs/experiments/v035/step10_scientific_closure_and_v036_entry_boundary.json",
+                             "v035_step9_training_evidence":  "docs/experiments/v035/step9_corrective_training_evidence_and_m3_m4_adjudication.json"
+                         },
+    "results":  {
+                    "V36_Q1_selector_activation_eligibility":  {
+                                                                   "decision":  "INELIGIBLE",
+                                                                   "rule":  "ELIGIBLE only if frozen v0.35 M3 and M4 were both SUPPORTED for every formal seed.",
+                                                                   "inherited_M3":  "NOT_SUPPORTED",
+                                                                   "inherited_M4":  "NOT_SUPPORTED"
+                                                               },
+                    "V36_Q2_optimization_vs_activation_decoupling":  {
+                                                                         "decision":  "OBSERVED_OPTIMIZATION_ACTIVATION_DECOUPLING",
+                                                                         "per_seed":  [
+                                                                                          {
+                                                                                              "seed":  42,
+                                                                                              "selector_gradient_norm_median_non_neutral_steps":  0.040385861835413768,
+                                                                                              "selector_parameter_l2_movement_from_initial":  0.088460304352519573,
+                                                                                              "utility_probability_std":  0.016632553648977404,
+                                                                                              "active_intervention_rate":  0
+                                                                                          },
+                                                                                          {
+                                                                                              "seed":  43,
+                                                                                              "selector_gradient_norm_median_non_neutral_steps":  0.040668870478133307,
+                                                                                              "selector_parameter_l2_movement_from_initial":  0.15077607262811871,
+                                                                                              "utility_probability_std":  0.012811746065408715,
+                                                                                              "active_intervention_rate":  0
+                                                                                          },
+                                                                                          {
+                                                                                              "seed":  44,
+                                                                                              "selector_gradient_norm_median_non_neutral_steps":  0.043736136680844417,
+                                                                                              "selector_parameter_l2_movement_from_initial":  0.14883809765251266,
+                                                                                              "utility_probability_std":  0.0095651209097905084,
+                                                                                              "active_intervention_rate":  0
+                                                                                          }
+                                                                                      ],
+                                                                         "causal_claim":  false
+                                                                     },
+                    "V36_Q3_seed_consistency_of_failure":  {
+                                                               "decision":  "CONSISTENT_FAILURE_ACROSS_ALL_THREE_SEEDS",
+                                                               "seeds":  [
+                                                                             42,
+                                                                             43,
+                                                                             44
+                                                                         ]
+                                                           },
+                    "V36_Q4_performance_activation_decoupling":  {
+                                                                     "decision":  "NOT_AVAILABLE_FROM_UNAMBIGUOUS_FROZEN_SUMMARY_FIELD",
+                                                                     "per_seed":  [
+                                                                                      {
+                                                                                          "seed":  42,
+                                                                                          "best_validation_macro_f1":  null
+                                                                                      },
+                                                                                      {
+                                                                                          "seed":  43,
+                                                                                          "best_validation_macro_f1":  null
+                                                                                      },
+                                                                                      {
+                                                                                          "seed":  44,
+                                                                                          "best_validation_macro_f1":  null
+                                                                                      }
+                                                                                  ],
+                                                                     "interpretation_rule":  "Validation classification performance is descriptive only and is not robustness evidence."
+                                                                 },
+                    "V36_Q5_formal_robustness_admissibility":  {
+                                                                   "decision":  "FORMAL_ACTIVE_INTERVENTION_ROBUSTNESS_EVALUATION_INADMISSIBLE",
+                                                                   "active_learned_intervention_robustness_evaluation_authorized":  false,
+                                                                   "note":  "Because Q1 is ineligible under the frozen prerequisite rule, no formal robustness claim may be attributed to an active learned intervention mechanism."
+                                                               }
+                },
+    "scientific_disposition":  {
+                                   "label":  "ROBUSTNESS_EVALUATION_BLOCKED_BY_INACTIVE_SELECTOR_PREREQUISITE",
+                                   "meaning":  "The v0.35 learned selector changed during optimization but failed the prospectively required output-discrimination and activation gates across all three seeds. Formal robustness evaluation of it as an active adaptive intervention mechanism is therefore not scientifically admissible.",
+                                   "does_not_claim":  "This disposition does not establish that the classifier lacks robustness, nor does it establish a sole cause of selector failure."
+                               },
+    "v036_boundary_after_step2":  {
+                                      "training_authorized":  false,
+                                      "implementation_authorized":  false,
+                                      "formal_active_intervention_robustness_evaluation_authorized":  false,
+                                      "official_test_access_authorized":  false,
+                                      "permitted_next_action":  "Read-only failure/threat characterization planning or v0.36 scientific closure; any successor mechanism requires a separately frozen prospective protocol."
+                                  },
+    "integrity":  {
+                      "training_performed":  false,
+                      "implementation_performed":  false,
+                      "source_change_performed":  false,
+                      "corruption_condition_execution_performed":  false,
+                      "formal_robustness_evaluation_performed":  false,
+                      "threshold_tuning_performed":  false,
+                      "checkpoint_reselection_performed":  false,
+                      "official_test_samples_accessed":  0
+                  },
+    "next":  "v0.36 Step3 compact scientific disposition/closure and v0.37 threat-intelligence characterization entry boundary."
+}
