@@ -1,0 +1,27 @@
+{
+  "schema": "aegis.post_v1.p7.step3.root_readme_update.v1",
+  "status": "POST_V1_P7_STEP3_CONTROLLED_ROOT_README_UPDATE_FROZEN",
+  "parent_commit": "9e56b43b81078703484d0e6b51ad6947831be60e",
+  "readme": {
+    "path": "README.md",
+    "previous_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "previous_git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "previous_state": "EMPTY_TRACKED_FILE",
+    "new_sha256": "8D5B8FAF3388E57DC96AA062598B4CD517470C4B2E9106A77CFBF54EEF816521"
+  },
+  "presentation_scope": [
+    "research identity",
+    "immutable v1.0 release",
+    "P1-P7 navigation",
+    "frozen scientific findings and negative results",
+    "P6 D4 boundary",
+    "reproducibility routing",
+    "manuscript and evidence routing",
+    "future-research separation"
+  ],
+  "scientific_baseline_modified": false,
+  "model_source_behavior_modified": false,
+  "training_new_evaluation": "NONE",
+  "official_test_samples": 0,
+  "next": "POST_V1_P7_STEP4_REPOSITORY_PRESENTATION_TRACEABILITY_AUDIT_AND_CLOSURE"
+}
