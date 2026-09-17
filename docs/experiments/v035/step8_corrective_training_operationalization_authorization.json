@@ -1,0 +1,55 @@
+{
+    "version":  "0.35",
+    "step":  "Step8",
+    "status":  "CORRECTIVE_TRAINING_OPERATIONALIZATION_AUTHORIZED",
+    "parent_step7_commit":  "bcb5df55347f27cde351157b2c457f6191b2bf71",
+    "step7_protocol_git_blob":  "8cf3333aa0a876264537a8ea6bce635c30c25b6e",
+    "correction":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+    "implementation_git_blobs":  {
+                                     "aegis/reliability/reliability_controller.py":  "8840f575563bce1d691c1c1251ef2b872f029411",
+                                     "aegis/alignment/model.py":  "061503a040025b8b42190a307e3ce4e7ac7c83f6",
+                                     "scripts/run_fakeddit_ablation.py":  "cbaebce24526b7186f80500d08444931e7859aea",
+                                     "tests/test_v033_utility_supervision_selector.py":  "fea9998af2b0312a7b7d568397801d7ae40d0b6e",
+                                     "tests/test_v034_observability_training_path.py":  "7adb203062e80471304b1a1eb2865b937a07e002"
+                                 },
+    "authorized_execution":  {
+                                 "stage":  "v0.35 Step9",
+                                 "architecture":  "quality_compatibility_utility_supervised_intervention",
+                                 "seeds":  [
+                                               42,
+                                               43,
+                                               44
+                                           ],
+                                 "execution_mode":  "CONTROLLED_CORRECTIVE_GPU_TRAINING",
+                                 "use_existing_frozen_runner":  true,
+                                 "source_modification":  false,
+                                 "training_allowed":  true,
+                                 "training_must_be_sequential_and_fail_closed":  true,
+                                 "smoke_or_preflight_before_first_seed":  true,
+                                 "evidence_freeze_after_all_successful_seeds":  true
+                             },
+    "frozen_constraints":  {
+                               "selector_input_width":  10,
+                               "selector_hidden_width":  16,
+                               "selector_output_width":  1,
+                               "posterior_context_label_free":  true,
+                               "posterior_context_detached":  true,
+                               "utility_loss_family":  "BCEWithLogits",
+                               "utility_loss_weight":  0.5,
+                               "M3":  "\u003e= 0.05 per seed",
+                               "M4":  "\u003e 0 per seed",
+                               "criteria_change_after_results":  "PROHIBITED"
+                           },
+    "prohibited":  {
+                       "formal_evaluation":  true,
+                       "official_test_access":  true,
+                       "source_code_changes":  true,
+                       "hyperparameter_changes":  true,
+                       "seed_changes":  true,
+                       "threshold_changes":  true,
+                       "intervention_mapping_changes":  true,
+                       "loss_family_or_weight_changes":  true
+                   },
+    "official_test_samples_accessed":  0,
+    "next":  "v0.35 Step9 controlled three-seed corrective GPU training + evidence freeze + M3/M4 adjudication"
+}
