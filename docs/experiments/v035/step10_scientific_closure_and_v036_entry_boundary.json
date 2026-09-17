@@ -1,0 +1,104 @@
+{
+    "version":  "0.35",
+    "step":  "Step10",
+    "title":  "Scientific Closure and v0.36 Entry Boundary",
+    "status":  "V035_SCIENTIFICALLY_CLOSED",
+    "parent_step9_commit":  "8714d263d374de4a4a6674e1ddd708239c0c28e8",
+    "step9_evidence":  {
+                           "json_path":  "docs/experiments/v035/step9_corrective_training_evidence_and_m3_m4_adjudication.json",
+                           "json_recorded_prefreeze_sha256":  "EC86D40DD8FDDED97176CBF0AA3E2641E9C8AE982C00F05851F18A7D5333AC93",
+                           "json_git_blob":  "57a830e085be6d96b263c2d03909e7e69d97e27a",
+                           "md_path":  "docs/experiments/v035/step9_corrective_training_evidence_and_m3_m4_adjudication.md",
+                           "md_recorded_prefreeze_sha256":  "21AA1889FF4AA66DBD9824AB4CF098398241D9948E30357E5D8FC37DDB87C728",
+                           "md_git_blob":  "f817ead3e22773e8968b48a150dd9326c0144764",
+                           "training_tree_sha256":  "C8F6C577EF5E4D50D05A707EE1BE3481AEF690FCCE0F3AE137F33008BF517CAD"
+                       },
+    "correction":  {
+                       "identifier":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+                       "name":  "Inference-Available Classifier-Posterior Context Augmentation",
+                       "disposition":  "CORRECTION_NOT_SUPPORTED",
+                       "implementation_status":  "IMPLEMENTED_AND_EMPIRICALLY_TESTED",
+                       "retraining_in_v035_authorized":  false,
+                       "further_corrective_iteration_in_v035_authorized":  false
+                   },
+    "frozen_mechanism_decisions":  {
+                                       "M3":  {
+                                                  "name":  "Selector output discrimination",
+                                                  "criterion":  "utility_probability_std \u003e= 0.05 per seed",
+                                                  "decision":  "NOT_SUPPORTED"
+                                              },
+                                       "M4":  {
+                                                  "name":  "Intervention activation",
+                                                  "criterion":  "active_intervention_rate \u003e 0 per seed",
+                                                  "decision":  "NOT_SUPPORTED"
+                                              },
+                                       "per_seed":  [
+                                                        {
+                                                            "seed":  42,
+                                                            "utility_probability_mean":  0.49377404001425296,
+                                                            "utility_probability_std":  0.016632553648977404,
+                                                            "active_intervention_rate":  0,
+                                                            "selector_gradient_norm_median_non_neutral_steps":  0.040385861835413768,
+                                                            "selector_parameter_l2_movement_from_initial":  0.088460304352519573,
+                                                            "delta_u_std":  0.025181279926162127,
+                                                            "u_target_std":  0.12114723834496656
+                                                        },
+                                                        {
+                                                            "seed":  43,
+                                                            "utility_probability_mean":  0.4928686961199556,
+                                                            "utility_probability_std":  0.012811746065408715,
+                                                            "active_intervention_rate":  0,
+                                                            "selector_gradient_norm_median_non_neutral_steps":  0.040668870478133307,
+                                                            "selector_parameter_l2_movement_from_initial":  0.15077607262811871,
+                                                            "delta_u_std":  0.024762000047752291,
+                                                            "u_target_std":  0.11749962605287824
+                                                        },
+                                                        {
+                                                            "seed":  44,
+                                                            "utility_probability_mean":  0.4932490488534173,
+                                                            "utility_probability_std":  0.0095651209097905084,
+                                                            "active_intervention_rate":  0,
+                                                            "selector_gradient_norm_median_non_neutral_steps":  0.043736136680844417,
+                                                            "selector_parameter_l2_movement_from_initial":  0.14883809765251266,
+                                                            "delta_u_std":  0.026883668842494303,
+                                                            "u_target_std":  0.12942009006166388
+                                                        }
+                                                    ]
+                                   },
+    "interpretation":  {
+                           "supported_observation":  "Selector optimization signal and parameter movement remained nonzero across all three corrective-training seeds.",
+                           "failed_observation":  "Posterior-context augmentation did not produce the prospectively required selector-output dispersion and produced zero active intervention across all three seeds.",
+                           "constrained_mechanistic_disposition":  "PERSISTENT_SELECTOR_OUTPUT_DISCRIMINATION_FAILURE_AFTER_POSTERIOR_CONTEXT_CORRECTION",
+                           "sole_causal_claim":  false,
+                           "note":  "The evidence distinguishes failure of output discrimination/activation from absence of selector optimization signal, but does not establish a unique sole cause."
+                       },
+    "v036_entry_boundary":  {
+                                "status":  "FORMAL_ROBUSTNESS_EVALUATION_NOT_AUTHORIZED_FROM_V035",
+                                "reason":  "The v0.35 corrective mechanism failed both prospectively frozen selector-discrimination and intervention-activation gates across all three seeds; therefore Step10 does not promote this failed mechanism directly into formal robustness evaluation.",
+                                "automatic_transition_to_formal_robustness":  false,
+                                "formal_robustness_evaluation_authorized":  false,
+                                "official_test_access_authorized":  false,
+                                "required_next_action":  "Define a separate prospective v0.36 scientific protocol that respects the v0.35 failure boundary before any new training, robustness evaluation, or official-test access.",
+                                "permitted_next_step":  "V0.36_PROSPECTIVE_PROTOCOL_DEFINITION_ONLY"
+                            },
+    "prohibited_after_closure":  {
+                                     "reopen_v035_correction_without_new_prospective_authorization":  true,
+                                     "weaken_M3_or_M4_after_results":  true,
+                                     "threshold_tuning_on_v035_results":  true,
+                                     "checkpoint_reselection":  true,
+                                     "additional_v035_training":  true,
+                                     "source_or_configuration_change_in_step10":  true,
+                                     "formal_robustness_evaluation_in_step10":  true,
+                                     "official_test_access":  true
+                                 },
+    "scientific_boundary":  {
+                                "training_performed":  false,
+                                "source_change_performed":  false,
+                                "configuration_change_performed":  false,
+                                "threshold_tuning_performed":  false,
+                                "checkpoint_reselection_performed":  false,
+                                "formal_robustness_evaluation_performed":  false,
+                                "official_test_samples_accessed":  0
+                            },
+    "next":  "v0.36 prospective protocol definition under the frozen v0.35 failure boundary"
+}
