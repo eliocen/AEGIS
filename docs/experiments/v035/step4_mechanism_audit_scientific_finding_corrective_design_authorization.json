@@ -1,0 +1,108 @@
+{
+    "version":  "0.35",
+    "step":  "Step4",
+    "title":  "Mechanism-Audit Scientific Finding and Corrective-Design Authorization Boundary",
+    "status":  "SCIENTIFIC_FINDING_FROZEN_CORRECTIVE_DESIGN_AUTHORIZED",
+    "parent":  {
+                   "step3_commit":  "45e70ec0c007a67395a94892607b29ce32430eb6",
+                   "step3_source_manifest_sha256":  "779232EB59E2265F78E56A4337403CBC5BBB1A768D1CBF63464A44D16E7F5E62",
+                   "step3_json_sha256":  "A73E5BFB6EE15F41FA8F897129FCAF1D41162A14F376D33EEBD52B3106642732",
+                   "step3_md_sha256":  "02BEAABF74F1765BC7B9F0F082F79C4EA088F87D66D1FA7163C529AE716C4253"
+               },
+    "inherited_mechanism_state":  {
+                                      "M1_counterfactual_target_signal":  "SUPPORTED",
+                                      "M2_selector_optimization_signal":  "SUPPORTED",
+                                      "M3_selector_output_discrimination":  "NOT_SUPPORTED",
+                                      "M4_intervention_activation":  "NOT_SUPPORTED",
+                                      "M5_failure_localization":  "SELECTOR_DISCRIMINATION_FAILURE"
+                                  },
+    "frozen_step3_audit_finding":  {
+                                       "D1_selector_output_path":  "NO_EXPLANATORY_DEFECT_IDENTIFIED",
+                                       "D2_objective_to_output_coupling":  "COUPLING_DEFECT_IDENTIFIED",
+                                       "D2_mechanism":  "SELECTOR_INFORMATION_TARGET_MISMATCH",
+                                       "joint_outcome":  "D1_NO_EXPLANATORY_DEFECT__D2_COUPLING_DEFECT"
+                                   },
+    "scientific_disposition":  {
+                                   "primary_corrective_question":  "How can target-information availability/coupling be minimally corrected so that the selector can discriminate counterfactual utility without using information unavailable at inference?",
+                                   "output_path_redesign_required_by_current_evidence":  false,
+                                   "downstream_activation_mapping_redesign_required_by_current_evidence":  false,
+                                   "selector_information_target_coupling_requires_corrective_design":  true,
+                                   "sole_causal_proof_claimed":  false,
+                                   "correction_effectiveness_claimed":  false
+                               },
+    "corrective_design_authorization":  {
+                                            "status":  "AUTHORIZED_FOR_PROSPECTIVE_MINIMAL_CORRECTIVE_DESIGN_ONLY",
+                                            "stage":  "D3_MINIMAL_CORRECTIVE_DESIGN",
+                                            "permitted":  [
+                                                              "Trace which target-defining quantities are available during training and during inference.",
+                                                              "Identify the minimum inference-available representation needed to reduce the Step3 target-information mismatch.",
+                                                              "Compare bounded candidate corrections at design level only.",
+                                                              "Specify exact tensor semantics, dimensions, detach/gradient behavior, initialization, objective compatibility and downstream interface for the proposed correction.",
+                                                              "Specify regression tests and observability needed to test the correction.",
+                                                              "Freeze one exact minimal corrective design prospectively before any implementation."
+                                                          ],
+                                            "not_yet_authorized":  [
+                                                                       "Implementation modification",
+                                                                       "Corrective training or retraining",
+                                                                       "New training seeds",
+                                                                       "Checkpoint reselection",
+                                                                       "Threshold search or threshold tuning",
+                                                                       "Formal robustness evaluation",
+                                                                       "Official-test access",
+                                                                       "Post-correction M3 adjudication",
+                                                                       "Post-correction M4 adjudication"
+                                                                   ]
+                                        },
+    "anti_leakage_boundary":  {
+                                  "principle":  "A corrective selector input must be available under the intended inference contract; training-only labels or label-derived target quantities may not be exposed as inference features.",
+                                  "prohibited_as_direct_inference_inputs":  [
+                                                                                "ground-truth class identity",
+                                                                                "ground-truth-indexed delta_u",
+                                                                                "u_target",
+                                                                                "any target quantity whose computation requires the ground-truth label",
+                                                                                "official-test labels or official-test-derived quantities"
+                                                                            ],
+                                  "clarification":  "Classifier predictions or other model-derived quantities are not automatically authorized; their admissibility and exact semantics must be prospectively justified and frozen in the minimal corrective-design step."
+                              },
+    "minimality_boundary":  {
+                                "preserve_unless_required_by_frozen_mechanism":  [
+                                                                                     "existing multimodal encoders",
+                                                                                     "existing classifier architecture",
+                                                                                     "existing selector output sigmoid semantics",
+                                                                                     "existing intervention mapping",
+                                                                                     "unrelated reliability mechanisms"
+                                                                                 ],
+                                "prohibited":  [
+                                                   "broad architecture redesign not required to address the frozen D2 mechanism",
+                                                   "loss-family substitution without prospective justification",
+                                                   "hyperparameter search used to choose the correction",
+                                                   "weakening the inherited M3 discrimination criterion because v0.34 failed",
+                                                   "weakening the inherited M4 activation criterion because v0.34 failed",
+                                                   "retroactive reinterpretation of v0.34 or v0.35 frozen findings"
+                                               ]
+                            },
+    "inherited_adjudication_references":  {
+                                              "M3_utility_probability_std_per_seed":  0.05,
+                                              "M3_reference_status":  "PRESERVED_NOT_WEAKENED",
+                                              "M4_active_intervention_rate_per_seed":  "\u003e0",
+                                              "M4_reference_status":  "PRESERVED_NOT_WEAKENED",
+                                              "M4_dependency":  "M4 remains downstream of M3; v0.34 did not independently establish ACTIVATION_MAPPING_FAILURE."
+                                          },
+    "next_step_contract":  {
+                               "next":  "v0.35 Step5 - Prospective Minimal Corrective-Design Freeze",
+                               "required_before_implementation":  [
+                                                                      "one exact correction selected prospectively",
+                                                                      "scientific rationale tied directly to SELECTOR_INFORMATION_TARGET_MISMATCH",
+                                                                      "inference-availability and anti-leakage proof",
+                                                                      "exact source-file modification allowlist",
+                                                                      "exact tensor/interface contract",
+                                                                      "regression-test contract",
+                                                                      "post-correction observability contract",
+                                                                      "training remains separately unauthorized until its own prospective protocol"
+                                                                  ]
+                           },
+    "implementation_modified":  false,
+    "corrective_training_performed":  false,
+    "formal_evaluation_performed":  false,
+    "official_test_samples_accessed":  0
+}
