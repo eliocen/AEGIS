@@ -1,0 +1,87 @@
+{
+  "schema": "aegis.post_v1.t1.vision.step2b.genimage_acquisition_split_provenance_protocol.v1",
+  "status": "POST_V1_T1_STEP2B_GENIMAGE_ACQUISITION_SPLIT_AND_PROVENANCE_PROTOCOL_FROZEN",
+  "parent_commit": "5ed2a960747beffdbbf47416f9e4a8a4f1382dac",
+  "dataset": {
+    "name": "GenImage",
+    "official_repository": "https://github.com/GenImage-Dataset/GenImage",
+    "official_homepage": "https://genimage-dataset.github.io/",
+    "official_google_drive_folder": "https://drive.google.com/drive/folders/1jGt10bwTbhEZuGXLyvrCuxOI0cBqQ1FS?usp=sharing",
+    "legacy_baidu_distribution": "Documented by official repository; extraction code ztf1",
+    "license_boundary": "CC BY-NC-SA 4.0 plus project Dataset Terms; non-commercial academic/research use",
+    "native_labels": {"nature":"AUTHENTIC","ai":"MANIPULATED"},
+    "t1_manipulated_scope": "AI_GENERATED"
+  },
+  "generator_scope": {
+    "initial_acquisition": [
+      "Midjourney",
+      "Stable Diffusion V1.4",
+      "Stable Diffusion V1.5",
+      "ADM",
+      "GLIDE",
+      "Wukong",
+      "VQDM",
+      "BigGAN"
+    ],
+    "policy": "Acquire all eight official GenImage generator subsets when feasible; do not silently substitute mirrors.",
+    "partial_acquisition_rule": "If any official subset cannot be acquired, stop before scientific split freeze and record exact missing subset(s); do not redefine the experiment silently."
+  },
+  "native_structure": {
+    "per_generator": "<generator>/{train,val}/{ai,nature}",
+    "preserve_native_train": true,
+    "preserve_native_val": true,
+    "rename_or_merge_before_manifest": false
+  },
+  "split_policy": {
+    "training_pool": "Native GenImage train only.",
+    "held_out_pool": "Native GenImage val only.",
+    "validation_and_test_derivation": "Do not derive final validation/test until exact native-val inventory and duplicate/family audit are frozen.",
+    "prohibition": "No sample from native val may enter training; no AEGIS v1 official-test sample may be accessed.",
+    "generator_generalization_design": "Must be decided prospectively after acquisition inventory; both pooled and held-out-generator questions remain possible but neither is authorized yet."
+  },
+  "provenance_manifest_required_fields": [
+    "relative_path","generator","native_split","native_label","t1_label",
+    "file_size_bytes","sha256","extension","image_width","image_height",
+    "image_mode","decode_status","source_endpoint","acquisition_batch"
+  ],
+  "integrity_protocol": {
+    "hash": "SHA256 per acquired file plus canonical manifest SHA256",
+    "decode_check": "Read-only image decode/metadata verification after acquisition; no resave or recompression.",
+    "duplicate_exact": "Group identical SHA256 values across generators, splits, and labels.",
+    "near_duplicate": "Freeze a perceptual near-duplicate method and threshold only after inspecting acquired image formats/resolutions; do not invent threshold in Step2B.",
+    "cross_label_collision": "Any exact duplicate appearing under both AUTHENTIC and MANIPULATED is a mandatory quarantine/review condition.",
+    "corrupt_file": "Exclude from scientific pools and record reason; never silently delete from provenance ledger."
+  },
+  "storage": {
+    "raw_root": "data/raw/genimage",
+    "manifest_root": "data/manifests/genimage",
+    "raw_data_git_policy": "DO_NOT_COMMIT_RAW_DATA",
+    "manifest_git_policy": "Commit only compact provenance/manifests that do not redistribute dataset image bytes and are compatible with dataset terms.",
+    "capacity_rule": "Measure available local disk space before acquisition. Do not begin full acquisition if planned files cannot be stored with a safety margin."
+  },
+  "acquisition_execution_rules": {
+    "official_sources_only_initially": true,
+    "mirror_fallback": "NOT_AUTHORIZED_BY_STEP2B",
+    "resume_partial_downloads": "Allowed only if the acquisition mechanism preserves file identity and final hashes are verified.",
+    "archive_handling": "Hash downloaded archives/files before destructive cleanup; preserve acquisition log.",
+    "network_failure": "Stop cleanly and retain verified completed artifacts; never mark incomplete acquisition complete.",
+    "terms_failure": "Stop if current official terms cannot be accepted for the intended academic research use."
+  },
+  "known_bias_control_requirement": {
+    "state": "MANDATORY_PRE_TRAINING_AUDIT",
+    "reason": "Published follow-up work has reported image-size/compression shortcuts in raw GenImage. T1 must audit format, dimensions, and compression-related metadata before architecture/training authorization.",
+    "effect": "No claim of semantic/generative-forensic discrimination may be made without documenting shortcut-risk controls."
+  },
+  "authorization": {
+    "dataset_download": "NOT_AUTHORIZED_UNTIL_STEP2C_ACQUISITION_EXECUTION_AUTHORIZATION",
+    "disk_capacity_probe": "AUTHORIZED",
+    "official_endpoint_reachability_probe": "AUTHORIZED_WITHOUT_DATASET_DOWNLOAD",
+    "acquisition_script_design": "AUTHORIZED",
+    "implementation_model_source_changes": "NOT_AUTHORIZED",
+    "model_execution": "NOT_AUTHORIZED",
+    "training": "NOT_AUTHORIZED",
+    "formal_evaluation": "NOT_AUTHORIZED",
+    "official_test_access": "NOT_AUTHORIZED"
+  },
+  "next": "POST_V1_T1_AEGIS_VISION_STEP2C_GENIMAGE_ACQUISITION_EXECUTION_AUTHORIZATION"
+}
