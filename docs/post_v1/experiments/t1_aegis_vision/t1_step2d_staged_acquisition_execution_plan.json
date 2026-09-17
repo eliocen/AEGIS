@@ -1,0 +1,60 @@
+{
+    "schema":  "aegis.post_v1.t1.vision.step2d.staged_acquisition_execution_plan.v1",
+    "status":  "POST_V1_T1_STEP2D_STAGED_ACQUISITION_EXECUTION_PLAN_FROZEN",
+    "parent_commit":  "514d33f493dee8281dba10846162d9ea5b81b3a1",
+    "measured_free_gib":  318.58,
+    "mandatory_free_space_reserve_gib":  100,
+    "maximum_dataset_working_budget_gib":  218,
+    "capacity_state":  "STAGED_OR_SUBSET_ACQUISITION_RECOMMENDED",
+    "strategy":  "ONE_GENERATOR_SUBSET_AT_A_TIME_WITH_POST_BATCH_CAPACITY_GATE",
+    "frozen_generator_order":  [
+                                   "Stable Diffusion V1.4",
+                                   "Stable Diffusion V1.5",
+                                   "ADM",
+                                   "GLIDE",
+                                   "Wukong",
+                                   "VQDM",
+                                   "BigGAN",
+                                   "Midjourney"
+                               ],
+    "order_semantics":  "Operational acquisition order only; not scientific ranking and not a performance claim.",
+    "per_batch_rules":  [
+                            "Use only the official GenImage distribution frozen in Step2B/Step2C.",
+                            "Before each subset transfer, record free disk GiB.",
+                            "Acquire one generator subset at a time.",
+                            "Preserve native train/val and ai/nature structure.",
+                            "After transfer/extraction, inventory bytes and file counts before considering the next subset.",
+                            "Never begin another subset if projected or observed free space would breach the 100 GiB reserve.",
+                            "Never delete a verified acquired subset merely to make room without a separately frozen retention decision.",
+                            "If exact subset size cannot be known before transfer, use a resumable/stoppable mechanism and enforce the reserve during execution.",
+                            "Stop on authentication, quota, terms, network, integrity, storage, or official-source failure."
+                        ],
+    "evidence_after_each_batch":  [
+                                      "generator",
+                                      "source_endpoint",
+                                      "start_timestamp",
+                                      "end_timestamp",
+                                      "free_gib_before",
+                                      "free_gib_after",
+                                      "downloaded_bytes",
+                                      "extracted_bytes",
+                                      "archive_sha256_if_applicable",
+                                      "native_train_file_count",
+                                      "native_val_file_count",
+                                      "ai_file_count",
+                                      "nature_file_count",
+                                      "decode_failures",
+                                      "exact_duplicate_summary",
+                                      "completion_state"
+                                  ],
+    "scientific_boundaries":  {
+                                  "final_validation_test_split":  "NOT_AUTHORIZED",
+                                  "preprocessing":  "NOT_AUTHORIZED",
+                                  "model_source_changes":  "NOT_AUTHORIZED",
+                                  "model_execution":  "NOT_AUTHORIZED",
+                                  "training":  "NOT_AUTHORIZED",
+                                  "formal_evaluation":  "NOT_AUTHORIZED",
+                                  "official_test_access":  "NOT_AUTHORIZED"
+                              },
+    "execution_next":  "POST_V1_T1_AEGIS_VISION_STEP2D1_FIRST_GENIMAGE_SUBSET_ACQUISITION_AND_EVIDENCE_FREEZE"
+}
