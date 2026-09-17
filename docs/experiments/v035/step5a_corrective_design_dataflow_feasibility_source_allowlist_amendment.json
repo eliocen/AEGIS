@@ -1,0 +1,132 @@
+{
+    "version":  "0.35",
+    "step":  "Step5A",
+    "title":  "Corrective-Design Dataflow Feasibility and Source-Allowlist Amendment",
+    "status":  "DATAFLOW_FEASIBILITY_RESOLVED_ALLOWLIST_AMENDED_IMPLEMENTATION_NOT_PERFORMED",
+    "parent":  {
+                   "step5_commit":  "c658a33ab79b0ddb03533eccc1059b7b26a2b84d",
+                   "step5_json_sha256":  "9E2A6CAD37A2E3903D28C0236C909B356C794DBA00A8A4D0CE00E4F5B318CFAA",
+                   "step5_md_sha256":  "2C69D80D1F3836180B68161F56C46A8EA7E6AE0304DC26BABAE4FE71E2361E20"
+               },
+    "preserved_step5_scientific_design":  {
+                                              "correction_identifier":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+                                              "correction_changed":  false,
+                                              "added_information_semantics_changed":  false,
+                                              "selector_input_dimension_before":  7,
+                                              "selector_input_dimension_after":  10,
+                                              "ground_truth_leakage_prohibited":  true,
+                                              "posterior_context_detached":  true,
+                                              "u_target_construction_preserved":  true,
+                                              "BCEWithLogits_objective_preserved":  true,
+                                              "selector_sigmoid_preserved":  true,
+                                              "intervention_mapping_preserved":  true,
+                                              "M3_reference":  "utility_probability_std \u003e= 0.05 per seed",
+                                              "M4_reference":  "active_intervention_rate \u003e 0 per seed"
+                                          },
+    "feasibility_finding":  {
+                                "adjudication":  "FEASIBLE_WITH_EXPLICIT_TWO_STAGE_DATAFLOW_AMENDMENT",
+                                "gap":  "The Step5 posterior features are derived from reference/candidate classifier logits, but the current selector is invoked inside the alignment model before those counterfactual embeddings are classified in the runner.",
+                                "current_order":  [
+                                                      "alignment projections and evidence estimates",
+                                                      "v0.33 selector invocation from 7 quality/compatibility features",
+                                                      "reference/candidate/final fused embeddings constructed",
+                                                      "runner receives embeddings",
+                                                      "runner classifier computes reference/candidate logits",
+                                                      "label-indexed utility target constructed"
+                                                  ],
+                                "consequence":  "The Step5 correction cannot be implemented solely by widening the controller input; the reference/candidate posterior context does not exist at the current selector call site.",
+                                "step5_scientific_correction_invalidated":  false,
+                                "step5_source_allowlist_sufficient":  false
+                            },
+    "amended_exact_dataflow":  {
+                                   "name":  "TWO_STAGE_COUNTERFACTUAL_CONTEXT_THEN_SELECTOR_FINALIZATION",
+                                   "stage_A":  [
+                                                   "Alignment model computes aligned text/vision, quality, compatibility and interaction representation.",
+                                                   "Using the existing deterministic reference/candidate action equations, alignment model constructs stable reference and candidate counterfactual fused embeddings without requiring learned selector output.",
+                                                   "Alignment model returns the context needed by the runner for counterfactual classification; no final learned-intervention fused embedding is treated as complete at this point."
+                                               ],
+                                   "stage_B":  [
+                                                   "Runner applies the existing classification model to stable reference and candidate counterfactual fused embeddings.",
+                                                   "Runner computes detached class-1 posterior probabilities p_ref_pos and p_cand_pos and signed delta_pos = p_cand_pos - p_ref_pos without labels.",
+                                                   "Runner supplies only these three detached posterior-context tensors back through an explicit v0.33 finalization interface.",
+                                                   "Alignment/controller finalization concatenates the frozen seven features with the three posterior-context features, computes the 10-D selector logit/probability/gate, and constructs the final learned-intervention fused embedding.",
+                                                   "Runner classifies that finalized fused embedding for the ordinary candidate prediction and uses the same frozen label-indexed counterfactual logits only for training-time u_target supervision."
+                                               ],
+                                   "circular_dependency":  "RESOLVED",
+                                   "rationale":  "Reference and candidate counterfactual actions are deterministic functions of quality/compatibility evidence and therefore can be constructed before learned selector gating; their logits can consequently provide inference-available selector context without using the final selector-dependent fused embedding."
+                               },
+    "anti_leakage_and_gradient_boundary":  {
+                                               "posterior_features_require_ground_truth":  false,
+                                               "posterior_features_require_official_test_labels":  false,
+                                               "posterior_features_detached_before_selector":  true,
+                                               "u_target_not_selector_input":  true,
+                                               "ground_truth_class_not_selector_input":  true,
+                                               "ground_truth_indexed_delta_u_not_selector_input":  true,
+                                               "selector_loss_gradient_into_counterfactual_classifier_logits":  "PROHIBITED_BY_DETACH",
+                                               "ordinary_classification_gradient_semantics":  "Preserve existing classifier training semantics; Step5A authorizes no new selector-loss gradient route into classifier or encoder parameters."
+                                           },
+    "amended_source_modification_allowlist":  [
+                                                  {
+                                                      "path":  "aegis/reliability/reliability_controller.py",
+                                                      "parent_sha256":  "6807597395E0FAD7D295645A416CB5506825845DEA9F6D342F3642035D6E137F",
+                                                      "role":  "Accept/validate the three detached posterior-context tensors during explicit finalization; concatenate 7+3 features; widen selector first layer 7-\u003e10; preserve target/loss/output/intervention semantics."
+                                                  },
+                                                  {
+                                                      "path":  "aegis/alignment/model.py",
+                                                      "parent_sha256":  "6EDC8D06233DF4BFB7D868165E1BDA7607D083308370426AAE9E92232252793C",
+                                                      "role":  "Separate v0.33 counterfactual-context preparation from posterior-conditioned selector finalization while preserving existing reference/candidate action equations and unrelated architectures."
+                                                  },
+                                                  {
+                                                      "path":  "scripts/run_fakeddit_ablation.py",
+                                                      "parent_sha256":  "08E9A9466A641316280739BB948E13EC35DE408700CB07EF7584863A918D4B61",
+                                                      "role":  "Orchestrate the explicit two-stage v0.33 path: classify reference/candidate counterfactual embeddings, derive detached label-free posterior context, request finalization, then classify final fused embedding; preserve training target/loss constants."
+                                                  },
+                                                  {
+                                                      "path":  "tests/test_v033_utility_supervision_selector.py",
+                                                      "parent_sha256":  "96C5AC55143D40DE9EB2C8B7194E294B36A1E2B12ECF017D52B5D4335CAC4C9E",
+                                                      "role":  "Regression tests for 10-D selector, posterior semantics, detach/anti-leakage, shape/finite contracts and preserved selector/intervention semantics."
+                                                  },
+                                                  {
+                                                      "path":  "tests/test_v034_observability_training_path.py",
+                                                      "parent_sha256":  "792EFD6B7DA18F0001AEEBA80B6D4197BE5CEACE8B8934FF6AFFFD02701FF2A6",
+                                                      "role":  "Regression tests for two-stage training/observability path and required post-correction diagnostics."
+                                                  }
+                                              ],
+    "implementation_constraints":  [
+                                       "Only the v0.33 utility-supervised intervention architecture may receive the new two-stage path.",
+                                       "Unrelated fusion architectures must remain behaviorally unchanged.",
+                                       "Reference/candidate counterfactual action equations must remain unchanged.",
+                                       "No second trainable classifier head may be introduced.",
+                                       "The existing classification model must be reused for reference, candidate and final fused embeddings.",
+                                       "No ground-truth-derived quantity may participate in selector inference features.",
+                                       "No utility-loss gradient may propagate through detached posterior-context features into classifier logits.",
+                                       "No threshold, loss-family, utility-loss-weight, seed or training-schedule change is authorized.",
+                                       "No formal-evaluation or official-test path may be invoked."
+                                   ],
+    "required_implementation_regressions":  [
+                                                "Stage-A reference/candidate embeddings are selector-output independent.",
+                                                "Reference/candidate posterior features are exactly softmax(logits,dim=1)[:,1] and signed difference.",
+                                                "Posterior features are detached and label-free.",
+                                                "Final selector feature tensor is [B,10].",
+                                                "Final selector_logit and utility_probability preserve existing shapes.",
+                                                "Final fused embedding is produced only after posterior-conditioned selector finalization.",
+                                                "u_target remains label-indexed training supervision only.",
+                                                "BCEWithLogits utility objective and effective weight remain unchanged.",
+                                                "Intervention threshold/mapping remains unchanged.",
+                                                "Non-v0.33 architectures are unchanged.",
+                                                "Existing v0.33 observability fields remain available and new posterior-context diagnostics are finite."
+                                            ],
+    "authorization_boundary":  {
+                                   "dataflow_feasibility_adjudicated":  true,
+                                   "source_allowlist_amended":  true,
+                                   "implementation_performed":  false,
+                                   "implementation_authorized_by_step5a":  false,
+                                   "corrective_training_authorized":  false,
+                                   "new_seeds_authorized":  false,
+                                   "checkpoint_reselection_authorized":  false,
+                                   "threshold_tuning_authorized":  false,
+                                   "formal_evaluation_authorized":  false,
+                                   "official_test_samples_accessed":  0
+                               },
+    "next":  "v0.35 Step6 - Controlled Corrective Implementation against the exact Step5 + Step5A design/dataflow contract"
+}
