@@ -1,0 +1,45 @@
+{
+  "schema": "aegis.post_v1.p7.step4.repository_presentation_closure.v1",
+  "status": "POST_V1_P7_REPOSITORY_PRESENTATION_PACKAGE_CLOSED",
+  "parent_commit": "7011e0da4766e9ec110134bb979067a7f4f6cf03",
+  "authoritative_release": {
+    "tag": "v1.0.0-research-core",
+    "commit": "39492cf6d93987fdf9ebee29b95fdb826b8391e4"
+  },
+  "root_readme": {
+    "path": "README.md",
+    "sha256": "8D5B8FAF3388E57DC96AA062598B4CD517470C4B2E9106A77CFBF54EEF816521",
+    "presentation_state": "CONTROLLED_PUBLIC_RESEARCH_ENTRY_POINT_FROZEN"
+  },
+  "traceability_audit": {
+    "release_navigation": "PASS",
+    "post_v1_package_navigation": "PASS",
+    "scientific_findings_and_negative_results": "PASS",
+    "p6_d4_boundary": "PASS",
+    "production_and_autonomy_boundaries": "PASS",
+    "reproducibility_routing": "PASS",
+    "manuscript_and_evidence_routing": "PASS",
+    "future_research_separation": "PASS",
+    "step3_update_provenance": "PASS"
+  },
+  "frozen_boundaries": {
+    "M3": "NOT_SUPPORTED",
+    "M4": "NOT_SUPPORTED",
+    "v035_correction": "CORRECTION_NOT_SUPPORTED",
+    "v036_active_intervention_robustness": "NOT_COMPUTED",
+    "P6_D4_bounded_inference": "NOT_INCLUDED",
+    "production_readiness": "NOT_ESTABLISHED",
+    "autonomous_attribution": "NOT_ESTABLISHED",
+    "official_test_samples": 0
+  },
+  "closure_execution": {
+    "readme_modified": false,
+    "scientific_baseline_modified": false,
+    "model_source_behavior_modified": false,
+    "model_execution": "NONE",
+    "training": "NONE",
+    "new_evaluation": "NONE",
+    "official_test_samples": 0
+  },
+  "next": "POST_V1_P8_POST_V1_RESEARCH_ROADMAP"
+}
