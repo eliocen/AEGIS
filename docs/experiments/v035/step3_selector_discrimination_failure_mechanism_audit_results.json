@@ -1,0 +1,65 @@
+{
+    "version":  "0.35",
+    "step":  "Step3",
+    "title":  "Read-Only Selector Discrimination Failure-Mechanism Audit Results",
+    "status":  "SOURCE_AUDIT_COMPLETED_RESULTS_FROZEN",
+    "parent":  {
+                   "step2_commit":  "7939ad117002a38be2f7983d2906ffb960e27604",
+                   "step2_json_sha256":  "D7D916F91684D9A5F4A4467FB8C12CE801F0D1AECB7367C383CC09FE9F53C9D7",
+                   "step2_md_sha256":  "BB40C35421786181465BFD15A4E15EC39BEE96E2D0A6619A0D73FDE2A3D59DE3",
+                   "source_manifest_sha256":  "779232EB59E2265F78E56A4337403CBC5BBB1A768D1CBF63464A44D16E7F5E62"
+               },
+    "inherited":  {
+                      "M1":  "SUPPORTED",
+                      "M2":  "SUPPORTED",
+                      "M3":  "NOT_SUPPORTED",
+                      "M4":  "NOT_SUPPORTED",
+                      "M5":  "SELECTOR_DISCRIMINATION_FAILURE"
+                  },
+    "D1":  {
+               "adjudication":  "NO_EXPLANATORY_DEFECT_IDENTIFIED",
+               "trace":  [
+                             "7-dimensional detached quality/compatibility-derived feature vector",
+                             "Linear(7,16) -\u003e ReLU -\u003e Linear(16,1) selector_logit",
+                             "sigmoid(selector_logit) -\u003e utility_probability",
+                             "utility_probability thresholded/scaled at V033_ACTIVE_INTERVENTION_THRESHOLD",
+                             "intervention gate and active indicator"
+                         ],
+               "findings":  [
+                                "No extra temperature is applied to the v0.33 selector output.",
+                                "No batch/sample reduction occurs between selector_logit and per-sample utility_probability.",
+                                "No detach/no_grad occurs between selector_logit and utility_probability.",
+                                "No clamp is applied to utility_probability itself before threshold mapping.",
+                                "The sigmoid is semantically consistent with BCEWithLogits training on the same selector_logit."
+                            ],
+               "limitation":  "This static finding does not prove absence of a runtime/learnability cause."
+           },
+    "D2":  {
+               "adjudication":  "COUPLING_DEFECT_IDENTIFIED",
+               "mechanism":  "SELECTOR_INFORMATION_TARGET_MISMATCH",
+               "trace":  [
+                             "u_target is derived from ground-truth-indexed candidate-versus-reference classifier probability difference",
+                             "u_target = clamp(0.5 + delta_u / V033_UTILITY_TARGET_SCALE, 0, 1)",
+                             "selector input contains q_t, q_v, c_tv and deterministic deficit/disagreement/risk transforms",
+                             "selector input does not contain reference/candidate classifier logits, ground-truth class identity, delta_u, or an equivalent candidate-versus-reference utility signal",
+                             "BCEWithLogits directly optimizes selector_logit against u_target with magnitude weighting",
+                             "the same selector_logit is sigmoid-mapped to downstream utility_probability"
+                         ],
+               "findings":  [
+                                "Objective-to-parameter wiring is intact: the same selector_logit used downstream is directly supervised by BCEWithLogits and enters total loss.",
+                                "The inherited M2 gradient/movement finding is therefore consistent with source wiring.",
+                                "However, target construction depends on information absent from the selector feature set.",
+                                "This creates a structural information bottleneck: distinct/opposing counterfactual utility targets may be presented to the selector without the discriminative variables from which those targets were computed.",
+                                "Under BCE supervision this is directionally capable of driving predictions toward a conditional mean near the neutral region even while gradients are nonzero and parameters move."
+                            ],
+               "anti_overclaim":  "The audit identifies a structurally plausible explanatory coupling defect; it is not sole causal proof and does not establish that any particular added feature or architecture will improve formal performance."
+           },
+    "joint_outcome":  "D1_NO_EXPLANATORY_DEFECT__D2_COUPLING_DEFECT",
+    "scientific_interpretation":  "The frozen source audit localizes the corrective design question to target-information availability/coupling rather than a downstream sigmoid/threshold implementation defect.",
+    "correction_selected":  false,
+    "implementation_modified":  false,
+    "training_performed":  false,
+    "formal_evaluation_performed":  false,
+    "official_test_samples_accessed":  0,
+    "next":  "v0.35 Step4 - freeze mechanism-audit scientific finding and corrective-design authorization boundary"
+}

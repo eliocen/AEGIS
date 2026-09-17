@@ -1,0 +1,30 @@
+{
+    "version":  "0.35",
+    "step":  "Step3",
+    "parent_step2_commit":  "7939ad117002a38be2f7983d2906ffb960e27604",
+    "scope":  "SUBSTANTIVE_D1_D2_SOURCE_MANIFEST",
+    "files":  [
+                  {
+                      "repository_relative_path":  "aegis/reliability/reliability_controller.py",
+                      "sha256":  "6807597395E0FAD7D295645A416CB5506825845DEA9F6D342F3642035D6E137F",
+                      "audit_role":  "D1 output path; D2 target and selector feature semantics"
+                  },
+                  {
+                      "repository_relative_path":  "scripts/run_fakeddit_ablation.py",
+                      "sha256":  "08E9A9466A641316280739BB948E13EC35DE408700CB07EF7584863A918D4B61",
+                      "audit_role":  "D2 objective, loss weighting, backpropagation and optimizer wiring"
+                  },
+                  {
+                      "repository_relative_path":  "tests/test_v033_utility_supervision_selector.py",
+                      "sha256":  "96C5AC55143D40DE9EB2C8B7194E294B36A1E2B12ECF017D52B5D4335CAC4C9E",
+                      "audit_role":  "existing selector tensor/behavior regression evidence"
+                  },
+                  {
+                      "repository_relative_path":  "tests/test_v034_observability_training_path.py",
+                      "sha256":  "792EFD6B7DA18F0001AEEBA80B6D4197BE5CEACE8B8934FF6AFFFD02701FF2A6",
+                      "audit_role":  "existing observability/training-path regression evidence"
+                  }
+              ],
+    "historical_docs_used_for_causal_adjudication":  false,
+    "official_test_samples_accessed":  0
+}
