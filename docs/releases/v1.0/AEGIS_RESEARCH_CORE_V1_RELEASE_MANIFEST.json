@@ -1,0 +1,55 @@
+{
+    "schema":  "aegis.research_core.v1.release_manifest.v1",
+    "release_name":  "AEGIS Research Core v1.0",
+    "release_tag":  "v1.0.0-research-core",
+    "release_branch":  "release/v1.0-research-core",
+    "release_status":  "FINAL_RESEARCH_CORE_FREEZE",
+    "v038_closure_commit":  "ec9b96966d007d1a8fd96f23fc916d8dff95d4bd",
+    "v038_closure_tree":  "75d4ac5d9996cade4c6964ee6578bd1700278318",
+    "v038_step3_evidence":  {
+                                "json_path":  "docs/experiments/v038/step3_scientific_release_closure_and_v1_freeze_authorization.json",
+                                "json_sha256":  "11989B5FB34BB2CD5EC4166EA0C281AE0783F217E1AD73CF4FFB565AF36C62F2",
+                                "markdown_path":  "docs/experiments/v038/step3_scientific_release_closure_and_v1_freeze_authorization.md",
+                                "markdown_sha256":  "FE95064AA485FB688E2339D799976D440BEF746A508096A85FF1D4ACDEA642DF",
+                                "v038_status":  "V038_INTEGRATION_REPRODUCIBILITY_RESEARCH_RELEASE_CLOSED",
+                                "v1_freeze_authorization":  "AEGIS_RESEARCH_CORE_V1_FREEZE_AUTHORIZED"
+                            },
+    "repository_snapshot":  {
+                                "tracked_file_count":  563,
+                                "source_behavior_change":  false,
+                                "architecture_change":  false,
+                                "training_performed":  false,
+                                "new_scientific_evaluation_performed":  false,
+                                "official_test_samples_accessed":  0
+                            },
+    "scientific_boundary":  {
+                                "release_posture":  "REPRODUCIBLE_SCIENTIFICALLY_BOUNDED_RESEARCH_CORE",
+                                "v035_correction":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+                                "v035_correction_result":  "CORRECTION_NOT_SUPPORTED",
+                                "v035_m3":  "NOT_SUPPORTED",
+                                "v035_m4":  "NOT_SUPPORTED",
+                                "v035_mechanistic_disposition":  "PERSISTENT_SELECTOR_OUTPUT_DISCRIMINATION_FAILURE_AFTER_POSTERIOR_CONTEXT_CORRECTION",
+                                "v036_active_intervention_robustness_result":  "NOT_COMPUTED",
+                                "v036_disposition":  "ROBUSTNESS_EVALUATION_BLOCKED_BY_INACTIVE_SELECTOR_PREREQUISITE",
+                                "v037_supported_posture":  "ANALYST DECISION-SUPPORT RESEARCH CHARACTERIZATION",
+                                "classifier_non_robustness_claimed":  false,
+                                "active_adaptive_robustness_claimed":  false,
+                                "autonomous_attribution_claimed":  false,
+                                "production_alerting_claimed":  false,
+                                "production_deployment_readiness":  "NOT_ESTABLISHED"
+                            },
+    "integrity":  {
+                      "ordinary_v039_v040_feature_cycle":  false,
+                      "official_test_access_authorized":  false,
+                      "production_deployment_authorized":  false,
+                      "frozen_scientific_results_reopened":  false,
+                      "threshold_tuning":  false,
+                      "checkpoint_reselection":  false
+                  },
+    "finalization":  {
+                         "commit_then_remote_verify":  true,
+                         "annotated_tag_after_remote_commit_verification":  true,
+                         "tag_target_must_equal_release_commit":  true,
+                         "immutable_release_identity":  true
+                     }
+}
