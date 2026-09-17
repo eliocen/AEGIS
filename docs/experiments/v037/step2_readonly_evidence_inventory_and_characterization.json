@@ -1,0 +1,1348 @@
+{
+    "version":  "0.37",
+    "step":  "Step2",
+    "title":  "Read-Only Evidence Inventory and Threat/Scientific Characterization",
+    "status":  "READ_ONLY_THREAT_INTELLIGENCE_SCIENTIFIC_CHARACTERIZATION_FROZEN",
+    "parent_step1_commit":  "27dbac6429f9900095b20d63dc945e54b3ce9e57",
+    "evidence_inventory":  {
+                               "tracked_record_count":  214,
+                               "versions":  [
+                                                "v027",
+                                                "v028",
+                                                "v029",
+                                                "v030",
+                                                "v031",
+                                                "v032",
+                                                "v033",
+                                                "v034",
+                                                "v035",
+                                                "v036",
+                                                "v037"
+                                            ],
+                               "records":  [
+                                               {
+                                                   "path":  "docs/experiments/v027/m4q_quality_analysis_results.json",
+                                                   "git_blob":  "7b3b4a0f08ba7fd5ea9b27c5e815fca72f6902d3",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/m4q_quality_analysis_results.md",
+                                                   "git_blob":  "21d5451865186b2a5e00e3dffd23931dd1b139fa",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/m4q_training_results.json",
+                                                   "git_blob":  "b74db50713be56679e9a2d04538cdd47f9d3da2f",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/m4q_training_results.md",
+                                                   "git_blob":  "34bb0e6afd9e1e2abc8943472fd4bc1811366a67",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/protocol.json",
+                                                   "git_blob":  "5a5862b129e2b7a94c42ae0137919f46db54cef4",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/protocol.md",
+                                                   "git_blob":  "5b31a123ac378b08140e7da32204f4cc40199f08",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step10_analysis_protocol.json",
+                                                   "git_blob":  "67eb2112a71a2ba7bf2750e08a5bd601dda9b5dc",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step10_analysis_protocol.md",
+                                                   "git_blob":  "20cb9512550db53fc1f503eba0ede0685afe89b4",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step11a_m4qc_protocol.json",
+                                                   "git_blob":  "8397e25f94db3cf165507b4df1a8217eef8aca54",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step11a_m4qc_protocol.md",
+                                                   "git_blob":  "943508c516d5ceb7f8977b55d855ac135e1726ca",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step11e_m4qc_training_results.json",
+                                                   "git_blob":  "3a0303cf573bfea7a6ecaa3ac39f883796341556",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step11e_m4qc_training_results.md",
+                                                   "git_blob":  "9c187ba734802f5e510f45c8e379ae162677d0c7",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step12d_m4qc_results.json",
+                                                   "git_blob":  "45b50209a3d215ac7872ecf2dcb6a7403a690aff",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step12d_m4qc_results.md",
+                                                   "git_blob":  "100a593b3f6d56cc09a60a096e03f9aafec3a5ee",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step13a_m4qcf_protocol.json",
+                                                   "git_blob":  "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step13a_m4qcf_protocol.md",
+                                                   "git_blob":  "cf8a951b67d89a04e515fa2082ce41a635e668d2",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step13d_m4qcf_smoke_audit.json",
+                                                   "git_blob":  "a4a8879c35a7f21d6f545a0cd333248c8aec2411",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step13d_m4qcf_smoke_audit.md",
+                                                   "git_blob":  "e8d1245fd8355eba417948aa988292b5ba8fe72d",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step13e_m4qcf_training_results.json",
+                                                   "git_blob":  "bd354f4c3ff81f6f30d458a7ca8c5d5b2476e5df",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step13e_m4qcf_training_results.md",
+                                                   "git_blob":  "fb5a994ba98c8867b53f94ab14826e761a829070",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step14a_m4qcf_robustness_protocol.json",
+                                                   "git_blob":  "0735e81c3a7c24c32f9e291cc2009ef03b8ff57d",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step14a_m4qcf_robustness_protocol.md",
+                                                   "git_blob":  "eedd902bc2021ae8de7df04df05d22afe3d5d201",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step14b_robustness_analysis_operationalization.md",
+                                                   "git_blob":  "826e877d08f8e669ba8aa3b72e356acf5eaf20e0",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step14c_m4qcf_robustness_results.json",
+                                                   "git_blob":  "1bc8be3d370c2fceb166708c107f0411ddf03854",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step14c_m4qcf_robustness_results.md",
+                                                   "git_blob":  "c24cc47a2a762dcd6f4e6e2d3448117374ac711c",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step15a_failure_mode_characterization_protocol.json",
+                                                   "git_blob":  "220e09ea1056013fd89276bee581cff594d05824",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step15a_failure_mode_characterization_protocol.md",
+                                                   "git_blob":  "16be800deb868b8a5c2d30d753ebcb6578486cad",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step15b_h9_failure_decomposition_results.json",
+                                                   "git_blob":  "d5aaa161a6e89735781ab8f58e4de47f343b9492",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step15b_h9_failure_decomposition_results.md",
+                                                   "git_blob":  "cd5ddfdfc098ad55e3cfca30d522fb9f8e8ab52e",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step15c_h8_h9_mechanism_characterization_results.json",
+                                                   "git_blob":  "0a95c668e57fabb31ce476687dbe9761cf96dd17",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step15c_h8_h9_mechanism_characterization_results.md",
+                                                   "git_blob":  "57ce7e29032b9398bef748317c58e732ac95e574",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step15d_h10_mismatch_pathway_decomposition_results.json",
+                                                   "git_blob":  "4e63143b93af0b9b2bbb55a971ee838fc9acc6ec",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step15d_h10_mismatch_pathway_decomposition_results.md",
+                                                   "git_blob":  "73f137e40f767830ddb5fc1fe499893bd1d34b0b",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step15e_exploratory_scientific_synthesis.json",
+                                                   "git_blob":  "508d6d97768d0dd5a2265e6919824ec5e4e03641",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step15e_exploratory_scientific_synthesis.md",
+                                                   "git_blob":  "cdf860e9f9a4a6f14a7ba5e24f4a123cfebb1a73",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step16_v027_scientific_synthesis_and_closure.json",
+                                                   "git_blob":  "480581e0f9c00fc021b90ee068622b6321e26898",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v027/step16_v027_scientific_synthesis_and_closure.md",
+                                                   "git_blob":  "cf86fedfc776492818e8e863f4c1fe7026f7cfcc",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step1_selective_reliability_mismatch_protocol.json",
+                                                   "git_blob":  "53653788780778dd3b8ad243ebf273d20898cdaf",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step1_selective_reliability_mismatch_protocol.md",
+                                                   "git_blob":  "895e5519eb6535590cd6aee3f1291a7654e54700",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step3_formal_training_results.json",
+                                                   "git_blob":  "b6c62f2092489becd6ba5384d196310129905828",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step3_formal_training_results.md",
+                                                   "git_blob":  "5c0c938bae201961217221374a5c467295ec4048",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step3_locked_training_operationalization.json",
+                                                   "git_blob":  "fa5b5ea47b70a0e15c5c8fc1a512adf69e0729b9",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step3_locked_training_operationalization.md",
+                                                   "git_blob":  "d63360ffc67def1d18ba64aab8ca2c99a9698973",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step4_unified_evaluation_operationalization.json",
+                                                   "git_blob":  "731ae969beedf7e46387f67c2653d6f5915d2161",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step4_unified_evaluation_operationalization.md",
+                                                   "git_blob":  "9cc358f430c267864659322197243ef0b51b2da3",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step4_unified_evaluation_results.json",
+                                                   "git_blob":  "1ab6b0c92c4b45859420b6ca08e938093ab0cb72",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step4_unified_evaluation_results.md",
+                                                   "git_blob":  "be84b5cb2e9f9b85e8679e5c32590b50c3f969c4",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step5_formal_analysis_results.json",
+                                                   "git_blob":  "8ba563bdb124121416a9e6b6ac92f3f2c703a8da",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step5_formal_analysis_results.md",
+                                                   "git_blob":  "a8abc3103e98cbaf651f94fbb2703e58c73d0808",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step6_v028_scientific_synthesis_and_closure.json",
+                                                   "git_blob":  "d32ce2fa9ffe5e59b8bc16c4e0304cb4abd258c0",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v028/step6_v028_scientific_synthesis_and_closure.md",
+                                                   "git_blob":  "4dbf6eb4461b507afbdce2588f556c1ed0305ff3",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step1_graded_reliability_transition_protocol.json",
+                                                   "git_blob":  "f29ed5dd7fd8aa4d92b3799d0c9bda6bc616de31",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step1_graded_reliability_transition_protocol.md",
+                                                   "git_blob":  "6e20c75dfe60a874c61e0fcc170e9ae0efef2863",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step3_formal_training_results.json",
+                                                   "git_blob":  "24f09cf5d383682c82f26b73ad7280426645b51d",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step3_formal_training_results.md",
+                                                   "git_blob":  "ddc5ac2009c068ea7347afa5a32c1b57e6103a03",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step3_locked_training_operationalization.json",
+                                                   "git_blob":  "1bbbdf7446f97745c10e089fb224eb5a1844f5e2",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step3_locked_training_operationalization.md",
+                                                   "git_blob":  "f9f28b668153773953f3773733aa35d43ac63e89",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step4_unified_evaluation_operationalization.json",
+                                                   "git_blob":  "46af3b298bc5b2db39bcff29f9b417be5aa05f12",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step4_unified_evaluation_operationalization.md",
+                                                   "git_blob":  "30faeffcdffa944786f69e03837b1118ebdcbc3e",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step4_unified_evaluation_results.json",
+                                                   "git_blob":  "20b3b88943ceea40d18e9081e48f223af529fc86",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step4_unified_evaluation_results.md",
+                                                   "git_blob":  "29fc170916b0378c4363b7f00f34de3594005973",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step5_formal_analysis_results.json",
+                                                   "git_blob":  "ca599e9c9553dd0ed13efe3e6ed36b995d980609",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step5_formal_analysis_results.md",
+                                                   "git_blob":  "b4c3d52a07ceb9f533e2c3f87abccfe8f417c6c3",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step6_v029_scientific_synthesis_and_closure.json",
+                                                   "git_blob":  "e5f211559ebf350e1bf298e3d4fb02eafba31ed0",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v029/step6_v029_scientific_synthesis_and_closure.md",
+                                                   "git_blob":  "3fd5a25748155c00d6b9ef313849bafee6ec8f62",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step0_v029_failure_decomposition.json",
+                                                   "git_blob":  "2fe7812fac26e5b200df5b194192e87e5fbca854",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step0_v029_failure_decomposition.md",
+                                                   "git_blob":  "71ab7205d8a0f307546a4b3e10660f054086fe47",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step1_selective_reliability_intervention_protocol.json",
+                                                   "git_blob":  "f023d4c38c77957b3298337da38df92b916bdce8",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step1_selective_reliability_intervention_protocol.md",
+                                                   "git_blob":  "64aaab307fb1e0e675fd8f16f99c6e80967a8f38",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step10a_mechanism_characterization_protocol.json",
+                                                   "git_blob":  "06e8ab8508cd07f5455122b17e5476bb66439d38",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step10a_mechanism_characterization_protocol.md",
+                                                   "git_blob":  "8619034c6a31219eb1606a7765b2cca6990e2773",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step10b_mechanism_characterization_evidence.json",
+                                                   "git_blob":  "b7d32a352e890d36e84add96041dcbbfef2e9a04",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step10b_mechanism_characterization_evidence.md",
+                                                   "git_blob":  "7768ad0542b6288118501425771ae2fc35c2fc15",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step11_scientific_synthesis_and_closure.json",
+                                                   "git_blob":  "efc3444fcde16935820f9b89c7bac9c74b30971f",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step11_scientific_synthesis_and_closure.md",
+                                                   "git_blob":  "fb0886c36cc134caca78bc4c83ac2bb81dab3d8e",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step2_selective_intervention_implementation_record.json",
+                                                   "git_blob":  "dd012d746a6683870b9410d8461efe11fd8cf818",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step2_selective_intervention_operationalization.json",
+                                                   "git_blob":  "815a6b5031cb2c9e94067cd1b114b3434964eb55",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step2_selective_intervention_operationalization.md",
+                                                   "git_blob":  "a21475224eec0ab9f6da040bcbf37eef3cc45f2a",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step2a1_selective_intervention_invariant_clarification.json",
+                                                   "git_blob":  "33d9ccd54cbcf33ac5259dc67c5536b8f3e740b3",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step2a1_selective_intervention_invariant_clarification.md",
+                                                   "git_blob":  "a7fd6937bcd44a7e3c024546b5e6d5c8ed1a1cb5",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step3_runner_ablation_integration_protocol.json",
+                                                   "git_blob":  "3f2e89f5df3dd28a73412262c5adffac7d05fe2e",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step3_runner_ablation_integration_protocol.md",
+                                                   "git_blob":  "acbcccb3618ff380d7fd1a45e197013936def3f3",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step3_runner_ablation_integration_record.json",
+                                                   "git_blob":  "995daa07f69152b39522f0b282d41b4212c78230",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step4_formal_training_operationalization.json",
+                                                   "git_blob":  "31fed26f64a32f3a28dcc7c9bb5339b216c70765",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step4_formal_training_operationalization.md",
+                                                   "git_blob":  "087f7ac6ae97dab444e767beea4b8ec9485f3be5",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step5a_training_routing_correction_record.json",
+                                                   "git_blob":  "66db7b873d6331df868aa63445bd5b484cec4a7c",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step6_formal_training_evidence_provenance.json",
+                                                   "git_blob":  "17384a2d63d30747032d4fe46390a80db97dfedd",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step6_formal_training_evidence_provenance.md",
+                                                   "git_blob":  "9b3b713f8c8cb59b0950a01a7528b4a1de4bb661",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step7_formal_evaluation_operationalization.json",
+                                                   "git_blob":  "1993aa0b1d838f361194faaff5d6211a6bb96ddb",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step7_formal_evaluation_operationalization.md",
+                                                   "git_blob":  "e63dccb34f3ae36880910c5bf3694ac4e6480ce0",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step8_evaluator_adaptation_implementation_record.json",
+                                                   "git_blob":  "cad82b4715695bbfe78defffeb25681ef1a43977",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step8_evaluator_adaptation_implementation_record.md",
+                                                   "git_blob":  "984b083036b95bdc03db6ee9b9c88ea1b3111cf4",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step8_formal_evaluation_evidence_provenance.json",
+                                                   "git_blob":  "bd7fdcfba11f429ac1a89f8dd87c44fb2490d221",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step8_formal_evaluation_evidence_provenance.md",
+                                                   "git_blob":  "f624f2cbd928e886db9e40b7a6680169a76b6e83",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step9_formal_hypothesis_analysis.json",
+                                                   "git_blob":  "705f47100f23227d95281d8cdc4bb3cf8b1dca45",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v030/step9_formal_hypothesis_analysis.md",
+                                                   "git_blob":  "af48a2f47f1b39608c5166df42bb8dc347e05784",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step0_v030_transition_and_failure_inheritance.json",
+                                                   "git_blob":  "7636839dc50cda091ef382c30f71ef716f5f252e",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step0_v030_transition_and_failure_inheritance.md",
+                                                   "git_blob":  "2ac4f092da4ebbf0ab92282b957624bcf93ccac6",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step1_calibrated_selective_intervention_protocol.json",
+                                                   "git_blob":  "fb541512c86a768eb0ceb71df82a5a149832ca12",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step1_calibrated_selective_intervention_protocol.md",
+                                                   "git_blob":  "b9ff3728818b6a1dc23791d8ad57b2d77af059aa",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step10_formal_evaluation_evidence_provenance.json",
+                                                   "git_blob":  "4acb17045935cb20a78a9193b38750e203669198",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step10_formal_evaluation_evidence_provenance.md",
+                                                   "git_blob":  "5b038e61f41a991d5c33e32739d400b989abd5c9",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step11_formal_hypothesis_analysis.json",
+                                                   "git_blob":  "ec54b494188a36de5cfc550b0d360939cf0b43dd",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step11_formal_hypothesis_analysis.md",
+                                                   "git_blob":  "251422e2d26f7ee968ed1024a2a0ca0097e5b7bc",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step12_scientific_synthesis_and_closure.json",
+                                                   "git_blob":  "8a1b8d8fc10bbe2838220791ea2a1c967b0f0f03",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step12_scientific_synthesis_and_closure.md",
+                                                   "git_blob":  "d8e4b633fc722e846f9621d72a94bb27fddfba6e",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step2_calibrated_evidence_utility_tensor_contract.json",
+                                                   "git_blob":  "6763ef359db2affe5f760011f409e4e12fac08d7",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step2_calibrated_evidence_utility_tensor_contract.md",
+                                                   "git_blob":  "a68a0a8f8929626523c73ddbb36e2a5640366a2c",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step3b_core_mechanism_implementation_record.json",
+                                                   "git_blob":  "f3b229079919e58276210ebf8a185c17e0498d05",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step3b_core_mechanism_implementation_record.md",
+                                                   "git_blob":  "7e471304b57a6427c1711236a198eb6c96d6e112",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step3c_model_runner_integration_record.json",
+                                                   "git_blob":  "ad78d3ad4209ed1f27f1a7e5f33fd552fc03c2d0",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step3c_model_runner_integration_record.md",
+                                                   "git_blob":  "36c4da6425d6c8c8150252b18a04eadf9700f68d",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step4_locked_formal_training_operationalization.json",
+                                                   "git_blob":  "bdcd9be7bc62a2ef9d9d8111be89594c2805184b",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step4_locked_formal_training_operationalization.md",
+                                                   "git_blob":  "944b82c260a64c591958a0fa56e72024aa08a714",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step6_formal_training_evidence_provenance.json",
+                                                   "git_blob":  "b3fe7baf57e93aded0663efdf1a9f4a27fc80a74",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step6_formal_training_evidence_provenance.md",
+                                                   "git_blob":  "79cbfaa1a1e02fdeb7b77a0385827970d44cab7a",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step7_formal_evaluation_operationalization.json",
+                                                   "git_blob":  "f8f8ab66e1ece3fb7941677a0bb1d361b447f8ce",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step7_formal_evaluation_operationalization.md",
+                                                   "git_blob":  "01fe2bc4fe7082f19d913ebb04713b856da51c54",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step8_evaluator_adaptation_implementation.json",
+                                                   "git_blob":  "5a199a5ee8f0ba1139c3f9e8842c924af001f23a",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v031/step8_evaluator_adaptation_implementation.md",
+                                                   "git_blob":  "6ed9eace7ff4fec75d4c746e0b481f107992afdd",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v032/step0_failure_characterization_direction.json",
+                                                   "git_blob":  "010bccf400a88a200c0f1f4b10f5e0f7e360290c",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v032/step0_failure_characterization_direction.md",
+                                                   "git_blob":  "43a08595b480df3166e98037e4be8a2843d718b8",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v032/step1_prospective_failure_characterization_protocol.json",
+                                                   "git_blob":  "8931279a7c2d78fe1bd5d7c9aec2ce85b58b943b",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v032/step1_prospective_failure_characterization_protocol.md",
+                                                   "git_blob":  "f2d8a75a83f350c9703342ed8efbea6e9f14246f",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v032/step4_admissible_characterization_computation_contract.json",
+                                                   "git_blob":  "bc05cb8d3ab06f9c57f780f01f3046fe920ad9cc",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v032/step4_admissible_characterization_computation_contract.md",
+                                                   "git_blob":  "2091a6e72162554be94617ad9c7bea39ff89eff0",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v032/step5_failure_characterization_results.json",
+                                                   "git_blob":  "dee4d7c16e982b8cbd542de0c650780be733235e",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v032/step5_failure_characterization_results.md",
+                                                   "git_blob":  "3dfb68c194007a726d0a66811148f9dd91343152",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v032/step6_scientific_synthesis_and_closure.json",
+                                                   "git_blob":  "7ff546c78171992a9b5cae96a94c2d793444a12a",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v032/step6_scientific_synthesis_and_closure.md",
+                                                   "git_blob":  "a1586cef8b4e19ef7f1e96689685b193ee2c2e3f",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step0_research_direction.json",
+                                                   "git_blob":  "146938cc607b9482d35b2190378954a5d8142eea",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step0_research_direction.md",
+                                                   "git_blob":  "25f69ebb526d371fe6f7c1f3cb450a8c12a66daa",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step1_prospective_observability_and_learning_protocol.json",
+                                                   "git_blob":  "6092b88cea5786621c43352242aa4b94e1fdad97",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step1_prospective_observability_and_learning_protocol.md",
+                                                   "git_blob":  "6961181f220c6405932518d7be93c448b93a7c0c",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step10_evaluator_adaptation_implementation.json",
+                                                   "git_blob":  "210b2726a3d3ed5f33cf172772c2f580ff68825b",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step10_evaluator_adaptation_implementation.md",
+                                                   "git_blob":  "b7f539e68666d6d978df9a35c76b5db8274694d4",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step12_formal_evaluation_evidence_provenance.json",
+                                                   "git_blob":  "41ad145573eb09252bcf32ef07422aac73c0d8dd",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step12_formal_evaluation_evidence_provenance.md",
+                                                   "git_blob":  "60ab33e52bda7e48cdce281fe3a99e50a40a690a",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step13c_formal_hypothesis_decision_procedure.json",
+                                                   "git_blob":  "7e6055aa8b7d58ea72e60a17c1512bfb37da672d",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step13c_formal_hypothesis_decision_procedure.md",
+                                                   "git_blob":  "1f17ef86386843992b6d1eb5b9b51d8f0ac0c334",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step13e_formal_hypothesis_decision_evidence_provenance.json",
+                                                   "git_blob":  "620a19029aeb58ba133d468ecbc4c1562f9a6612",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step13e_formal_hypothesis_decision_evidence_provenance.md",
+                                                   "git_blob":  "22e65ad21411d32caad4614471f8a1c2c08dcd8f",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step14_scientific_synthesis_and_closure.json",
+                                                   "git_blob":  "6e49e9a5ab75dec617ce40b9a41e0f620dd50ce1",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step14_scientific_synthesis_and_closure.md",
+                                                   "git_blob":  "b2309c7032026f66f9f6a56cd669e1811aa89f73",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step2_exact_utility_supervision_selector_learning_contract.json",
+                                                   "git_blob":  "ac0302eac363658dfd40deca0b44df4017379629",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step2_exact_utility_supervision_selector_learning_contract.md",
+                                                   "git_blob":  "d63db36cae7b3dff86541a704cf4221884e03787",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step4_implementation_plan_and_source_allowlist.json",
+                                                   "git_blob":  "4cb13d9675100e2f0c08886581b64c8ca41d0eb5",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step4_implementation_plan_and_source_allowlist.md",
+                                                   "git_blob":  "86dd691bb3cf1fdc41d8e4d339a7b629798755ff",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step6_implementation_evidence_and_formal_training_operationalization.json",
+                                                   "git_blob":  "0b8f94ac8c5ca49b69dee92ccfdb7e748ab46c18",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step6_implementation_evidence_and_formal_training_operationalization.md",
+                                                   "git_blob":  "bb38ac09c2093ece58b537e290195ef74e340720",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step6a_step7_launcher_provenance_correction.json",
+                                                   "git_blob":  "e2fff16c1450f6a6ea5f3202fbcec71f4bdca11a",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step6a_step7_launcher_provenance_correction.md",
+                                                   "git_blob":  "1905b572c0cd024b3defe764757201a3492f6923",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step8_formal_training_evidence_and_provenance.json",
+                                                   "git_blob":  "fddb3009565b8311a25e17d6815363d10349ea3a",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step8_formal_training_evidence_and_provenance.md",
+                                                   "git_blob":  "d800ed8de1f0ef58d6d4985b10cad9f5964364cc",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step9_formal_evaluation_operationalization.json",
+                                                   "git_blob":  "4898fc34645b05352e2aec6de31df40ed33cdfa7",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v033/step9_formal_evaluation_operationalization.md",
+                                                   "git_blob":  "3534ce52b77c858d3234dbca2f4f87f61d4ed8e8",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step0_successor_scientific_question_and_failure_boundary_inheritance.json",
+                                                   "git_blob":  "d4956749f299d0e734c11f33780c77ae114e013b",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step0_successor_scientific_question_and_failure_boundary_inheritance.md",
+                                                   "git_blob":  "ffca6deeebc065e671a3c5fc13e7165a1a96abb4",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step1_prospective_observability_adjudicability_experimental_protocol.json",
+                                                   "git_blob":  "ea454d54fc63b08a69ad23e50139039ce513ac19",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step1_prospective_observability_adjudicability_experimental_protocol.md",
+                                                   "git_blob":  "a4258d58063dca37e9a1446cc69b6eb5201997b8",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step10_formal_training_evidence_and_provenance.json",
+                                                   "git_blob":  "8ebf98fe5e9ab0d69b75bf6e9175d58d8c6fc1ea",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step10_formal_training_evidence_and_provenance.md",
+                                                   "git_blob":  "1504a99a7566f402171a6c7315bdec70be47bfd6",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step11_post_training_observability_mechanism_adjudication_protocol.json",
+                                                   "git_blob":  "34e62c47ca6fc330c8b2cc07cf389b2cdebdd930",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step11_post_training_observability_mechanism_adjudication_protocol.md",
+                                                   "git_blob":  "a98dafb8451ca85ce813e32ee17d96041f4f043f",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step12_post_training_observability_mechanism_adjudication_results.json",
+                                                   "git_blob":  "9f4faa690851b840b37d1e7695d40f57f60fba4a",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step12_post_training_observability_mechanism_adjudication_results.md",
+                                                   "git_blob":  "d11560d8b84a55c9003dd35b0947b30e8c61b743",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step13_scientific_disposition_evaluation_authorization.json",
+                                                   "git_blob":  "0485198314a8126dc2612eb65dc2abc62a00ed74",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step13_scientific_disposition_evaluation_authorization.md",
+                                                   "git_blob":  "a966f6a6fadc1076fcb3932c6635acb0e22be618",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step3_exact_inherited_mechanism_and_diagnostic_gap_contract.json",
+                                                   "git_blob":  "22909dddd5e88da65bb42b7d032acddffb01e3fc",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step3_exact_inherited_mechanism_and_diagnostic_gap_contract.md",
+                                                   "git_blob":  "593bad1b57182846a8a8b717a48e6cdbf147f077",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step5_controlled_observability_implementation_plan_and_source_allowlist.json",
+                                                   "git_blob":  "25524cf29ee6cba2631709ee05cac4d8c4b82a40",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step5_controlled_observability_implementation_plan_and_source_allowlist.md",
+                                                   "git_blob":  "05c847d2eff0a115f020ee49df56520d17a81141",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step7_postimplementation_evidence_provenance_mechanism_readiness.json",
+                                                   "git_blob":  "7362a2f8b291f8357961631d6ad2296a5301bb77",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step7_postimplementation_evidence_provenance_mechanism_readiness.md",
+                                                   "git_blob":  "b980221275f9c7d497cd281078181ae92af21d20",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step8_formal_entrypoint_observability_activation_audit.json",
+                                                   "git_blob":  "c870e9c150030ae9825f2504f0a0b8e01d1d243b",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step8_formal_entrypoint_observability_activation_audit.md",
+                                                   "git_blob":  "c2184155be9b3fda8af2ec4af796e8fbb67accda",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step8a_formal_entrypoint_observability_activation_correction_plan.json",
+                                                   "git_blob":  "f666873934e026db2f1b5885da09ef5c63c600ec",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step8a_formal_entrypoint_observability_activation_correction_plan.md",
+                                                   "git_blob":  "fe3c33621db68b23017d16f135be27318b67f391",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step8c_postcorrection_formal_entrypoint_verification_readiness.json",
+                                                   "git_blob":  "02c2d0adececf028d9b5eadd07390a4c68739cdd",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step8c_postcorrection_formal_entrypoint_verification_readiness.md",
+                                                   "git_blob":  "0bfe38ca017388aefacede220e1ff60c4b421983",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step9_formal_training_operationalization_and_authorization.json",
+                                                   "git_blob":  "1a56ed965128916e28b2437c4e6760a0c15979e9",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v034/step9_formal_training_operationalization_and_authorization.md",
+                                                   "git_blob":  "e3f0bb535bff323d6d93c6e0239afa6593626cc4",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step1_selector_discrimination_correction_protocol.json",
+                                                   "git_blob":  "7974ef77435ff224f10d30b9241436b8c0df723b",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step1_selector_discrimination_correction_protocol.md",
+                                                   "git_blob":  "b3f1c36fd4fcb5bc3cb7b38ac62d9e76afc723f3",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step10_scientific_closure_and_v036_entry_boundary.json",
+                                                   "git_blob":  "6026b7a2e1cc0981eea2881a7aec1c3b77d1cb7a",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step10_scientific_closure_and_v036_entry_boundary.md",
+                                                   "git_blob":  "13e67835244065092e887c62750cc09b237a0318",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step2_selector_discrimination_failure_mechanism_audit_protocol.json",
+                                                   "git_blob":  "226ce7a9f366f8fe6bf7bb4a86a6f4efd58edc08",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step2_selector_discrimination_failure_mechanism_audit_protocol.md",
+                                                   "git_blob":  "3584f4080af1f6ff17e24e94f264e7f4e9bed6d6",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step3_selector_discrimination_failure_mechanism_audit_results.json",
+                                                   "git_blob":  "81eb1448389972323e27ffff16da6f72385a5820",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step3_selector_discrimination_failure_mechanism_audit_results.md",
+                                                   "git_blob":  "d1af9a8dcc434678eef34ba54336735125f50104",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step3_selector_discrimination_source_manifest.json",
+                                                   "git_blob":  "a9561357e0eb4d9ba43390ea8f29f27c3990c0e5",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step4_mechanism_audit_scientific_finding_corrective_design_authorization.json",
+                                                   "git_blob":  "1e3c85882439229e64160fa67bc73e2c8c77b5f8",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step4_mechanism_audit_scientific_finding_corrective_design_authorization.md",
+                                                   "git_blob":  "c2b805e3bd01a142cb642b4945aaebf07e5f69be",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step5_prospective_minimal_corrective_design.json",
+                                                   "git_blob":  "35daea1d8be5ba72cf5d6290fc8ff2092c926845",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step5_prospective_minimal_corrective_design.md",
+                                                   "git_blob":  "d8927c819e25d7b52ddaeeb58a431f24d236ce34",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step5a_corrective_design_dataflow_feasibility_source_allowlist_amendment.json",
+                                                   "git_blob":  "3e77548f05a47b11556fb2a2ecc566c919582ef5",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step5a_corrective_design_dataflow_feasibility_source_allowlist_amendment.md",
+                                                   "git_blob":  "68301815bb543f8a0f5aa049f3913d913e52947e",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step6_controlled_corrective_implementation_authorization.json",
+                                                   "git_blob":  "5a814f439c8d07687883e7eca6a761886de21156",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step6_controlled_corrective_implementation_authorization.md",
+                                                   "git_blob":  "ce586d701da82a7bffb2afeb931499d4d5b41a18",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step6b_controlled_corrective_implementation_evidence.json",
+                                                   "git_blob":  "c1f41f642afd30c2d9519c0041a4ea93ab82a98a",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step7_postimplementation_provenance_corrective_training_protocol.json",
+                                                   "git_blob":  "8cf3333aa0a876264537a8ea6bce635c30c25b6e",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step7_postimplementation_provenance_corrective_training_protocol.md",
+                                                   "git_blob":  "2d714289e06a35afc3524cadb2f94542b579e4a6",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step8_corrective_training_operationalization_authorization.json",
+                                                   "git_blob":  "a09d915c71f4c2df01102f3e485598b3b9e6554d",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step8_corrective_training_operationalization_authorization.md",
+                                                   "git_blob":  "7c33343cb231eab1e409e8e9d80767f051a5af0b",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step9_corrective_training_evidence_and_m3_m4_adjudication.json",
+                                                   "git_blob":  "57a830e085be6d96b263c2d03909e7e69d97e27a",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v035/step9_corrective_training_evidence_and_m3_m4_adjudication.md",
+                                                   "git_blob":  "f817ead3e22773e8968b48a150dd9326c0144764",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v036/step1_failure_aware_robustness_prospective_protocol.json",
+                                                   "git_blob":  "4f2cc457e5e95833d65d6b546678a46e4590eead",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v036/step1_failure_aware_robustness_prospective_protocol.md",
+                                                   "git_blob":  "67121f2bc38e43721cc9c1d580c9297c228aa489",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v036/step2_readonly_robustness_eligibility_characterization.json",
+                                                   "git_blob":  "6c3e90bf88a596d477e16deeab94ff21ebb62317",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v036/step2_readonly_robustness_eligibility_characterization.md",
+                                                   "git_blob":  "e8663b6f288b451011cb773eb7a3a93cee887b52",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v036/step3_scientific_closure_and_v037_entry_boundary.json",
+                                                   "git_blob":  "b4df2c51a83340220f7e204a1aeb32437c09c5c0",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v036/step3_scientific_closure_and_v037_entry_boundary.md",
+                                                   "git_blob":  "e54ff37fbc2fd9d2fb7392e31d48aeef26efd0ed",
+                                                   "extension":  ".md"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v037/step1_threat_intelligence_scientific_characterization_protocol.json",
+                                                   "git_blob":  "95fe19ab2be6acdc0b78c87e75d2fb0a77b11960",
+                                                   "extension":  ".json"
+                                               },
+                                               {
+                                                   "path":  "docs/experiments/v037/step1_threat_intelligence_scientific_characterization_protocol.md",
+                                                   "git_blob":  "a9b17ad7ba08a8d16c3af39233c53f9e99c67082",
+                                                   "extension":  ".md"
+                                               }
+                                           ],
+                               "execution_policy":  "Tracked docs/experiments JSON/MD records inventoried only; no model/checkpoint/cache/test execution."
+                           },
+    "characterization":  {
+                             "T1_multimodal_threat_surface":  [
+                                                                  {
+                                                                      "surface":  "MODALITY_QUALITY_DEGRADATION",
+                                                                      "evidence_status":  "SUPPORTED_AS_EVALUATED_STRESSOR",
+                                                                      "operational_meaning":  "A modality can become less reliable under controlled degradation; quality evidence is relevant context.",
+                                                                      "real_world_attack_attribution":  "NOT_AUTHORIZED"
+                                                                  },
+                                                                  {
+                                                                      "surface":  "CROSS_MODAL_MISMATCH",
+                                                                      "evidence_status":  "SUPPORTED_AS_EVALUATED_STRESSOR",
+                                                                      "operational_meaning":  "Text-image disagreement/mismatch is an observable multimodal risk surface.",
+                                                                      "real_world_attack_attribution":  "NOT_AUTHORIZED"
+                                                                  },
+                                                                  {
+                                                                      "surface":  "REPRESENTATION_CORRUPTION",
+                                                                      "evidence_status":  "SUPPORTED_AS_EVALUATED_STRESSOR",
+                                                                      "operational_meaning":  "Controlled representation corruption can alter modality weighting/reliability behavior.",
+                                                                      "real_world_attack_attribution":  "NOT_AUTHORIZED"
+                                                                  },
+                                                                  {
+                                                                      "surface":  "SELECTOR_DISCRIMINATION_FAILURE",
+                                                                      "evidence_status":  "SUPPORTED_FAILURE_MODE",
+                                                                      "operational_meaning":  "Learned selector output can remain insufficiently discriminative despite optimization signal.",
+                                                                      "real_world_attack_attribution":  "NOT_APPLICABLE"
+                                                                  },
+                                                                  {
+                                                                      "surface":  "INTERVENTION_INACTIVITY",
+                                                                      "evidence_status":  "SUPPORTED_FAILURE_MODE",
+                                                                      "operational_meaning":  "Adaptive intervention may remain inactive even when selector parameters move during training.",
+                                                                      "real_world_attack_attribution":  "NOT_APPLICABLE"
+                                                                  }
+                                                              ],
+                             "T2_evidence_to_operational_signal_mapping":  [
+                                                                               {
+                                                                                   "signal":  "modality_quality",
+                                                                                   "status":  "CONTEXT_ONLY",
+                                                                                   "rationale":  "Established research observable; no production alert threshold frozen."
+                                                                               },
+                                                                               {
+                                                                                   "signal":  "cross_modal_compatibility",
+                                                                                   "status":  "CONTEXT_ONLY",
+                                                                                   "rationale":  "Established research observable for mismatch context; not autonomous attribution."
+                                                                               },
+                                                                               {
+                                                                                   "signal":  "interaction_or_mismatch_evidence",
+                                                                                   "status":  "CONTEXT_ONLY",
+                                                                                   "rationale":  "Useful analyst context where frozen evidence exists; no production alert threshold."
+                                                                               },
+                                                                               {
+                                                                                   "signal":  "classifier_confidence_or_posteriors",
+                                                                                   "status":  "CONTEXT_ONLY",
+                                                                                   "rationale":  "Inference-available in the frozen posterior-context correction; confidence is not truth or attribution."
+                                                                               },
+                                                                               {
+                                                                                   "signal":  "selector_utility_probability",
+                                                                                   "status":  "CONTEXT_ONLY",
+                                                                                   "rationale":  "Frozen observability exists, but v0.35 M3 discrimination failed."
+                                                                               },
+                                                                               {
+                                                                                   "signal":  "intervention_activation",
+                                                                                   "status":  "CONTEXT_ONLY",
+                                                                                   "rationale":  "Frozen observability exists, but v0.35 active intervention rate was zero for all formal seeds."
+                                                                               }
+                                                                           ],
+                             "T3_failure_mode_localization":  [
+                                                                  {
+                                                                      "layer":  "input_or_modality_degradation",
+                                                                      "status":  "CHARACTERIZABLE",
+                                                                      "claim":  "Controlled degradation/corruption is part of established AEGIS experimental context."
+                                                                  },
+                                                                  {
+                                                                      "layer":  "cross_modal_mismatch",
+                                                                      "status":  "CHARACTERIZABLE",
+                                                                      "claim":  "Mismatch is an established experimental threat/failure surface."
+                                                                  },
+                                                                  {
+                                                                      "layer":  "representation_or_fusion_response",
+                                                                      "status":  "CHARACTERIZABLE",
+                                                                      "claim":  "Earlier frozen evidence supports internal modality-weight response under corruption, but downstream benefit must be separately established."
+                                                                  },
+                                                                  {
+                                                                      "layer":  "classifier_performance",
+                                                                      "status":  "SEPARATE_EVIDENCE_LAYER",
+                                                                      "claim":  "Classification performance must not be conflated with selector activation or formal robustness."
+                                                                  },
+                                                                  {
+                                                                      "layer":  "reliability_evidence",
+                                                                      "status":  "SEPARATE_EVIDENCE_LAYER",
+                                                                      "claim":  "Reliability/quality/compatibility signals are contextual evidence, not autonomous threat attribution."
+                                                                  },
+                                                                  {
+                                                                      "layer":  "selector_optimization",
+                                                                      "status":  "SUPPORTED",
+                                                                      "claim":  "Nonzero selector gradient and parameter movement were frozen across all three v0.35 corrective-training seeds."
+                                                                  },
+                                                                  {
+                                                                      "layer":  "selector_discrimination",
+                                                                      "status":  "NOT_SUPPORTED",
+                                                                      "claim":  "Frozen M3 criterion failed across all three seeds."
+                                                                  },
+                                                                  {
+                                                                      "layer":  "intervention_activation",
+                                                                      "status":  "NOT_SUPPORTED",
+                                                                      "claim":  "Frozen M4 criterion failed across all three seeds; active intervention rate was zero."
+                                                                  }
+                                                              ],
+                             "T4_information_integrity_claim_boundary":  [
+                                                                             {
+                                                                                 "claim_family":  "binary_or_dataset_scoped_multimodal_classification",
+                                                                                 "status":  "SUPPORTED_WITH_DATASET_SCOPE",
+                                                                                 "boundary":  "Report only under the frozen dataset/task and validation evidence actually available."
+                                                                             },
+                                                                             {
+                                                                                 "claim_family":  "misinformation_specific_attribution",
+                                                                                 "status":  "NOT_AVAILABLE",
+                                                                                 "boundary":  "Current frozen evidence does not independently establish a misinformation-specific operational attribution capability."
+                                                                             },
+                                                                             {
+                                                                                 "claim_family":  "disinformation_intent_attribution",
+                                                                                 "status":  "PROHIBITED",
+                                                                                 "boundary":  "Intent cannot be inferred from the current model evidence."
+                                                                             },
+                                                                             {
+                                                                                 "claim_family":  "malinformation_attribution",
+                                                                                 "status":  "NOT_AVAILABLE",
+                                                                                 "boundary":  "No frozen malinformation-specific evaluation establishes this capability."
+                                                                             },
+                                                                             {
+                                                                                 "claim_family":  "hate_speech_attribution",
+                                                                                 "status":  "NOT_AVAILABLE",
+                                                                                 "boundary":  "No frozen hate-speech-specific evaluation establishes this capability."
+                                                                             },
+                                                                             {
+                                                                                 "claim_family":  "deepfake_or_image_authenticity_detection",
+                                                                                 "status":  "FUTURE_SCOPE_NOT_ESTABLISHED",
+                                                                                 "boundary":  "Do not claim capability without separately frozen evidence."
+                                                                             },
+                                                                             {
+                                                                                 "claim_family":  "actor_or_campaign_attribution",
+                                                                                 "status":  "PROHIBITED",
+                                                                                 "boundary":  "Current evidence does not support autonomous actor/campaign attribution."
+                                                                             }
+                                                                         ],
+                             "T5_threat_intelligence_alertability":  [
+                                                                         {
+                                                                             "pattern":  "cross_modal_mismatch_or_low_compatibility",
+                                                                             "category":  "CONTEXT_ONLY",
+                                                                             "reason":  "May support analyst triage context; no production threshold frozen."
+                                                                         },
+                                                                         {
+                                                                             "pattern":  "low_modality_quality",
+                                                                             "category":  "CONTEXT_ONLY",
+                                                                             "reason":  "May support analyst triage context; no production threshold frozen."
+                                                                         },
+                                                                         {
+                                                                             "pattern":  "selector_utility_probability",
+                                                                             "category":  "CONTEXT_ONLY",
+                                                                             "reason":  "Selector discrimination failed M3; not suitable as a validated alert trigger."
+                                                                         },
+                                                                         {
+                                                                             "pattern":  "intervention_activation",
+                                                                             "category":  "CONTEXT_ONLY",
+                                                                             "reason":  "Intervention was inactive in all formal v0.35 seeds."
+                                                                         },
+                                                                         {
+                                                                             "pattern":  "content_type_or_actor_attribution_alert",
+                                                                             "category":  "NOT_AUTHORIZED",
+                                                                             "reason":  "Not established by frozen evidence."
+                                                                         },
+                                                                         {
+                                                                             "pattern":  "production_thresholded_alert",
+                                                                             "category":  "NOT_AUTHORIZED",
+                                                                             "reason":  "No production alert threshold is selected or validated."
+                                                                         }
+                                                                     ],
+                             "T6_scientific_claim_ledger":  [
+                                                                {
+                                                                    "claim":  "Controlled corruption can induce intended internal modality down-weighting in prior frozen AEGIS evidence.",
+                                                                    "status":  "SUPPORTED",
+                                                                    "scope":  "Controlled research setting only."
+                                                                },
+                                                                {
+                                                                    "claim":  "Selector optimization signal and parameter movement occurred in v0.35 corrective training.",
+                                                                    "status":  "SUPPORTED",
+                                                                    "scope":  "Seeds 42,43,44 under frozen v0.35 training evidence."
+                                                                },
+                                                                {
+                                                                    "claim":  "v0.35 posterior-context correction restored selector output discrimination.",
+                                                                    "status":  "NOT_SUPPORTED",
+                                                                    "scope":  "M3 failed across all three seeds."
+                                                                },
+                                                                {
+                                                                    "claim":  "v0.35 posterior-context correction activated the learned intervention.",
+                                                                    "status":  "NOT_SUPPORTED",
+                                                                    "scope":  "M4 failed across all three seeds."
+                                                                },
+                                                                {
+                                                                    "claim":  "v0.36 established formal robustness of the active learned intervention.",
+                                                                    "status":  "NOT_COMPUTED",
+                                                                    "scope":  "Formal evaluation was scientifically inadmissible and not executed."
+                                                                },
+                                                                {
+                                                                    "claim":  "The underlying classifier is non-robust.",
+                                                                    "status":  "PROHIBITED",
+                                                                    "scope":  "Cannot be inferred from selector ineligibility."
+                                                                },
+                                                                {
+                                                                    "claim":  "AEGIS currently performs autonomous disinformation intent or actor attribution.",
+                                                                    "status":  "PROHIBITED",
+                                                                    "scope":  "Not supported by frozen evidence."
+                                                                },
+                                                                {
+                                                                    "claim":  "AEGIS frozen evidence can support analyst-facing multimodal quality/mismatch context.",
+                                                                    "status":  "SUPPORTED_WITH_LIMITATIONS",
+                                                                    "scope":  "Decision-support context only; no production alert threshold."
+                                                                },
+                                                                {
+                                                                    "claim":  "Misinformation, malinformation, hate-speech, deepfake, and authenticity-specific operational performance is established.",
+                                                                    "status":  "NOT_AVAILABLE",
+                                                                    "scope":  "Requires separately frozen task-specific evidence."
+                                                                }
+                                                            ]
+                         },
+    "principal_findings":  [
+                               "AEGIS frozen evidence supports a research-level multimodal threat/failure surface centered on modality degradation, cross-modal mismatch, representation response, selector discrimination failure, and intervention inactivity.",
+                               "Quality, compatibility, mismatch evidence, classifier posteriors, selector utility, and intervention state can be treated as research observables where frozen evidence exists, but no production alert threshold is validated.",
+                               "Selector optimization is empirically distinct from selector discrimination and intervention activation.",
+                               "The v0.35 correction did not restore selector discrimination or intervention activation.",
+                               "v0.36 did not compute formal active-intervention robustness because the prerequisite mechanism was ineligible.",
+                               "Current frozen evidence does not establish intent attribution, actor attribution, or task-specific operational capability for misinformation, disinformation, malinformation, hate speech, deepfake, or image authenticity."
+                           ],
+    "operational_boundary":  {
+                                 "mode":  "ANALYST_DECISION_SUPPORT_RESEARCH_CHARACTERIZATION",
+                                 "autonomous_attribution_authorized":  false,
+                                 "production_alerting_authorized":  false,
+                                 "deployment_authorized":  false,
+                                 "national_security_operational_claim_authorized":  false,
+                                 "production_thresholds_selected":  false
+                             },
+    "integrity":  {
+                      "training_performed":  false,
+                      "implementation_performed":  false,
+                      "model_execution_performed":  false,
+                      "checkpoint_execution_performed":  false,
+                      "corruption_condition_execution_performed":  false,
+                      "formal_robustness_evaluation_performed":  false,
+                      "threshold_tuning_performed":  false,
+                      "checkpoint_reselection_performed":  false,
+                      "official_test_samples_accessed":  0
+                  },
+    "next":  "v0.37 Step3 鈥?compact scientific closure and v0.38 integration/reproducibility/research-release entry boundary."
+}
