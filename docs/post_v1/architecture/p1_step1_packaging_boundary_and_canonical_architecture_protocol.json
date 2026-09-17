@@ -1,0 +1,144 @@
+{
+    "schema":  "aegis.post_v1.p1.step1.canonical_architecture_protocol.v1",
+    "status":  "POST_V1_P1_STEP1_PROTOCOL_FROZEN",
+    "programme":  "AEGIS post-v1 research packaging",
+    "package":  "P1_ARCHITECTURE_AND_SYSTEM_DOCUMENTATION",
+    "step":  "P1_STEP1_PACKAGING_BOUNDARY_AND_CANONICAL_ARCHITECTURE_PROTOCOL",
+    "immutable_source":  {
+                             "release_name":  "AEGIS Research Core v1.0",
+                             "release_branch":  "release/v1.0-research-core",
+                             "release_commit":  "39492cf6d93987fdf9ebee29b95fdb826b8391e4",
+                             "release_tag":  "v1.0.0-research-core",
+                             "release_manifest_path":  "docs/releases/v1.0/AEGIS_RESEARCH_CORE_V1_RELEASE_MANIFEST.json",
+                             "release_manifest_sha256":  "5BD15FB6FBECBB97A8727DD3E363D399B39B31EB6C8B1A673C238863FA715AAA",
+                             "release_notes_path":  "docs/releases/v1.0/AEGIS_RESEARCH_CORE_V1_RELEASE_NOTES.md",
+                             "release_notes_sha256":  "88F100C9B0536981C546C79C20F7CBE608850339C0F551B041106A15258748A5"
+                         },
+    "packaging_boundary":  {
+                               "branch":  "docs/post-v1-research-packaging",
+                               "documentation_only":  true,
+                               "source_behavior_change_authorized":  false,
+                               "model_architecture_change_authorized":  false,
+                               "training_authorized":  false,
+                               "new_scientific_evaluation_authorized":  false,
+                               "formal_robustness_evaluation_authorized":  false,
+                               "threshold_tuning_authorized":  false,
+                               "checkpoint_reselection_authorized":  false,
+                               "official_test_access_authorized":  false,
+                               "production_deployment_authorized":  false,
+                               "frozen_result_reinterpretation_authorized":  false
+                           },
+    "canonical_architecture_objective":  {
+                                             "purpose":  "Create the canonical evidence-grounded description of AEGIS Research Core v1.0 for subsequent packaging, figures, manuscript, demonstration, and repository presentation.",
+                                             "source_of_truth":  "Frozen tracked repository and experiment/release evidence at or before v1.0.0-research-core.",
+                                             "prospective_rule":  "Claims must be assigned from frozen evidence before presentation language is finalized; unsupported capability language is prohibited."
+                                         },
+    "required_p1_outputs":  [
+                                {
+                                    "id":  "P1_A1",
+                                    "path":  "docs/post_v1/architecture/AEGIS_V1_CANONICAL_ARCHITECTURE.md",
+                                    "purpose":  "Canonical architecture and system description"
+                                },
+                                {
+                                    "id":  "P1_A2",
+                                    "path":  "docs/post_v1/architecture/AEGIS_V1_COMPONENT_LEDGER.md",
+                                    "purpose":  "Component/capability evidence-status ledger"
+                                },
+                                {
+                                    "id":  "P1_A3",
+                                    "path":  "docs/post_v1/architecture/AEGIS_V1_DATAFLOW_AND_EVIDENCE_MODEL.md",
+                                    "purpose":  "Training/inference/evidence dataflow and boundary model"
+                                }
+                            ],
+    "architecture_sections":  [
+                                  "SYSTEM_PURPOSE_AND_SCOPE",
+                                  "INPUT_MODALITIES_AND_REPRESENTATIONS",
+                                  "ENCODER_AND_FUSION_PATH",
+                                  "CLASSIFIER_PATH",
+                                  "QUALITY_AND_COMPATIBILITY_PATH",
+                                  "RELIABILITY_CONTROLLER",
+                                  "UTILITY_SUPERVISION",
+                                  "SELECTOR_PATH",
+                                  "INTERVENTION_PATH",
+                                  "TRAINING_DATAFLOW",
+                                  "INFERENCE_DATAFLOW",
+                                  "EVIDENCE_AND_PROVENANCE_FLOW",
+                                  "THREAT_INTELLIGENCE_INTERPRETATION_BOUNDARY",
+                                  "SCIENTIFIC_LIMITATIONS",
+                                  "NON_CAPABILITIES_AND_PROHIBITED_CLAIMS"
+                              ],
+    "evidence_status_vocabulary":  [
+                                       "IMPLEMENTED",
+                                       "EVALUATED",
+                                       "SUPPORTED",
+                                       "NOT_SUPPORTED",
+                                       "NOT_COMPUTED",
+                                       "CHARACTERIZED",
+                                       "CONTEXT_ONLY",
+                                       "FUTURE_WORK",
+                                       "NOT_AUTHORIZED"
+                                   ],
+    "status_rules":  {
+                         "IMPLEMENTED":  "Tracked v1.0 code/evidence establishes component implementation; does not by itself establish scientific effectiveness.",
+                         "EVALUATED":  "Frozen evidence establishes that the component or hypothesis underwent the specified evaluation.",
+                         "SUPPORTED":  "A prospectively defined frozen criterion was satisfied by the relevant evidence.",
+                         "NOT_SUPPORTED":  "A prospectively defined frozen criterion was not satisfied; this is not equivalent to proof of impossibility.",
+                         "NOT_COMPUTED":  "A result was not computed because its prerequisite or authorization boundary was not satisfied.",
+                         "CHARACTERIZED":  "Frozen evidence supports descriptive/mechanistic characterization without establishing broader operational effectiveness.",
+                         "CONTEXT_ONLY":  "May be documented as analytical context but not represented as an evaluated AEGIS capability.",
+                         "FUTURE_WORK":  "Outside v1.0; must not be rendered as an implemented v1.0 capability.",
+                         "NOT_AUTHORIZED":  "Explicitly outside the permitted v1.0/post-v1 packaging operation."
+                     },
+    "inherited_scientific_boundaries":  {
+                                            "v035":  {
+                                                         "correction":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+                                                         "correction_result":  "CORRECTION_NOT_SUPPORTED",
+                                                         "M3":  "NOT_SUPPORTED",
+                                                         "M4":  "NOT_SUPPORTED",
+                                                         "mechanistic_disposition":  "PERSISTENT_SELECTOR_OUTPUT_DISCRIMINATION_FAILURE_AFTER_POSTERIOR_CONTEXT_CORRECTION"
+                                                     },
+                                            "v036":  {
+                                                         "active_intervention_robustness_result":  "NOT_COMPUTED",
+                                                         "disposition":  "ROBUSTNESS_EVALUATION_BLOCKED_BY_INACTIVE_SELECTOR_PREREQUISITE",
+                                                         "classifier_non_robustness_claimed":  false,
+                                                         "active_adaptive_robustness_claimed":  false
+                                                     },
+                                            "v037":  {
+                                                         "supported_posture":  "ANALYST DECISION-SUPPORT RESEARCH CHARACTERIZATION",
+                                                         "autonomous_attribution_claimed":  false,
+                                                         "production_alerting_claimed":  false
+                                                     },
+                                            "v038":  {
+                                                         "release_readiness":  "R1_R10_PASS",
+                                                         "status":  "V038_INTEGRATION_REPRODUCIBILITY_RESEARCH_RELEASE_CLOSED"
+                                                     },
+                                            "v1":  {
+                                                       "posture":  "REPRODUCIBLE_SCIENTIFICALLY_BOUNDED_RESEARCH_CORE",
+                                                       "official_test_samples_accessed":  0,
+                                                       "production_deployment_readiness":  "NOT_ESTABLISHED"
+                                                   }
+                                        },
+    "p1_step2_authorization":  {
+                                   "status":  "AUTHORIZED_AFTER_STEP1_REMOTE_FREEZE",
+                                   "next_step":  "POST_V1_P1_STEP2_CANONICAL_ARCHITECTURE_EVIDENCE_INVENTORY_AND_DRAFT",
+                                   "permitted":  [
+                                                     "Read-only inspection of tracked source, tests, experiment records, release records, and existing documentation",
+                                                     "Evidence-to-component mapping",
+                                                     "Generation of the three required P1 architecture documents",
+                                                     "Documentation consistency checks",
+                                                     "Non-scientific syntax/link/path verification"
+                                                 ],
+                                   "prohibited":  [
+                                                      "Source behavior modification",
+                                                      "Model architecture modification",
+                                                      "Training or retraining",
+                                                      "New scientific evaluation or corruption execution",
+                                                      "Formal robustness evaluation",
+                                                      "Threshold tuning",
+                                                      "Checkpoint reselection",
+                                                      "Official-test access",
+                                                      "Production deployment claims",
+                                                      "Retrospective weakening or changing of frozen scientific criteria"
+                                                  ]
+                               }
+}
