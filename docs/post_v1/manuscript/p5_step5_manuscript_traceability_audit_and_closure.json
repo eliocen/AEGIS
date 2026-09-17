@@ -1,0 +1,32 @@
+{
+  "schema": "aegis.post_v1.p5.step5.manuscript_closure.v1",
+  "status": "POST_V1_P5_RESEARCH_MANUSCRIPT_PACKAGE_CLOSED",
+  "parent_commit": "4b92beb20c13bba901166fb6c35af6f4fc09c5ac",
+  "audited_artifacts": {
+    "literature_inventory": {"path": "docs/post_v1/manuscript/p5_step4_literature_evidence_inventory.json", "sha256": "FE7700D8D47F9EF8CDBE63FC27BF02E43A465B3869763AC7D05C91F74A0543A3"},
+    "literature_ledger": {"path": "docs/post_v1/manuscript/AEGIS_V1_VERIFIED_LITERATURE_LEDGER.md", "sha256": "514BE9362723E4DB065937BB1106DFE661E2C41F7587DD042C9563FB928735BB"},
+    "related_work_synthesis": {"path": "docs/post_v1/manuscript/AEGIS_V1_RELATED_WORK_SYNTHESIS.md", "sha256": "2577DCFDA24BCDF627A7F729031DBD49F1CBA39A877034A66B7F437B5D802401"},
+    "citation_traceability": {"path": "docs/post_v1/manuscript/AEGIS_V1_MANUSCRIPT_CITATION_TRACEABILITY_LEDGER.md", "sha256": "02CADA8BEC775CA08BF117DC4F7B1AB0A3C2FB373FC0A019EB2C502814B23C9F"},
+    "integrated_manuscript": {"path": "docs/post_v1/manuscript/AEGIS_V1_RESEARCH_MANUSCRIPT_WITH_LITERATURE.md", "sha256": "CEADACFFEEF87BF8B1D13C4FA989B15F621EA7422E6DABF7B2D4E1FE1B52752F"}
+  },
+  "audit_results": {
+    "manuscript_structure": "PASS",
+    "frozen_scientific_results": "PASS",
+    "external_citation_coverage": "PASS",
+    "citation_traceability": "PASS",
+    "evidence_class_separation": "PASS",
+    "negative_findings": "PASS",
+    "comparative_claim_boundary": "PASS",
+    "robustness_claim_boundary": "PASS",
+    "production_claim_boundary": "PASS",
+    "release_identity": "PASS",
+    "future_work_separation": "PASS"
+  },
+  "external_literature_works": 13,
+  "aegis_empirical_evidence_changed": false,
+  "manuscript_content_modified_in_closure": false,
+  "model_source_changes": "NONE",
+  "training_new_evaluation": "NONE",
+  "official_test_samples": 0,
+  "next": "POST_V1_P6_DEMONSTRATION_PACKAGE"
+}
