@@ -1,0 +1,42 @@
+{
+    "schema":  "aegis.post_v1.p3.step2.reproducibility_evidence_inventory.v1",
+    "status":  "P3_STEP2_REPRODUCIBILITY_EVIDENCE_INVENTORY_CAPTURED",
+    "parent_commit":  "bf5b7f23ea43fdfe0acfed2b4701ab82009dc1f6",
+    "immutable_release":  {
+                              "commit":  "39492cf6d93987fdf9ebee29b95fdb826b8391e4",
+                              "tag":  "v1.0.0-research-core",
+                              "manifest_sha256":  "5BD15FB6FBECBB97A8727DD3E363D399B39B31EB6C8B1A673C238863FA715AAA",
+                              "notes_sha256":  "88F100C9B0536981C546C79C20F7CBE608850339C0F551B041106A15258748A5"
+                          },
+    "repository_inventory":  {
+                                 "tracked_files":  584,
+                                 "tracked_tests":  80,
+                                 "tracked_scripts":  48,
+                                 "tracked_experiment_records":  224,
+                                 "tracked_release_records":  2
+                             },
+    "primary_environment":  {
+                                "os_family":  "Windows",
+                                "shell":  "PowerShell",
+                                "python":  "3.10.11",
+                                "python_executable":  "D:\\Research\\AEGIS\\.venv\\Scripts\\python.exe",
+                                "gpu":  "NVIDIA GeForce GTX 1660 SUPER",
+                                "torch":  "2.13.0+cu132",
+                                "cuda_available":  true,
+                                "classification":  "FROZEN_RESEARCH_ENVIRONMENT_CONTEXT"
+                            },
+    "frozen_data":  {
+                        "train_cache":  "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+                        "validation_cache":  "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42",
+                        "train_manifest_sha256":  "5BC8BF53F988B3DD5299A1D940DB6676F48E37250F52C8B3569150BE153417C5",
+                        "validation_manifest_sha256":  "C4E95F818C24043DB1DEE9C0CFC0DE85C2E591E9E77B98CB2490046D1BC04F87",
+                        "official_test_samples_accessed":  0
+                    },
+    "execution":  {
+                      "model_execution":  false,
+                      "training":  false,
+                      "new_evaluation":  false,
+                      "tests_rerun":  false,
+                      "official_test_access":  false
+                  }
+}
