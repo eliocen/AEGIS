@@ -1,0 +1,53 @@
+{
+    "schema":  "aegis.post_v1.p2.step3.traceability_claim_audit_closure.v1",
+    "status":  "POST_V1_P2_SCIENTIFIC_RESULTS_AND_LIMITATIONS_PACKAGE_CLOSED",
+    "parent_commit":  "327209c917b882c637d0bb90646b2855431ef73c",
+    "audits":  {
+                   "step2_identity":  "PASS",
+                   "frozen_evidence_traceability":  "PASS",
+                   "cross_document_status_consistency":  "PASS",
+                   "claim_semantics":  "PASS",
+                   "completeness":  "PASS"
+               },
+    "authoritative_outputs":  [
+                                  {
+                                      "path":  "docs/post_v1/results/AEGIS_V1_SCIENTIFIC_RESULTS_LEDGER.md",
+                                      "sha256":  "2F1AF36E5A15D6FBFA627ED4E4C83768A5F377A7FE03CD6407B404BA585383A7"
+                                  },
+                                  {
+                                      "path":  "docs/post_v1/results/AEGIS_V1_LIMITATIONS_AND_NEGATIVE_FINDINGS.md",
+                                      "sha256":  "2EBA802FFDEC24FE09A7B79106E582CE339A102D1BAF6C5C7700BB9C1FAA1D0C"
+                                  },
+                                  {
+                                      "path":  "docs/post_v1/results/AEGIS_V1_CLAIMS_MATRIX.md",
+                                      "sha256":  "D9C723EADFC848AAFFBFB721B721A803750823D262489A89C60AF70F87C0B9B5"
+                                  },
+                                  {
+                                      "path":  "docs/post_v1/results/AEGIS_V1_EXPERIMENT_TIMELINE.md",
+                                      "sha256":  "74787495ACECD44CACD1FBF22F88F79963BB540C5D4CEF7022737A4E6408B6CE"
+                                  }
+                              ],
+    "preserved_boundaries":  {
+                                 "v035_correction":  "CORRECTION_NOT_SUPPORTED",
+                                 "v035_M3":  "NOT_SUPPORTED",
+                                 "v035_M4":  "NOT_SUPPORTED",
+                                 "v036_robustness":  "NOT_COMPUTED",
+                                 "classifier_non_robustness_claimed":  false,
+                                 "active_adaptive_robustness_claimed":  false,
+                                 "v037_posture":  "ANALYST DECISION-SUPPORT RESEARCH CHARACTERIZATION",
+                                 "official_test_samples_accessed":  0,
+                                 "production_readiness":  "NOT_ESTABLISHED"
+                             },
+    "next_package":  {
+                         "id":  "P3_REPRODUCIBILITY_PACKAGE",
+                         "entry_status":  "AUTHORIZED_AFTER_P2_STEP3_REMOTE_FREEZE",
+                         "first_step":  "POST_V1_P3_STEP1_REPRODUCIBILITY_PACKAGE_PROSPECTIVE_PROTOCOL",
+                         "rule":  "P3 packages reproducibility instructions, environment, provenance, commands, and verification material without changing the frozen scientific baseline."
+                     },
+    "scientific_execution":  {
+                                 "model_execution":  false,
+                                 "training":  false,
+                                 "new_evaluation":  false,
+                                 "official_test_samples_accessed":  0
+                             }
+}
