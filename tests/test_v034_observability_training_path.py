@@ -21,6 +21,9 @@ def _payload():
         "delta_u": delta,
         "u_target": target,
         "utility_probability": [0.62, 0.48, 0.50, 0.61],
+        "reference_positive_probability": [0.40, 0.55, 0.30, 0.65],
+        "candidate_positive_probability": [0.45, 0.50, 0.35, 0.60],
+        "candidate_minus_reference_positive_probability": [0.05, -0.05, 0.05, -0.05],
         "utility_gate": [0.05, 0.0, 0.0, 0.025],
         "intervention_gate": [0.05, 0.0, 0.0, 0.025],
         "active_intervention_indicator": [1.0, 0.0, 0.0, 1.0],
@@ -96,6 +99,15 @@ def test_v034_observability_training_path_persists_live_payload(monkeypatch, tmp
     assert any(row["delta_u"] > 0.01 for row in samples)
     assert any(row["delta_u"] < -0.01 for row in samples)
     assert all(math.isclose(row["p_candidate_true"] - row["p_ref_true"], row["delta_u"], abs_tol=1e-7) for row in samples)
+    assert all(
+        math.isclose(
+            row["candidate_positive_probability"]
+            - row["reference_positive_probability"],
+            row["candidate_minus_reference_positive_probability"],
+            abs_tol=1e-7,
+        )
+        for row in samples
+    )
 
 
 def test_v034_summary_has_exact_step1_distribution_fields():
@@ -163,3 +175,14 @@ def test_v034_formal_observability_activation_is_restricted_to_m4qusli(tmp_path)
     inherited = tmp_path / "v034_observability" if runner.is_v033_utility_supervised_architecture("quality_compatibility_calibrated_intervention") else None
     assert primary == tmp_path / "v034_observability"
     assert inherited is None
+
+
+def test_v035_runner_two_stage_contract_is_present():
+    import inspect
+    source = inspect.getsource(runner.FakedditAblationTrainer._representation_forward)
+    assert "prepare_v035_utility_supervised_context" in source
+    assert "posterior_context_from_logits" in source
+    assert "finalize_v035_utility_supervised_context" in source
+    assert "v035_reference_logits" in source
+    assert "v035_candidate_logits" in source
+    assert "v035_posterior_context" in source

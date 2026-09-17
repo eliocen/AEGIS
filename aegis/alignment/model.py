@@ -670,6 +670,138 @@ class CrossModalAlignmentModel(nn.Module):
         aligned_vision = self.vision_projection(vision_embedding)
         return aligned_text, aligned_vision
 
+    def prepare_v035_utility_supervised_context(
+        self,
+        text_embedding: torch.Tensor,
+        vision_embedding: torch.Tensor,
+        compute_loss: bool = False,
+    ) -> dict[str, torch.Tensor]:
+        if not self.quality_compatibility_utility_supervised_intervention:
+            raise RuntimeError("v0.35 preparation is M4qusli-only.")
+        if self.gated_interaction_fusion is None:
+            raise RuntimeError("M4qusli interaction block is unavailable.")
+        if (
+            self.text_quality_estimator is None
+            or self.vision_quality_estimator is None
+        ):
+            raise RuntimeError("M4qusli quality estimators are unavailable.")
+        if self.compatibility_estimator is None:
+            raise RuntimeError("M4qusli compatibility estimator is unavailable.")
+        if self.utility_supervised_intervention_controller is None:
+            raise RuntimeError("M4qusli controller is unavailable.")
+
+        aligned_text, aligned_vision = self.align(
+            text_embedding, vision_embedding
+        )
+        out = self.gated_interaction_fusion(aligned_text, aligned_vision)
+        text_quality = self.text_quality_estimator(aligned_text)
+        vision_quality = self.vision_quality_estimator(aligned_vision)
+        compatibility_score = self.compatibility_estimator(
+            aligned_text, aligned_vision
+        )
+        context = (
+            self.utility_supervised_intervention_controller
+            .counterfactual_context(
+                text_quality, vision_quality, compatibility_score
+            )
+        )
+        stable_reference_fusion = (
+            context["reference_text_weight"] * aligned_text
+            + context["reference_vision_weight"] * aligned_vision
+            + out["scaled_interaction"]
+        )
+        candidate_fusion = (
+            context["candidate_text_weight"] * aligned_text
+            + context["candidate_vision_weight"] * aligned_vision
+            + context["candidate_interaction_multiplier"]
+            * out["scaled_interaction"]
+        )
+        result = {
+            "aligned_text": aligned_text,
+            "aligned_vision": aligned_vision,
+            "evidence_difference": out["difference"],
+            "evidence_product": out["product"],
+            "cosine_similarity": out["cosine_similarity"],
+            "interaction_embedding": out["interaction_embedding"],
+            "gated_interaction_base_fusion": out["gated_base_fusion"],
+            "scaled_interaction": out["scaled_interaction"],
+            "interaction_scale": out["interaction_scale"],
+            "text_quality": text_quality,
+            "vision_quality": vision_quality,
+            "compatibility_score": compatibility_score,
+            "stable_reference_fused_embedding": stable_reference_fusion,
+            "candidate_fused_embedding": candidate_fusion,
+        }
+        if compute_loss:
+            result["alignment_loss"] = self.contrastive_loss(
+                aligned_text, aligned_vision
+            )
+        return result
+
+    def finalize_v035_utility_supervised_context(
+        self,
+        prepared: dict[str, torch.Tensor],
+        reference_positive_probability: torch.Tensor,
+        candidate_positive_probability: torch.Tensor,
+        candidate_minus_reference_positive_probability: torch.Tensor,
+    ) -> dict[str, torch.Tensor]:
+        if not self.quality_compatibility_utility_supervised_intervention:
+            raise RuntimeError("v0.35 finalization is M4qusli-only.")
+        if self.utility_supervised_intervention_controller is None:
+            raise RuntimeError("M4qusli controller is unavailable.")
+
+        control = self.utility_supervised_intervention_controller(
+            prepared["text_quality"],
+            prepared["vision_quality"],
+            prepared["compatibility_score"],
+            reference_positive_probability,
+            candidate_positive_probability,
+            candidate_minus_reference_positive_probability,
+        )
+        reliability_weighted_fusion = (
+            control.text_weight * prepared["aligned_text"]
+            + control.vision_weight * prepared["aligned_vision"]
+        )
+        selective_interaction = (
+            control.interaction_multiplier * prepared["scaled_interaction"]
+        )
+        result = dict(prepared)
+        result.update({
+            "fused_embedding": (
+                reliability_weighted_fusion + selective_interaction
+            ),
+            "v033_control": control,
+            "selector_logit": control.selector_logit,
+            "utility_probability": control.utility_probability,
+            "utility_gate": control.utility_gate,
+            "intervention_gate": control.intervention_gate,
+            "active_intervention_indicator": (
+                control.active_intervention_indicator
+            ),
+            "applied_intervention_strength": (
+                control.applied_intervention_strength
+            ),
+            "reference_text_weight": control.reference_text_weight,
+            "reference_vision_weight": control.reference_vision_weight,
+            "reference_weights": control.reference_weights,
+            "candidate_text_weight": control.candidate_text_weight,
+            "candidate_vision_weight": control.candidate_vision_weight,
+            "candidate_interaction_multiplier": (
+                control.candidate_interaction_multiplier
+            ),
+            "text_weight": control.text_weight,
+            "vision_weight": control.vision_weight,
+            "evidence_weights": control.weights,
+            "interaction_multiplier": control.interaction_multiplier,
+            "weight_intervention_magnitude": (
+                control.weight_intervention_magnitude
+            ),
+            "interaction_suppression_magnitude": (
+                control.interaction_suppression_magnitude
+            ),
+        })
+        return result
+
     def forward(
         self,
         text_embedding: torch.Tensor,
@@ -783,92 +915,10 @@ class CrossModalAlignmentModel(nn.Module):
             }
 
         elif self.quality_compatibility_utility_supervised_intervention:
-            if self.gated_interaction_fusion is None:
-                raise RuntimeError("M4qusli interaction block is unavailable.")
-            if (
-                self.text_quality_estimator is None
-                or self.vision_quality_estimator is None
-            ):
-                raise RuntimeError("M4qusli quality estimators are unavailable.")
-            if self.compatibility_estimator is None:
-                raise RuntimeError("M4qusli compatibility estimator is unavailable.")
-            if self.utility_supervised_intervention_controller is None:
-                raise RuntimeError("M4qusli controller is unavailable.")
-
-            out = self.gated_interaction_fusion(aligned_text, aligned_vision)
-            text_quality = self.text_quality_estimator(aligned_text)
-            vision_quality = self.vision_quality_estimator(aligned_vision)
-            compatibility_score = self.compatibility_estimator(
-                aligned_text, aligned_vision
+            raise RuntimeError(
+                "M4qusli v0.35 requires prepare_v035_utility_supervised_context "
+                "followed by finalize_v035_utility_supervised_context."
             )
-            control = self.utility_supervised_intervention_controller(
-                text_quality, vision_quality, compatibility_score
-            )
-            stable_reference_fusion = (
-                control.reference_text_weight * aligned_text
-                + control.reference_vision_weight * aligned_vision
-                + out["scaled_interaction"]
-            )
-            candidate_fusion = (
-                control.candidate_text_weight * aligned_text
-                + control.candidate_vision_weight * aligned_vision
-                + control.candidate_interaction_multiplier
-                * out["scaled_interaction"]
-            )
-            reliability_weighted_fusion = (
-                control.text_weight * aligned_text
-                + control.vision_weight * aligned_vision
-            )
-            selective_interaction = (
-                control.interaction_multiplier * out["scaled_interaction"]
-            )
-            fused_embedding = reliability_weighted_fusion + selective_interaction
-            result = {
-                "aligned_text": aligned_text,
-                "aligned_vision": aligned_vision,
-                "fused_embedding": fused_embedding,
-                "evidence_difference": out["difference"],
-                "evidence_product": out["product"],
-                "cosine_similarity": out["cosine_similarity"],
-                "interaction_embedding": out["interaction_embedding"],
-                "gated_interaction_base_fusion": out["gated_base_fusion"],
-                "scaled_interaction": out["scaled_interaction"],
-                "interaction_scale": out["interaction_scale"],
-                "text_quality": text_quality,
-                "vision_quality": vision_quality,
-                "compatibility_score": compatibility_score,
-                "v033_control": control,
-                "stable_reference_fused_embedding": stable_reference_fusion,
-                "candidate_fused_embedding": candidate_fusion,
-                "selector_logit": control.selector_logit,
-                "utility_probability": control.utility_probability,
-                "utility_gate": control.utility_gate,
-                "intervention_gate": control.intervention_gate,
-                "active_intervention_indicator": (
-                    control.active_intervention_indicator
-                ),
-                "applied_intervention_strength": (
-                    control.applied_intervention_strength
-                ),
-                "reference_text_weight": control.reference_text_weight,
-                "reference_vision_weight": control.reference_vision_weight,
-                "reference_weights": control.reference_weights,
-                "candidate_text_weight": control.candidate_text_weight,
-                "candidate_vision_weight": control.candidate_vision_weight,
-                "candidate_interaction_multiplier": (
-                    control.candidate_interaction_multiplier
-                ),
-                "text_weight": control.text_weight,
-                "vision_weight": control.vision_weight,
-                "evidence_weights": control.weights,
-                "interaction_multiplier": control.interaction_multiplier,
-                "weight_intervention_magnitude": (
-                    control.weight_intervention_magnitude
-                ),
-                "interaction_suppression_magnitude": (
-                    control.interaction_suppression_magnitude
-                ),
-            }
 
         elif self.quality_compatibility_calibrated_intervention is not None:
             if self.gated_interaction_fusion is None:

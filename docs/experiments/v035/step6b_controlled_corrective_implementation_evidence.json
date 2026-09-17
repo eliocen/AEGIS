@@ -1,0 +1,85 @@
+{
+    "version":  "0.35",
+    "step":  "Step6B",
+    "revision":  "R3",
+    "status":  "CONTROLLED_CORRECTIVE_IMPLEMENTATION_VERIFIED",
+    "parent_step6_authorization_commit":  "da1f9bf5abef1d77058034058a9742d2053892d6",
+    "authorization_json_sha256":  "E666652D3777CD2D1AF1FE5E86E42428F96A93084B4A5BDAFFE2EAAA903E65DF",
+    "implementation_patch_sha256":  "4FD898C9D78C03D4F7419AEC34518AC94F1A06866A539C7F3AFDCA754F2C1E57",
+    "correction":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+    "dataflow":  "TWO_STAGE_COUNTERFACTUAL_CONTEXT_THEN_SELECTOR_FINALIZATION",
+    "selector_input_width":  "7-\u003e10",
+    "posterior_features":  [
+                               "reference_positive_probability",
+                               "candidate_positive_probability",
+                               "candidate_minus_reference_positive_probability"
+                           ],
+    "invariants":  {
+                       "posterior_context_label_free":  true,
+                       "posterior_context_detached":  true,
+                       "ground_truth_selector_input":  false,
+                       "u_target_selector_input":  false,
+                       "same_classifier_reused_for_counterfactual_and_final_logits":  true,
+                       "reference_candidate_logits_reused_for_training_target":  true,
+                       "utility_loss_family_changed":  false,
+                       "utility_loss_weight_changed":  false,
+                       "intervention_threshold_changed":  false,
+                       "intervention_mapping_changed":  false
+                   },
+    "modified_files":  [
+                           "aegis/alignment/model.py",
+                           "aegis/reliability/reliability_controller.py",
+                           "scripts/run_fakeddit_ablation.py",
+                           "tests/test_v033_utility_supervision_selector.py",
+                           "tests/test_v034_observability_training_path.py"
+                       ],
+    "preimplementation_git_blob_sha1":  {
+                                            "aegis/reliability/reliability_controller.py":  "4bdfb1778768942df8ac98c3af0382c628088492",
+                                            "aegis/alignment/model.py":  "28988bffd7706962820af7ac426823c2dca14bb1",
+                                            "scripts/run_fakeddit_ablation.py":  "e38e395fa2263c85b410d926c8c188bcae40ca11",
+                                            "tests/test_v033_utility_supervision_selector.py":  "8c129a4dfec03b83ff2db442644313db2eff465d",
+                                            "tests/test_v034_observability_training_path.py":  "aa68d30964c6d74dd298f60ec577d7b3f8977e60"
+                                        },
+    "preimplementation_worktree_sha256":  {
+                                              "aegis/reliability/reliability_controller.py":  "F397A2ABAF50F8D233B4306181F89F2C94D565EAB09BBAC8E677E81D85C0E172",
+                                              "aegis/alignment/model.py":  "BBC1739667484B6DCD33C7A2B4707B29D5977229AD677038CDA8583585FE1A3E",
+                                              "scripts/run_fakeddit_ablation.py":  "FB07A2BAB951118EA987ABCBCE978BACDA3D36B5FD15B1B14113EC600BD55907",
+                                              "tests/test_v033_utility_supervision_selector.py":  "E644935C3D34E08859363E4D4A1BC025BF0999007D8DB6801CA8C090A17E2C96",
+                                              "tests/test_v034_observability_training_path.py":  "3C85278D019C7F6F77EE5D8E391582CED177E0E56F2285F2FD645C231BF95F7B"
+                                          },
+    "postimplementation_sha256":  {
+                                      "aegis/alignment/model.py":  "688F0D5765E576FEEE2BA655D6A450852F07477DD25D345620BE8FDDFD150D3B",
+                                      "aegis/reliability/reliability_controller.py":  "2F29371CE0035B007A9DB4FEA140B67E645F11B30420DCFBF62E297FB2D21D90",
+                                      "scripts/run_fakeddit_ablation.py":  "EB358990990D1FEA9996609E7E0E559B756F43C5C0A2B722DC55BB1842D3D234",
+                                      "tests/test_v033_utility_supervision_selector.py":  "A8B299C6540BFFDD8B8F7EFA7756BE3A20ABEC96A592339B6518C7ED188CFA1E",
+                                      "tests/test_v034_observability_training_path.py":  "FCBD848EE2E5B4B241591BD494C4DD53EF7AF5357D5A57E28D4B5D40DD9CD2B3"
+                                  },
+    "verification":  {
+                         "preapplication_structural_audit":  "PASS",
+                         "exact_five_file_allowlist":  "PASS",
+                         "static_scientific_contract":  "PASS",
+                         "python_compile":  "PASS",
+                         "focused_regression_suite":  "PASS",
+                         "focused_test_command":  "python -m pytest -q tests/test_v033_utility_supervision_selector.py tests/test_v034_observability_training_path.py"
+                     },
+    "prior_failed_attempts":  [
+                                  {
+                                      "revision":  "R1",
+                                      "status":  "REJECTED_FAIL_CLOSED_BEFORE_COMMIT",
+                                      "repository_restored_to_parent":  true,
+                                      "scientific_evidence_generated":  false
+                                  },
+                                  {
+                                      "revision":  "R2",
+                                      "status":  "REJECTED_FAIL_CLOSED_AT_PREIMPLEMENTATION_IDENTITY_GATE",
+                                      "repository_modified":  false,
+                                      "cause":  "working-tree SHA256 used where checkout EOL normalization made canonical Git-object identity authoritative"
+                                  }
+                              ],
+    "corrective_training_performed":  false,
+    "corrective_training_authorized_by_step6b":  false,
+    "formal_evaluation_performed":  false,
+    "formal_evaluation_authorized":  false,
+    "official_test_samples_accessed":  0,
+    "next":  "v0.35 Step7 - Post-Implementation Evidence/Provenance and Prospective Corrective-Training Protocol Freeze"
+}

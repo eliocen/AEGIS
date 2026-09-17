@@ -54,8 +54,23 @@ def test_v033_inactive_default_and_candidate_action_parity() -> None:
         utility_initialization_seed=17,
     )
     old = v031(q_t, q_v, c)
-    new = v033(q_t, q_v, c)
+    ref_logits = _binary_logits_for_target_one(
+        torch.tensor([0.45, 0.55, 0.50])
+    )
+    cand_logits = _binary_logits_for_target_one(
+        torch.tensor([0.55, 0.45, 0.60])
+    )
+    posterior = v033.posterior_context_from_logits(ref_logits, cand_logits)
+    new = v033(
+        q_t,
+        q_v,
+        c,
+        posterior["reference_positive_probability"],
+        posterior["candidate_positive_probability"],
+        posterior["candidate_minus_reference_positive_probability"],
+    )
 
+    assert new.utility_features.shape == (3, 10)
     assert torch.allclose(
         new.reference_weights, old.reference_weights, atol=1e-7, rtol=1e-6
     )
@@ -78,7 +93,6 @@ def test_v033_inactive_default_and_candidate_action_parity() -> None:
         rtol=1e-6,
     )
 
-    # Frozen zero final layer initializes utility_probability exactly at 0.5.
     assert torch.allclose(
         new.utility_probability,
         torch.full_like(new.utility_probability, 0.5),
@@ -96,7 +110,35 @@ def test_v033_inactive_default_and_candidate_action_parity() -> None:
     )
 
 
-def test_v033_model_integration_exposes_counterfactual_embeddings_and_logit() -> None:
+def test_v035_posterior_context_is_exact_label_free_and_detached() -> None:
+    controller = UtilitySupervisedLearnedInterventionController(
+        utility_initialization_seed=23,
+    )
+    ref_logits = torch.tensor(
+        [[0.0, 0.4], [0.2, -0.1]], requires_grad=True
+    )
+    cand_logits = torch.tensor(
+        [[0.0, 0.8], [-0.2, 0.3]], requires_grad=True
+    )
+    posterior = controller.posterior_context_from_logits(
+        ref_logits, cand_logits
+    )
+    expected_ref = torch.softmax(ref_logits, dim=1)[:, 1]
+    expected_cand = torch.softmax(cand_logits, dim=1)[:, 1]
+    assert torch.allclose(
+        posterior["reference_positive_probability"], expected_ref
+    )
+    assert torch.allclose(
+        posterior["candidate_positive_probability"], expected_cand
+    )
+    assert torch.allclose(
+        posterior["candidate_minus_reference_positive_probability"],
+        expected_cand - expected_ref,
+    )
+    assert all(not value.requires_grad for value in posterior.values())
+
+
+def test_v035_two_stage_model_integration_and_anti_leakage() -> None:
     torch.manual_seed(3)
     model = CrossModalAlignmentModel(
         text_dim=8,
@@ -110,13 +152,53 @@ def test_v033_model_integration_exposes_counterfactual_embeddings_and_logit() ->
     )
     text = torch.randn(5, 8)
     vision = torch.randn(5, 6)
-    out = model(text, vision, compute_loss=False)
+    prepared = model.prepare_v035_utility_supervised_context(
+        text, vision, compute_loss=False
+    )
+    ref_logits = torch.randn(5, 2, requires_grad=True)
+    cand_logits = torch.randn(5, 2, requires_grad=True)
+    posterior = (
+        model.utility_supervised_intervention_controller
+        .posterior_context_from_logits(ref_logits, cand_logits)
+    )
+    out = model.finalize_v035_utility_supervised_context(
+        prepared,
+        posterior["reference_positive_probability"],
+        posterior["candidate_positive_probability"],
+        posterior["candidate_minus_reference_positive_probability"],
+    )
 
-    assert out["v033_control"] is not None
-    assert out["selector_logit"].shape == (5, 1)
-    assert out["utility_probability"].shape == (5, 1)
+    control = out["v033_control"]
+    assert control.utility_features.shape == (5, 10)
+    assert control.selector_logit.shape == (5, 1)
+    assert control.utility_probability.shape == (5, 1)
     assert out["stable_reference_fused_embedding"].shape == (5, 4)
     assert out["candidate_fused_embedding"].shape == (5, 4)
     assert out["fused_embedding"].shape == (5, 4)
-    assert torch.isfinite(out["selector_logit"]).all()
-    assert torch.isfinite(out["utility_probability"]).all()
+    assert torch.isfinite(control.selector_logit).all()
+    assert torch.isfinite(control.utility_probability).all()
+
+    control.selector_logit.sum().backward()
+    assert ref_logits.grad is None
+    assert cand_logits.grad is None
+
+
+def test_v035_legacy_one_stage_m4qusli_call_is_rejected() -> None:
+    model = CrossModalAlignmentModel(
+        text_dim=8,
+        vision_dim=6,
+        shared_dim=4,
+        dropout=0.0,
+        quality_dropout=0.0,
+        compatibility_dropout=0.0,
+        quality_compatibility_utility_supervised_intervention=True,
+        v033_utility_initialization_seed=23,
+    )
+    text = torch.randn(2, 8)
+    vision = torch.randn(2, 6)
+    try:
+        model(text, vision, compute_loss=False)
+    except RuntimeError as exc:
+        assert "prepare_v035_utility_supervised_context" in str(exc)
+    else:
+        raise AssertionError("legacy one-stage M4qusli call must be rejected")

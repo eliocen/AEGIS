@@ -1360,11 +1360,41 @@ class FakedditAblationTrainer(
                 "compatibility_score": None,
             }
 
-        alignment_outputs = self.alignment_model(
-            batch.text_embeddings,
-            batch.vision_embeddings,
-            compute_loss=compute_alignment_loss,
-        )
+        if is_v033_utility_supervised_architecture(self.fusion_architecture):
+            prepared = self.alignment_model.prepare_v035_utility_supervised_context(
+                batch.text_embeddings,
+                batch.vision_embeddings,
+                compute_loss=compute_alignment_loss,
+            )
+            reference_logits = self.classification_model(
+                prepared["stable_reference_fused_embedding"]
+            )["integrity_logits"]
+            candidate_logits = self.classification_model(
+                prepared["candidate_fused_embedding"]
+            )["integrity_logits"]
+            posterior_context = (
+                self.alignment_model.utility_supervised_intervention_controller
+                .posterior_context_from_logits(reference_logits, candidate_logits)
+            )
+            alignment_outputs = (
+                self.alignment_model.finalize_v035_utility_supervised_context(
+                    prepared,
+                    posterior_context["reference_positive_probability"],
+                    posterior_context["candidate_positive_probability"],
+                    posterior_context[
+                        "candidate_minus_reference_positive_probability"
+                    ],
+                )
+            )
+            alignment_outputs["v035_reference_logits"] = reference_logits
+            alignment_outputs["v035_candidate_logits"] = candidate_logits
+            alignment_outputs["v035_posterior_context"] = posterior_context
+        else:
+            alignment_outputs = self.alignment_model(
+                batch.text_embeddings,
+                batch.vision_embeddings,
+                compute_loss=compute_alignment_loss,
+            )
 
         if compute_alignment_loss:
             alignment_loss = alignment_outputs["alignment_loss"]
@@ -1387,6 +1417,15 @@ class FakedditAblationTrainer(
             ),
             "candidate_fused_embedding": alignment_outputs.get(
                 "candidate_fused_embedding"
+            ),
+            "v035_reference_logits": alignment_outputs.get(
+                "v035_reference_logits"
+            ),
+            "v035_candidate_logits": alignment_outputs.get(
+                "v035_candidate_logits"
+            ),
+            "v035_posterior_context": alignment_outputs.get(
+                "v035_posterior_context"
             ),
         }
 
@@ -1645,8 +1684,12 @@ class FakedditAblationTrainer(
                     raise RuntimeError(
                         "M4qusli counterfactual embeddings unavailable."
                     )
-                ref_logits = self.classification_model(ref)["integrity_logits"]
-                cand_logits = self.classification_model(cand)["integrity_logits"]
+                ref_logits = representation_outputs["v035_reference_logits"]
+                cand_logits = representation_outputs["v035_candidate_logits"]
+                if ref_logits is None or cand_logits is None:
+                    raise RuntimeError(
+                        "M4qusli v0.35 counterfactual logits unavailable."
+                    )
                 utility_target_outputs = (
                     self.alignment_model
                     .utility_supervised_intervention_controller
@@ -1769,6 +1812,9 @@ class FakedditAblationTrainer(
             "utility_target_outputs": utility_target_outputs,
             "v031_control": representation_outputs["v031_control"],
             "v033_control": representation_outputs["v033_control"],
+            "v035_posterior_context": representation_outputs.get(
+                "v035_posterior_context"
+            ),
             "transition_loss": transition_loss,
             "integrity_loss": classification_losses["integrity_loss"],
             "threat_loss": None,
@@ -1982,6 +2028,21 @@ class FakedditAblationTrainer(
                 "delta_u": _v034_tensor_values(target_outputs["delta_u"]),
                 "u_target": _v034_tensor_values(target_outputs["u_target"]),
                 "utility_probability": _v034_tensor_values(control.utility_probability),
+                "reference_positive_probability": _v034_tensor_values(
+                    outputs["v035_posterior_context"][
+                        "reference_positive_probability"
+                    ]
+                ),
+                "candidate_positive_probability": _v034_tensor_values(
+                    outputs["v035_posterior_context"][
+                        "candidate_positive_probability"
+                    ]
+                ),
+                "candidate_minus_reference_positive_probability": _v034_tensor_values(
+                    outputs["v035_posterior_context"][
+                        "candidate_minus_reference_positive_probability"
+                    ]
+                ),
                 "utility_gate": _v034_tensor_values(control.utility_gate),
                 "intervention_gate": _v034_tensor_values(control.intervention_gate),
                 "active_intervention_indicator": _v034_tensor_values(control.active_intervention_indicator),
@@ -3016,6 +3077,15 @@ def train_one_epoch(
                     "delta_u": payload["delta_u"][sample_index],
                     "u_target": payload["u_target"][sample_index],
                     "utility_probability": payload["utility_probability"][sample_index],
+                    "reference_positive_probability": payload[
+                        "reference_positive_probability"
+                    ][sample_index],
+                    "candidate_positive_probability": payload[
+                        "candidate_positive_probability"
+                    ][sample_index],
+                    "candidate_minus_reference_positive_probability": payload[
+                        "candidate_minus_reference_positive_probability"
+                    ][sample_index],
                     "utility_gate": payload["utility_gate"][sample_index],
                     "intervention_gate": payload["intervention_gate"][sample_index],
                     "active_intervention_indicator": payload["active_intervention_indicator"][sample_index],

@@ -1232,7 +1232,7 @@ class UtilitySupervisedLearnedInterventionController(
         self.utility_initialization_seed = int(utility_initialization_seed)
         self.allocation_exponent = float(allocation_exponent)
         self.utility_selector = nn.Sequential(
-            nn.Linear(7, 16),
+            nn.Linear(10, 16),
             nn.ReLU(),
             nn.Linear(16, 1),
         )
@@ -1286,25 +1286,38 @@ class UtilitySupervisedLearnedInterventionController(
         }
 
     @staticmethod
-    def utility_magnitude_weight(delta_u: Tensor) -> Tensor:
-        if delta_u.ndim != 1:
-            raise ValueError("delta_u must have shape [B].")
-        if not torch.is_floating_point(delta_u):
-            raise TypeError("delta_u must be floating.")
-        if not torch.isfinite(delta_u).all():
-            raise ValueError("delta_u must be finite.")
-        return 1.0 + 4.0 * torch.clamp(
-            delta_u.detach().abs() / 0.10,
-            min=0.0,
-            max=1.0,
-        )
+    def posterior_context_from_logits(
+        reference_logits: Tensor,
+        candidate_logits: Tensor,
+    ) -> Dict[str, Tensor]:
+        if reference_logits.ndim != 2 or reference_logits.shape[1] != 2:
+            raise ValueError("reference_logits must have shape [B,2].")
+        if candidate_logits.shape != reference_logits.shape:
+            raise ValueError("candidate_logits must match reference_logits.")
+        if not torch.is_floating_point(reference_logits) or not torch.is_floating_point(
+            candidate_logits
+        ):
+            raise TypeError("posterior-context logits must be floating.")
+        if not torch.isfinite(reference_logits).all() or not torch.isfinite(
+            candidate_logits
+        ).all():
+            raise ValueError("posterior-context logits must be finite.")
+        p_ref_pos = torch.softmax(reference_logits, dim=1)[:, 1].detach()
+        p_cand_pos = torch.softmax(candidate_logits, dim=1)[:, 1].detach()
+        return {
+            "reference_positive_probability": p_ref_pos,
+            "candidate_positive_probability": p_cand_pos,
+            "candidate_minus_reference_positive_probability": (
+                p_cand_pos - p_ref_pos
+            ).detach(),
+        }
 
-    def forward(
+    def counterfactual_context(
         self,
         text_quality: Tensor,
         vision_quality: Tensor,
         compatibility: Tensor,
-    ) -> UtilitySupervisedLearnedInterventionControllerOutput:
+    ) -> Dict[str, Tensor]:
         self._validate_triplet(text_quality, vision_quality, compatibility)
         q_t = text_quality.detach()
         q_v = vision_quality.detach()
@@ -1327,6 +1340,111 @@ class UtilitySupervisedLearnedInterventionController(
             + 0.25 * quality_deficit
             + 0.25 * quality_disagreement
         ).clamp(0.0, 1.0)
+
+        preference = q_t - q_v
+        candidate_text_weight = (
+            reference_text_weight + V033_MAX_WEIGHT_SHIFT * preference
+        ).clamp(V033_MIN_MODALITY_WEIGHT, V033_MAX_MODALITY_WEIGHT)
+        candidate_vision_weight = 1.0 - candidate_text_weight
+        candidate_interaction_multiplier = (
+            1.0 - V033_MAX_INTERACTION_SUPPRESSION * risk
+        ).clamp(1.0 - V033_MAX_INTERACTION_SUPPRESSION, 1.0)
+
+        return {
+            "q_t": q_t,
+            "q_v": q_v,
+            "c_tv": c_tv,
+            "text_score": text_score,
+            "vision_score": vision_score,
+            "reference_text_weight": reference_text_weight,
+            "reference_vision_weight": reference_vision_weight,
+            "reference_weights": reference_weights,
+            "quality_deficit": quality_deficit,
+            "compatibility_deficit": compatibility_deficit,
+            "quality_disagreement": quality_disagreement,
+            "risk": risk,
+            "candidate_text_weight": candidate_text_weight,
+            "candidate_vision_weight": candidate_vision_weight,
+            "candidate_interaction_multiplier": candidate_interaction_multiplier,
+        }
+
+    @staticmethod
+    def utility_magnitude_weight(delta_u: Tensor) -> Tensor:
+        if delta_u.ndim != 1:
+            raise ValueError("delta_u must have shape [B].")
+        if not torch.is_floating_point(delta_u):
+            raise TypeError("delta_u must be floating.")
+        if not torch.isfinite(delta_u).all():
+            raise ValueError("delta_u must be finite.")
+        return 1.0 + 4.0 * torch.clamp(
+            delta_u.detach().abs() / 0.10,
+            min=0.0,
+            max=1.0,
+        )
+
+    def forward(
+        self,
+        text_quality: Tensor,
+        vision_quality: Tensor,
+        compatibility: Tensor,
+        reference_positive_probability: Tensor,
+        candidate_positive_probability: Tensor,
+        candidate_minus_reference_positive_probability: Tensor,
+    ) -> UtilitySupervisedLearnedInterventionControllerOutput:
+        context = self.counterfactual_context(
+            text_quality, vision_quality, compatibility
+        )
+        q_t = context["q_t"]
+        q_v = context["q_v"]
+        c_tv = context["c_tv"]
+        text_score = context["text_score"]
+        vision_score = context["vision_score"]
+        reference_text_weight = context["reference_text_weight"]
+        reference_vision_weight = context["reference_vision_weight"]
+        reference_weights = context["reference_weights"]
+        quality_deficit = context["quality_deficit"]
+        compatibility_deficit = context["compatibility_deficit"]
+        quality_disagreement = context["quality_disagreement"]
+        risk = context["risk"]
+        candidate_text_weight = context["candidate_text_weight"]
+        candidate_vision_weight = context["candidate_vision_weight"]
+        candidate_interaction_multiplier = context[
+            "candidate_interaction_multiplier"
+        ]
+
+        posterior = (
+            ("reference_positive_probability", reference_positive_probability),
+            ("candidate_positive_probability", candidate_positive_probability),
+            (
+                "candidate_minus_reference_positive_probability",
+                candidate_minus_reference_positive_probability,
+            ),
+        )
+        normalized = []
+        for name, value in posterior:
+            if not isinstance(value, Tensor):
+                raise TypeError(f"{name} must be a torch.Tensor.")
+            if value.ndim != 1 or value.shape[0] != q_t.shape[0]:
+                raise ValueError(f"{name} must have shape [B].")
+            if not torch.is_floating_point(value):
+                raise TypeError(f"{name} must be floating.")
+            if not torch.isfinite(value).all():
+                raise ValueError(f"{name} must be finite.")
+            normalized.append(
+                value.detach().to(device=q_t.device, dtype=q_t.dtype).view(-1, 1)
+            )
+        p_ref_pos, p_cand_pos, delta_pos = normalized
+        if not torch.allclose(
+            delta_pos,
+            p_cand_pos - p_ref_pos,
+            atol=1e-7,
+            rtol=1e-6,
+        ):
+            raise ValueError(
+                "candidate_minus_reference_positive_probability must equal "
+                "candidate_positive_probability-reference_positive_probability."
+            )
+
         utility_features = torch.cat(
             (
                 q_t,
@@ -1336,9 +1454,14 @@ class UtilitySupervisedLearnedInterventionController(
                 compatibility_deficit,
                 quality_disagreement,
                 risk,
+                p_ref_pos,
+                p_cand_pos,
+                delta_pos,
             ),
             dim=1,
         )
+        if utility_features.shape != (q_t.shape[0], 10):
+            raise RuntimeError("v0.35 utility_features must have shape [B,10].")
 
         selector_logit = self.utility_selector(utility_features)
         utility_probability = torch.sigmoid(selector_logit)
@@ -1351,16 +1474,6 @@ class UtilitySupervisedLearnedInterventionController(
             utility_probability >= V033_ACTIVE_INTERVENTION_THRESHOLD
         ).to(utility_probability.dtype)
         applied_strength = V033_MAX_INTERVENTION_STRENGTH * intervention_gate
-
-        # Exact frozen v0.31 raw-evidence candidate-action equations.
-        preference = q_t - q_v
-        candidate_text_weight = (
-            reference_text_weight + V033_MAX_WEIGHT_SHIFT * preference
-        ).clamp(V033_MIN_MODALITY_WEIGHT, V033_MAX_MODALITY_WEIGHT)
-        candidate_vision_weight = 1.0 - candidate_text_weight
-        candidate_interaction_multiplier = (
-            1.0 - V033_MAX_INTERACTION_SUPPRESSION * risk
-        ).clamp(1.0 - V033_MAX_INTERACTION_SUPPRESSION, 1.0)
 
         zero_gate = intervention_gate == 0.0
         blended_text_weight = (
