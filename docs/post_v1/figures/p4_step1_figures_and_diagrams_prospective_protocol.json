@@ -1,0 +1,151 @@
+{
+    "schema":  "aegis.post_v1.p4.step1.figures_diagrams_protocol.v1",
+    "status":  "POST_V1_P4_STEP1_FIGURES_AND_DIAGRAMS_PROTOCOL_FROZEN",
+    "parent_commit":  "d976ec907149fd017ee44fb13f456c81e1ac48b9",
+    "purpose":  "Create publication- and presentation-ready visual representations that are strictly traceable to frozen AEGIS v1 architecture, results, limitations, provenance, and reproducibility evidence.",
+    "authoritative_inputs":  [
+                                 "docs/post_v1/architecture/AEGIS_V1_CANONICAL_ARCHITECTURE.md",
+                                 "docs/post_v1/architecture/AEGIS_V1_COMPONENT_LEDGER.md",
+                                 "docs/post_v1/architecture/AEGIS_V1_DATAFLOW_AND_EVIDENCE_MODEL.md",
+                                 "docs/post_v1/results/AEGIS_V1_SCIENTIFIC_RESULTS_LEDGER.md",
+                                 "docs/post_v1/results/AEGIS_V1_LIMITATIONS_AND_NEGATIVE_FINDINGS.md",
+                                 "docs/post_v1/results/AEGIS_V1_CLAIMS_MATRIX.md",
+                                 "docs/post_v1/results/AEGIS_V1_EXPERIMENT_TIMELINE.md",
+                                 "docs/post_v1/reproducibility/AEGIS_V1_REPRODUCIBILITY_GUIDE.md",
+                                 "docs/post_v1/reproducibility/AEGIS_V1_PROVENANCE_AND_HASH_LEDGER.md"
+                             ],
+    "visual_classes":  [
+                           {
+                               "id":  "F1",
+                               "title":  "AEGIS Research Core v1.0 Canonical Architecture",
+                               "kind":  "SYSTEM_DIAGRAM",
+                               "evidence":  "P1 architecture",
+                               "required":  true
+                           },
+                           {
+                               "id":  "F2",
+                               "title":  "Multimodal Dataflow and Evidence Model",
+                               "kind":  "DATAFLOW_DIAGRAM",
+                               "evidence":  "P1 dataflow/evidence model",
+                               "required":  true
+                           },
+                           {
+                               "id":  "F3",
+                               "title":  "Reliability, Selector, and Intervention Control Path",
+                               "kind":  "MECHANISM_DIAGRAM",
+                               "evidence":  "P1 architecture + frozen v0.35 mechanism",
+                               "required":  true
+                           },
+                           {
+                               "id":  "F4",
+                               "title":  "Scientific Progression v0.34 to v1.0",
+                               "kind":  "TIMELINE",
+                               "evidence":  "P2 experiment timeline",
+                               "required":  true
+                           },
+                           {
+                               "id":  "F5",
+                               "title":  "v0.35 Selector Discrimination and Intervention Results",
+                               "kind":  "RESULT_FIGURE",
+                               "evidence":  "P2 frozen seed-level M3/M4 results",
+                               "required":  true
+                           },
+                           {
+                               "id":  "F6",
+                               "title":  "Evidence and Claim Boundary Map",
+                               "kind":  "CLAIM_BOUNDARY_DIAGRAM",
+                               "evidence":  "P2 claims/limitations",
+                               "required":  true
+                           },
+                           {
+                               "id":  "F7",
+                               "title":  "Reproducibility and Provenance Chain",
+                               "kind":  "PROVENANCE_DIAGRAM",
+                               "evidence":  "P3 reproducibility/provenance",
+                               "required":  true
+                           },
+                           {
+                               "id":  "F8",
+                               "title":  "v1.0 Scope versus Future Research",
+                               "kind":  "SCOPE_DIAGRAM",
+                               "evidence":  "P1-P3 + future-work boundary only",
+                               "required":  true
+                           }
+                       ],
+    "frozen_result_values":  {
+                                 "seeds":  [
+                                               42,
+                                               43,
+                                               44
+                                           ],
+                                 "validation_macro_f1":  [
+                                                             "0.8669",
+                                                             "0.8716",
+                                                             "0.8610"
+                                                         ],
+                                 "utility_probability_std":  [
+                                                                 "0.016633",
+                                                                 "0.012812",
+                                                                 "0.009565"
+                                                             ],
+                                 "active_intervention_rate":  [
+                                                                  0,
+                                                                  0,
+                                                                  0
+                                                              ],
+                                 "M3_threshold":  "0.05",
+                                 "M3_operator":  "\u003e=",
+                                 "M4_threshold":  "0",
+                                 "M4_operator":  "\u003e",
+                                 "M3_status":  "NOT_SUPPORTED",
+                                 "M4_status":  "NOT_SUPPORTED",
+                                 "correction":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+                                 "correction_result":  "CORRECTION_NOT_SUPPORTED",
+                                 "v036_robustness":  "NOT_COMPUTED"
+                             },
+    "visual_semantics":  {
+                             "supported":  "May be shown as satisfying a frozen prospective criterion.",
+                             "not_supported":  "Must be visibly distinguished from supported results; do not relabel as disproven.",
+                             "not_computed":  "Must not be plotted as zero or as a measured negative result.",
+                             "characterized":  "May be shown descriptively with scope qualification.",
+                             "future_work":  "Must be visually separated from implemented/evaluated v1.0 components."
+                         },
+    "prohibited_visual_implications":  [
+                                           "Do not depict v1.0 as having demonstrated active adaptive robustness.",
+                                           "Do not depict NOT_COMPUTED robustness as a numeric value.",
+                                           "Do not imply selector failure establishes classifier non-robustness.",
+                                           "Do not depict production readiness, autonomous attribution, or autonomous threat determination as established.",
+                                           "Do not depict AEGIS-Vision specialization, AEGIS-Audio, AEGIS-Video, multilingual expansion, or full future multimodal integration as completed v1.0 capabilities.",
+                                           "Do not add invented performance values, confidence intervals, statistical tests, benchmarks, or official-test results."
+                                       ],
+    "rendering_rules":  {
+                            "source_format":  "Mermaid and/or SVG-capable text specification preferred for repository traceability",
+                            "raster_exports":  "Optional downstream exports; source specification remains authoritative",
+                            "accessibility":  "Every figure requires title, caption, legend where needed, and text-equivalent interpretation.",
+                            "traceability":  "Every figure specification must identify its frozen source documents and exact numeric inputs where applicable.",
+                            "publication":  "Figures must remain interpretable in manuscript-scale rendering and grayscale/print contexts; meaning must not depend on color alone."
+                        },
+    "required_step2_outputs":  [
+                                   "docs/post_v1/figures/AEGIS_V1_FIGURE_CATALOG.md",
+                                   "docs/post_v1/figures/AEGIS_V1_VISUAL_TRACEABILITY_LEDGER.md",
+                                   "docs/post_v1/figures/F1_CANONICAL_ARCHITECTURE.md",
+                                   "docs/post_v1/figures/F2_MULTIMODAL_DATAFLOW_AND_EVIDENCE_MODEL.md",
+                                   "docs/post_v1/figures/F3_RELIABILITY_SELECTOR_INTERVENTION_CONTROL_PATH.md",
+                                   "docs/post_v1/figures/F4_SCIENTIFIC_PROGRESSION_TIMELINE.md",
+                                   "docs/post_v1/figures/F5_SELECTOR_DISCRIMINATION_RESULTS.md",
+                                   "docs/post_v1/figures/F6_EVIDENCE_AND_CLAIM_BOUNDARY_MAP.md",
+                                   "docs/post_v1/figures/F7_REPRODUCIBILITY_AND_PROVENANCE_CHAIN.md",
+                                   "docs/post_v1/figures/F8_V1_SCOPE_VS_FUTURE_RESEARCH.md"
+                               ],
+    "next_step":  {
+                      "status":  "AUTHORIZED_AFTER_STEP1_REMOTE_FREEZE",
+                      "id":  "POST_V1_P4_STEP2_VISUAL_EVIDENCE_INVENTORY_AND_FIGURE_SPECIFICATIONS",
+                      "execution":  "DOCUMENTARY_VISUAL_SPECIFICATION_ONLY"
+                  },
+    "scientific_execution":  {
+                                 "model_execution":  false,
+                                 "training":  false,
+                                 "new_evaluation":  false,
+                                 "official_test_samples_accessed":  0
+                             }
+}
