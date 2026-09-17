@@ -1,0 +1,29 @@
+{
+    "schema":  "aegis.post_v1.t1.vision.step2.candidate_dataset_inventory.v1",
+    "status":  "POST_V1_T1_STEP2_READ_ONLY_CANDIDATE_DATASET_INVENTORY_FROZEN",
+    "parent_commit":  "b7866b48dfe0d169314f78c69b79a69de6162809",
+    "inventory_method":  "git ls-files path-name inventory only; no dataset content execution or external download",
+    "tracked_file_count":  654,
+    "dataset_like_tracked_path_count":  65,
+    "tracked_image_asset_count":  0,
+    "vision_keyword_path_count":  72,
+    "manifest_or_dataset_keyword_path_count":  35,
+    "inherited_dataset_name_path_counts":  {
+                                               "fakeddit":  57,
+                                               "weibo":  0,
+                                               "mfnd":  0
+                                           },
+    "interpretation":  [
+                           "Repository path-name presence does not establish suitability for image-authenticity/manipulation research.",
+                           "Prior Fakeddit/Weibo/MFND use does not authorize reuse for the new T1 task.",
+                           "No external dataset is selected by this inventory.",
+                           "No image-authenticity ground-truth taxonomy is inferred from filenames."
+                       ],
+    "candidate_dataset_selection":  "NOT_YET_SELECTED",
+    "external_download":  "NONE",
+    "data_mutation":  "NONE",
+    "model_execution":  "NONE",
+    "training":  "NONE",
+    "evaluation":  "NONE",
+    "official_test_samples":  0
+}
