@@ -1,0 +1,35 @@
+{
+    "schema":  "aegis.post_v1.t1.vision.step2c.pre_acquisition_environment_probe.v1",
+    "status":  "POST_V1_T1_STEP2C_PRE_ACQUISITION_ENVIRONMENT_PROBE_FROZEN",
+    "parent_commit":  "cecac147d7b43d00cc591f43e60d4e7a5c821848",
+    "repository_drive":  "D:\\",
+    "free_bytes":  342073044992,
+    "free_gib":  318.58,
+    "total_gib":  592.04,
+    "capacity_state":  "STAGED_OR_SUBSET_ACQUISITION_RECOMMENDED",
+    "tooling":  {
+                    "git":  "C:\\Program Files\\Git\\cmd\\git.exe",
+                    "python":  "D:\\Research\\AEGIS\\.venv\\Scripts\\python.exe",
+                    "curl":  "C:\\WINDOWS\\system32\\curl.exe"
+                },
+    "authoritative_endpoint_probe":  {
+                                         "official_repository":  {
+                                                                     "url":  "https://github.com/GenImage-Dataset/GenImage",
+                                                                     "http_result":  "206"
+                                                                 },
+                                         "official_homepage":  {
+                                                                   "url":  "https://genimage-dataset.github.io/",
+                                                                   "http_result":  "206"
+                                                               },
+                                         "official_google_drive":  {
+                                                                       "url":  "https://drive.google.com/drive/folders/1jGt10bwTbhEZuGXLyvrCuxOI0cBqQ1FS?usp=sharing",
+                                                                       "http_result":  "200"
+                                                                   }
+                                     },
+    "payload_downloaded":  "NONE",
+    "dataset_extracted":  "NONE",
+    "model_execution":  "NONE",
+    "training":  "NONE",
+    "formal_evaluation":  "NONE",
+    "official_test_samples":  0
+}
