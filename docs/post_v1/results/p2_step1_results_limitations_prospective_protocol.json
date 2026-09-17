@@ -1,0 +1,187 @@
+{
+    "schema":  "aegis.post_v1.p2.step1.results_limitations_protocol.v1",
+    "status":  "POST_V1_P2_STEP1_RESULTS_LIMITATIONS_PROTOCOL_FROZEN",
+    "programme":  "AEGIS post-v1 research packaging",
+    "package":  "P2_SCIENTIFIC_RESULTS_AND_LIMITATIONS_LEDGER",
+    "step":  "P2_STEP1_RESULTS_LIMITATIONS_PROSPECTIVE_PROTOCOL",
+    "parent":  {
+                   "branch":  "docs/post-v1-research-packaging",
+                   "p1_closure_commit":  "1ea661c92db229360b41e41bab370f025988f892",
+                   "p1_closure_json":  "docs/post_v1/architecture/p1_step3_architecture_consistency_and_closure.json",
+                   "p1_closure_json_sha256":  "1FCC31263D052AB38F06287FFDA81038572769F25B442252D38EE7C8C23FD999",
+                   "p1_closure_markdown":  "docs/post_v1/architecture/p1_step3_architecture_consistency_and_closure.md",
+                   "p1_closure_markdown_sha256":  "9A093CB8A6489C4D44F95A77EBE0083AA3DDB1140F326F220537594AD82D5BAE"
+               },
+    "purpose":  "Consolidate frozen AEGIS scientific results, negative findings, limitations, non-results, and claim boundaries into publication-ready ledgers without creating new scientific evidence.",
+    "evidence_rule":  {
+                          "frozen_evidence_only":  true,
+                          "new_scientific_results_authorized":  false,
+                          "reinterpretation_of_frozen_decisions_authorized":  false,
+                          "retrospective_threshold_changes_authorized":  false,
+                          "checkpoint_reselection_authorized":  false,
+                          "training_authorized":  false,
+                          "new_evaluation_authorized":  false,
+                          "official_test_access_authorized":  false,
+                          "production_capability_inference_authorized":  false
+                      },
+    "result_taxonomy":  [
+                            "SUPPORTED",
+                            "NOT_SUPPORTED",
+                            "NOT_COMPUTED",
+                            "CHARACTERIZED",
+                            "CONTEXT_ONLY",
+                            "NOT_AUTHORIZED"
+                        ],
+    "result_taxonomy_rules":  {
+                                  "SUPPORTED":  "Use only when the relevant prospectively frozen criterion was satisfied by the frozen evidence.",
+                                  "NOT_SUPPORTED":  "Use when a prospectively frozen criterion was evaluated and not satisfied; do not rewrite as disproven/impossible.",
+                                  "NOT_COMPUTED":  "Use when a result was not computed because prerequisites or authorization were absent; do not convert to a negative result.",
+                                  "CHARACTERIZED":  "Use for bounded descriptive or mechanistic findings that do not establish broader effectiveness.",
+                                  "CONTEXT_ONLY":  "Use for information useful to interpretation but not itself an evaluated AEGIS result.",
+                                  "NOT_AUTHORIZED":  "Use for claims/evaluations explicitly outside the scientific authorization boundary."
+                              },
+    "required_p2_outputs":  [
+                                {
+                                    "id":  "P2_R1",
+                                    "path":  "docs/post_v1/results/AEGIS_V1_SCIENTIFIC_RESULTS_LEDGER.md",
+                                    "purpose":  "Canonical frozen scientific result ledger"
+                                },
+                                {
+                                    "id":  "P2_R2",
+                                    "path":  "docs/post_v1/results/AEGIS_V1_LIMITATIONS_AND_NEGATIVE_FINDINGS.md",
+                                    "purpose":  "Canonical limitations, negative findings, non-results, and scope boundaries"
+                                },
+                                {
+                                    "id":  "P2_R3",
+                                    "path":  "docs/post_v1/results/AEGIS_V1_CLAIMS_MATRIX.md",
+                                    "purpose":  "Publication/presentation claim authorization matrix"
+                                },
+                                {
+                                    "id":  "P2_R4",
+                                    "path":  "docs/post_v1/results/AEGIS_V1_EXPERIMENT_TIMELINE.md",
+                                    "purpose":  "Versioned scientific progression and decision timeline"
+                                }
+                            ],
+    "ledger_fields":  [
+                          "VERSION_OR_STAGE",
+                          "QUESTION_OR_HYPOTHESIS",
+                          "PROSPECTIVE_CRITERION",
+                          "EVIDENCE_SOURCE",
+                          "POPULATION_DATASET_PROTOCOL_SCOPE",
+                          "OBSERVED_RESULT",
+                          "STATUS",
+                          "AUTHORIZED_CLAIM",
+                          "PROHIBITED_OVERINTERPRETATION",
+                          "LIMITATION"
+                      ],
+    "mandatory_frozen_findings":  {
+                                      "v034":  {
+                                                   "M1":  "SUPPORTED",
+                                                   "M2":  "SUPPORTED",
+                                                   "M3":  "NOT_SUPPORTED",
+                                                   "M4":  "NOT_SUPPORTED",
+                                                   "M5":  "SELECTOR_DISCRIMINATION_FAILURE",
+                                                   "M3_criterion":  "utility_probability_std \u003e= 0.05 per seed",
+                                                   "M4_criterion":  "active_intervention_rate \u003e 0 per seed",
+                                                   "formal_evaluation":  "NOT_AUTHORIZED_AFTER_PRE_EVALUATION_MECHANISM_FAILURE"
+                                               },
+                                      "v035":  {
+                                                   "correction":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+                                                   "correction_result":  "CORRECTION_NOT_SUPPORTED",
+                                                   "M3":  "NOT_SUPPORTED",
+                                                   "M4":  "NOT_SUPPORTED",
+                                                   "seed42_utility_probability_std":  0.016633,
+                                                   "seed42_active_intervention_rate":  0,
+                                                   "seed43_utility_probability_std":  0.012812,
+                                                   "seed43_active_intervention_rate":  0,
+                                                   "seed44_utility_probability_std":  0.009565,
+                                                   "seed44_active_intervention_rate":  0,
+                                                   "selector_parameter_movement":  "OBSERVED",
+                                                   "selector_gradient_signal":  "OBSERVED",
+                                                   "disposition":  "PERSISTENT_SELECTOR_OUTPUT_DISCRIMINATION_FAILURE_AFTER_POSTERIOR_CONTEXT_CORRECTION"
+                                               },
+                                      "v036":  {
+                                                   "Q1":  "INELIGIBLE",
+                                                   "Q2":  "OBSERVED_OPTIMIZATION_ACTIVATION_DECOUPLING",
+                                                   "Q3":  "CONSISTENT_FAILURE_ACROSS_ALL_THREE_SEEDS",
+                                                   "Q4":  "NOT_AVAILABLE_FROM_UNAMBIGUOUS_FROZEN_SUMMARY_FIELD",
+                                                   "Q5":  "FORMAL_ACTIVE_INTERVENTION_ROBUSTNESS_EVALUATION_INADMISSIBLE",
+                                                   "robustness_result":  "NOT_COMPUTED",
+                                                   "disposition":  "ROBUSTNESS_EVALUATION_BLOCKED_BY_INACTIVE_SELECTOR_PREREQUISITE",
+                                                   "classifier_non_robustness_claimed":  false,
+                                                   "active_adaptive_robustness_claimed":  false
+                                               },
+                                      "v037":  {
+                                                   "supported_posture":  "ANALYST DECISION-SUPPORT RESEARCH CHARACTERIZATION",
+                                                   "production_capability":  "NOT_ESTABLISHED",
+                                                   "autonomous_attribution":  "NOT_ESTABLISHED"
+                                               },
+                                      "v038":  {
+                                                   "reproducibility_release_gates":  "R1_R10_PASS",
+                                                   "status":  "V038_INTEGRATION_REPRODUCIBILITY_RESEARCH_RELEASE_CLOSED"
+                                               },
+                                      "v1":  {
+                                                 "release":  "AEGIS Research Core v1.0",
+                                                 "official_test_samples_accessed":  0,
+                                                 "production_deployment_readiness":  "NOT_ESTABLISHED"
+                                             }
+                                  },
+    "mandatory_limitations":  [
+                                  "Dataset/task/population/protocol bounded evidence",
+                                  "Persistent selector-output discrimination failure after posterior-context correction",
+                                  "No qualifying active intervention under frozen M4 criterion",
+                                  "Formal active-intervention robustness not computed",
+                                  "Selector failure does not establish classifier non-robustness",
+                                  "Validation performance is not formal robustness evidence",
+                                  "No official-test access",
+                                  "No production deployment validation",
+                                  "No autonomous attribution validation",
+                                  "Future modalities and multilingual expansion are outside v1.0 evidence"
+                              ],
+    "claim_classes":  {
+                          "MAY_CLAIM":  [
+                                            "AEGIS Research Core v1.0 is a reproducible scientifically bounded research core",
+                                            "The v0.35 posterior-context correction was implemented and formally trained/evaluated under its frozen protocol",
+                                            "M3 and M4 were not supported under their prospectively frozen criteria",
+                                            "Optimization signal existed despite failure to achieve selector output discrimination/activation",
+                                            "Formal active-intervention robustness was not computed because its selector prerequisite failed",
+                                            "v0.37 supports analyst decision-support research characterization"
+                                        ],
+                          "MUST_QUALIFY":  [
+                                               "Classifier performance statements must identify dataset/protocol and validation scope",
+                                               "Mechanistic findings must be described as characterized rather than generalized causal proof unless frozen evidence supports causality",
+                                               "Implemented components must not automatically be described as scientifically supported"
+                                           ],
+                          "MUST_NOT_CLAIM":  [
+                                                 "AEGIS v1.0 has demonstrated active adaptive robustness",
+                                                 "Selector failure proves the classifier is non-robust",
+                                                 "AEGIS v1.0 is production-ready",
+                                                 "AEGIS v1.0 performs autonomous attribution",
+                                                 "AEGIS-Vision, Audio, Video, multilingual expansion, or broader operational integration are completed v1.0 capabilities",
+                                                 "NOT_SUPPORTED findings are disproven or impossible",
+                                                 "NOT_COMPUTED findings are negative experimental results"
+                                             ]
+                      },
+    "p2_step2_authorization":  {
+                                   "status":  "AUTHORIZED_AFTER_STEP1_REMOTE_FREEZE",
+                                   "next_step":  "POST_V1_P2_STEP2_FROZEN_RESULTS_EVIDENCE_EXTRACTION_AND_LEDGER_DRAFT",
+                                   "permitted":  [
+                                                     "Read-only extraction from frozen experiment/release records",
+                                                     "Cross-version result normalization using this protocol taxonomy",
+                                                     "Generation of the four required P2 documents",
+                                                     "Traceability from claims to frozen evidence",
+                                                     "Documentation-only consistency and completeness checks"
+                                                 ],
+                                   "prohibited":  [
+                                                      "Model/source behavior changes",
+                                                      "Training/retraining",
+                                                      "New scientific evaluation",
+                                                      "Official-test access",
+                                                      "Retrospective criteria or threshold changes",
+                                                      "Checkpoint reselection",
+                                                      "Reclassification of NOT_SUPPORTED as SUPPORTED",
+                                                      "Reclassification of NOT_COMPUTED as a negative result",
+                                                      "Production capability claims"
+                                                  ]
+                               }
+}
