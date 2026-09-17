@@ -1,0 +1,43 @@
+{
+  "schema": "aegis.post_v1.p6.step2.demonstration_inventory.v1",
+  "status": "POST_V1_P6_STEP2_DEMONSTRATION_EVIDENCE_INVENTORY_DRAFTED",
+  "parent_commit": "dc8dd55b4761d410bb2ade57501706b6c43f61ba",
+  "authoritative_release": {
+    "tag": "v1.0.0-research-core",
+    "commit": "39492cf6d93987fdf9ebee29b95fdb826b8391e4"
+  },
+  "repository_inventory": {
+    "tracked_files": 624,
+    "tracked_python_files": 317,
+    "tracked_test_files": 80,
+    "tracked_script_python_files": 48,
+    "tracked_docs_files": 286,
+    "interface_candidate_count_by_filename_heuristic": 7,
+    "interface_candidates_observational": "aegis/acquisition/__init__.py, aegis/acquisition/base.py, aegis/acquisition/loader.py, aegis/acquisition/record.py, aegis/acquisition/validators.py, scripts/build_fakeddit_cache.py, tests/test_acquisition.py"
+  },
+  "demonstration_admissibility": {
+    "D1_ARCHITECTURE_AND_DATAFLOW_WALKTHROUGH": "ADMISSIBLE_DOCUMENTARY",
+    "D2_FROZEN_EVIDENCE_AND_RESULT_EXPLORATION": "ADMISSIBLE_DOCUMENTARY",
+    "D3_REPRODUCIBILITY_AND_PROVENANCE_WALKTHROUGH": "ADMISSIBLE_DOCUMENTARY",
+    "D4_BOUNDED_INFERENCE_DEMONSTRATION": "NOT_AUTHORIZED_PENDING_EXPLICIT_INTERFACE_AND_ARTIFACT_CONTRACT_AUDIT",
+    "D5_FAILURE_AND_LIMITATION_EXPLANATION": "ADMISSIBLE_DOCUMENTARY"
+  },
+  "frozen_results": {
+    "validation_macro_f1": [0.8669, 0.8716, 0.8610],
+    "utility_probability_std": [0.016633, 0.012812, 0.009565],
+    "M3_criterion": "utility_probability_std >= 0.05",
+    "M3_status": "NOT_SUPPORTED",
+    "active_intervention_rate": [0, 0, 0],
+    "M4_criterion": "active_intervention_rate > 0",
+    "M4_status": "NOT_SUPPORTED",
+    "v035_correction_result": "CORRECTION_NOT_SUPPORTED",
+    "v036_active_intervention_robustness": "NOT_COMPUTED"
+  },
+  "execution": {
+    "demo_execution": "NONE",
+    "model_execution": "NONE",
+    "training": "NONE",
+    "new_evaluation": "NONE",
+    "official_test_samples": 0
+  }
+}
