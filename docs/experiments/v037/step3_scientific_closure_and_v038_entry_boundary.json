@@ -1,0 +1,76 @@
+{
+    "version":  "0.37",
+    "step":  "Step3",
+    "title":  "Scientific Closure and v0.38 Integration/Reproducibility/Research-Release Entry Boundary",
+    "status":  "V037_SCIENTIFICALLY_CLOSED",
+    "parent_step2_commit":  "e964cfbfc571aa5ac5c724854fa664547cb5a532",
+    "step2_evidence":  {
+                           "json_path":  "docs/experiments/v037/step2_readonly_evidence_inventory_and_characterization.json",
+                           "json_sha256":  "BB02A817106EA4EB42F52CDA9DCC1BBB52BAD8C731D333CA12DDC85EA92931BC",
+                           "md_path":  "docs/experiments/v037/step2_readonly_evidence_inventory_and_characterization.md",
+                           "md_sha256":  "9D0DCC2409D5057676B0E97926EDA62363EDDD198415DAA7BD8C2662A5EAABE6",
+                           "tracked_experiment_record_count":  214
+                       },
+    "scientific_disposition":  {
+                                   "label":  "THREAT_INTELLIGENCE_SCIENTIFIC_CHARACTERIZATION_COMPLETED_WITH_EVIDENCE_BOUNDED_OPERATIONAL_CLAIMS",
+                                   "characterization_complete":  true,
+                                   "new_model_result_computed":  false,
+                                   "formal_robustness_result_computed":  false,
+                                   "production_capability_established":  false,
+                                   "interpretation":  "AEGIS frozen evidence has been characterized into multimodal threat/failure surfaces, research observables, failure-layer localization, information-integrity claim boundaries, alertability limits, and a scientific claim ledger.",
+                                   "supported_posture":  "ANALYST_DECISION_SUPPORT_RESEARCH_CHARACTERIZATION"
+                               },
+    "frozen_characterization_summary":  {
+                                            "T1":  "CHARACTERIZED",
+                                            "T2":  "CHARACTERIZED_CONTEXT_ONLY",
+                                            "T3":  "CHARACTERIZED",
+                                            "T4":  "EVIDENCE_BOUNDED",
+                                            "T5":  "CONTEXT_ONLY_AND_NOT_AUTHORIZED_FOR_PRODUCTION_ALERTING",
+                                            "T6":  "SCIENTIFIC_CLAIM_LEDGER_FROZEN"
+                                        },
+    "key_claim_boundaries":  [
+                                 "Controlled multimodal degradation/mismatch and internal reliability responses may be described only within their frozen research scope.",
+                                 "Selector optimization, selector discrimination, and intervention activation are distinct evidence layers.",
+                                 "The v0.35 posterior-context correction did not restore M3 discrimination or M4 activation.",
+                                 "v0.36 formal active-intervention robustness was NOT_COMPUTED.",
+                                 "Classifier non-robustness cannot be inferred from selector ineligibility.",
+                                 "Autonomous disinformation-intent attribution, actor/campaign attribution, production alerting, and task-specific misinformation/malinformation/hate/deepfake capability are not established by the frozen evidence."
+                             ],
+    "v038_entry_boundary":  {
+                                "status":  "INTEGRATION_REPRODUCIBILITY_RESEARCH_RELEASE_ENTRY_AUTHORIZED",
+                                "purpose":  "Consolidate the frozen AEGIS research core into a reproducible, internally consistent, auditable research-release candidate without reopening scientific model development.",
+                                "permitted_work":  [
+                                                       "repository-wide provenance and frozen-evidence manifest",
+                                                       "reproducibility environment and command inventory",
+                                                       "research-core architecture and component documentation",
+                                                       "scientific claim/limitation ledger integration",
+                                                       "test and invariant-suite inventory",
+                                                       "release-readiness audit",
+                                                       "research artifact index",
+                                                       "versioned research-release notes",
+                                                       "documentation corrections that do not alter scientific behavior"
+                                                   ],
+                                "source_behavior_change_authorized":  false,
+                                "model_architecture_change_authorized":  false,
+                                "training_authorized":  false,
+                                "new_formal_evaluation_authorized":  false,
+                                "official_test_access_authorized":  false,
+                                "production_deployment_authorized":  false,
+                                "next_step":  "V0.38_STEP1_PROSPECTIVE_INTEGRATION_REPRODUCIBILITY_RELEASE_PROTOCOL"
+                            },
+    "v038_completion_target":  {
+                                   "objective":  "Produce a reproducible AEGIS Research Core release candidate and determine readiness for v1.0 freeze.",
+                                   "no_ordinary_v039_or_v040_feature_cycle":  true,
+                                   "v1_entry_condition":  "v0.38 integration/reproducibility/release gates pass without unresolved scientific-integrity or reproducibility blockers."
+                               },
+    "integrity":  {
+                      "training_performed":  false,
+                      "implementation_performed":  false,
+                      "source_behavior_change_performed":  false,
+                      "new_evaluation_performed":  false,
+                      "formal_robustness_evaluation_performed":  false,
+                      "production_threshold_selected":  false,
+                      "official_test_samples_accessed":  0
+                  },
+    "next":  "v0.38 Step1 鈥?prospective integration, reproducibility, and research-release protocol freeze."
+}
