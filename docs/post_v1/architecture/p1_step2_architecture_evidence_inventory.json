@@ -1,0 +1,40 @@
+{
+    "schema":  "aegis.post_v1.p1.step2.architecture_evidence_inventory.v1",
+    "status":  "P1_STEP2_READONLY_EVIDENCE_INVENTORY",
+    "parent_commit":  "54dab84d893a40fe7dbb878b41ab00611e53073e",
+    "counts":  {
+                   "experiment_records":  224,
+                   "source_files":  187,
+                   "test_files":  80,
+                   "workflow_files":  48,
+                   "release_records":  2
+               },
+    "experiment_versions":  [
+                                "v027",
+                                "v028",
+                                "v029",
+                                "v030",
+                                "v031",
+                                "v032",
+                                "v033",
+                                "v034",
+                                "v035",
+                                "v036",
+                                "v037",
+                                "v038"
+                            ],
+    "evidence_sources":  [
+                             "tracked source under aegis/",
+                             "tracked tests under tests/",
+                             "tracked workflows under scripts/",
+                             "frozen experiment records under docs/experiments/",
+                             "v1 release records under docs/releases/",
+                             "P1 Step1 prospective packaging protocol"
+                         ],
+    "scientific_execution":  {
+                                 "model_execution":  false,
+                                 "training":  false,
+                                 "new_evaluation":  false,
+                                 "official_test_samples_accessed":  0
+                             }
+}
