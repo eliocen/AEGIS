@@ -1,0 +1,58 @@
+{
+  "schema": "aegis.post_v1.p8.step1.research_roadmap_protocol.v1",
+  "status": "POST_V1_P8_STEP1_RESEARCH_ROADMAP_PROSPECTIVE_PROTOCOL_FROZEN",
+  "parent_commit": "385d45a2e1594bd672d5b4ac3403b96e18e0b2e9",
+  "authoritative_v1_release": {
+    "tag": "v1.0.0-research-core",
+    "commit": "39492cf6d93987fdf9ebee29b95fdb826b8391e4",
+    "immutability": "REQUIRED"
+  },
+  "purpose": "Document separately governed post-v1 research directions, dependencies, evidence gates, and sequencing without retrospectively expanding AEGIS Research Core v1.0.",
+  "roadmap_tracks": [
+    "T1_AEGIS_VISION_IMAGE_AUTHENTICITY_AND_DEEPFAKE_RESEARCH",
+    "T2_MULTILINGUAL_AND_CROSS_LINGUAL_INFORMATION_INTEGRITY",
+    "T3_CROSS_MODAL_EVIDENCE_AND_CONSISTENCY",
+    "T4_AEGIS_AUDIO",
+    "T5_AEGIS_VIDEO",
+    "T6_FULL_MULTIMODAL_INTEGRATION",
+    "T7_RELIABILITY_SELECTOR_AND_ADAPTIVE_CONTROL_RESEARCH",
+    "T8_THREAT_INTELLIGENCE_AND_ANALYST_DECISION_SUPPORT_INTEGRATION",
+    "T9_REPRODUCIBILITY_EVALUATION_AND_RELEASE_GOVERNANCE"
+  ],
+  "mandatory_governance": [
+    "future work is not a completed v1 capability",
+    "each experimental track requires its own prospective protocol before implementation or evaluation",
+    "new datasets tasks populations modalities metrics thresholds and hypotheses must be frozen prospectively",
+    "negative findings from v1 remain valid historical evidence",
+    "selector failure must not be converted into classifier non-robustness",
+    "v0.36 active-intervention robustness remains NOT_COMPUTED",
+    "official test access remains separately governed",
+    "production readiness and autonomous attribution remain not established",
+    "national-security or threat-intelligence use remains analyst decision support unless separately validated and authorized",
+    "future releases must not mutate the immutable v1.0 tag or commit"
+  ],
+  "roadmap_evidence_states": [
+    "PROPOSED",
+    "PROTOCOL_REQUIRED",
+    "IMPLEMENTATION_AUTHORIZED",
+    "EVALUATION_AUTHORIZED",
+    "SUPPORTED",
+    "NOT_SUPPORTED",
+    "NOT_COMPUTED",
+    "DEFERRED"
+  ],
+  "step1_execution": {
+    "future_track_implementation": "NONE",
+    "model_source_changes": "NONE",
+    "model_execution": "NONE",
+    "training": "NONE",
+    "new_evaluation": "NONE",
+    "official_test_samples": 0
+  },
+  "planned_progression": [
+    "Step2 frozen evidence and dependency inventory for post-v1 tracks",
+    "Step3 structured post-v1 research roadmap and sequencing",
+    "Step4 roadmap traceability audit and complete post-v1 packaging closure"
+  ],
+  "next": "POST_V1_P8_STEP2_FUTURE_RESEARCH_EVIDENCE_AND_DEPENDENCY_INVENTORY"
+}
