@@ -1,0 +1,111 @@
+{
+  "schema": "aegis.post_v1.p8.step2.future_research_dependency_inventory.v1",
+  "status": "POST_V1_P8_STEP2_FUTURE_RESEARCH_EVIDENCE_AND_DEPENDENCY_INVENTORY_FROZEN",
+  "parent_commit": "20cefb9eac52f8cb64baf5f71f34140cddc0925e",
+  "authoritative_v1_release": {
+    "tag": "v1.0.0-research-core",
+    "commit": "39492cf6d93987fdf9ebee29b95fdb826b8391e4"
+  },
+  "inherited_frozen_evidence": {
+    "M3": "NOT_SUPPORTED",
+    "M4": "NOT_SUPPORTED",
+    "v035_correction": "CORRECTION_NOT_SUPPORTED",
+    "v036_active_intervention_robustness": "NOT_COMPUTED",
+    "P6_D4_bounded_inference": "NOT_INCLUDED",
+    "production_readiness": "NOT_ESTABLISHED",
+    "autonomous_attribution": "NOT_ESTABLISHED",
+    "official_test_samples": 0
+  },
+  "tracks": [
+    {
+      "id": "T1",
+      "name": "AEGIS-Vision",
+      "state": "PROTOCOL_REQUIRED",
+      "scope": "Image authenticity, manipulated-image/deepfake research, visual evidence quality, and image-specific information-integrity analysis.",
+      "dependencies": ["frozen v1 architecture/evidence model", "image dataset/task/population definition", "image authenticity taxonomy", "visual encoder and evidence contract", "prospective metrics/thresholds"],
+      "unresolved": ["no post-v1 Vision protocol frozen", "no Vision implementation authorized", "no Vision evaluation result exists"]
+    },
+    {
+      "id": "T2",
+      "name": "Multilingual and cross-lingual information integrity",
+      "state": "PROTOCOL_REQUIRED",
+      "scope": "Language-explicit and population-explicit extension beyond the frozen v1 task/data boundary.",
+      "dependencies": ["language set and population scope", "multilingual dataset provenance", "label/taxonomy equivalence", "cross-lingual evaluation protocol", "language-specific failure analysis"],
+      "unresolved": ["no post-v1 multilingual protocol frozen", "cross-language generalization not established"]
+    },
+    {
+      "id": "T3",
+      "name": "Cross-modal evidence and consistency",
+      "state": "PROTOCOL_REQUIRED",
+      "scope": "Consistency, contradiction, provenance, and evidence fusion across modality streams.",
+      "dependencies": ["stable constituent modality contracts", "cross-modal relation taxonomy", "paired evidence provenance", "prospective consistency metrics", "failure-aware fusion design"],
+      "unresolved": ["must not precede evidence contracts for participating modalities", "cross-modal robustness not established"]
+    },
+    {
+      "id": "T4",
+      "name": "AEGIS-Audio",
+      "state": "PROTOCOL_REQUIRED",
+      "scope": "Audio authenticity and audio information-integrity research.",
+      "dependencies": ["audio task/taxonomy", "audio dataset provenance", "audio preprocessing/representation contract", "authenticity metrics", "prospective evaluation protocol"],
+      "unresolved": ["no frozen Audio protocol", "no Audio implementation/evaluation authorized"]
+    },
+    {
+      "id": "T5",
+      "name": "AEGIS-Video",
+      "state": "PROTOCOL_REQUIRED",
+      "scope": "Video authenticity, temporal evidence, and multimodal video information-integrity research.",
+      "dependencies": ["image/visual evidence contract", "temporal/video task definition", "video dataset provenance", "audio-video/text-video relation rules where applicable", "prospective evaluation protocol"],
+      "unresolved": ["no frozen Video protocol", "no Video implementation/evaluation authorized"]
+    },
+    {
+      "id": "T6",
+      "name": "Full multimodal integration",
+      "state": "DEFERRED",
+      "scope": "Integration of mature modality-specific and cross-modal research contracts.",
+      "dependencies": ["T1", "T3", "T4", "T5", "modality-specific evidence contracts", "integration protocol", "failure decomposition"],
+      "unresolved": ["premature until constituent tracks establish admissible contracts and evidence"]
+    },
+    {
+      "id": "T7",
+      "name": "Reliability selector and adaptive control",
+      "state": "PROTOCOL_REQUIRED",
+      "scope": "New reliability/selector/control hypotheses that explicitly inherit v1 negative findings.",
+      "dependencies": ["M3 NOT_SUPPORTED", "M4 NOT_SUPPORTED", "v035 CORRECTION_NOT_SUPPORTED", "v036 NOT_COMPUTED", "new mechanistic hypothesis", "prospective activation/discrimination criteria"],
+      "unresolved": ["selector output discrimination failure remains unresolved", "active adaptive robustness not established"]
+    },
+    {
+      "id": "T8",
+      "name": "Threat-intelligence and analyst decision-support integration",
+      "state": "PROTOCOL_REQUIRED",
+      "scope": "Analyst-facing integration of evidence and provenance without autonomous attribution or threat determination.",
+      "dependencies": ["v1 analyst decision-support boundary", "evidence provenance", "human review contract", "case/audit semantics", "separate validation for any operational claim"],
+      "unresolved": ["production readiness not established", "autonomous attribution not established", "operational/national-security effectiveness not established"]
+    },
+    {
+      "id": "T9",
+      "name": "Reproducibility evaluation and release governance",
+      "state": "PROPOSED",
+      "scope": "Cross-cutting governance for all future experimental tracks and releases.",
+      "dependencies": ["prospective protocols", "source/evidence hashes", "environment records", "dataset/cache boundaries", "test sealing", "claim ledger", "immutable release identities"],
+      "unresolved": ["must be instantiated per future track rather than assumed globally"]
+    }
+  ],
+  "dependency_principles": [
+    "T9 applies across all future tracks",
+    "T6 is downstream of modality-specific and cross-modal evidence contracts",
+    "T3 requires stable contracts for the modalities it relates",
+    "T5 should inherit visual evidence lessons from T1 where scientifically applicable",
+    "T7 is independent enough for separate mechanistic research but must inherit v1 negative findings",
+    "T8 must remain analyst decision support unless separately validated and authorized",
+    "no roadmap dependency authorizes implementation or evaluation"
+  ],
+  "execution": {
+    "implementation": "NONE",
+    "model_source_changes": "NONE",
+    "model_execution": "NONE",
+    "training": "NONE",
+    "new_evaluation": "NONE",
+    "official_test_samples": 0
+  },
+  "next": "POST_V1_P8_STEP3_STRUCTURED_POST_V1_RESEARCH_ROADMAP_AND_SEQUENCING"
+}
