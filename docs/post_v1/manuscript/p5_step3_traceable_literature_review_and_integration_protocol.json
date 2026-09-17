@@ -1,0 +1,72 @@
+{
+    "schema":  "aegis.post_v1.p5.step3.traceable_literature_review_protocol.v1",
+    "status":  "POST_V1_P5_STEP3_TRACEABLE_LITERATURE_REVIEW_AND_INTEGRATION_PROTOCOL_FROZEN",
+    "parent_commit":  "deea5da94b13ed0a1c14c0d23ac300d37de65af3",
+    "purpose":  "Govern external scholarly literature retrieval, verification, evidence separation, citation traceability, and later manuscript integration without altering frozen AEGIS empirical evidence.",
+    "review_scope":  [
+                         "multimodal misinformation/fake-news detection",
+                         "multimodal representation and fusion",
+                         "reliability, uncertainty, calibration, and selective prediction",
+                         "adaptive intervention/control and gating/selection mechanisms",
+                         "robustness evaluation and prerequisite-aware evaluation",
+                         "reproducible machine learning and experiment provenance",
+                         "information integrity, threat-intelligence, and analyst decision-support framing"
+                     ],
+    "source_policy":  {
+                          "preferred":  [
+                                            "peer-reviewed journal articles",
+                                            "peer-reviewed conference papers",
+                                            "authoritative dataset papers",
+                                            "official standards or institutional publications where directly relevant",
+                                            "primary preprints only when peer-reviewed version is unavailable or chronology requires them"
+                                        ],
+                          "discovery_sources":  [
+                                                    "Crossref",
+                                                    "Google Scholar or equivalent scholarly index",
+                                                    "publisher/DOI landing pages",
+                                                    "ACM Digital Library",
+                                                    "IEEE Xplore",
+                                                    "SpringerLink",
+                                                    "ScienceDirect",
+                                                    "arXiv for clearly identified preprints",
+                                                    "official institutional repositories"
+                                                ],
+                          "prohibited":  [
+                                             "invented citations",
+                                             "unverified bibliographic metadata",
+                                             "citation-by-title-memory",
+                                             "secondary summaries used as substitutes for accessible primary papers",
+                                             "unsupported comparative-superiority claims"
+                                         ]
+                      },
+    "verification_policy":  [
+                                "Every included reference must have verified title, authorship, year, venue/source, and stable DOI or canonical URL when available.",
+                                "Claims attributed to a paper must be supported by that paper rather than inferred from its title.",
+                                "Preprint and peer-reviewed versions must not be double-counted as separate scientific works.",
+                                "Retractions, corrections, or materially superseded versions must be recorded when discovered.",
+                                "External literature must remain distinguishable from AEGIS repository-derived evidence."
+                            ],
+    "temporal_policy":  "Use foundational literature where scientifically necessary and recent literature where it materially reflects the state of the field; do not impose a recency cutoff that excludes seminal methods.",
+    "integration_policy":  [
+                               "External literature may contextualize motivation, methods, related work, limitations, and future research.",
+                               "External literature may not rewrite AEGIS frozen experimental values, statuses, thresholds, or dispositions.",
+                               "Do not claim AEGIS outperforms prior work unless a valid comparable frozen evaluation supports that claim; none is authorized by this protocol.",
+                               "Do not convert validation Macro-F1 into an externally comparable benchmark without verified protocol equivalence.",
+                               "Keep NOT_SUPPORTED, NOT_COMPUTED, CHARACTERIZED, and FUTURE_WORK semantics unchanged.",
+                               "Official test samples remain 0."
+                           ],
+    "required_next_outputs":  [
+                                  "docs/post_v1/manuscript/p5_step4_literature_evidence_inventory.json",
+                                  "docs/post_v1/manuscript/AEGIS_V1_VERIFIED_LITERATURE_LEDGER.md",
+                                  "docs/post_v1/manuscript/AEGIS_V1_RELATED_WORK_SYNTHESIS.md",
+                                  "docs/post_v1/manuscript/AEGIS_V1_MANUSCRIPT_CITATION_TRACEABILITY_LEDGER.md",
+                                  "docs/post_v1/manuscript/AEGIS_V1_RESEARCH_MANUSCRIPT_WITH_LITERATURE.md"
+                              ],
+    "next_step":  "POST_V1_P5_STEP4_VERIFIED_LITERATURE_EVIDENCE_AND_MANUSCRIPT_INTEGRATION",
+    "scientific_execution":  {
+                                 "model_execution":  false,
+                                 "training":  false,
+                                 "new_evaluation":  false,
+                                 "official_test_samples_accessed":  0
+                             }
+}
