@@ -1,0 +1,74 @@
+{
+  "schema": "aegis.post_v1.t1.vision.step2a.authoritative_candidate_dataset_review.v1",
+  "status": "POST_V1_T1_STEP2A_AUTHORITATIVE_CANDIDATE_DATASET_REVIEW_FROZEN",
+  "parent_commit": "2538245ffc9d3989c45e5e07a5f6af97e78e4438",
+  "review_date": "2026-09-17",
+  "frozen_task": "AUTHENTIC_VS_MANIPULATED_IMAGE_CLASSIFICATION",
+  "candidates": [
+    {
+      "name": "GenImage",
+      "authoritative_sources": [
+        "https://github.com/GenImage-Dataset/GenImage",
+        "https://genimage-dataset.github.io/"
+      ],
+      "documented_scope": "Million-scale AI-generated-image detection benchmark with real/nature images and AI-generated images across ImageNet content classes and multiple generators.",
+      "documented_generators": ["Midjourney","Stable Diffusion V1.4","Stable Diffusion V1.5","ADM","GLIDE","Wukong","VQDM","BigGAN"],
+      "documented_split_structure": "Per-generator train and val directories with ai and nature classes; official repository also documents full-dataset aggregation.",
+      "license_terms": "Dataset homepage states CC BY-NC-SA 4.0 plus additional Dataset Terms; non-commercial academic research use.",
+      "contract_fit": "HIGH_FOR_INITIAL_AI_GENERATED_VS_AUTHENTIC_SCOPE",
+      "limitations": [
+        "MANIPULATED maps specifically to AI_GENERATED for this lineage stage; it does not cover all local-edit/splicing/copy-move manipulations.",
+        "Real/nature images are collected from ImageNet, so source-domain and licensing/provenance inheritance must be documented during acquisition.",
+        "Generator coverage is historically bounded and does not imply generalization to future generators."
+      ]
+    },
+    {
+      "name": "FaceForensics++",
+      "authoritative_sources": [
+        "https://github.com/ondyari/FaceForensics",
+        "https://openaccess.thecvf.com/content_ICCV_2019/html/Rossler_FaceForensics_Learning_to_Detect_Manipulated_Facial_Images_ICCV_2019_paper.html"
+      ],
+      "documented_scope": "Facial manipulation benchmark based on original video sequences and Deepfakes, Face2Face, FaceSwap, and NeuralTextures manipulations; supports image/video classification and segmentation.",
+      "documented_scale": "1000 original sequences; ICCV paper reports over 1.8 million manipulated images.",
+      "access": "Requires dataset access request/download process under FaceForensics Terms of Use.",
+      "contract_fit": "HIGH_FOR_FACE_MANIPULATION_BUT_NARROW_POPULATION",
+      "limitations": [
+        "Face-centric and mostly frontal-face source population.",
+        "Derived from video sequences, increasing grouping/leakage constraints for an image-level experiment.",
+        "Less suitable as the first broad-content AEGIS-Vision lineage than a content-diverse still-image benchmark."
+      ]
+    },
+    {
+      "name": "ForgeryNet",
+      "authoritative_sources": [
+        "https://github.com/yinanhe/ForgeryNet",
+        "https://yinanhe.github.io/projects/forgerynet.html"
+      ],
+      "documented_scope": "Large face-forgery benchmark with real/fake image classification, localization, video classification, and temporal localization.",
+      "documented_scale": "2.9 million images and 221247 videos; seven image-level and eight video-level manipulation approaches.",
+      "license_terms": "Repository states software use restricted to non-commercial research and educational purposes.",
+      "contract_fit": "HIGH_FOR_FACE_FORGERY_BUT_COMPLEX_AND_NARROW_POPULATION",
+      "limitations": [
+        "Face-forgery population rather than broad image content.",
+        "Large multi-task/multi-manipulation design adds complexity beyond the deliberately narrow first T1 experiment.",
+        "Acquisition/access reliability must be verified before any future use."
+      ]
+    }
+  ],
+  "selection": {
+    "dataset": "GenImage",
+    "decision": "SELECTED_FOR_T1_INITIAL_DATASET_ACQUISITION_FREEZE",
+    "reason": "Best fit to the already frozen first-stage binary image task while providing broad content classes, explicit real-versus-AI-generated organization, multiple generator families, documented train/validation structure, authoritative repository/homepage, and research-use terms.",
+    "scope_refinement": "For the selected first experiment only, T1 MANIPULATED is operationalized as AI_GENERATED. Other manipulation families remain outside this experiment and may require later separately governed datasets."
+  },
+  "authorization": {
+    "dataset_download": "NOT_YET_AUTHORIZED",
+    "acquisition_manifest_design": "AUTHORIZED",
+    "implementation": "NOT_AUTHORIZED",
+    "model_execution": "NOT_AUTHORIZED",
+    "training": "NOT_AUTHORIZED",
+    "formal_evaluation": "NOT_AUTHORIZED",
+    "official_test_access": "NOT_AUTHORIZED"
+  },
+  "next": "POST_V1_T1_AEGIS_VISION_STEP2B_GENIMAGE_ACQUISITION_SPLIT_AND_PROVENANCE_PROTOCOL"
+}
