@@ -1,0 +1,68 @@
+{
+    "version":  "0.36",
+    "step":  "Step3",
+    "title":  "Scientific Closure and v0.37 Entry Boundary",
+    "status":  "V036_SCIENTIFICALLY_CLOSED",
+    "parent_step2_commit":  "320bc92f03302ea9a6a2b5836cfeb66dc39cbad8",
+    "step2_evidence":  {
+                           "json_path":  "docs/experiments/v036/step2_readonly_robustness_eligibility_characterization.json",
+                           "json_sha256":  "66BF004B5484529BFEEF8D29F6A8AB3FACF8718B0ECD7C6A3E442B71CF1329AC",
+                           "md_path":  "docs/experiments/v036/step2_readonly_robustness_eligibility_characterization.md",
+                           "md_sha256":  "3256239A037CCFD5F4C8B363499812078FB858E45A322900B056211FDAA80C4C"
+                       },
+    "frozen_results":  {
+                           "V36_Q1_selector_activation_eligibility":  "INELIGIBLE",
+                           "V36_Q2_optimization_vs_activation_decoupling":  "OBSERVED_OPTIMIZATION_ACTIVATION_DECOUPLING",
+                           "V36_Q3_seed_consistency_of_failure":  "CONSISTENT_FAILURE_ACROSS_ALL_THREE_SEEDS",
+                           "V36_Q4_performance_activation_decoupling":  "NOT_AVAILABLE_FROM_UNAMBIGUOUS_FROZEN_SUMMARY_FIELD",
+                           "V36_Q5_formal_robustness_admissibility":  "FORMAL_ACTIVE_INTERVENTION_ROBUSTNESS_EVALUATION_INADMISSIBLE"
+                       },
+    "scientific_disposition":  {
+                                   "label":  "ROBUSTNESS_EVALUATION_BLOCKED_BY_INACTIVE_SELECTOR_PREREQUISITE",
+                                   "robustness_result":  "NOT_COMPUTED",
+                                   "robustness_failure_claim":  false,
+                                   "classifier_robustness_claim":  false,
+                                   "active_adaptive_mechanism_robustness_claim":  false,
+                                   "interpretation":  "Formal robustness evaluation of the v0.35 mechanism as an active learned intervention is inadmissible because the selector failed its prospectively required discrimination and activation prerequisites. v0.36 therefore closes without executing a robustness benchmark.",
+                                   "limitation":  "This closure does not establish that the underlying classifier is non-robust and does not establish a unique sole cause of selector failure."
+                               },
+    "v037_entry_boundary":  {
+                                "status":  "THREAT_INTELLIGENCE_AND_SCIENTIFIC_CHARACTERIZATION_ENTRY_AUTHORIZED",
+                                "purpose":  "Characterize what the frozen AEGIS evidence implies for threat detection, multimodal failure modes, information-integrity risk, and operational observability without reopening the failed selector correction.",
+                                "implementation_authorized":  false,
+                                "training_authorized":  false,
+                                "new_model_architecture_authorized":  false,
+                                "official_test_access_authorized":  false,
+                                "permitted_next_step":  "V0.37_PROSPECTIVE_THREAT_INTELLIGENCE_CHARACTERIZATION_PROTOCOL",
+                                "initial_scope":  [
+                                                      "map frozen model/evidence failure modes to information-integrity and threat-intelligence observables",
+                                                      "characterize matched versus mismatched and modality-degradation threat surfaces using already-established AEGIS terminology",
+                                                      "separate detector/classifier performance, reliability evidence, selector behavior, and intervention behavior",
+                                                      "define operational observability and alerting claims that are supported by frozen evidence",
+                                                      "identify NOT_AVAILABLE evidence explicitly rather than reconstructing it",
+                                                      "preserve no-official-test boundary unless separately authorized"
+                                                  ]
+                            },
+    "prohibited_after_closure":  [
+                                     "reopen v0.35 correction inside v0.36",
+                                     "claim formal robustness was evaluated in v0.36",
+                                     "claim classifier non-robustness from selector ineligibility",
+                                     "claim successful active adaptive robustness",
+                                     "threshold tuning or checkpoint reselection",
+                                     "additional v0.36 training",
+                                     "new architecture or implementation in v0.36",
+                                     "official test access"
+                                 ],
+    "integrity":  {
+                      "training_performed":  false,
+                      "implementation_performed":  false,
+                      "source_change_performed":  false,
+                      "corruption_condition_execution_performed":  false,
+                      "formal_robustness_evaluation_performed":  false,
+                      "robustness_result_computed":  false,
+                      "threshold_tuning_performed":  false,
+                      "checkpoint_reselection_performed":  false,
+                      "official_test_samples_accessed":  0
+                  },
+    "next":  "v0.37 Step1 鈥?prospective threat-intelligence and scientific-characterization protocol freeze."
+}
