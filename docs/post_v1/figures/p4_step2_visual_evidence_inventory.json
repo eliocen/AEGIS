@@ -1,0 +1,63 @@
+{
+    "schema":  "aegis.post_v1.p4.step2.visual_evidence_inventory.v1",
+    "status":  "P4_STEP2_VISUAL_EVIDENCE_INVENTORY_CAPTURED",
+    "parent_commit":  "35a294382a1e96ae242afe62dd3d4933cdd08567",
+    "figure_ids":  [
+                       "F1",
+                       "F2",
+                       "F3",
+                       "F4",
+                       "F5",
+                       "F6",
+                       "F7",
+                       "F8"
+                   ],
+    "exact_numeric_inputs":  {
+                                 "seeds":  [
+                                               "42",
+                                               "43",
+                                               "44"
+                                           ],
+                                 "validation_macro_f1":  [
+                                                             "0.8669",
+                                                             "0.8716",
+                                                             "0.8610"
+                                                         ],
+                                 "utility_probability_std":  [
+                                                                 "0.016633",
+                                                                 "0.012812",
+                                                                 "0.009565"
+                                                             ],
+                                 "M3_threshold":  "0.05",
+                                 "M3_operator":  "\u003e=",
+                                 "active_intervention_rate":  [
+                                                                  "0",
+                                                                  "0",
+                                                                  "0"
+                                                              ],
+                                 "M4_threshold":  "0",
+                                 "M4_operator":  "\u003e"
+                             },
+    "semantic_boundaries":  {
+                                "v035_correction":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+                                "v035_result":  "CORRECTION_NOT_SUPPORTED",
+                                "M3":  "NOT_SUPPORTED",
+                                "M4":  "NOT_SUPPORTED",
+                                "v036_robustness":  "NOT_COMPUTED",
+                                "v037_posture":  "ANALYST DECISION-SUPPORT RESEARCH CHARACTERIZATION",
+                                "official_test_samples":  "0",
+                                "production_readiness":  "NOT_ESTABLISHED"
+                            },
+    "source_classes":  [
+                           "P1_ARCHITECTURE",
+                           "P2_RESULTS_AND_LIMITATIONS",
+                           "P3_REPRODUCIBILITY",
+                           "IMMUTABLE_V1_RELEASE"
+                       ],
+    "execution":  {
+                      "model_execution":  false,
+                      "training":  false,
+                      "new_evaluation":  false,
+                      "official_test_access":  false
+                  }
+}
