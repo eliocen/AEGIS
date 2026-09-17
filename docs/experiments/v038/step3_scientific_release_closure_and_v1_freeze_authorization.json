@@ -1,0 +1,67 @@
+{
+    "schema":  "aegis.v038.step3.scientific_release_closure_and_v1_freeze_authorization.v1",
+    "version":  "v0.38",
+    "step":  "Step3",
+    "status":  "V038_INTEGRATION_REPRODUCIBILITY_RESEARCH_RELEASE_CLOSED",
+    "parent_step2_commit":  "3f984b5f46e93ff5660d61293a392dde4de86b6f",
+    "parent_step2_evidence":  {
+                                  "json_path":  "docs/experiments/v038/step2_release_readiness_audit_and_candidate_manifest.json",
+                                  "json_sha256":  "D67A6EF7BCE9A1DD1BC16BB1F862D4BC9CFCDB6B334439C0A31668E209FC1166",
+                                  "markdown_path":  "docs/experiments/v038/step2_release_readiness_audit_and_candidate_manifest.md",
+                                  "markdown_recovered_sha256":  "0F25173C1CE5E36E666B3A6CFF91A280738AEE05354C3D02672C0C6D78662A06",
+                                  "r1_r9":  "PASS",
+                                  "r10_v1_readiness":  "PASS",
+                                  "blocking_gates":  "NONE"
+                              },
+    "closure":  {
+                    "scientific_results_reopened":  false,
+                    "scientific_results_reinterpreted":  false,
+                    "source_behavior_changed":  false,
+                    "model_architecture_changed":  false,
+                    "training_performed":  false,
+                    "new_scientific_evaluation_performed":  false,
+                    "formal_robustness_evaluation_performed":  false,
+                    "official_test_samples_accessed":  0,
+                    "production_deployment_claim":  "NOT_ESTABLISHED",
+                    "production_deployment_authorized":  false,
+                    "supported_posture":  "REPRODUCIBLE_SCIENTIFICALLY_BOUNDED_RESEARCH_CORE"
+                },
+    "inherited_scientific_boundaries":  {
+                                            "v035_correction":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+                                            "v035_correction_result":  "CORRECTION_NOT_SUPPORTED",
+                                            "v035_m3":  "NOT_SUPPORTED",
+                                            "v035_m4":  "NOT_SUPPORTED",
+                                            "v035_mechanistic_disposition":  "PERSISTENT_SELECTOR_OUTPUT_DISCRIMINATION_FAILURE_AFTER_POSTERIOR_CONTEXT_CORRECTION",
+                                            "v036_disposition":  "ROBUSTNESS_EVALUATION_BLOCKED_BY_INACTIVE_SELECTOR_PREREQUISITE",
+                                            "v036_robustness_result":  "NOT_COMPUTED",
+                                            "v037_supported_posture":  "ANALYST DECISION-SUPPORT RESEARCH CHARACTERIZATION",
+                                            "classifier_non_robustness_claimed":  false,
+                                            "active_adaptive_robustness_claimed":  false
+                                        },
+    "v1_freeze_authorization":  {
+                                    "status":  "AEGIS_RESEARCH_CORE_V1_FREEZE_AUTHORIZED",
+                                    "target":  "AEGIS Research Core v1.0",
+                                    "ordinary_v039_v040_feature_cycle_authorized":  false,
+                                    "source_behavior_change_authorized":  false,
+                                    "model_architecture_change_authorized":  false,
+                                    "training_authorized":  false,
+                                    "new_scientific_evaluation_authorized":  false,
+                                    "official_test_access_authorized":  false,
+                                    "production_deployment_authorized":  false,
+                                    "permitted_next_step":  "V1_0_FINAL_RESEARCH_CORE_FREEZE_AND_RELEASE_PROVENANCE",
+                                    "final_freeze_requirements":  [
+                                                                      "verify exact v0.38 Step3 local/remote identity",
+                                                                      "verify v0.38 Step2 R10 PASS evidence identity",
+                                                                      "preserve frozen scientific claim and limitation boundaries",
+                                                                      "generate final v1.0 research-core release/provenance record",
+                                                                      "create immutable Git release tag only after final record commit is remotely verified",
+                                                                      "perform no model behavior change, training, new scientific evaluation, or official-test access"
+                                                                  ]
+                                },
+    "integrity":  {
+                      "official_test_samples_accessed":  0,
+                      "no_new_scientific_result":  true,
+                      "no_threshold_tuning":  true,
+                      "no_checkpoint_reselection":  true
+                  }
+}
