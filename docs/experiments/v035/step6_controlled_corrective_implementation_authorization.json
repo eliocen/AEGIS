@@ -1,0 +1,97 @@
+{
+    "version":  "0.35",
+    "step":  "Step6",
+    "title":  "Controlled Corrective Implementation Authorization",
+    "status":  "CONTROLLED_IMPLEMENTATION_AUTHORIZED_NOT_YET_EXECUTED",
+    "parent":  {
+                   "step5a_commit":  "d85b49dace80bcc40273e294bac805da54d86a19",
+                   "step5_json_sha256":  "9E2A6CAD37A2E3903D28C0236C909B356C794DBA00A8A4D0CE00E4F5B318CFAA",
+                   "step5a_json_sha256":  "D002D947B140028AC587CE50F572F290E25BCC2F65FCCDBF10F601EDF164FBFE"
+               },
+    "correction":  {
+                       "identifier":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+                       "dataflow":  "TWO_STAGE_COUNTERFACTUAL_CONTEXT_THEN_SELECTOR_FINALIZATION",
+                       "selector_width_before":  7,
+                       "selector_width_after":  10,
+                       "posterior_features":  [
+                                                  "reference_positive_probability",
+                                                  "candidate_positive_probability",
+                                                  "candidate_minus_reference_positive_probability"
+                                              ]
+                   },
+    "exact_source_allowlist":  [
+                                   {
+                                       "path":  "aegis/reliability/reliability_controller.py",
+                                       "parent_sha256":  "6807597395E0FAD7D295645A416CB5506825845DEA9F6D342F3642035D6E137F"
+                                   },
+                                   {
+                                       "path":  "aegis/alignment/model.py",
+                                       "parent_sha256":  "6EDC8D06233DF4BFB7D868165E1BDA7607D083308370426AAE9E92232252793C"
+                                   },
+                                   {
+                                       "path":  "scripts/run_fakeddit_ablation.py",
+                                       "parent_sha256":  "08E9A9466A641316280739BB948E13EC35DE408700CB07EF7584863A918D4B61"
+                                   },
+                                   {
+                                       "path":  "tests/test_v033_utility_supervision_selector.py",
+                                       "parent_sha256":  "96C5AC55143D40DE9EB2C8B7194E294B36A1E2B12ECF017D52B5D4335CAC4C9E"
+                                   },
+                                   {
+                                       "path":  "tests/test_v034_observability_training_path.py",
+                                       "parent_sha256":  "792EFD6B7DA18F0001AEEBA80B6D4197BE5CEACE8B8934FF6AFFFD02701FF2A6"
+                                   }
+                               ],
+    "controller_contract":  [
+                                "Widen only the v0.33 utility selector input layer from 7 to 10.",
+                                "Add a label-free posterior-context helper using softmax(reference_logits,dim=1)[:,1], softmax(candidate_logits,dim=1)[:,1], and their signed difference.",
+                                "Detach all three posterior-context tensors before selector concatenation.",
+                                "Add/retain explicit shape, floating-type and finite-value validation.",
+                                "Construct exactly [B,10] selector features from the frozen seven features plus the frozen three posterior features.",
+                                "Preserve selector hidden width 16, scalar logit output, sigmoid semantics, utility target construction and intervention mapping."
+                            ],
+    "alignment_contract":  [
+                               "Introduce an M4qusli-only Stage-A preparation path that computes aligned modalities, evidence estimates, interaction representation and deterministic stable-reference/candidate counterfactual fused embeddings before learned selector finalization.",
+                               "Introduce an M4qusli-only Stage-B finalization path accepting the three detached posterior features, computing the learned selector intervention and producing final fused_embedding.",
+                               "Prevent silent use of the legacy one-stage M4qusli selector path after implementation.",
+                               "Do not alter unrelated architectures."
+                           ],
+    "runner_contract":  [
+                            "For M4qusli only, invoke Stage A before final classification.",
+                            "Reuse the existing classification model to classify stable-reference and candidate counterfactual embeddings.",
+                            "Derive the frozen detached label-free posterior context from those logits.",
+                            "Invoke Stage B selector finalization.",
+                            "Classify the finalized fused embedding through the existing classification model.",
+                            "Reuse the same reference/candidate logits for the existing label-indexed training-time u_target.",
+                            "Do not introduce a second classifier, target leakage, new loss family, new utility-loss weight, new threshold, new seed or training schedule."
+                        ],
+    "regression_contract":  [
+                                "Python compile passes for all five allowlisted files.",
+                                "Posterior helper returns exact class-1 softmax probabilities and signed difference.",
+                                "Posterior helper requires no labels and returns detached tensors.",
+                                "Selector feature tensor is exactly [B,10].",
+                                "Selector-loss gradient does not flow through posterior features into reference/candidate logits.",
+                                "Two-stage model path returns stable-reference, candidate and final fused embeddings with expected batch/shared dimensions.",
+                                "Existing utility target remains label-indexed supervision only.",
+                                "Existing BCEWithLogits utility objective remains unchanged.",
+                                "Existing intervention threshold/mapping remains unchanged.",
+                                "Non-M4qusli architectures remain on their existing path.",
+                                "Focused selector and observability regression suites pass."
+                            ],
+    "execution_fail_closed":  [
+                                  "Abort before staging if any exact source anchor required for deterministic implementation is absent or ambiguous.",
+                                  "Abort and restore tracked implementation files to this Step6 authorization commit if compile or focused tests fail.",
+                                  "Do not commit a partially passing implementation.",
+                                  "Stage only the exact five allowlisted source/test files plus the subsequent implementation evidence record."
+                              ],
+    "authorization":  {
+                          "controlled_implementation_authorized":  true,
+                          "source_modification_performed_by_this_step":  false,
+                          "corrective_training_authorized":  false,
+                          "new_seeds_authorized":  false,
+                          "checkpoint_reselection_authorized":  false,
+                          "threshold_tuning_authorized":  false,
+                          "formal_evaluation_authorized":  false,
+                          "official_test_samples_accessed":  0
+                      },
+    "next":  "v0.35 Step6B - Execute and Verify Controlled Corrective Implementation"
+}
