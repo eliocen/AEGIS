@@ -1,0 +1,46 @@
+{
+  "schema": "aegis.post_v1.p7.step2.repository_presentation_inventory.v1",
+  "status": "POST_V1_P7_STEP2_REPOSITORY_PRESENTATION_INVENTORY_FROZEN",
+  "parent_commit": "7b358ecc71e5dfd16ad65f783c37874e773b7f8c",
+  "repository_counts": {
+    "tracked_files": 636,
+    "readme_like_files": 2,
+    "root_public_metadata_docs": 2,
+    "post_v1_package_files": 71,
+    "v1_release_files": 2
+  },
+  "readme_audit": {
+    "root_readme_present": true,
+    "root_readme_path": "README.md",
+    "root_readme_sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "root_readme_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "mentions_aegis": false,
+    "mentions_v1_release": false,
+    "mentions_architecture": false,
+    "mentions_results": false,
+    "mentions_reproducibility": false,
+    "mentions_figures": false,
+    "mentions_manuscript": false,
+    "mentions_demo": false,
+    "mentions_limitations": false,
+    "mentions_d4_boundary": false,
+    "mentions_production_boundary": false,
+    "mentions_official_test_boundary": false,
+    "mentions_future_modalities": false
+  },
+  "future_roadmap_state": "NOT_YET_CREATED",
+  "future_roadmap_path": "docs/post_v1/roadmap",
+  "recommendation": "CONTROLLED_ROOT_README_UPDATE_RECOMMENDED",
+  "change_authorization": {
+    "readme_modified_in_step2": false,
+    "source_modified": false,
+    "scientific_baseline_modified": false,
+    "next_step_may_modify_readme": true
+  },
+  "execution": {
+    "model_execution": "NONE",
+    "training": "NONE",
+    "new_evaluation": "NONE",
+    "official_test_samples": 0
+  }
+}
