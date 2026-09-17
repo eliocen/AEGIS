@@ -1,0 +1,78 @@
+{
+    "version":  "0.35",
+    "step":  "Step7",
+    "status":  "POSTIMPLEMENTATION_PROVENANCE_AND_PROSPECTIVE_CORRECTIVE_TRAINING_PROTOCOL_FROZEN",
+    "parent_step6b_commit":  "09cb7bf23fef141347ce758d8e553dccb28f40a8",
+    "correction":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+    "scientific_question":  "Does the frozen classifier-posterior context correction restore selector discrimination under the already-established v0.35 success criteria?",
+    "implementation_provenance":  {
+                                      "step6b_record_path":  "docs/experiments/v035/step6b_controlled_corrective_implementation_evidence.json",
+                                      "step6b_record_prefreeze_sha256":  "DA54499F052AE6D56D624E9B66812C921340415DB98CD7A483AAF9914F92F750",
+                                      "step6b_record_committed_git_blob":  "c1f41f642afd30c2d9519c0041a4ea93ab82a98a",
+                                      "source_git_blobs":  {
+                                                               "aegis/reliability/reliability_controller.py":  "8840f575563bce1d691c1c1251ef2b872f029411",
+                                                               "aegis/alignment/model.py":  "061503a040025b8b42190a307e3ce4e7ac7c83f6",
+                                                               "scripts/run_fakeddit_ablation.py":  "cbaebce24526b7186f80500d08444931e7859aea",
+                                                               "tests/test_v033_utility_supervision_selector.py":  "fea9998af2b0312a7b7d568397801d7ae40d0b6e",
+                                                               "tests/test_v034_observability_training_path.py":  "7adb203062e80471304b1a1eb2865b937a07e002"
+                                                           },
+                                      "checkout_sha256_observational_only":  {
+                                                                                 "aegis/reliability/reliability_controller.py":  "2F29371CE0035B007A9DB4FEA140B67E645F11B30420DCFBF62E297FB2D21D90",
+                                                                                 "aegis/alignment/model.py":  "688F0D5765E576FEEE2BA655D6A450852F07477DD25D345620BE8FDDFD150D3B",
+                                                                                 "scripts/run_fakeddit_ablation.py":  "EB358990990D1FEA9996609E7E0E559B756F43C5C0A2B722DC55BB1842D3D234",
+                                                                                 "tests/test_v033_utility_supervision_selector.py":  "A8B299C6540BFFDD8B8F7EFA7756BE3A20ABEC96A592339B6518C7ED188CFA1E",
+                                                                                 "tests/test_v034_observability_training_path.py":  "FCBD848EE2E5B4B241591BD494C4DD53EF7AF5357D5A57E28D4B5D40DD9CD2B3"
+                                                                             }
+                                  },
+    "training_protocol":  {
+                              "architecture":  "quality_compatibility_utility_supervised_intervention",
+                              "seeds":  [
+                                            42,
+                                            43,
+                                            44
+                                        ],
+                              "data":  "same frozen Fakeddit train/validation representation caches and corruption-aware training construction inherited from the v0.33/v0.34 M4qusli protocol",
+                              "official_test_split":  "SEALED",
+                              "official_test_samples_accessed":  0,
+                              "selector_input_width":  10,
+                              "selector_hidden_width":  16,
+                              "selector_output_width":  1,
+                              "posterior_context":  [
+                                                        "reference_positive_probability",
+                                                        "candidate_positive_probability",
+                                                        "candidate_minus_reference_positive_probability"
+                                                    ],
+                              "posterior_context_label_free":  true,
+                              "posterior_context_detached":  true,
+                              "utility_supervision":  "existing label-indexed u_target used only as training supervision",
+                              "utility_loss_family":  "BCEWithLogits",
+                              "utility_loss_weight":  0.5,
+                              "intervention_threshold":  "preserve V033_ACTIVE_INTERVENTION_THRESHOLD exactly",
+                              "intervention_mapping":  "preserve Step6B/v0.33 mapping exactly",
+                              "optimizer_schedule":  "inherit exact already-frozen M4qusli formal-training settings; no Step7 change authorized",
+                              "checkpoint_selection_primary":  "highest validation Macro-F1",
+                              "checkpoint_selection_tiebreak":  "lowest validation classification loss",
+                              "training_code_changes_after_step7":  "PROHIBITED unless a new prospective amendment is frozen first"
+                          },
+    "post_training_required_evidence":  [
+                                            "per-seed training provenance and checkpoint identity",
+                                            "selector gradient norm and parameter movement",
+                                            "posterior-context diagnostics",
+                                            "delta_u and u_target observability",
+                                            "utility_probability and active-intervention observability",
+                                            "validation metrics needed for frozen M3/M4 adjudication"
+                                        ],
+    "frozen_success_criteria":  {
+                                    "M3":  "preserve previously frozen v0.35 criterion: \u003e= 0.05 per seed",
+                                    "M4":  "preserve previously frozen v0.35 criterion: \u003e 0 per seed",
+                                    "weakening_after_results":  "PROHIBITED"
+                                },
+    "authority":  {
+                      "corrective_training_executed_in_step7":  false,
+                      "corrective_training_authorized_in_step7":  false,
+                      "next_step_may_operationalize_training":  true,
+                      "formal_evaluation_authorized":  false,
+                      "official_test_access_authorized":  false
+                  },
+    "next":  "v0.35 Step8 - exact corrective-training operationalization/authorization against this frozen protocol"
+}
