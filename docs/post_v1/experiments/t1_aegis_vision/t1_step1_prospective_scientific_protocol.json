@@ -1,0 +1,74 @@
+{
+  "schema": "aegis.post_v1.t1.vision.step1.prospective_scientific_protocol.v1",
+  "status": "POST_V1_T1_AEGIS_VISION_STEP1_PROSPECTIVE_SCIENTIFIC_PROTOCOL_FROZEN",
+  "lineage": {
+    "track": "T1_AEGIS_VISION",
+    "branch": "research/post-v1-t1-aegis-vision",
+    "lineage_root_commit": "8817be43092a50a9ff80b22a03aa1b3bc323b9c3",
+    "immutable_v1_tag": "v1.0.0-research-core",
+    "immutable_v1_commit": "39492cf6d93987fdf9ebee29b95fdb826b8391e4"
+  },
+  "research_scope": {
+    "primary_question": "Can a separately governed AEGIS-Vision research component learn useful image-authenticity and manipulation evidence under a prospectively frozen image task, dataset, population, and evaluation contract?",
+    "initial_scope": "IMAGE_AUTHENTICITY_AND_MANIPULATION_DETECTION_RESEARCH",
+    "included_concepts": [
+      "authentic versus manipulated image evidence",
+      "image manipulation/deepfake detection research where supported by the subsequently frozen dataset taxonomy",
+      "visual evidence quality and provenance signals"
+    ],
+    "excluded_from_step1_claims": [
+      "contextual misuse detection",
+      "cross-modal text-image consistency",
+      "video authenticity",
+      "audio authenticity",
+      "full multimodal integration",
+      "production readiness",
+      "autonomous attribution",
+      "operational or national-security effectiveness"
+    ]
+  },
+  "hypothesis_governance": {
+    "H1": {
+      "state": "PROSPECTIVE_UNDECIDED",
+      "statement": "A frozen AEGIS-Vision candidate can exceed a prospectively defined image-only baseline on prospectively frozen image-authenticity/manipulation metrics."
+    },
+    "H2": {
+      "state": "PROSPECTIVE_UNDECIDED",
+      "statement": "The candidate can provide non-degenerate visual evidence outputs under prospectively frozen observability criteria."
+    },
+    "decision_rule_state": "NOT_YET_FROZEN",
+    "note": "Numerical metrics, thresholds, baselines, datasets, splits, and populations must be frozen before implementation or evaluation."
+  },
+  "mandatory_next_freezes": [
+    "dataset/task/population and provenance",
+    "image authenticity/manipulation taxonomy",
+    "train/validation/test split governance",
+    "baseline definitions",
+    "architecture and visual evidence interface",
+    "metrics and numerical thresholds",
+    "observability/non-degeneracy criteria",
+    "implementation allowlist and authorization",
+    "training protocol",
+    "formal evaluation protocol"
+  ],
+  "inherited_scientific_boundaries": {
+    "v1_M3": "NOT_SUPPORTED",
+    "v1_M4": "NOT_SUPPORTED",
+    "v035_correction": "CORRECTION_NOT_SUPPORTED",
+    "v036_active_intervention_robustness": "NOT_COMPUTED",
+    "P6_D4_bounded_inference": "NOT_INCLUDED",
+    "production_readiness": "NOT_ESTABLISHED",
+    "autonomous_attribution": "NOT_ESTABLISHED",
+    "official_test_samples_accessed": 0
+  },
+  "authorization": {
+    "dataset_selection": "AUTHORIZED_FOR_READ_ONLY_CANDIDATE_INVENTORY_ONLY",
+    "implementation": "NOT_AUTHORIZED",
+    "model_source_changes": "NOT_AUTHORIZED",
+    "model_execution": "NOT_AUTHORIZED",
+    "training": "NOT_AUTHORIZED",
+    "formal_evaluation": "NOT_AUTHORIZED",
+    "official_test_access": "NOT_AUTHORIZED"
+  },
+  "next": "POST_V1_T1_AEGIS_VISION_STEP2_DATASET_TASK_POPULATION_AND_PROVENANCE_FREEZE"
+}
