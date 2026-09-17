@@ -1,0 +1,17 @@
+{
+    "schema":  "aegis.post_v1.t1.vision.step2d3.sd14.official_drive_child_resolution_probe.v1",
+    "status":  "POST_V1_T1_STEP2D3_SD14_OFFICIAL_DRIVE_CHILD_RESOLUTION_PROBE_FROZEN",
+    "parent_commit":  "9058856f542e723521b5ed4429457f43fb1bd069",
+    "official_drive_folder":  "https://drive.google.com/drive/folders/1jGt10bwTbhEZuGXLyvrCuxOI0cBqQ1FS?usp=sharing",
+    "metadata_response_bytes":  365284,
+    "sd14_name_tokens_observed":  [
+                                      "stable_diffusion_v_1_4"
+                                  ],
+    "resolution_state":  "NAME_VISIBLE_BUT_CHILD_ID_NOT_SAFELY_PARSED",
+    "exact_official_sd14_child_id":  "NOT_SAFELY_RESOLVED",
+    "exact_official_sd14_size_bytes":  "NOT_SAFELY_RESOLVED",
+    "dataset_archive_payload_downloaded":  "NONE",
+    "mirror_substitution":  "NONE",
+    "controlled_source_amendment":  "NOT_AUTHORIZED",
+    "next":  "MANUAL_OFFICIAL_DRIVE_CHILD_SELECTION_AND_ID_CAPTURE"
+}
