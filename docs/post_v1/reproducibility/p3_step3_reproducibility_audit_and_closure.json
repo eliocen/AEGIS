@@ -1,0 +1,41 @@
+{
+    "schema":  "aegis.post_v1.p3.step3.reproducibility_audit_closure.v1",
+    "status":  "POST_V1_P3_REPRODUCIBILITY_PACKAGE_CLOSED",
+    "parent_commit":  "5ef586e1538923bb500dc2da99b54a60b0f7ab1f",
+    "audits":  {
+                   "step2_identity":  "PASS",
+                   "release_and_data_provenance":  "PASS",
+                   "reproduction_level_separation":  "PASS",
+                   "scientific_decision_boundary":  "PASS",
+                   "official_test_and_production_boundary":  "PASS",
+                   "fail_closed_checklist":  "PASS"
+               },
+    "authoritative_outputs":  [
+                                  "docs/post_v1/reproducibility/AEGIS_V1_REPRODUCIBILITY_GUIDE.md",
+                                  "docs/post_v1/reproducibility/AEGIS_V1_ENVIRONMENT_AND_DEPENDENCY_LEDGER.md",
+                                  "docs/post_v1/reproducibility/AEGIS_V1_COMMAND_AND_WORKFLOW_LEDGER.md",
+                                  "docs/post_v1/reproducibility/AEGIS_V1_PROVENANCE_AND_HASH_LEDGER.md",
+                                  "docs/post_v1/reproducibility/AEGIS_V1_REPRODUCIBILITY_CHECKLIST.md"
+                              ],
+    "preserved_boundary":  {
+                               "release_commit":  "39492cf6d93987fdf9ebee29b95fdb826b8391e4",
+                               "release_tag":  "v1.0.0-research-core",
+                               "v035_result":  "CORRECTION_NOT_SUPPORTED",
+                               "v036_robustness":  "NOT_COMPUTED",
+                               "official_test_samples_accessed":  0,
+                               "production_readiness":  "NOT_ESTABLISHED",
+                               "scientific_rerun_authorized_by_p3":  false
+                           },
+    "next_package":  {
+                         "id":  "P4_FIGURES_AND_SYSTEM_DIAGRAMS",
+                         "entry_status":  "AUTHORIZED_AFTER_P3_STEP3_REMOTE_FREEZE",
+                         "first_step":  "POST_V1_P4_STEP1_FIGURES_AND_DIAGRAMS_PROSPECTIVE_PROTOCOL",
+                         "rule":  "P4 may create evidence-faithful visual representations from frozen P1-P3 documentation and v1 evidence; it may not create new scientific results or imply unsupported capabilities."
+                     },
+    "scientific_execution":  {
+                                 "model_execution":  false,
+                                 "training":  false,
+                                 "new_evaluation":  false,
+                                 "official_test_samples_accessed":  0
+                             }
+}
