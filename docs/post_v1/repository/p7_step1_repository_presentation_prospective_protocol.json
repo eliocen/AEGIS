@@ -1,0 +1,62 @@
+{
+  "schema": "aegis.post_v1.p7.step1.repository_presentation_protocol.v1",
+  "status": "POST_V1_P7_STEP1_REPOSITORY_PRESENTATION_PROSPECTIVE_PROTOCOL_FROZEN",
+  "parent_commit": "9072d004f7aa282151862eae59a79e6cc9926d6c",
+  "authoritative_release": {
+    "tag": "v1.0.0-research-core",
+    "commit": "39492cf6d93987fdf9ebee29b95fdb826b8391e4"
+  },
+  "purpose": "Improve repository navigation, research presentation, documentation discoverability, release visibility, and claim-safe public explanation without modifying the immutable v1.0 scientific baseline.",
+  "presentation_axes": [
+    "R1_REPOSITORY_IDENTITY_AND_RESEARCH_POSITIONING",
+    "R2_README_AND_NAVIGATION",
+    "R3_ARCHITECTURE_RESULTS_REPRODUCIBILITY_MANUSCRIPT_DEMO_DISCOVERABILITY",
+    "R4_RELEASE_AND_PROVENANCE_VISIBILITY",
+    "R5_SUPPORTED_CAPABILITY_AND_LIMITATION_COMMUNICATION",
+    "R6_INSTALLATION_AND_REPRODUCTION_ROUTING",
+    "R7_CITATION_AND_RESEARCH_ARTIFACT_ROUTING",
+    "R8_FUTURE_RESEARCH_SEPARATION"
+  ],
+  "mandatory_public_boundaries": [
+    "research core and analyst decision-support characterization",
+    "immutable v1.0 release identity",
+    "M3 NOT_SUPPORTED",
+    "M4 NOT_SUPPORTED",
+    "v0.35 CORRECTION_NOT_SUPPORTED",
+    "v0.36 active-intervention robustness NOT_COMPUTED",
+    "P6 D4 bounded inference NOT_INCLUDED",
+    "production readiness NOT_ESTABLISHED",
+    "autonomous attribution NOT_ESTABLISHED",
+    "official test samples 0",
+    "future Vision Audio Video multilingual work separated from v1.0"
+  ],
+  "allowed_changes": [
+    "post-v1 repository presentation documents",
+    "claim-safe navigation/index documents",
+    "README proposal or update only after exact source audit and separate allowlist authorization",
+    "citation/release/reproducibility routing documentation"
+  ],
+  "prohibited_changes": [
+    "mutation of v1.0 release tag or release commit",
+    "scientific result or threshold changes",
+    "model/source behavioral changes",
+    "training or new scientific evaluation",
+    "official test access",
+    "production or autonomous capability claims",
+    "presenting D4 live inference as included",
+    "presenting future modalities as completed v1.0 capabilities"
+  ],
+  "step1_execution": {
+    "repository_content_mutation_outside_protocol_files": "NONE",
+    "model_execution": "NONE",
+    "training": "NONE",
+    "new_evaluation": "NONE",
+    "official_test_samples": 0
+  },
+  "planned_progression": [
+    "Step2 read-only repository presentation inventory and README/navigation audit",
+    "Step3 claim-safe repository presentation package draft or controlled README update authorization",
+    "Step4 repository presentation traceability audit and closure"
+  ],
+  "next": "POST_V1_P7_STEP2_REPOSITORY_PRESENTATION_INVENTORY_AND_README_NAVIGATION_AUDIT"
+}
