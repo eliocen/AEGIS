@@ -1,0 +1,26 @@
+{
+  "schema": "aegis.post_v1.t1.vision.step2d2.genimage_license_dataset_terms_compliance.v1",
+  "status": "POST_V1_T1_STEP2D2_GENIMAGE_LICENSE_AND_DATASET_TERMS_COMPLIANCE_FROZEN",
+  "dataset": "GenImage",
+  "official_repository": "https://github.com/GenImage-Dataset/GenImage",
+  "license": "CC BY-NC-SA 4.0",
+  "additional_terms": "GenImage Dataset Terms prevail where they conflict with CC BY-NC-SA 4.0.",
+  "authorized_purpose": "NON_COMMERCIAL_ACADEMIC_RESEARCH_TEACHING_SCIENTIFIC_PUBLICATION",
+  "aegis_t1_purpose": "NON_COMMERCIAL_ACADEMIC_RESEARCH",
+  "compliance_controls": [
+    "Preserve attribution to GenImage authors and cite the GenImage paper in research outputs using the dataset.",
+    "Preserve the official dataset source, license identity, additional Dataset Terms, acquisition provenance, and native labels/splits.",
+    "Do not sell the dataset, dataset copies, or derivative dataset material; do not use it for commercial gain.",
+    "Do not commit or redistribute raw GenImage image/archive bytes through the AEGIS Git repository.",
+    "If licensed/adapted dataset material is shared, perform a release-specific CC BY-NC-SA 4.0 and GenImage Dataset Terms compliance review before sharing.",
+    "Do not represent GenImage material as being relicensed merely because AEGIS code or documentation uses another license.",
+    "Preserve upstream-source provenance: the official repository states nature images are collected from ImageNet.",
+    "Do not assume the GenImage license resolves every upstream right in source images; avoid unnecessary raw-image republication.",
+    "Re-check the then-current official Dataset Terms before any public dataset-derived release, operational deployment, commercial use, or transfer to a third party."
+  ],
+  "raw_data_git_policy": "DO_NOT_COMMIT_RAW_DATA",
+  "commercial_use": "PROHIBITED_UNDER_CURRENT_DATASET_TERMS",
+  "raw_dataset_redistribution_via_aegis": "NOT_AUTHORIZED",
+  "license_compliance_state_for_internal_t1_research": "COMPATIBLE_WITH_FROZEN_NON_COMMERCIAL_RESEARCH_PURPOSE",
+  "legal_characterization": "RESEARCH_GOVERNANCE_RECORD_NOT_LEGAL_ADVICE"
+}
