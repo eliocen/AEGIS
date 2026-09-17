@@ -1,0 +1,34 @@
+{
+    "schema":  "aegis.post_v1.t1.vision.step2d1.sd14.authoritative_source_resolution.v1",
+    "status":  "POST_V1_T1_STEP2D1_SD14_AUTHORITATIVE_SOURCE_RESOLUTION_FROZEN",
+    "parent_commit":  "721d9396aa295d8de279c6665018c12ba61c076b",
+    "target_subset":  "Stable Diffusion V1.4",
+    "authoritative_repository":  "https://github.com/GenImage-Dataset/GenImage",
+    "authoritative_readme":  "https://raw.githubusercontent.com/GenImage-Dataset/GenImage/main/Readme.md",
+    "authoritative_parent_distribution":  "https://drive.google.com/drive/folders/1jGt10bwTbhEZuGXLyvrCuxOI0cBqQ1FS?usp=sharing",
+    "parent_drive_folder_id":  "1jGt10bwTbhEZuGXLyvrCuxOI0cBqQ1FS",
+    "drive_probe_http_result":  "200",
+    "official_readme_confirms":  [
+                                     "GenImage official repository",
+                                     "Google Drive distribution",
+                                     "Stable Diffusion V1.4 subset",
+                                     "native train/val structure",
+                                     "native ai/nature labels"
+                                 ],
+    "exact_sd14_google_drive_artifact_id":  "NOT_RESOLVED_FROM_PUBLIC_AUTHORITATIVE_METADATA",
+    "exact_sd14_archive_size_bytes":  "NOT_RESOLVED_FROM_PUBLIC_AUTHORITATIVE_METADATA",
+    "third_party_observation":  {
+                                    "source":  "ENSTA-U2IS/GenImage on Hugging Face",
+                                    "observed_sd14_folder_size":  "96.4 GB",
+                                    "evidentiary_role":  "CAPACITY_CROSS_CHECK_ONLY",
+                                    "acquisition_authority":  "NOT_AUTHORIZED"
+                                },
+    "decision":  "DO_NOT_BEGIN_LARGE_TRANSFER_UNTIL_EXACT_OFFICIAL_SD14_ARTIFACT_ID_OR_USER_VISIBLE_OFFICIAL_FOLDER_SELECTION_IS_RESOLVED",
+    "dataset_payload_downloaded":  "NONE",
+    "extraction":  "NONE",
+    "model_execution":  "NONE",
+    "training":  "NONE",
+    "formal_evaluation":  "NONE",
+    "official_test_samples":  0,
+    "next":  "POST_V1_T1_AEGIS_VISION_STEP2D2_SD14_OFFICIAL_ARTIFACT_ID_RESOLUTION_OR_CONTROLLED_SOURCE_AMENDMENT"
+}
