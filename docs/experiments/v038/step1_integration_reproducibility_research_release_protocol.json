@@ -1,0 +1,124 @@
+{
+    "version":  "0.38",
+    "step":  "Step1",
+    "title":  "Integration, Reproducibility, and Research-Release Prospective Protocol",
+    "status":  "PROSPECTIVE_RELEASE_READINESS_PROTOCOL_FROZEN_NO_AUDIT_COMPUTED",
+    "parent_v037_closure_commit":  "72807aa43f49c5fa1f7762f57de1dcd3d9915621",
+    "inherited_boundary":  {
+                               "v037_status":  "V037_SCIENTIFICALLY_CLOSED",
+                               "supported_posture":  "ANALYST_DECISION_SUPPORT_RESEARCH_CHARACTERIZATION",
+                               "source_behavior_change_authorized":  false,
+                               "model_architecture_change_authorized":  false,
+                               "training_authorized":  false,
+                               "new_formal_evaluation_authorized":  false,
+                               "official_test_access_authorized":  false,
+                               "production_deployment_authorized":  false
+                           },
+    "objective":  "Determine whether the frozen AEGIS Research Core is internally consistent, reproducible, provenance-complete, scientifically bounded, and suitable to freeze as a research-release candidate before v1.0.",
+    "release_readiness_gates":  {
+                                    "R1":  {
+                                               "name":  "repository_identity_and_cleanliness",
+                                               "mandatory":  true,
+                                               "pass_rule":  "Exact parent/remote identity; tracked tree and index clean at audit entry; generated release records use explicit staging allowlists."
+                                           },
+                                    "R2":  {
+                                               "name":  "frozen_evidence_provenance_completeness",
+                                               "mandatory":  true,
+                                               "pass_rule":  "Tracked experiment records are inventoried with stable Git identities; frozen closure/protocol records required for the release lineage are present."
+                                           },
+                                    "R3":  {
+                                               "name":  "environment_and_dependency_reproducibility",
+                                               "mandatory":  true,
+                                               "pass_rule":  "Repository exposes sufficient tracked environment/dependency information to reconstruct the research software environment, or any gap is explicitly classified as a release blocker.",
+                                               "no_dependency_upgrade":  true
+                                           },
+                                    "R4":  {
+                                               "name":  "command_and_workflow_reproducibility",
+                                               "mandatory":  true,
+                                               "pass_rule":  "Established research workflows, runners, scripts, or documented commands needed to understand/reproduce frozen experiments are inventoried without rerunning scientific experiments."
+                                           },
+                                    "R5":  {
+                                               "name":  "test_and_invariant_readiness",
+                                               "mandatory":  true,
+                                               "pass_rule":  "Tracked test/invariant inventory is captured; only already-established non-scientific verification may be executed if Step2 can identify it without changing code or scientific results.",
+                                               "new_scientific_evaluation":  false
+                                           },
+                                    "R6":  {
+                                               "name":  "architecture_and_component_documentation_consistency",
+                                               "mandatory":  true,
+                                               "pass_rule":  "Tracked documentation and source structure permit an internally consistent research-core architecture/component inventory; discrepancies are blockers or explicit limitations."
+                                           },
+                                    "R7":  {
+                                               "name":  "scientific_claim_and_limitation_consistency",
+                                               "mandatory":  true,
+                                               "pass_rule":  "Release claims preserve frozen SUPPORTED/NOT_SUPPORTED/NOT_COMPUTED/NOT_AVAILABLE/PROHIBITED boundaries, including v0.35-v0.37 conclusions."
+                                           },
+                                    "R8":  {
+                                               "name":  "artifact_and_release_manifest_completeness",
+                                               "mandatory":  true,
+                                               "pass_rule":  "A release candidate can enumerate code, tests, experiment records, reproducibility metadata, scientific claims/limitations, and release notes without depending on untracked local artifacts."
+                                           },
+                                    "R9":  {
+                                               "name":  "official_test_and_data_boundary",
+                                               "mandatory":  true,
+                                               "pass_rule":  "Official-test access remains zero; no sealed/official test data are opened to construct the release."
+                                           },
+                                    "R10":  {
+                                                "name":  "v1_readiness",
+                                                "mandatory":  true,
+                                                "pass_rule":  "All mandatory R1-R9 gates PASS and no unresolved scientific-integrity, provenance, or reproducibility blocker remains."
+                                            }
+                                },
+    "step2_authorization":  {
+                                "repository_wide_readonly_inventory":  true,
+                                "tracked_file_hash_or_git_identity_inventory":  true,
+                                "environment_metadata_inventory":  true,
+                                "documentation_consistency_audit":  true,
+                                "test_inventory":  true,
+                                "existing_non_scientific_verification_execution":  "CONDITIONALLY_AUTHORIZED_ONLY_IF_IDENTIFIED_AS_ALREADY_ESTABLISHED_AND NON_EVALUATIVE",
+                                "release_manifest_generation":  true,
+                                "release_readiness_report_generation":  true,
+                                "source_behavior_change":  false,
+                                "model_architecture_change":  false,
+                                "training":  false,
+                                "new_scientific_evaluation":  false,
+                                "new_corruption_execution":  false,
+                                "threshold_tuning":  false,
+                                "checkpoint_reselection":  false,
+                                "official_test_access":  false,
+                                "production_deployment":  false
+                            },
+    "blocker_policy":  {
+                           "scientific_failure":  "Do not repair or reinterpret frozen scientific results in v0.38.",
+                           "reproducibility_or_integration_blocker":  "Freeze the blocker first. A later narrowly scoped corrective step may be authorized only if it is non-scientific and does not alter model behavior or frozen results.",
+                           "missing_optional_material":  "Record as limitation if it does not prevent R1-R10 satisfaction.",
+                           "missing_mandatory_material":  "BLOCKER"
+                       },
+    "release_candidate_required_outputs":  [
+                                               "repository provenance manifest",
+                                               "frozen experiment/evidence index",
+                                               "environment/dependency reproducibility inventory",
+                                               "workflow/command inventory",
+                                               "test/invariant inventory",
+                                               "architecture/component inventory",
+                                               "integrated scientific claim and limitation ledger",
+                                               "release artifact manifest",
+                                               "release-readiness gate report",
+                                               "research-release notes"
+                                           ],
+    "v1_policy":  {
+                      "ordinary_v039_or_v040_feature_cycle":  false,
+                      "v1_freeze_authorizable_only_after_R10_pass":  true,
+                      "target":  "AEGIS Research Core v1.0",
+                      "v1_meaning":  "A reproducible research-core freeze of the scientifically bounded repository; not a claim of production deployment readiness."
+                  },
+    "current_state":  {
+                          "release_readiness_audit":  "NOT_COMPUTED",
+                          "release_candidate":  "NOT_BUILT",
+                          "source_behavior_change":  "NO",
+                          "training":  "NO",
+                          "new_scientific_evaluation":  "NO",
+                          "official_test_samples_accessed":  0
+                      },
+    "next_step":  "v0.38 Step2 鈥?one-pass repository-wide release-readiness audit and research-release candidate manifest construction under R1-R10."
+}
