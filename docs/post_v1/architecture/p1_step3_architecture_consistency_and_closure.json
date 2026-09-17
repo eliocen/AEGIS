@@ -1,0 +1,49 @@
+{
+    "schema":  "aegis.post_v1.p1.step3.architecture_closure.v1",
+    "status":  "POST_V1_P1_ARCHITECTURE_PACKAGE_CLOSED",
+    "parent_commit":  "5e42f6abbd256c2d5e8b39be1781b9376d5fc700",
+    "package":  "P1_ARCHITECTURE_AND_SYSTEM_DOCUMENTATION",
+    "audit":  {
+                  "step2_identity":  "PASS",
+                  "scientific_claim_consistency":  "PASS",
+                  "component_status_consistency":  "PASS",
+                  "prohibited_claim_audit":  "PASS",
+                  "dataflow_evidence_separation":  "PASS"
+              },
+    "authoritative_outputs":  [
+                                  {
+                                      "path":  "docs/post_v1/architecture/AEGIS_V1_CANONICAL_ARCHITECTURE.md",
+                                      "sha256":  "9B4013DA572198424D272AE18E454BD0572D874D491A1D0798D172DAE0500759"
+                                  },
+                                  {
+                                      "path":  "docs/post_v1/architecture/AEGIS_V1_COMPONENT_LEDGER.md",
+                                      "sha256":  "B2EF336B60BCDC7F0F8327E593642343DCCFB3A5F0F629654EBAE74BEFD9F67B"
+                                  },
+                                  {
+                                      "path":  "docs/post_v1/architecture/AEGIS_V1_DATAFLOW_AND_EVIDENCE_MODEL.md",
+                                      "sha256":  "9333E2AC9AEC9468C73B5C4055F590E1032EFFF469F20699C24AA8DFBE183A6B"
+                                  }
+                              ],
+    "frozen_boundaries":  {
+                              "v035_correction":  "CORRECTION_NOT_SUPPORTED",
+                              "v035_M3":  "NOT_SUPPORTED",
+                              "v035_M4":  "NOT_SUPPORTED",
+                              "v036_active_intervention_robustness":  "NOT_COMPUTED",
+                              "classifier_non_robustness_claimed":  false,
+                              "v037_posture":  "ANALYST DECISION-SUPPORT RESEARCH CHARACTERIZATION",
+                              "official_test_samples_accessed":  0,
+                              "production_deployment_readiness":  "NOT_ESTABLISHED"
+                          },
+    "next_package":  {
+                         "id":  "P2_SCIENTIFIC_RESULTS_AND_LIMITATIONS_LEDGER",
+                         "entry_status":  "AUTHORIZED_AFTER_P1_STEP3_REMOTE_FREEZE",
+                         "first_step":  "POST_V1_P2_STEP1_RESULTS_LIMITATIONS_PROSPECTIVE_PROTOCOL",
+                         "rule":  "P2 may consolidate frozen results and limitations but may not create new scientific results, reinterpret unsupported/not-computed findings, or access official test data."
+                     },
+    "scientific_execution":  {
+                                 "model_execution":  false,
+                                 "training":  false,
+                                 "new_evaluation":  false,
+                                 "official_test_samples_accessed":  0
+                             }
+}
