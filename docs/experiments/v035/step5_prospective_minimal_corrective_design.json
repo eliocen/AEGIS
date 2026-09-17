@@ -1,0 +1,162 @@
+{
+    "version":  "0.35",
+    "step":  "Step5",
+    "title":  "Prospective Minimal Corrective Design",
+    "status":  "MINIMAL_CORRECTIVE_DESIGN_FROZEN_IMPLEMENTATION_NOT_AUTHORIZED",
+    "parent":  {
+                   "step4_commit":  "6032bccfea367078fda4e93225c08ab4662cf264",
+                   "step4_json_sha256":  "E28FBC0920E56B377197E72E8B29DB412828615FB5847D4B54E7A94E4A8C0556",
+                   "step4_md_sha256":  "87665A36636615FDD4C99C123D0F244586A6D98D236F64DA6B5775B6E715F962"
+               },
+    "frozen_problem":  {
+                           "D1":  "NO_EXPLANATORY_DEFECT_IDENTIFIED",
+                           "D2":  "COUPLING_DEFECT_IDENTIFIED",
+                           "mechanism":  "SELECTOR_INFORMATION_TARGET_MISMATCH",
+                           "primary_problem":  "SELECTOR_OUTPUT_DISCRIMINATION",
+                           "secondary_downstream_question":  "INTERVENTION_ACTIVATION_AFTER_DISCRIMINATION_IS_RESTORED"
+                       },
+    "selected_correction":  {
+                                "identifier":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+                                "name":  "Inference-Available Classifier-Posterior Context Augmentation",
+                                "status":  "PROSPECTIVELY_SELECTED_NOT_IMPLEMENTED",
+                                "rationale":  "The frozen target is defined from candidate-versus-reference classifier behavior, while the selector currently observes only quality/compatibility-derived features. The minimum non-label inference-available bridge is to expose detached classifier posterior context from the same reference and candidate logits already available at the controller interface.",
+                                "exact_input_change":  {
+                                                           "existing_features":  [
+                                                                                     "q_t",
+                                                                                     "q_v",
+                                                                                     "c_tv",
+                                                                                     "quality_deficit",
+                                                                                     "compatibility_deficit",
+                                                                                     "quality_disagreement",
+                                                                                     "risk"
+                                                                                 ],
+                                                           "added_features":  [
+                                                                                  "reference_positive_probability",
+                                                                                  "candidate_positive_probability",
+                                                                                  "candidate_minus_reference_positive_probability"
+                                                                              ],
+                                                           "added_feature_definitions":  {
+                                                                                             "reference_positive_probability":  "softmax(reference_logits, dim=1)[:,1], detached before selector feature concatenation",
+                                                                                             "candidate_positive_probability":  "softmax(candidate_logits, dim=1)[:,1], detached before selector feature concatenation",
+                                                                                             "candidate_minus_reference_positive_probability":  "candidate_positive_probability - reference_positive_probability"
+                                                                                         },
+                                                           "selector_input_dimension_before":  7,
+                                                           "selector_input_dimension_after":  10,
+                                                           "selector_hidden_dimension":  16,
+                                                           "selector_output_dimension":  1
+                                                       },
+                                "invariants":  [
+                                                   "No ground-truth class identity enters selector inference features.",
+                                                   "No ground-truth-indexed delta_u enters selector inference features.",
+                                                   "u_target remains supervision only and never becomes an inference feature.",
+                                                   "Added posterior-context features are computable from model logits without labels.",
+                                                   "Added posterior-context features are detached so selector supervision does not create a new gradient route into the classifiers.",
+                                                   "Existing selector sigmoid output semantics are unchanged.",
+                                                   "Existing intervention threshold/mapping semantics are unchanged.",
+                                                   "Existing counterfactual u_target construction is unchanged.",
+                                                   "Existing BCEWithLogits selector objective is unchanged.",
+                                                   "No M3/M4 criterion is weakened."
+                                               ],
+                                "explicit_non_selections":  [
+                                                                "Do not feed ground-truth class identity to selector.",
+                                                                "Do not feed ground-truth-indexed delta_u to selector.",
+                                                                "Do not feed u_target to selector.",
+                                                                "Do not replace BCEWithLogits loss.",
+                                                                "Do not change selector output sigmoid.",
+                                                                "Do not tune intervention threshold.",
+                                                                "Do not redesign multimodal encoders or classifier heads.",
+                                                                "Do not add a new selector architecture beyond the input-width change required by the three frozen features."
+                                                            ]
+                            },
+    "inference_availability_and_anti_leakage_proof":  {
+                                                          "reference_logits_available_at_inference":  true,
+                                                          "candidate_logits_available_at_inference":  true,
+                                                          "ground_truth_required_for_added_features":  false,
+                                                          "official_test_labels_required":  false,
+                                                          "target_label_required":  false,
+                                                          "added_features_are_model_derived":  true,
+                                                          "selector_feature_detach_required":  true,
+                                                          "conclusion":  "ADMISSIBLE_UNDER_FROZEN_INFERENCE_BOUNDARY",
+                                                          "limitation":  "This establishes information availability and anti-leakage only; it does not establish that the correction will restore M3."
+                                                      },
+    "tensor_contract":  {
+                            "reference_logits":  "[B,2]",
+                            "candidate_logits":  "[B,2]",
+                            "reference_positive_probability":  "[B]",
+                            "candidate_positive_probability":  "[B]",
+                            "posterior_delta_positive":  "[B]",
+                            "original_selector_features":  "[B,7]",
+                            "corrected_selector_features":  "[B,10]",
+                            "selector_logit":  "[B]",
+                            "utility_probability":  "[B]",
+                            "u_target":  "[B]",
+                            "dtype":  "same floating dtype/device as selector feature path",
+                            "finite_required":  true
+                        },
+    "source_modification_allowlist":  [
+                                          {
+                                              "path":  "aegis/reliability/reliability_controller.py",
+                                              "parent_sha256":  "6807597395E0FAD7D295645A416CB5506825845DEA9F6D342F3642035D6E137F",
+                                              "authorized_future_role":  "Construct three detached posterior-context features; change selector first Linear input width from 7 to 10."
+                                          },
+                                          {
+                                              "path":  "tests/test_v033_utility_supervision_selector.py",
+                                              "parent_sha256":  "96C5AC55143D40DE9EB2C8B7194E294B36A1E2B12ECF017D52B5D4335CAC4C9E",
+                                              "authorized_future_role":  "Add/adjust regression tests for corrected 10-D selector input, anti-leakage and tensor contract."
+                                          },
+                                          {
+                                              "path":  "tests/test_v034_observability_training_path.py",
+                                              "parent_sha256":  "792EFD6B7DA18F0001AEEBA80B6D4197BE5CEACE8B8934FF6AFFFD02701FF2A6",
+                                              "authorized_future_role":  "Add/adjust observability/training-path tests required to expose post-correction discrimination diagnostics."
+                                          }
+                                      ],
+    "conditionally_authorized_runner_change":  {
+                                                   "path":  "scripts/run_fakeddit_ablation.py",
+                                                   "parent_sha256":  "08E9A9466A641316280739BB948E13EC35DE408700CB07EF7584863A918D4B61",
+                                                   "status":  "ONLY_IF_REQUIRED_FOR_OBSERVABILITY_OR_ASSERTION_WIRING",
+                                                   "prohibition":  "No loss-family, utility-loss-weight, threshold, seed, training schedule or formal-evaluation change is authorized by Step5."
+                                               },
+    "regression_test_contract":  [
+                                     "Corrected selector accepts [B,10] and emits selector_logit [B] and utility_probability [B].",
+                                     "Added posterior features equal detached softmax class-1 probabilities and their signed difference.",
+                                     "Added posterior features require no labels.",
+                                     "Gradient from selector loss does not flow through added posterior features into reference/candidate classifier logits.",
+                                     "u_target remains absent from selector input.",
+                                     "Ground-truth class identity remains absent from selector input.",
+                                     "Existing utility_probability sigmoid semantics remain exact.",
+                                     "Existing intervention threshold/mapping remains exact.",
+                                     "Existing counterfactual target construction remains exact.",
+                                     "Existing BCEWithLogits selector objective remains exact."
+                                 ],
+    "post_correction_observability_contract":  {
+                                                   "required_before_corrective_training":  [
+                                                                                               "Per-step or aggregate selector_logit distribution diagnostics",
+                                                                                               "utility_probability mean/std diagnostics",
+                                                                                               "posterior-context feature mean/std/range diagnostics",
+                                                                                               "u_target mean/std/range diagnostics",
+                                                                                               "selector gradient norm on non-neutral steps",
+                                                                                               "selector parameter movement",
+                                                                                               "active intervention rate"
+                                                                                           ],
+                                                   "required_discrimination_adjudication":  {
+                                                                                                "M3_reference":  "utility_probability_std \u003e= 0.05 per seed",
+                                                                                                "status":  "PRESERVED"
+                                                                                            },
+                                                   "downstream_activation_adjudication":  {
+                                                                                              "M4_reference":  "active_intervention_rate \u003e 0 per seed",
+                                                                                              "status":  "PRESERVED",
+                                                                                              "dependency":  "Adjudicate as downstream of restored selector discrimination; do not reinterpret prior M4 failure as independent activation-mapping failure."
+                                                                                          }
+                                               },
+    "future_implementation_boundary":  {
+                                           "implementation_authorized_by_step5":  false,
+                                           "required_next":  "A separate implementation authorization/execution step must verify exact Step5 identities, modify only the frozen allowlist, run frozen regression tests, and freeze implementation evidence before any training."
+                                       },
+    "training_authorized":  false,
+    "new_seeds_authorized":  false,
+    "checkpoint_reselection_authorized":  false,
+    "threshold_tuning_authorized":  false,
+    "formal_evaluation_authorized":  false,
+    "official_test_samples_accessed":  0,
+    "next":  "v0.35 Step6 - Minimal Corrective Implementation Authorization and Controlled Implementation"
+}
