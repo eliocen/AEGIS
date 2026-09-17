@@ -1,0 +1,97 @@
+{
+    "version":  "0.36",
+    "step":  "Step1",
+    "title":  "Failure-Aware Robustness Prospective Protocol",
+    "status":  "PROSPECTIVE_PROTOCOL_FROZEN_NO_RESULTS_COMPUTED",
+    "parent_v035_closure_commit":  "61043e6a761b5cd5ea2119b29af963ee1385b3be",
+    "inherited_boundary":  {
+                               "v035_status":  "V035_SCIENTIFICALLY_CLOSED",
+                               "correction":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+                               "correction_disposition":  "CORRECTION_NOT_SUPPORTED",
+                               "M3_selector_output_discrimination":  "NOT_SUPPORTED",
+                               "M4_intervention_activation":  "NOT_SUPPORTED",
+                               "mechanistic_disposition":  "PERSISTENT_SELECTOR_OUTPUT_DISCRIMINATION_FAILURE_AFTER_POSTERIOR_CONTEXT_CORRECTION",
+                               "formal_robustness_evaluation_authorized_from_v035":  false,
+                               "official_test_samples_accessed":  0
+                           },
+    "purpose":  "Determine, prospectively and without reopening v0.35, what robustness claims are scientifically admissible when the learned intervention selector failed its prerequisite discrimination and activation gates.",
+    "primary_question":  "Can robustness of the v0.35 learned intervention mechanism be formally evaluated as an active adaptive mechanism when its prospectively required selector-discrimination and activation prerequisites were not satisfied?",
+    "design":  {
+                   "phase_A":  "Read-only robustness-eligibility characterization using already-frozen v0.35 training/validation evidence and prior frozen robustness definitions only.",
+                   "phase_B":  "Formal robustness evaluation remains locked unless a later prospective authorization establishes an admissible target that does not contradict the v0.35 failure boundary.",
+                   "no_automatic_promotion":  true
+               },
+    "prospective_questions":  {
+                                  "V36_Q1":  {
+                                                 "name":  "selector_activation_eligibility",
+                                                 "evidence":  "Frozen v0.35 per-seed utility_probability_std and active_intervention_rate.",
+                                                 "rule":  "ELIGIBLE only if the already-frozen v0.35 M3 and M4 prerequisites were both SUPPORTED for every formal seed.",
+                                                 "expected_status_from_inherited_boundary":  "INELIGIBLE_PENDING_COMPUTATION",
+                                                 "note":  "This is a deterministic protocol rule, not a new threshold."
+                                             },
+                                  "V36_Q2":  {
+                                                 "name":  "optimization_vs_activation_decoupling",
+                                                 "evidence":  "Frozen per-seed selector gradient norm, selector parameter L2 movement, utility_probability_std, and active_intervention_rate.",
+                                                 "rule":  "Characterize whether nonzero optimization/parameter movement coexists with failed output discrimination/activation; descriptive/mechanistic characterization only.",
+                                                 "causal_claim_allowed":  false
+                                             },
+                                  "V36_Q3":  {
+                                                 "name":  "seed_consistency_of_failure",
+                                                 "evidence":  "Seeds 42,43,44 from frozen v0.35 Step9 evidence.",
+                                                 "rule":  "Report each seed separately; all-seed consistency may be stated only when the same frozen disposition holds for all three seeds."
+                                             },
+                                  "V36_Q4":  {
+                                                 "name":  "performance_activation_decoupling",
+                                                 "evidence":  "Frozen best-validation performance plus selector activation diagnostics from the same three v0.35 runs.",
+                                                 "rule":  "Describe whether classification performance can remain competitive while the learned intervention pathway remains inactive; do not interpret validation performance as robustness evidence."
+                                             },
+                                  "V36_Q5":  {
+                                                 "name":  "formal_robustness_admissibility",
+                                                 "rule":  "If V36_Q1 is INELIGIBLE, do not execute a formal robustness evaluation that attributes robustness to active learned intervention. A later protocol may authorize read-only counterfactual/failure characterization, but must not relabel inactive intervention as successful adaptive robustness."
+                                             }
+                              },
+    "inherited_robustness_context":  {
+                                         "prior_condition_families":  [
+                                                                          "matched",
+                                                                          "class-preserving mismatched",
+                                                                          "text Gaussian severity",
+                                                                          "vision Gaussian severity",
+                                                                          "text attenuation severity",
+                                                                          "vision attenuation severity"
+                                                                      ],
+                                         "historical_hypotheses_context":  [
+                                                                               "corrupted-modality down-weighting",
+                                                                               "robustness improvement over baseline",
+                                                                               "mismatch robustness"
+                                                                           ],
+                                         "use_rule":  "These prior condition families/hypotheses are context only in Step1. No condition-level evaluation is executed or exposed here."
+                                     },
+    "aggregation_rules":  {
+                              "seed_level":  "Seeds 42,43,44 remain individually reportable; cross-seed means are descriptive only.",
+                              "missing_metric":  "Mark NOT_AVAILABLE; do not reconstruct by retraining or modified evaluation.",
+                              "no_post_result_thresholds":  true
+                          },
+    "prohibitions":  [
+                         "reopen or revise v0.35 scientific decisions",
+                         "additional v0.35 training",
+                         "new training in Step1",
+                         "source or architecture modification in Step1",
+                         "threshold tuning or search",
+                         "checkpoint reselection",
+                         "dropping seeds",
+                         "formal robustness evaluation in Step1",
+                         "new corruption-condition execution in Step1",
+                         "official test access",
+                         "claiming robustness benefit from validation performance alone",
+                         "claiming a sole causal mechanism from the v0.35 failure evidence"
+                     ],
+    "current_state":  {
+                          "implementation":  "NO",
+                          "training":  "NO",
+                          "robustness_characterization":  "NOT_COMPUTED",
+                          "formal_robustness_evaluation":  "NOT_AUTHORIZED",
+                          "formal_hypothesis_decisions":  "NONE",
+                          "official_test_samples_accessed":  0
+                      },
+    "next_step":  "v0.36 Step2 鈥?one-time read-only robustness-eligibility characterization from already-frozen v0.35 evidence under this exact protocol."
+}
