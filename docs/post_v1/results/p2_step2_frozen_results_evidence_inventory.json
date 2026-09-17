@@ -1,0 +1,23 @@
+{
+    "schema":  "aegis.post_v1.p2.step2.frozen_results_evidence_inventory.v1",
+    "status":  "P2_STEP2_FROZEN_RESULTS_EVIDENCE_INVENTORY",
+    "parent_commit":  "45276929a33b07ae3638d5c9d7dc889e0c6f0d70",
+    "tracked_sources":  {
+                            "experiment_records":  224,
+                            "release_records":  2,
+                            "post_v1_architecture_records":  8
+                        },
+    "authoritative_scientific_chain":  [
+                                           "v0.34",
+                                           "v0.35",
+                                           "v0.36",
+                                           "v0.37",
+                                           "v0.38",
+                                           "v1.0"
+                                       ],
+    "extraction_mode":  "READ_ONLY_DOCUMENTARY_SYNTHESIS",
+    "model_execution":  false,
+    "training":  false,
+    "new_evaluation":  false,
+    "official_test_samples_accessed":  0
+}
