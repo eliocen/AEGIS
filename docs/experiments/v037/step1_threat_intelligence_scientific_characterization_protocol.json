@@ -1,0 +1,109 @@
+{
+    "version":  "0.37",
+    "step":  "Step1",
+    "title":  "Threat-Intelligence and Scientific-Characterization Prospective Protocol",
+    "status":  "PROSPECTIVE_PROTOCOL_FROZEN_NO_CHARACTERIZATION_COMPUTED",
+    "parent_v036_closure_commit":  "17d82e36ca43df70920aedc5583b0bcd8d53a06e",
+    "inherited_boundary":  {
+                               "v036_status":  "V036_SCIENTIFICALLY_CLOSED",
+                               "v036_disposition":  "ROBUSTNESS_EVALUATION_BLOCKED_BY_INACTIVE_SELECTOR_PREREQUISITE",
+                               "robustness_result":  "NOT_COMPUTED",
+                               "formal_robustness_evaluation":  "NOT_PERFORMED",
+                               "official_test_samples_accessed":  0
+                           },
+    "purpose":  "Translate already-frozen AEGIS scientific evidence into explicit threat-intelligence, information-integrity, failure-mode, observability, and operational-claim boundaries without reopening model development.",
+    "evidence_policy":  {
+                            "primary":  "Use only already-frozen tracked AEGIS evidence and records.",
+                            "no_reconstruction":  true,
+                            "missing_evidence":  "NOT_AVAILABLE",
+                            "cross_seed_means":  "DESCRIPTIVE_ONLY",
+                            "causal_claims":  "PROHIBITED_UNLESS_ALREADY_ESTABLISHED_BY_FROZEN EVIDENCE",
+                            "robustness_claims":  "Must preserve v0.36 NOT_COMPUTED boundary."
+                        },
+    "characterization_axes":  {
+                                  "T1":  {
+                                             "name":  "multimodal_threat_surface",
+                                             "question":  "Which already-established corruption, mismatch, modality-quality, and information-integrity conditions constitute observable threat/failure surfaces in the frozen AEGIS evidence?",
+                                             "output":  "Evidence-linked taxonomy; no new conditions may be invented as evaluated conditions."
+                                         },
+                                  "T2":  {
+                                             "name":  "evidence_to_operational_signal_mapping",
+                                             "question":  "Which frozen model quantities can be treated as observables for monitoring or analyst triage?",
+                                             "candidate_signal_classes":  [
+                                                                              "modality quality",
+                                                                              "cross-modal compatibility",
+                                                                              "interaction/mismatch evidence",
+                                                                              "classifier confidence/posteriors where frozen",
+                                                                              "reliability/controller outputs where frozen",
+                                                                              "selector utility probability where frozen",
+                                                                              "intervention activation where frozen"
+                                                                          ],
+                                             "rule":  "Availability and support must be established from tracked evidence before any operational claim."
+                                         },
+                                  "T3":  {
+                                             "name":  "failure_mode_localization",
+                                             "question":  "What failure modes are supported by frozen evidence, and at which layer are they localized?",
+                                             "required_separation":  [
+                                                                         "input/modality degradation",
+                                                                         "cross-modal mismatch",
+                                                                         "representation/fusion response",
+                                                                         "classifier performance",
+                                                                         "reliability evidence",
+                                                                         "selector optimization",
+                                                                         "selector discrimination",
+                                                                         "intervention activation"
+                                                                     ]
+                                         },
+                                  "T4":  {
+                                             "name":  "information_integrity_claim_boundary",
+                                             "question":  "Which claims can AEGIS support for misinformation/disinformation/malinfo/hate or multimodal authenticity/security workflows from current evidence, and which remain future scope?",
+                                             "rule":  "Do not convert generic classifier/reliability evidence into unsupported content-type attribution."
+                                         },
+                                  "T5":  {
+                                             "name":  "threat_intelligence_alertability",
+                                             "question":  "Which evidence patterns are potentially alertable versus analyst-context-only?",
+                                             "categories":  [
+                                                                "ALERTABLE_FROM_FROZEN_EVIDENCE",
+                                                                "CONTEXT_ONLY",
+                                                                "NOT_AVAILABLE",
+                                                                "NOT_AUTHORIZED"
+                                                            ],
+                                             "rule":  "No production alert threshold is selected in v0.37 Step1."
+                                         },
+                                  "T6":  {
+                                             "name":  "scientific_claim_ledger",
+                                             "question":  "Create a claim ledger separating SUPPORTED, NOT_SUPPORTED, NOT_COMPUTED, NOT_AVAILABLE, and PROHIBITED claims.",
+                                             "rule":  "Every claim must point to an already-frozen evidence source or be marked unsupported/unavailable."
+                                         }
+                              },
+    "operational_principles":  [
+                                   "AEGIS evidence is decision support, not autonomous attribution.",
+                                   "Classifier performance, reliability evidence, selector behavior, and intervention behavior are separate evidence layers.",
+                                   "A failed selector does not imply a non-robust classifier.",
+                                   "Validation performance does not substitute for formal robustness evidence.",
+                                   "Threat-intelligence interpretation must preserve dataset/task/population scope.",
+                                   "No production deployment or national-security operational claim is authorized by this research protocol."
+                               ],
+    "prohibitions":  [
+                         "training",
+                         "new model implementation",
+                         "new architecture",
+                         "new corruption-condition execution",
+                         "formal robustness evaluation",
+                         "official test access",
+                         "threshold tuning",
+                         "checkpoint reselection",
+                         "new content-taxonomy performance claims without evidence",
+                         "autonomous actor attribution",
+                         "production deployment claim",
+                         "reopening v0.35 or v0.36 scientific decisions"
+                     ],
+    "current_state":  {
+                          "characterization":  "NOT_COMPUTED",
+                          "implementation":  "NO",
+                          "training":  "NO",
+                          "formal_evaluation":  "NO",
+                          "official_test_samples_accessed":  0
+                      },
+    "next_step":  "v0.37 Step2 鈥?one-time read-only evidence inventory and threat/scientific characterization under this exact protocol."
+}
