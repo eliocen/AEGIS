@@ -1,0 +1,116 @@
+{
+    "schema":  "aegis.post_v1.p3.step1.reproducibility_protocol.v1",
+    "status":  "POST_V1_P3_STEP1_REPRODUCIBILITY_PACKAGE_PROTOCOL_FROZEN",
+    "parent_commit":  "362039e52a6f127f84d6cd3df2b571d83a1f9a85",
+    "purpose":  "Package the exact reproducibility boundary of AEGIS Research Core v1.0 so another researcher can identify the release, environment, evidence, commands, data boundaries, verification checks, and limitations without mutating the frozen scientific baseline.",
+    "governing_release":  {
+                              "branch":  "release/v1.0-research-core",
+                              "commit":  "39492cf6d93987fdf9ebee29b95fdb826b8391e4",
+                              "annotated_tag":  "v1.0.0-research-core",
+                              "release_manifest":  "docs/releases/v1.0/AEGIS_RESEARCH_CORE_V1_RELEASE_MANIFEST.json",
+                              "release_manifest_sha256":  "5BD15FB6FBECBB97A8727DD3E363D399B39B31EB6C8B1A673C238863FA715AAA",
+                              "release_notes":  "docs/releases/v1.0/AEGIS_RESEARCH_CORE_V1_RELEASE_NOTES.md",
+                              "release_notes_sha256":  "88F100C9B0536981C546C79C20F7CBE608850339C0F551B041106A15258748A5"
+                          },
+    "reproducibility_axes":  [
+                                 "RELEASE_IDENTITY",
+                                 "SOURCE_AND_EVIDENCE_PROVENANCE",
+                                 "ENVIRONMENT_AND_DEPENDENCIES",
+                                 "DATA_AND_CACHE_BOUNDARIES",
+                                 "COMMAND_AND_WORKFLOW_REPRODUCTION",
+                                 "TEST_AND_INVARIANT_VERIFICATION",
+                                 "ARTIFACT_AND_HASH_VERIFICATION",
+                                 "SCIENTIFIC_DECISION_REPRODUCTION",
+                                 "OFFICIAL_TEST_BOUNDARY",
+                                 "LIMITATIONS_AND_NON_REPRODUCIBLE_EXTERNALITIES"
+                             ],
+    "required_outputs":  [
+                             {
+                                 "path":  "docs/post_v1/reproducibility/AEGIS_V1_REPRODUCIBILITY_GUIDE.md",
+                                 "purpose":  "End-to-end researcher-facing reproduction guide"
+                             },
+                             {
+                                 "path":  "docs/post_v1/reproducibility/AEGIS_V1_ENVIRONMENT_AND_DEPENDENCY_LEDGER.md",
+                                 "purpose":  "Frozen environment, runtime, hardware, dependency, and known portability context"
+                             },
+                             {
+                                 "path":  "docs/post_v1/reproducibility/AEGIS_V1_COMMAND_AND_WORKFLOW_LEDGER.md",
+                                 "purpose":  "Command/workflow map tied to frozen evidence stages"
+                             },
+                             {
+                                 "path":  "docs/post_v1/reproducibility/AEGIS_V1_PROVENANCE_AND_HASH_LEDGER.md",
+                                 "purpose":  "Release, evidence, source, and artifact identity map"
+                             },
+                             {
+                                 "path":  "docs/post_v1/reproducibility/AEGIS_V1_REPRODUCIBILITY_CHECKLIST.md",
+                                 "purpose":  "Fail-closed verification checklist for independent reproduction"
+                             }
+                         ],
+    "rules":  {
+                  "documentary_packaging_only":  true,
+                  "source_or_model_change_authorized":  false,
+                  "training_authorized":  false,
+                  "new_scientific_evaluation_authorized":  false,
+                  "checkpoint_reselection_authorized":  false,
+                  "threshold_or_criterion_change_authorized":  false,
+                  "official_test_access_authorized":  false,
+                  "frozen_commands_may_be_documented":  true,
+                  "commands_may_be_syntax_checked_without_model_execution":  true,
+                  "existing_test_results_may_be_documented":  true,
+                  "tests_may_be_re_run_only_if_explicitly_classified_as_non_scientific_reproducibility_verification":  false
+              },
+    "mandatory_environment_context":  {
+                                          "os_family":  "Windows",
+                                          "shell":  "PowerShell",
+                                          "repository_root":  "D:\\Research\\AEGIS",
+                                          "python":  "3.10.11",
+                                          "python_executable":  "D:\\Research\\AEGIS\\.venv\\Scripts\\python.exe",
+                                          "gpu":  "NVIDIA GeForce GTX 1660 SUPER",
+                                          "torch":  "2.13.0+cu132",
+                                          "cuda_available":  true,
+                                          "note":  "These values describe the frozen primary research environment where documented; P3 must distinguish exact requirements from observational environment context."
+                                      },
+    "mandatory_data_boundaries":  {
+                                      "fakeddit_train_cache":  "data/processed/fakeddit/frozen_embeddings/train_n5000_seed42",
+                                      "fakeddit_validation_cache":  "data/processed/fakeddit/frozen_embeddings/validation_n1000_seed42",
+                                      "train_manifest_sha256":  "5BC8BF53F988B3DD5299A1D940DB6676F48E37250F52C8B3569150BE153417C5",
+                                      "validation_manifest_sha256":  "C4E95F818C24043DB1DEE9C0CFC0DE85C2E591E9E77B98CB2490046D1BC04F87",
+                                      "official_test_samples_accessed":  0
+                                  },
+    "mandatory_scientific_reproduction_boundary":  {
+                                                       "v035_training_seeds":  [
+                                                                                   42,
+                                                                                   43,
+                                                                                   44
+                                                                               ],
+                                                       "checkpoint_rule":  "highest validation Macro-F1; tie-break lowest validation classification loss",
+                                                       "M3_criterion":  "utility_probability_std \u003e= 0.05 per seed",
+                                                       "M4_criterion":  "active_intervention_rate \u003e 0 per seed",
+                                                       "v035_correction_result":  "CORRECTION_NOT_SUPPORTED",
+                                                       "v036_robustness_result":  "NOT_COMPUTED",
+                                                       "v037_posture":  "ANALYST DECISION-SUPPORT RESEARCH CHARACTERIZATION"
+                                                   },
+    "independent_reproduction_levels":  {
+                                            "LEVEL_A":  "Identity reproduction: verify release/tag/commit/hashes and evidence chain without execution.",
+                                            "LEVEL_B":  "Environment/workflow reproduction: reconstruct environment and commands without claiming numerical reproduction.",
+                                            "LEVEL_C":  "Scientific rerun: execute frozen training/evaluation workflow only under a separately authorized research reproduction exercise; not authorized by P3 packaging itself."
+                                        },
+    "limitations":  [
+                        "Exact bitwise numerical reproducibility may depend on hardware, CUDA/cuDNN, dependency builds, nondeterministic kernels, and unavailable external assets.",
+                        "P3 must distinguish repository-verifiable provenance from environment observations and from external dependencies.",
+                        "P3 must not imply that documentation alone reproduces unavailable data or third-party assets.",
+                        "Validation reproduction is not official-test evaluation.",
+                        "Reproduction of a frozen negative or not-computed result must preserve the original prospective criteria and decision logic."
+                    ],
+    "next_step":  {
+                      "status":  "AUTHORIZED_AFTER_STEP1_REMOTE_FREEZE",
+                      "id":  "POST_V1_P3_STEP2_REPRODUCIBILITY_EVIDENCE_INVENTORY_AND_PACKAGE_DRAFT",
+                      "mode":  "READ_ONLY_EVIDENCE_EXTRACTION_AND_DOCUMENT_GENERATION"
+                  },
+    "scientific_execution":  {
+                                 "model_execution":  false,
+                                 "training":  false,
+                                 "new_evaluation":  false,
+                                 "official_test_samples_accessed":  0
+                             }
+}
