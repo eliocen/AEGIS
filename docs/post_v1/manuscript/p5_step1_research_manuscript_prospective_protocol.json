@@ -1,0 +1,131 @@
+{
+    "schema":  "aegis.post_v1.p5.step1.research_manuscript_protocol.v1",
+    "status":  "POST_V1_P5_STEP1_RESEARCH_MANUSCRIPT_PROTOCOL_FROZEN",
+    "parent_commit":  "50c131cf7ca4c1dacc14be6e10eed186524d5f79",
+    "manuscript_purpose":  "Prepare an evidence-faithful research manuscript from the immutable AEGIS Research Core v1.0 and closed P1-P4 packaging records.",
+    "authoritative_evidence_packages":  [
+                                            {
+                                                "id":  "P1",
+                                                "scope":  "Architecture and System Documentation",
+                                                "status":  "CLOSED"
+                                            },
+                                            {
+                                                "id":  "P2",
+                                                "scope":  "Scientific Results and Limitations",
+                                                "status":  "CLOSED"
+                                            },
+                                            {
+                                                "id":  "P3",
+                                                "scope":  "Reproducibility Package",
+                                                "status":  "CLOSED"
+                                            },
+                                            {
+                                                "id":  "P4",
+                                                "scope":  "Figures and System Diagrams",
+                                                "status":  "CLOSED"
+                                            }
+                                        ],
+    "manuscript_sections":  [
+                                "Title and Abstract",
+                                "Introduction",
+                                "Related Work and Research Context",
+                                "AEGIS Research Problem and Design Objectives",
+                                "System Architecture and Methodology",
+                                "Experimental Governance and Evaluation Protocol",
+                                "Results",
+                                "Failure Analysis and Corrective Mechanism",
+                                "Robustness Admissibility and Scientific Characterization",
+                                "Threat-Intelligence / Analyst Decision-Support Interpretation",
+                                "Reproducibility",
+                                "Limitations and Negative Findings",
+                                "Future Research",
+                                "Conclusion"
+                            ],
+    "mandatory_scientific_content":  {
+                                         "v034":  [
+                                                      "M1 SUPPORTED",
+                                                      "M2 SUPPORTED",
+                                                      "M3 NOT_SUPPORTED",
+                                                      "M4 NOT_SUPPORTED",
+                                                      "SELECTOR_DISCRIMINATION_FAILURE"
+                                                  ],
+                                         "v035":  {
+                                                      "correction":  "V035_C1_CLASSIFIER_POSTERIOR_CONTEXT",
+                                                      "validation_macro_f1":  [
+                                                                                  "0.8669",
+                                                                                  "0.8716",
+                                                                                  "0.8610"
+                                                                              ],
+                                                      "utility_probability_std":  [
+                                                                                      "0.016633",
+                                                                                      "0.012812",
+                                                                                      "0.009565"
+                                                                                  ],
+                                                      "active_intervention_rate":  [
+                                                                                       "0",
+                                                                                       "0",
+                                                                                       "0"
+                                                                                   ],
+                                                      "M3_threshold":  "utility_probability_std >= 0.05",
+                                                      "M4_threshold":  "active_intervention_rate > 0",
+                                                      "result":  "CORRECTION_NOT_SUPPORTED",
+                                                      "disposition":  "PERSISTENT_SELECTOR_OUTPUT_DISCRIMINATION_FAILURE_AFTER_POSTERIOR_CONTEXT_CORRECTION"
+                                                  },
+                                         "v036":  [
+                                                      "ROBUSTNESS_EVALUATION_BLOCKED_BY_INACTIVE_SELECTOR_PREREQUISITE",
+                                                      "NOT_COMPUTED",
+                                                      "classifier non-robustness NOT CLAIMED"
+                                                  ],
+                                         "v037":  [
+                                                      "ANALYST DECISION-SUPPORT RESEARCH CHARACTERIZATION",
+                                                      "production capability NOT ESTABLISHED",
+                                                      "autonomous attribution NOT ESTABLISHED"
+                                                  ],
+                                         "v038":  [
+                                                      "integration/reproducibility/research-release readiness",
+                                                      "R1-R10 closure",
+                                                      "v1 freeze authorized"
+                                                  ],
+                                         "v1":  [
+                                                    "v1.0.0-research-core",
+                                                    "39492cf6d93987fdf9ebee29b95fdb826b8391e4",
+                                                    "immutable scientific baseline",
+                                                    "official test samples 0"
+                                                ]
+                                     },
+    "narrative_rules":  [
+                            "Preserve prospective criteria and chronological decision boundaries.",
+                            "Report negative findings as first-class results rather than omitting or minimizing them.",
+                            "Do not convert NOT_SUPPORTED into disproven.",
+                            "Do not convert NOT_COMPUTED into zero, failure, or a robustness measurement.",
+                            "Do not infer classifier non-robustness from selector-output discrimination failure.",
+                            "Do not describe validation Macro-F1 as formal robustness or official-test performance.",
+                            "Do not describe the Research Core as production-ready or as an autonomous attribution/threat-determination system.",
+                            "Separate implemented/evaluated v1.0 scope from future AEGIS-Vision, Audio, Video, multilingual/cross-lingual, and broader multimodal work.",
+                            "Do not invent statistical significance, confidence intervals, benchmarks, citations, datasets, ablations, measurements, or deployment evidence."
+                        ],
+    "related_work_rule":  "External literature may be added only in a separately traceable literature-review stage. P5 Step2 must not fabricate citations or claim comparative superiority without sourced evidence.",
+    "figure_rule":  "Use P4 F1-F8 as the authoritative visual specifications; manuscript captions may be adapted for publication but scientific semantics and values may not change.",
+    "authorship_rule":  "The manuscript may synthesize and editorially organize frozen evidence, but scientific claims must remain attributable to frozen repository evidence.",
+    "target_outputs":  [
+                           "docs/post_v1/manuscript/AEGIS_V1_MANUSCRIPT_EVIDENCE_MAP.md",
+                           "docs/post_v1/manuscript/AEGIS_V1_MANUSCRIPT_CLAIM_LEDGER.md",
+                           "docs/post_v1/manuscript/AEGIS_V1_MANUSCRIPT_OUTLINE.md",
+                           "docs/post_v1/manuscript/AEGIS_V1_RESEARCH_MANUSCRIPT_DRAFT.md"
+                       ],
+    "step2_scope":  {
+                        "id":  "POST_V1_P5_STEP2_MANUSCRIPT_EVIDENCE_MAP_OUTLINE_AND_DRAFT",
+                        "authorization":  "DOCUMENTARY SYNTHESIS ONLY",
+                        "literature_search":  false,
+                        "new_scientific_evaluation":  false,
+                        "model_execution":  false,
+                        "training":  false,
+                        "official_test_access":  false
+                    },
+    "scientific_execution":  {
+                                 "model_execution":  false,
+                                 "training":  false,
+                                 "new_evaluation":  false,
+                                 "official_test_samples_accessed":  0
+                             }
+}
