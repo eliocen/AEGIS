@@ -1,0 +1,53 @@
+{
+  "schema": "aegis.post_v1.p8.step3.structured_roadmap_traceability.v1",
+  "status": "POST_V1_P8_STEP3_STRUCTURED_POST_V1_RESEARCH_ROADMAP_FROZEN",
+  "parent_commit": "bc09753fba21507914a979cd00e12e04c847fa69",
+  "authoritative_v1_release": {
+    "tag": "v1.0.0-research-core",
+    "commit": "39492cf6d93987fdf9ebee29b95fdb826b8391e4"
+  },
+  "sequencing": [
+    {"phase":"A","tracks":["T9"],"role":"cross-cutting governance foundation"},
+    {"phase":"B","tracks":["T1","T2","T4","T7"],"role":"separable early modality and mechanism research"},
+    {"phase":"C","tracks":["T3","T8"],"role":"evidence relations and analyst-facing integration"},
+    {"phase":"D","tracks":["T5"],"role":"video research after applicable visual contract"},
+    {"phase":"E","tracks":["T6"],"role":"full multimodal integration after constituent contracts"}
+  ],
+  "track_states": {
+    "T1":"PROTOCOL_REQUIRED",
+    "T2":"PROTOCOL_REQUIRED",
+    "T3":"PROTOCOL_REQUIRED",
+    "T4":"PROTOCOL_REQUIRED",
+    "T5":"PROTOCOL_REQUIRED",
+    "T6":"DEFERRED",
+    "T7":"PROTOCOL_REQUIRED",
+    "T8":"PROTOCOL_REQUIRED",
+    "T9":"PROPOSED"
+  },
+  "global_gates": [
+    "G0_IMMUTABLE_BASELINE",
+    "G1_PROSPECTIVE_PROTOCOL",
+    "G2_IMPLEMENTATION_AUTHORIZATION",
+    "G3_TRAINING_AUTHORIZATION",
+    "G4_EVALUATION_AUTHORIZATION",
+    "G5_CLAIM_AUDIT",
+    "G6_RELEASE_AND_INTEGRATION"
+  ],
+  "inherited_boundaries": {
+    "M3":"NOT_SUPPORTED",
+    "M4":"NOT_SUPPORTED",
+    "v035_correction":"CORRECTION_NOT_SUPPORTED",
+    "v036_active_intervention_robustness":"NOT_COMPUTED",
+    "P6_D4":"NOT_INCLUDED",
+    "production_readiness":"NOT_ESTABLISHED",
+    "autonomous_attribution":"NOT_ESTABLISHED",
+    "official_test_samples":0
+  },
+  "authorization_effect": "NONE",
+  "implementation": "NONE",
+  "model_source_changes": "NONE",
+  "training": "NONE",
+  "new_evaluation": "NONE",
+  "official_test_samples": 0,
+  "next": "POST_V1_P8_STEP4_ROADMAP_TRACEABILITY_AUDIT_AND_POST_V1_PACKAGING_CLOSURE"
+}
