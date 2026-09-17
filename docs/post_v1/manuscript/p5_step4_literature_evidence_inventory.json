@@ -1,0 +1,160 @@
+{
+    "schema":  "aegis.post_v1.p5.step4.literature_inventory.v1",
+    "status":  "VERIFIED_EXTERNAL_LITERATURE_INVENTORY",
+    "parent_commit":  "5cae80d5b4a4e0123c8722c55db292512b013bdc",
+    "verification_date":  "2026-09-17",
+    "source_count":  13,
+    "evidence_class":  "EXTERNAL_LITERATURE_CONTEXT",
+    "aegis_empirical_evidence_modified":  false,
+    "references":  [
+                       {
+                           "id":  "R1",
+                           "authors":  "Nakamura, Kai; Levy, Sharon; Wang, William Yang",
+                           "title":  "Fakeddit: A New Multimodal Benchmark Dataset for Fine-grained Fake News Detection",
+                           "year":  "2020",
+                           "venue":  "LREC 2020",
+                           "identifier":  "ACL Anthology",
+                           "canonical_url":  "https://aclanthology.org/2020.lrec-1.755/",
+                           "bounded_relevance":  "Multimodal benchmark/dataset context; over one million samples and 2/3/6-way distant-supervision labels.",
+                           "verification":  "VERIFIED"
+                       },
+                       {
+                           "id":  "R2",
+                           "authors":  "Wang, Yaqing; Ma, Fenglong; Jin, Zhiwei; Yuan, Ye; Xun, Guangxu; Jha, Kishlay; Su, Lu; Gao, Jing",
+                           "title":  "EANN: Event Adversarial Neural Networks for Multi-Modal Fake News Detection",
+                           "year":  "2018",
+                           "venue":  "KDD 2018",
+                           "identifier":  "10.1145/3219819.3219903",
+                           "canonical_url":  "https://doi.org/10.1145/3219819.3219903",
+                           "bounded_relevance":  "Foundational multimodal fake-news detection with event-adversarial learning.",
+                           "verification":  "VERIFIED"
+                       },
+                       {
+                           "id":  "R3",
+                           "authors":  "Singhal, Shivangi; Shah, Rajiv Ratn; Chakraborty, Tanmoy; Kumaraguru, Ponnurangam; Satoh, Shin\u0027ichi",
+                           "title":  "SpotFake: A Multi-modal Framework for Fake News Detection",
+                           "year":  "2019",
+                           "venue":  "IEEE BigMM 2019",
+                           "identifier":  "10.1109/BIGMM.2019.00-44",
+                           "canonical_url":  "https://doi.org/10.1109/BIGMM.2019.00-44",
+                           "bounded_relevance":  "Multimodal text-image fake-news detection context.",
+                           "verification":  "VERIFIED"
+                       },
+                       {
+                           "id":  "R4",
+                           "authors":  "Zhou, Xinyi; Wu, Jindi; Zafarani, Reza",
+                           "title":  "SAFE: Similarity-Aware Multi-Modal Fake News Detection",
+                           "year":  "2020",
+                           "venue":  "PAKDD 2020",
+                           "identifier":  "10.1007/978-3-030-47436-2_27",
+                           "canonical_url":  "https://doi.org/10.1007/978-3-030-47436-2_27",
+                           "bounded_relevance":  "Cross-modal similarity/mismatch as useful evidence in multimodal fake-news detection.",
+                           "verification":  "VERIFIED"
+                       },
+                       {
+                           "id":  "R5",
+                           "authors":  "Wu, Yang; Zhan, Pengwei; Zhang, Yunjian; Wang, Liming; Xu, Zhen",
+                           "title":  "Multimodal Fusion with Co-Attention Networks for Fake News Detection",
+                           "year":  "2021",
+                           "venue":  "Findings of ACL-IJCNLP 2021",
+                           "identifier":  "10.18653/v1/2021.findings-acl.226",
+                           "canonical_url":  "https://doi.org/10.18653/v1/2021.findings-acl.226",
+                           "bounded_relevance":  "Co-attention multimodal fusion context.",
+                           "verification":  "VERIFIED"
+                       },
+                       {
+                           "id":  "R6",
+                           "authors":  "Zhou, Yangming; Yang, Yuzhou; Ying, Qichao; Qian, Zhenxing; Zhang, Xinpeng",
+                           "title":  "Multimodal Fake News Detection via CLIP-Guided Learning",
+                           "year":  "2023",
+                           "venue":  "IEEE ICME 2023",
+                           "identifier":  "10.1109/ICME55011.2023.00480",
+                           "canonical_url":  "https://doi.org/10.1109/ICME55011.2023.00480",
+                           "bounded_relevance":  "CLIP-guided cross-modal representation and feature selection context.",
+                           "verification":  "VERIFIED"
+                       },
+                       {
+                           "id":  "R7",
+                           "authors":  "Tong, Yu; Lu, Weihai; Zhao, Zhe; Lai, Song; Shi, Tong",
+                           "title":  "MMDFND: Multi-modal Multi-Domain Fake News Detection",
+                           "year":  "2024",
+                           "venue":  "ACM Multimedia 2024",
+                           "identifier":  "10.1145/3664647.3681317",
+                           "canonical_url":  "https://doi.org/10.1145/3664647.3681317",
+                           "bounded_relevance":  "Direct architectural lineage/context for AEGIS baseline replication and multi-domain multimodal detection.",
+                           "verification":  "VERIFIED"
+                       },
+                       {
+                           "id":  "R8",
+                           "authors":  "Guo, Chuan; Pleiss, Geoff; Sun, Yu; Weinberger, Kilian Q.",
+                           "title":  "On Calibration of Modern Neural Networks",
+                           "year":  "2017",
+                           "venue":  "ICML 2017",
+                           "identifier":  "PMLR v70",
+                           "canonical_url":  "https://proceedings.mlr.press/v70/guo17a.html",
+                           "bounded_relevance":  "Calibration context: predictive confidence and correctness likelihood are distinct evaluation concerns.",
+                           "verification":  "VERIFIED"
+                       },
+                       {
+                           "id":  "R9",
+                           "authors":  "Geifman, Yonatan; El-Yaniv, Ran",
+                           "title":  "SelectiveNet: A Deep Neural Network with an Integrated Reject Option",
+                           "year":  "2019",
+                           "venue":  "ICML 2019",
+                           "identifier":  "PMLR v97",
+                           "canonical_url":  "https://proceedings.mlr.press/v97/geifman19a.html",
+                           "bounded_relevance":  "Selective prediction/reject-option context relevant to separating classification from selection/intervention behavior.",
+                           "verification":  "VERIFIED"
+                       },
+                       {
+                           "id":  "R10",
+                           "authors":  "Mitchell, Margaret; Wu, Simone; Zaldivar, Andrew; Barnes, Parker; Vasserman, Lucy; Hutchinson, Ben; Spitzer, Elena; Raji, Inioluwa Deborah; Gebru, Timnit",
+                           "title":  "Model Cards for Model Reporting",
+                           "year":  "2019",
+                           "venue":  "FAT* 2019",
+                           "identifier":  "10.1145/3287560.3287596",
+                           "canonical_url":  "https://doi.org/10.1145/3287560.3287596",
+                           "bounded_relevance":  "Transparent reporting of intended use, evaluation conditions, and limitations.",
+                           "verification":  "VERIFIED"
+                       },
+                       {
+                           "id":  "R11",
+                           "authors":  "Breck, Eric; Cai, Shanqing; Nielsen, Eric; Salib, Michael; Sculley, D.",
+                           "title":  "The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction",
+                           "year":  "2017",
+                           "venue":  "IEEE Big Data 2017",
+                           "identifier":  "Google Research publication",
+                           "canonical_url":  "https://research.google/pubs/the-ml-test-score-a-rubric-for-ml-production-readiness-and-technical-debt-reduction/",
+                           "bounded_relevance":  "Production-readiness requires testing/monitoring beyond offline research evaluation.",
+                           "verification":  "VERIFIED"
+                       },
+                       {
+                           "id":  "R12",
+                           "authors":  "Gebru, Timnit; Morgenstern, Jamie; Vecchione, Briana; Vaughan, Jennifer Wortman; Wallach, Hanna; Daum茅 III, Hal; Crawford, Kate",
+                           "title":  "Datasheets for Datasets",
+                           "year":  "2021",
+                           "venue":  "Communications of the ACM 64(12)",
+                           "identifier":  "CACM 2021",
+                           "canonical_url":  "https://www.microsoft.com/en-us/research/publication/datasheets-for-datasets/",
+                           "bounded_relevance":  "Dataset documentation/provenance context.",
+                           "verification":  "VERIFIED"
+                       },
+                       {
+                           "id":  "R13",
+                           "authors":  "Zhou, Xinyi; Zafarani, Reza",
+                           "title":  "A Survey of Fake News: Fundamental Theories, Detection Methods, and Opportunities",
+                           "year":  "2020",
+                           "venue":  "ACM Computing Surveys 53(5)",
+                           "identifier":  "10.1145/3395046",
+                           "canonical_url":  "https://doi.org/10.1145/3395046",
+                           "bounded_relevance":  "Broad fake-news detection and information-credibility research context.",
+                           "verification":  "VERIFIED"
+                       }
+                   ],
+    "boundaries":  [
+                       "No external paper is treated as evidence for an AEGIS empirical result.",
+                       "No cross-paper performance ranking or AEGIS superiority claim is authorized.",
+                       "Fakeddit, MMDFND, and other literature contextualize dataset/method lineage only.",
+                       "Official test samples accessed remain 0."
+                   ]
+}
