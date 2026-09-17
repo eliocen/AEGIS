@@ -1,0 +1,42 @@
+{
+  "schema": "aegis.post_v1.p6.step4.demonstration_closure.v1",
+  "status": "POST_V1_P6_DEMONSTRATION_PACKAGE_CLOSED",
+  "parent_commit": "be4dcc706966fc1276a77df835f31200c6fadc93",
+  "authoritative_release": {
+    "tag": "v1.0.0-research-core",
+    "commit": "39492cf6d93987fdf9ebee29b95fdb826b8391e4"
+  },
+  "demonstration_modes": {
+    "D1_ARCHITECTURE_AND_DATAFLOW_WALKTHROUGH": "INCLUDED_DOCUMENTARY",
+    "D2_FROZEN_EVIDENCE_AND_RESULT_EXPLORATION": "INCLUDED_DOCUMENTARY",
+    "D3_REPRODUCIBILITY_AND_PROVENANCE_WALKTHROUGH": "INCLUDED_DOCUMENTARY",
+    "D4_BOUNDED_INFERENCE_DEMONSTRATION": "NOT_INCLUDED",
+    "D5_FAILURE_AND_LIMITATION_EXPLANATION": "INCLUDED_DOCUMENTARY"
+  },
+  "d4_decision": {
+    "status": "NOT_INCLUDED",
+    "reason": "COMPLETE_FROZEN_INFERENCE_CONTRACT_NOT_ESTABLISHED",
+    "heuristic_candidate_source_surfaces": 52,
+    "tracked_model_like_artifacts": 0,
+    "interpretation": "The evidence does not establish the complete exact v1.0 interface/checkpoint/input/output/non-evaluative contract required for live inference. This is not a claim that AEGIS cannot perform inference."
+  },
+  "scientific_boundaries": {
+    "M3": "NOT_SUPPORTED",
+    "M4": "NOT_SUPPORTED",
+    "v035_correction": "CORRECTION_NOT_SUPPORTED",
+    "v036_active_intervention_robustness": "NOT_COMPUTED",
+    "production_readiness": "NOT_ESTABLISHED",
+    "autonomous_attribution": "NOT_ESTABLISHED",
+    "active_adaptive_robustness": "NOT_ESTABLISHED",
+    "official_test_performance": "NOT_AVAILABLE"
+  },
+  "execution": {
+    "demo_execution": "NONE",
+    "model_execution": "NONE",
+    "training": "NONE",
+    "new_evaluation": "NONE",
+    "official_test_samples": 0
+  },
+  "future_modalities": "SEPARATE_POST_V1_RESEARCH",
+  "next": "POST_V1_P7_REPOSITORY_PRESENTATION"
+}
