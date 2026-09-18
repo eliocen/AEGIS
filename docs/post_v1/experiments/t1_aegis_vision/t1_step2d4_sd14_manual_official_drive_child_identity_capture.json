@@ -1,0 +1,236 @@
+{
+    "schema":  "aegis.post_v1.t1.vision.step2d4.sd14.manual_identity.v1",
+    "status":  "FROZEN",
+    "parent_commit":  "e08c90e11e4788dda4bf2083467e1080ec06a946",
+    "evidence_basis":  "USER_BROWSER_OBSERVATION_OF_OFFICIAL_GENIMAGE_GOOGLE_DRIVE",
+    "official_parent_folder_id":  "1jGt10bwTbhEZuGXLyvrCuxOI0cBqQ1FS",
+    "official_sd14_child_folder_name":  "stable_diffusion_v_1_4",
+    "official_sd14_child_folder_id":  "12xighYOtu-ryfYEUnNrSeZqrxT8P08Zy",
+    "official_sd14_child_folder_url":  "https://drive.google.com/drive/folders/12xighYOtu-ryfYEUnNrSeZqrxT8P08Zy",
+    "child_identity_state":  "RESOLVED",
+    "distribution_format":  "MULTIPART_ZIP",
+    "multipart_components":  [
+                                 {
+                                     "ordinal":  1,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z01",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  2,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z02",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  3,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z03",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  4,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z04",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  5,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z05",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  6,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z06",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  7,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z07",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  8,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z08",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  9,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z09",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  10,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z10",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  11,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z11",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  12,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z12",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  13,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z13",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  14,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z14",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  15,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z15",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  16,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z16",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  17,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z17",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  18,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z18",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  19,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z19",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  20,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z20",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  21,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z21",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  22,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z22",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  23,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z23",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  24,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z24",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  25,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z25",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  26,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z26",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  27,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z27",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  28,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z28",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 },
+                                 {
+                                     "ordinal":  29,
+                                     "observed_name":  "imagenet_ai_0419_sdv4.z29",
+                                     "displayed_size_gb":  3,
+                                     "exact_size_bytes":  "NOT_YET_MEASURED",
+                                     "sha256":  "NOT_YET_MEASURED"
+                                 }
+                             ],
+    "terminal_component":  {
+                               "observed_name":  "imagenet_ai_0419_sdv4.zip",
+                               "displayed_size_gb":  2.79,
+                               "exact_size_bytes":  "NOT_YET_MEASURED",
+                               "sha256":  "NOT_YET_MEASURED"
+                           },
+    "observed_component_count":  30,
+    "displayed_aggregate_size_gb":  89.79,
+    "size_semantics":  "GOOGLE_DRIVE_DISPLAYED_VALUES_NOT_EXACT_BYTES",
+    "license_boundary":  "CC BY-NC-SA 4.0 + GenImage Dataset Terms",
+    "research_purpose":  "NON_COMMERCIAL_ACADEMIC_RESEARCH",
+    "raw_data_git_policy":  "DO_NOT_COMMIT_RAW_DATA",
+    "exact_file_ids":  "NOT_YET_CAPTURED",
+    "dataset_payload_downloaded":  "NONE",
+    "controlled_source_amendment":  "NOT_REQUIRED",
+    "model_execution_training":  "NOT_AUTHORIZED",
+    "formal_evaluation":  "NOT_AUTHORIZED",
+    "official_test_access":  "NOT_AUTHORIZED",
+    "next":  "POST_V1_T1_AEGIS_VISION_STEP2D5_SD14_EXACT_OFFICIAL_MULTIPART_ACQUISITION_AUTHORIZATION"
+}
