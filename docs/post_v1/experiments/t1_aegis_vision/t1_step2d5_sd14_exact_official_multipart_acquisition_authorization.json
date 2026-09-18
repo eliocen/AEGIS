@@ -1,0 +1,341 @@
+{
+    "schema":  "aegis.post_v1.t1.vision.step2d5.sd14.exact_official_multipart_acquisition_authorization.v1",
+    "status":  "POST_V1_T1_STEP2D5_SD14_EXACT_OFFICIAL_MULTIPART_ACQUISITION_AUTHORIZATION_FROZEN",
+    "parent_commit":  "82b59748032732022b7c4af8f26e88dcdbb65816",
+    "source":  {
+                   "scientific_source":  "GenImage official distribution",
+                   "official_parent_folder_id":  "1jGt10bwTbhEZuGXLyvrCuxOI0cBqQ1FS",
+                   "official_sd14_child_folder_id":  "12xighYOtu-ryfYEUnNrSeZqrxT8P08Zy",
+                   "official_sd14_child_folder_url":  "https://drive.google.com/drive/folders/12xighYOtu-ryfYEUnNrSeZqrxT8P08Zy",
+                   "transport_source":  "OFFICIAL_GOOGLE_DRIVE_ONLY",
+                   "third_party_mirror":  "NOT_AUTHORIZED"
+               },
+    "destination":  {
+                        "relative_path":  "data/raw/genimage/stable_diffusion_v_1_4",
+                        "raw_data_git_policy":  "DO_NOT_COMMIT_RAW_DATA",
+                        "preserve_original_component_names":  true,
+                        "preserve_original_bytes":  true
+                    },
+    "expected_distribution":  {
+                                  "format":  "MULTIPART_ZIP",
+                                  "component_count":  30,
+                                  "components":  [
+                                                     {
+                                                         "ordinal":  1,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z01",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  2,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z02",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  3,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z03",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  4,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z04",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  5,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z05",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  6,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z06",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  7,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z07",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  8,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z08",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  9,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z09",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  10,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z10",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  11,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z11",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  12,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z12",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  13,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z13",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  14,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z14",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  15,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z15",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  16,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z16",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  17,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z17",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  18,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z18",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  19,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z19",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  20,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z20",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  21,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z21",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  22,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z22",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  23,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z23",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  24,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z24",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  25,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z25",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  26,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z26",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  27,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z27",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  28,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z28",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  29,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.z29",
+                                                         "expected_displayed_size_gb":  3,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     },
+                                                     {
+                                                         "ordinal":  30,
+                                                         "expected_name":  "imagenet_ai_0419_sdv4.zip",
+                                                         "expected_displayed_size_gb":  2.79,
+                                                         "exact_drive_file_id":  "TO_BE_CAPTURED_DURING_EXECUTION_IF_AVAILABLE",
+                                                         "exact_size_bytes":  "TO_BE_MEASURED_AFTER_TRANSFER",
+                                                         "sha256":  "TO_BE_COMPUTED_AFTER_TRANSFER",
+                                                         "acquisition_state":  "PENDING"
+                                                     }
+                                                 ],
+                                  "observed_google_drive_displayed_total_gb":  89.79,
+                                  "displayed_size_semantics":  "OBSERVATIONAL_NOT_EXACT_BYTES"
+                              },
+    "capacity_controls":  {
+                              "step2d_measured_free_gib":  318.58,
+                              "step2d_working_budget_gib":  218,
+                              "current_authorization_free_gib":  318.58,
+                              "mandatory_free_space_reserve_gib":  100,
+                              "minimum_pre_transfer_envelope_gib":  189.79000000000002,
+                              "remeasure_before_each_component":  true,
+                              "stop_before_component_if_reserve_would_be_breached":  true,
+                              "extraction_requires_separate_post_acquisition_capacity_gate":  true
+                          },
+    "transfer_controls":  [
+                              "Acquire only from the resolved official SD1.4 Google Drive child folder.",
+                              "Use sequential/resumable transfer where supported; do not launch all 30 components concurrently.",
+                              "Preserve exact filenames and raw transferred bytes.",
+                              "Before each component record free disk GiB.",
+                              "After each completed component record exact byte size and SHA256.",
+                              "If an official Drive file ID is exposed by the chosen transfer mechanism, record it.",
+                              "Do not treat an HTML quota/authentication/virus-scan page as a dataset component.",
+                              "On quota, authentication, network, source, integrity, or storage failure stop cleanly and preserve the exact partial acquisition state.",
+                              "Do not delete completed verified components merely to continue acquisition without a separately frozen retention decision.",
+                              "Do not extract until all 30 expected components are present and acquisition integrity evidence is frozen."
+                          ],
+    "completion_gate":  {
+                            "required_component_count":  30,
+                            "require_all_expected_names":  true,
+                            "require_nonzero_exact_size_each":  true,
+                            "require_sha256_each":  true,
+                            "require_no_unexpected_dataset_components":  true,
+                            "extraction_authorized":  false
+                        },
+    "license_boundary":  "CC BY-NC-SA 4.0 + GenImage Dataset Terms",
+    "research_purpose":  "NON_COMMERCIAL_ACADEMIC_RESEARCH",
+    "authorization_effect":  {
+                                 "official_sd14_multipart_payload_transfer_next":  "AUTHORIZED_BOUNDED",
+                                 "extraction":  "NOT_AUTHORIZED",
+                                 "preprocessing":  "NOT_AUTHORIZED",
+                                 "final_validation_test_construction":  "NOT_AUTHORIZED",
+                                 "model_source_implementation":  "NOT_AUTHORIZED",
+                                 "model_execution":  "NOT_AUTHORIZED",
+                                 "training":  "NOT_AUTHORIZED",
+                                 "formal_evaluation":  "NOT_AUTHORIZED",
+                                 "official_test_access":  "NOT_AUTHORIZED"
+                             },
+    "next":  "POST_V1_T1_AEGIS_VISION_STEP2D6_SD14_OFFICIAL_MULTIPART_ACQUISITION_EXECUTION_AND_INTEGRITY_EVIDENCE"
+}
