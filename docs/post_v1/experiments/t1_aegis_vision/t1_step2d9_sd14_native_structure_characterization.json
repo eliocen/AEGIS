@@ -1,0 +1,42 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP2D9_SD14_NATIVE_STRUCTURE_V1",
+    "parent_commit":  "42434a43d115d32b4a932f5712e80a930eefc065",
+    "dataset_root":  "imagenet_ai_0419_sdv4",
+    "cells":  [
+                  {
+                      "split":  "train",
+                      "class":  "ai",
+                      "files":  162000,
+                      "bytes":  74504011924
+                  },
+                  {
+                      "split":  "train",
+                      "class":  "nature",
+                      "files":  162000,
+                      "bytes":  18512732443
+                  },
+                  {
+                      "split":  "val",
+                      "class":  "ai",
+                      "files":  6000,
+                      "bytes":  2749074377
+                  },
+                  {
+                      "split":  "val",
+                      "class":  "nature",
+                      "files":  6000,
+                      "bytes":  808458936
+                  }
+              ],
+    "total_files":  336000,
+    "total_bytes":  96574277680,
+    "native_split_preserved":  true,
+    "label_mapping":  {
+                          "nature":  "AUTHENTIC",
+                          "ai":  "MANIPULATED_AI_GENERATED"
+                      },
+    "preprocessing":  "NOT_AUTHORIZED",
+    "model_execution":  "NOT_AUTHORIZED",
+    "training":  "NOT_AUTHORIZED",
+    "formal_evaluation":  "NOT_AUTHORIZED"
+}
