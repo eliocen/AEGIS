@@ -1,0 +1,160 @@
+{
+    "schema":  "aegis.post_v1.t1.vision.step2d6.sd14.official_drive_inventory.v1",
+    "source_folder_id":  "12xighYOtu-ryfYEUnNrSeZqrxT8P08Zy",
+    "source_folder_url":  "https://drive.google.com/drive/folders/12xighYOtu-ryfYEUnNrSeZqrxT8P08Zy",
+    "gdown_version":  "6.4.0",
+    "component_count":  30,
+    "components":  [
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z01",
+                           "url":  "https://drive.google.com/uc?id=1Y7FZMVzopwXaPIeMwpBYNiI7IWxENgFU",
+                           "drive_file_id":  "1Y7FZMVzopwXaPIeMwpBYNiI7IWxENgFU"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z02",
+                           "url":  "https://drive.google.com/uc?id=1Z-vL01F3QkTilJvuYN_jqOTIQ8QvmAGy",
+                           "drive_file_id":  "1Z-vL01F3QkTilJvuYN_jqOTIQ8QvmAGy"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z03",
+                           "url":  "https://drive.google.com/uc?id=1hS777nqeBbkfKWs-7axGNomIcnRDTCsE",
+                           "drive_file_id":  "1hS777nqeBbkfKWs-7axGNomIcnRDTCsE"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z04",
+                           "url":  "https://drive.google.com/uc?id=17E-BPsGiVLfsAKwkyHG2pPxLuUBOjTZ4",
+                           "drive_file_id":  "17E-BPsGiVLfsAKwkyHG2pPxLuUBOjTZ4"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z05",
+                           "url":  "https://drive.google.com/uc?id=1MWJb1adBFgsGdbm96PcvV0Idf_t-UUoF",
+                           "drive_file_id":  "1MWJb1adBFgsGdbm96PcvV0Idf_t-UUoF"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z06",
+                           "url":  "https://drive.google.com/uc?id=1qmjicansM2-2hECrmBrrlgoC8azzl-lL",
+                           "drive_file_id":  "1qmjicansM2-2hECrmBrrlgoC8azzl-lL"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z07",
+                           "url":  "https://drive.google.com/uc?id=1GB6jvADz8SYKi6lq5RJGGpFnRuOmV1GP",
+                           "drive_file_id":  "1GB6jvADz8SYKi6lq5RJGGpFnRuOmV1GP"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z08",
+                           "url":  "https://drive.google.com/uc?id=15SM5PwbYyZHoALi2uhvSbQkBhbmNKvhX",
+                           "drive_file_id":  "15SM5PwbYyZHoALi2uhvSbQkBhbmNKvhX"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z09",
+                           "url":  "https://drive.google.com/uc?id=15E4Scf99aXBP7n56uJ0NzkUO4acxGBT_",
+                           "drive_file_id":  "15E4Scf99aXBP7n56uJ0NzkUO4acxGBT_"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z10",
+                           "url":  "https://drive.google.com/uc?id=1HZLd0sSrzgNM0j3VR1EUdrzrzipd6WN6",
+                           "drive_file_id":  "1HZLd0sSrzgNM0j3VR1EUdrzrzipd6WN6"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z11",
+                           "url":  "https://drive.google.com/uc?id=1IMk7wMq-Fcb4pw9RhAQ3DgyWAqVWTzZa",
+                           "drive_file_id":  "1IMk7wMq-Fcb4pw9RhAQ3DgyWAqVWTzZa"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z12",
+                           "url":  "https://drive.google.com/uc?id=10Ibi1VVVbMQG7WQX6ZTlpJRtsOyWfAI5",
+                           "drive_file_id":  "10Ibi1VVVbMQG7WQX6ZTlpJRtsOyWfAI5"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z13",
+                           "url":  "https://drive.google.com/uc?id=1qNSC7OT22c2n_8sOI1pfO_9A9-c4vnGN",
+                           "drive_file_id":  "1qNSC7OT22c2n_8sOI1pfO_9A9-c4vnGN"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z14",
+                           "url":  "https://drive.google.com/uc?id=1te2oARoJy-UQp-Mgf26eLda16S6Ir6ef",
+                           "drive_file_id":  "1te2oARoJy-UQp-Mgf26eLda16S6Ir6ef"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z15",
+                           "url":  "https://drive.google.com/uc?id=1PeNQJBYLGbmOprFlTjynrSZ0r1-34Poo",
+                           "drive_file_id":  "1PeNQJBYLGbmOprFlTjynrSZ0r1-34Poo"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z16",
+                           "url":  "https://drive.google.com/uc?id=1T1z3dcEQ0q-WWhwq24ulAjVy3G_O8cZ7",
+                           "drive_file_id":  "1T1z3dcEQ0q-WWhwq24ulAjVy3G_O8cZ7"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z17",
+                           "url":  "https://drive.google.com/uc?id=1hSoaXOK-2mQK3lZ_QcSAGP8YPl12wgGS",
+                           "drive_file_id":  "1hSoaXOK-2mQK3lZ_QcSAGP8YPl12wgGS"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z18",
+                           "url":  "https://drive.google.com/uc?id=1lHVRAS5453b2B3KErG0YXSF2Z3BoXkLn",
+                           "drive_file_id":  "1lHVRAS5453b2B3KErG0YXSF2Z3BoXkLn"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z19",
+                           "url":  "https://drive.google.com/uc?id=1cju9hbC5IUMp8lsRsqS5lsL033PwabY9",
+                           "drive_file_id":  "1cju9hbC5IUMp8lsRsqS5lsL033PwabY9"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z20",
+                           "url":  "https://drive.google.com/uc?id=1ysCGAz0XlPjjQGGjR2zWEVfrP0XIkiWp",
+                           "drive_file_id":  "1ysCGAz0XlPjjQGGjR2zWEVfrP0XIkiWp"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z21",
+                           "url":  "https://drive.google.com/uc?id=1PianQ6okcy3VmYfKcnVriqpTmoxO2Z46",
+                           "drive_file_id":  "1PianQ6okcy3VmYfKcnVriqpTmoxO2Z46"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z22",
+                           "url":  "https://drive.google.com/uc?id=1NlQJhIl1Qpl8Cw2LwZGqVC0yQzSyJM-d",
+                           "drive_file_id":  "1NlQJhIl1Qpl8Cw2LwZGqVC0yQzSyJM-d"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z23",
+                           "url":  "https://drive.google.com/uc?id=1DqvN2kkZA5j4PDRSRATuBUQsYluMnYbW",
+                           "drive_file_id":  "1DqvN2kkZA5j4PDRSRATuBUQsYluMnYbW"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z24",
+                           "url":  "https://drive.google.com/uc?id=1RFYGzREYM8qfX-afUSOlYZKW81MhHKur",
+                           "drive_file_id":  "1RFYGzREYM8qfX-afUSOlYZKW81MhHKur"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z25",
+                           "url":  "https://drive.google.com/uc?id=118SonC2aFvNnTbka335QzzTjQ-Nybwd-",
+                           "drive_file_id":  "118SonC2aFvNnTbka335QzzTjQ-Nybwd-"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z26",
+                           "url":  "https://drive.google.com/uc?id=1luJplS8nutHIs_3wDU6cDtySbntFHRgj",
+                           "drive_file_id":  "1luJplS8nutHIs_3wDU6cDtySbntFHRgj"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z27",
+                           "url":  "https://drive.google.com/uc?id=1AdD5yNX_Z5v70oqzAgp9gHxhZ0OKXgM0",
+                           "drive_file_id":  "1AdD5yNX_Z5v70oqzAgp9gHxhZ0OKXgM0"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z28",
+                           "url":  "https://drive.google.com/uc?id=1v6DK-8YNG7w5qUafk1JT1-B17vvThh37",
+                           "drive_file_id":  "1v6DK-8YNG7w5qUafk1JT1-B17vvThh37"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.z29",
+                           "url":  "https://drive.google.com/uc?id=1b6_70ptyHRd8wEiUc9lq_N4OLuyf_bTK",
+                           "drive_file_id":  "1b6_70ptyHRd8wEiUc9lq_N4OLuyf_bTK"
+                       },
+                       {
+                           "name":  "imagenet_ai_0419_sdv4.zip",
+                           "url":  "https://drive.google.com/uc?id=1gPjgbo5ZYyOW_PBhOeQB47CPLL6nqEjs",
+                           "drive_file_id":  "1gPjgbo5ZYyOW_PBhOeQB47CPLL6nqEjs"
+                       }
+                   ],
+    "payload_downloaded_by_inventory_probe":  "NONE"
+}
