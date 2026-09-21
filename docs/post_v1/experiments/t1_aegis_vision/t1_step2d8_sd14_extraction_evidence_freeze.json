@@ -1,0 +1,18 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP2D8_SD14_EXTRACTION_EVIDENCE_V1",
+    "parent_commit":  "a896960c1309b42a30230711fdda3fb18a75ee03",
+    "archive_volumes":  30,
+    "archive_total_physical_bytes":  96413397770,
+    "extracted_files":  336000,
+    "extracted_bytes":  96574277680,
+    "top_level_entry":  "imagenet_ai_0419_sdv4",
+    "free_gib":  135.01,
+    "reserve_gib":  100,
+    "terminal_zip_sha256":  "258879C50CD4D602F149E625E93DCADD319D727A1B2025D0770ABC741F07D984",
+    "raw_data_git":  "DO_NOT_COMMIT_RAW_DATA",
+    "preprocessing":  "NOT_AUTHORIZED",
+    "model_execution":  "NOT_AUTHORIZED",
+    "training":  "NOT_AUTHORIZED",
+    "formal_evaluation":  "NOT_AUTHORIZED",
+    "official_test":  "NOT_AUTHORIZED"
+}
