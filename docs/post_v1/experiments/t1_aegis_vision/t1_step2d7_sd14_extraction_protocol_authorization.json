@@ -1,0 +1,20 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP2D7_SD14_EXTRACTION_PROTOCOL_AUTHORIZATION_V1",
+    "parent_commit":  "b107395ee5b532d82ad04350f4ee28a42f1726b0",
+    "listed_uncompressed_bytes":  96574277680,
+    "listed_uncompressed_gib":  89.94,
+    "free_gib_at_authorization":  225.99,
+    "projected_free_gib_after_extraction":  136.05,
+    "mandatory_reserve_gib":  100,
+    "capacity_prerequisite":  "SATISFIED",
+    "extraction":  "AUTHORIZED_BOUNDED",
+    "tool":  "7-Zip",
+    "destination":  "data/raw/genimage/stable_diffusion_v_1_4/extracted",
+    "preserve_archive_components":  true,
+    "overwrite_existing":  false,
+    "preprocessing":  "NOT_AUTHORIZED",
+    "model_execution":  "NOT_AUTHORIZED",
+    "training":  "NOT_AUTHORIZED",
+    "formal_evaluation":  "NOT_AUTHORIZED",
+    "official_test":  "NOT_AUTHORIZED"
+}
