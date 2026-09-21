@@ -1,0 +1,34 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP2D11_SD14_AUDIT_EXECUTION_AUTHORIZATION_V1",
+    "parent_protocol_commit":  "d6697977ab323751ef6d7b5fb704df3939b6b3e2",
+    "population_files":  336000,
+    "population_bytes":  96574277680,
+    "scope":  "FULL_POPULATION_READ_ONLY_CHARACTERIZATION",
+    "authorized_outputs":  [
+                               "per-file manifest outside raw payload",
+                               "aggregate audit evidence",
+                               "duplicate/collision inventories",
+                               "anomaly inventories"
+                           ],
+    "required_fields":  [
+                            "relative_path",
+                            "native_split",
+                            "native_class",
+                            "mapped_label",
+                            "extension",
+                            "size_bytes",
+                            "sha256",
+                            "width",
+                            "height",
+                            "aspect_ratio",
+                            "image_format",
+                            "decode_status"
+                        ],
+    "dataset_mutation":  "PROHIBITED",
+    "silent_exclusion":  "PROHIBITED",
+    "preprocessing":  "NOT_AUTHORIZED",
+    "model_execution":  "NOT_AUTHORIZED",
+    "training":  "NOT_AUTHORIZED",
+    "formal_evaluation":  "NOT_AUTHORIZED",
+    "official_test":  "NOT_AUTHORIZED"
+}
