@@ -1,0 +1,57 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP2D10_SD14_MANIFEST_INTEGRITY_SHORTCUT_AUDIT_PROTOCOL_V1",
+    "parent_commit":  "57fabf746506ad50c11fc734ff19876ae95e88e7",
+    "population":  {
+                       "dataset":  "GenImage",
+                       "generator":  "stable_diffusion_v_1_4",
+                       "files":  336000,
+                       "native_splits":  [
+                                             "train",
+                                             "val"
+                                         ],
+                       "native_classes":  [
+                                              "ai",
+                                              "nature"
+                                          ]
+                   },
+    "label_mapping":  {
+                          "nature":  "AUTHENTIC",
+                          "ai":  "MANIPULATED_AI_GENERATED"
+                      },
+    "manifest_fields":  [
+                            "relative_path",
+                            "native_split",
+                            "native_class",
+                            "mapped_label",
+                            "extension",
+                            "size_bytes",
+                            "sha256",
+                            "width",
+                            "height",
+                            "aspect_ratio",
+                            "image_format",
+                            "decode_status"
+                        ],
+    "audits":  [
+                   "native split/class count reconciliation",
+                   "extension and image-format distribution by split/class",
+                   "decode validity and anomaly inventory",
+                   "width/height/aspect-ratio distribution by split/class",
+                   "file-size distribution by split/class",
+                   "filename-pattern leakage characterization",
+                   "exact SHA256 duplicates within cell",
+                   "exact SHA256 duplicates across classes",
+                   "exact SHA256 duplicates across train/validation",
+                   "cross-class and cross-split collision inventory"
+               ],
+    "exact_duplicate_key":  "sha256",
+    "mutation_policy":  "READ_ONLY_DATASET; WRITE_MANIFEST_AND_EVIDENCE_ONLY",
+    "anomaly_policy":  "RECORD_AND_FREEZE; NO SILENT_REMOVAL_OR_RELABELING",
+    "raw_data_git":  "DO_NOT_COMMIT_RAW_DATA",
+    "manifest_git":  "AUTHORIZED_AFTER_AUDIT_EXECUTION_IF_SIZE_PRACTICAL",
+    "preprocessing":  "NOT_AUTHORIZED",
+    "model_execution":  "NOT_AUTHORIZED",
+    "training":  "NOT_AUTHORIZED",
+    "formal_evaluation":  "NOT_AUTHORIZED",
+    "official_test":  "NOT_AUTHORIZED"
+}
