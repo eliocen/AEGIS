@@ -1,0 +1,42 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP2D13_SD14_USABLE_POPULATION_SHORTCUT_CONTROL_DESIGN_V1",
+    "parent_disposition_commit":  "65fa3165d901612e7c3f326c84d1722401affba6",
+    "raw_dataset":  "IMMUTABLE",
+    "derived_population":  {
+                               "train":  {
+                                             "native_total":  324000,
+                                             "exclude_decode_failures":  3,
+                                             "exclude_cross_split_validation_occurrences":  0,
+                                             "expected_usable":  323997
+                                         },
+                               "validation":  {
+                                                  "native_total":  12000,
+                                                  "exclude_decode_failures":  0,
+                                                  "exclude_cross_split_validation_occurrences":  17,
+                                                  "expected_usable":  11983
+                                              },
+                               "expected_total":  335980,
+                               "exclusion_mechanism":  "MANIFEST_ONLY"
+                           },
+    "shortcut_control":  {
+                             "objective":  "PREVENT_TRIVIAL_FILE_CONTAINER/ENCODING AND SIZE ACQUISITION ARTIFACTS FROM SERVING AS DIRECT CLASS CUES",
+                             "decode":  "DECODE_TO_PIXELS_IN_MEMORY",
+                             "color":  "CONVERT_TO_RGB",
+                             "geometry":  "MODEL_INPUT_GEOMETRY_TO_BE_FROZEN WITH ARCHITECTURE; IDENTICAL POLICY FOR BOTH CLASSES",
+                             "file_container":  "MODEL SHALL RECEIVE DECODED PIXELS, NOT RAW PNG/JPEG BYTES OR EXTENSION/FORMAT METADATA",
+                             "metadata":  "PATH, EXTENSION, IMAGE_FORMAT, FILE_SIZE, FILENAME, AND CLASS-DIRECTORY TOKENS SHALL NOT BE MODEL INPUT FEATURES",
+                             "reencoding":  "NOT_REQUIRED_FOR MODEL INPUT WHEN DECODED PIXELS ARE USED; NO RAW DATA REWRITE",
+                             "normalization":  "TO_BE FROZEN WITH BACKBONE/ARCHITECTURE; IDENTICAL BY CLASS",
+                             "augmentation":  "NOT_AUTHORIZED_BY_THIS STEP; MUST BE PROSPECTIVELY SPECIFIED IF USED",
+                             "residual_risk":  "PIXEL-LEVEL GENERATOR/DATASET ARTIFACTS MAY REMAIN AND MUST BE ACKNOWLEDGED; THIS STEP DOES NOT CLAIM DOMAIN-GENERAL AUTHENTICITY DETECTION"
+                         },
+    "next":  "GENERATE_DERIVED_USABLE_POPULATION_MANIFEST_AND_FREEZE ITS PROVENANCE BEFORE T1 STEP3 ARCHITECTURE DESIGN",
+    "prohibitions":  [
+                         "NO_RAW_DATA_MUTATION",
+                         "NO_SILENT_EXCLUSION",
+                         "NO_MODEL_EXECUTION",
+                         "NO_TRAINING",
+                         "NO_FORMAL_EVALUATION",
+                         "NO_OFFICIAL_TEST_ACCESS"
+                     ]
+}
