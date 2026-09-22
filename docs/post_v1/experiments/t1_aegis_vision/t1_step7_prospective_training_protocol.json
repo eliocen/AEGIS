@@ -1,0 +1,94 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP7_PROSPECTIVE_TRAINING_PROTOCOL_V1",
+    "parent_step6_commit":  "9cddcd5c3512b6931aef9578d7a2b98ef275b81b",
+    "disposition":  "TRAINING_PROTOCOL_FROZEN_TRAINING_NOT_YET_AUTHORIZED",
+    "population":  {
+                       "train":  323997,
+                       "validation":  11983,
+                       "usable_manifest_sha256":  "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F"
+                   },
+    "variants":  [
+                     "B0",
+                     "B1",
+                     "A1"
+                 ],
+    "seeds":  [
+                  42,
+                  43,
+                  44
+              ],
+    "formal_runs":  9,
+    "optimization":  {
+                         "optimizer":  "AdamW",
+                         "backbone_lr":  1E-05,
+                         "head_lr":  0.0001,
+                         "weight_decay":  0.05,
+                         "scheduler":  "cosine decay",
+                         "warmup_epochs":  1,
+                         "max_epochs":  20,
+                         "min_epochs":  5,
+                         "early_stopping_patience":  4,
+                         "physical_batch_size":  16,
+                         "gradient_accumulation_steps":  4,
+                         "effective_batch_size":  64,
+                         "gradient_clip_norm":  1,
+                         "precision":  "CUDA AMP FP16",
+                         "fp32_fallback":  "only by separately recorded pre-training incompatibility amendment"
+                     },
+    "losses":  {
+                   "authenticity":  "BCEWithLogits",
+                   "reliability":  "BCEWithLogits for A1 only",
+                   "a1_total":  "L_auth + 0.25 * L_rel",
+                   "reliability_representation_detached":  true
+               },
+    "checkpoint_selection":  [
+                                 "highest validation authenticity Macro-F1",
+                                 "lowest validation authenticity BCE",
+                                 "earliest epoch"
+                             ],
+    "checkpoint_selection_excludes":  [
+                                          "reliability metrics",
+                                          "formal evaluation results",
+                                          "official test"
+                                      ],
+    "required_validation_metrics":  [
+                                        "authenticity Macro-F1",
+                                        "balanced accuracy",
+                                        "AUROC",
+                                        "authenticity BCE",
+                                        "A1 reliability probability std",
+                                        "A1 reliability Brier score",
+                                        "A1 reliability AUROC correct-vs-incorrect",
+                                        "A1 mean reliability on correct predictions",
+                                        "A1 mean reliability on incorrect predictions"
+                                    ],
+    "reproducibility":  [
+                            "seed Python random",
+                            "seed NumPy",
+                            "seed torch CPU",
+                            "seed all CUDA devices",
+                            "record library/GPU environment",
+                            "record exact source commit, manifest SHA256 and weight SHA256",
+                            "one isolated run root per variant/seed",
+                            "save epoch history, selected checkpoint metadata and final run summary"
+                        ],
+    "run_root_template":  "artifacts/post_v1/t1_aegis_vision/training/\u003cvariant\u003e/seed_\u003cseed\u003e/",
+    "validation_boundary":  "The native validation population is used for epoch metrics, early stopping and checkpoint selection; it is therefore selection-exposed and MUST NOT later be represented as an untouched independent formal test set.",
+    "formal_evaluation_boundary":  "Step10 formal evaluation requires a prospectively frozen evaluation population/protocol that does not mischaracterize the selection-exposed native validation set. Official test remains sealed.",
+    "stop_rules":  [
+                       "no silent hyperparameter changes",
+                       "OOM or incompatibility stops affected run and returns to governance",
+                       "non-finite loss stops affected run and records failure",
+                       "do not replace failed formal seed without governance"
+                   ],
+    "prohibited":  [
+                       "TRAINING_BEFORE_SEPARATE_AUTHORIZATION",
+                       "OFFICIAL_TEST_ACCESS",
+                       "FORMAL_EVALUATION",
+                       "RAW_DATA_MUTATION",
+                       "SILENT_EXCLUSIONS",
+                       "DOMAIN_GENERAL_ROBUSTNESS_CLAIM",
+                       "PRODUCTION_DEPLOYMENT"
+                   ],
+    "next_step":  "SEPARATE_STEP8_TRAINING_AUTHORIZATION_AFTER_TRAINING_RUNNER_IMPLEMENTATION_AND_DRY_VERIFICATION"
+}
