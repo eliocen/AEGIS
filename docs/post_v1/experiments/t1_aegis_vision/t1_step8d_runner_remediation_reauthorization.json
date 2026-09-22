@@ -1,0 +1,43 @@
+{
+    "schema":  "AEGIS_T1_STEP8D_RUNNER_REMEDIATION_REAUTHORIZATION_V1",
+    "disposition":  "CORRECTED_RUNNER_REAUTHORIZED_FOR_FROZEN_NINE_RUN_TRAINING_MATRIX",
+    "step8c_remediation_commit":  "27f99f43064caaaafc74915d0bfc7dc666889690",
+    "corrected_runner_git_blob":  "aaa82f0261681cc3036714777bd662f0dd81be57",
+    "corrected_runner_sha256":  "64FAAB9E5ED68A660E8CED0442A83C382D1F5B3F4DD57DDE4128659EE654CEFC",
+    "corrected_data_module_git_blob":  "fefea34eb0eebc0fb8ec1b2b58cc6fa161a6bb67",
+    "governing_step8a_authorization_v2_sha256":  "716B4A99A9A4D774C2FBC118F1C45338D6337F8E7EA663FE445EF0D5B18EF579",
+    "superseded_runner_compatibility_sha256":  "4CA47478DD8C06649E77A6653BAC734E66BFA28742FE832007869490571F11C8",
+    "failed_attempt":  {
+                           "variant":  "B0",
+                           "seed":  42,
+                           "classification":  "PRE_OPTIMIZER_EXECUTION_FAILURE",
+                           "cause":  "invalid Tensor.cuda dtype keyword during first microbatch target transfer",
+                           "optimizer_steps":  0,
+                           "completed_formal_run":  false,
+                           "preserved_provenance_path":  "artifacts/post_v1/t1_aegis_vision/training/B0/seed_42/provenance.json",
+                           "preserved_provenance_sha256":  "3FD880587FF30263566FFE43D5CFDB04F7B773DF2ACE7C54C81E0002CE44ACAF"
+                       },
+    "scientific_contract_changed":  false,
+    "dataset_population_changed":  false,
+    "hyperparameters_changed":  false,
+    "model_architecture_changed":  false,
+    "correction":  "target transfer API only: Tensor.cuda(...,dtype=...) -\u003e Tensor.to(device=\u0027cuda\u0027,dtype=float32,non_blocking=True)",
+    "verification":  {
+                         "t1_tests_passed":  19,
+                         "dry_optimizer_steps":  0,
+                         "dry_training_authorized":  false
+                     },
+    "authorized_runs":  [
+                            "B0/42",
+                            "B0/43",
+                            "B0/44",
+                            "B1/42",
+                            "B1/43",
+                            "B1/44",
+                            "A1/42",
+                            "A1/43",
+                            "A1/44"
+                        ],
+    "formal_evaluation_authorized":  false,
+    "official_test_access_authorized":  false
+}

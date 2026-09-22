@@ -1,0 +1,6 @@
+{
+    "schema":  "AEGIS_T1_STEP8_TRAINING_AUTHORIZATION_V1",
+    "training_authorized":  true,
+    "runner_commit":  "aaa82f0261681cc3036714777bd662f0dd81be57",
+    "step7d_commit":  "3cc77b075793568a93784be21eb8ae56225c079f"
+}
