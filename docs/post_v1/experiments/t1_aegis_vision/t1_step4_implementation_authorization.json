@@ -1,0 +1,45 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP4_IMPLEMENTATION_AUTHORIZATION_V1",
+    "parent_step3_closure_commit":  "6e90ac896c8aa490d2a1ebe36e6ba131afde016a",
+    "disposition":  "IMPLEMENTATION_AUTHORIZED_WITHOUT_TRAINING",
+    "implementation_scope":  {
+                                 "task":  "GenImage SD1.4 binary AUTHENTIC versus AI_GENERATED",
+                                 "population_manifest_sha256":  "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+                                 "backbone":  "timm/vit_small_patch16_224.dino",
+                                 "weight_sha256":  "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A",
+                                 "systems":  [
+                                                 "B0 frozen encoder + linear authenticity head",
+                                                 "B1 final two transformer blocks + final norm + linear authenticity head",
+                                                 "A1 B1 trainability + authenticity head + 384-\u003e128-\u003eGELU-\u003eDropout(0.1)-\u003e1 reliability head"
+                                             ]
+                             },
+    "authorized":  [
+                       "Implement dataset/manifest loader for frozen usable population",
+                       "Implement frozen RGB transforms and metadata-exclusion boundary",
+                       "Implement B0 B1 A1 architecture and trainability configuration",
+                       "Implement authenticity and reliability target/loss plumbing exactly as frozen",
+                       "Implement optimizer/scheduler/checkpoint configuration without executing training",
+                       "Implement metrics and observability plumbing without formal evaluation",
+                       "Implement configuration and unit/integration tests",
+                       "Add or verify Git ignore protection for local pretrained weights",
+                       "Perform bounded implementation-time structural/unit tests that do not train and do not access official test"
+                   ],
+    "mandatory_controls":  [
+                               "No path filename extension image-format file-size or class-directory token may enter model features",
+                               "Raw dataset remains immutable",
+                               "Pretrained weight must remain outside Git",
+                               "Reliability target must be constructed from detached authenticity prediction correctness",
+                               "Reliability loss must not backpropagate into authenticity path under frozen default design",
+                               "No silent architecture transform optimization or population changes",
+                               "Any incompatibility requiring design change returns to prospective governance before implementation continues"
+                           ],
+    "prohibited":  [
+                       "TRAINING",
+                       "OPTIMIZER STEP ON DATA",
+                       "FORMAL EVALUATION",
+                       "OFFICIAL TEST ACCESS",
+                       "PRODUCTION DEPLOYMENT",
+                       "DOMAIN_GENERAL_ROBUSTNESS_CLAIM"
+                   ],
+    "next":  "STEP5_IMPLEMENTATION"
+}
