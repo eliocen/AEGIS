@@ -1,0 +1,74 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP3C_SD14_INPUT_AUGMENTATION_TRAINING_COMPUTE_DESIGN_V1",
+    "parent_step3b_commit":  "479bf3fbc77dc1968fbd66da3961cd9fea9e1147",
+    "hardware":  {
+                     "gpu":  "NVIDIA GeForce GTX 1660 SUPER",
+                     "precision":  "CUDA AMP FP16",
+                     "fallback":  "FP32 if AMP incompatibility is demonstrated before training"
+                 },
+    "input":  {
+                  "train":  "Decode RGB; RandomResizedCrop 224 with scale [0.8,1.0] and ratio [0.9,1.1]; RandomHorizontalFlip p=0.5; tensor; ImageNet normalization",
+                  "validation":  "Decode RGB; resize backbone-compatible; center crop 224; tensor; ImageNet normalization",
+                  "prohibited":  [
+                                     "JPEG/PNG container metadata as features",
+                                     "file size",
+                                     "filename/path tokens",
+                                     "class-dependent transforms"
+                                 ],
+                  "excluded_augmentations":  [
+                                                 "JPEG recompression",
+                                                 "blur",
+                                                 "noise",
+                                                 "color jitter",
+                                                 "RandAugment",
+                                                 "MixUp",
+                                                 "CutMix"
+                                             ],
+                  "rationale":  "Keep first experiment minimally augmented and avoid transformations that may erase or manufacture forensic cues."
+              },
+    "optimization":  {
+                         "optimizer":  "AdamW",
+                         "backbone_lr":  1E-05,
+                         "head_lr":  0.0001,
+                         "weight_decay":  0.05,
+                         "scheduler":  "cosine decay with 1 warmup epoch",
+                         "max_epochs":  20,
+                         "early_stopping_patience":  4,
+                         "minimum_epochs":  5,
+                         "physical_batch_size":  16,
+                         "gradient_accumulation_steps":  4,
+                         "effective_batch_size":  64,
+                         "gradient_clip_norm":  1,
+                         "amp":  true
+                     },
+    "checkpoint":  {
+                       "primary":  "highest validation authenticity Macro-F1",
+                       "tie_break_1":  "lowest validation authenticity BCE loss",
+                       "tie_break_2":  "lowest epoch number",
+                       "reliability_metrics":  "reported but not used to select checkpoint in T1, preventing auxiliary-head optimization from overriding primary authenticity task"
+                   },
+    "seeds":  [
+                  42,
+                  43,
+                  44
+              ],
+    "execution_controls":  [
+                               "B0/B1/A1 use identical population and transforms",
+                               "seed-specific training only after formal training authorization",
+                               "no official test access",
+                               "OOM or incompatibility requires a separately recorded protocol amendment; no silent batch/architecture change"
+                           ],
+    "unresolved_before_implementation":  [
+                                             "LOCAL TIMM/TORCHVISION COMPATIBILITY",
+                                             "LOCAL WEIGHT ACQUISITION AND SHA256 VERIFICATION"
+                                         ],
+    "prohibitions":  [
+                         "NO_MODEL_DOWNLOAD_BY_THIS STEP",
+                         "NO_MODEL_EXECUTION",
+                         "NO_IMPLEMENTATION",
+                         "NO_TRAINING",
+                         "NO_FORMAL_EVALUATION",
+                         "NO_OFFICIAL_TEST_ACCESS"
+                     ],
+    "next":  "STEP3D_LOCAL_DEPENDENCY_AND_WEIGHT_ACQUISITION_PROTOCOL"
+}
