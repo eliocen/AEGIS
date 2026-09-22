@@ -1,0 +1,41 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP6_PRETRAINING_VERIFICATION_PROTOCOL_V1",
+    "parent_step5_commit":  "411a397b2d3498d39d8c331e45664d271b3f3a3c",
+    "disposition":  "PRETRAINING_VERIFICATION_AUTHORIZED_WITHOUT_TRAINING",
+    "gates":  [
+                  "G1 exact branch HEAD remote and clean tracked tree",
+                  "G2 exact usable-manifest and DINO-weight SHA256 identities",
+                  "G3 full-population pixel decode/load over all 335980 usable samples with RGB conversion; zero failures required",
+                  "G4 usable-population counts exactly train=323997 validation=11983 total=335980",
+                  "G5 loader/model input tensors contain pixels and labels only; prohibited metadata never enters model features",
+                  "G6 instantiate B0 B1 A1 and load exact DINO weights; verify output shapes on synthetic tensors",
+                  "G7 verify B0/B1/A1 trainability masks exactly match frozen design",
+                  "G8 verify A1 reliability target detachment and reliability-loss gradient isolation from authenticity logits",
+                  "G9 verify transforms/config invariants and Git ignore protection",
+                  "G10 run focused Step5 tests; all pass"
+              ],
+    "pixel_decode_definition":  "Pillow Image.open -\u003e convert RGB -\u003e load pixel data; not Image.verify-only",
+    "expected_counts":  {
+                            "train":  323997,
+                            "validation":  11983,
+                            "total":  335980
+                        },
+    "authorized":  [
+                       "full usable-population pixel decode verification",
+                       "model instantiation",
+                       "verified pretrained-weight loading",
+                       "synthetic forward passes",
+                       "non-training structural and gradient tests"
+                   ],
+    "prohibited":  [
+                       "OPTIMIZER_STEP",
+                       "TRAINING",
+                       "CHECKPOINT_SELECTION",
+                       "FORMAL_EVALUATION",
+                       "OFFICIAL_TEST_ACCESS",
+                       "RAW_DATA_MUTATION",
+                       "DESIGN_CHANGE"
+                   ],
+    "failure_policy":  "Any failed gate stops verification. No silent exclusion, repair, relabel, design change, or training.",
+    "next_on_pass":  "STEP6_EXECUTION_AND_EVIDENCE_FREEZE"
+}
