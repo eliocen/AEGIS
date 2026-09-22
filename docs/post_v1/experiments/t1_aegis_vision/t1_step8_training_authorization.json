@@ -1,0 +1,28 @@
+{
+    "schema":  "AEGIS_T1_STEP8_TRAINING_AUTHORIZATION_V1",
+    "lineage":  "POST_V1_T1_AEGIS_VISION",
+    "authorization_source_commit":  "d56b696528df11eeb53d195db92b6acbd68b7d80",
+    "runner_commit":  "05c037acc8ea4a3fef5db4dee6e7b04e5864420f",
+    "step7d_commit":  "3cc77b075793568a93784be21eb8ae56225c079f",
+    "step7h_evidence_sha256":  "E03791CF4E6478E95BD66BBC3D20A56F49CF52D35F7741AE14BA1D6C19ECDBD7",
+    "training_authorized":  true,
+    "authorized_variants":  [
+                                "B0",
+                                "B1",
+                                "A1"
+                            ],
+    "authorized_seeds":  [
+                             42,
+                             43,
+                             44
+                         ],
+    "authorized_formal_runs":  9,
+    "dataset":  "GenImage Stable Diffusion V1.4 usable population",
+    "train_population":  323997,
+    "validation_population":  11983,
+    "official_test_access_authorized":  false,
+    "formal_evaluation_authorized":  false,
+    "protocol_change_authorized":  false,
+    "runner_change_authorized":  false,
+    "disposition":  "STEP8_FORMAL_TRAINING_AUTHORIZED_UNDER_FROZEN_STEP7_CONTRACT"
+}
