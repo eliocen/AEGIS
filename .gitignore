@@ -91,3 +91,4 @@ data/manifests/**/*.csv
 .vscode/
 # Local environment snapshots
 environment_pre_cuda.txt
+data/models/
