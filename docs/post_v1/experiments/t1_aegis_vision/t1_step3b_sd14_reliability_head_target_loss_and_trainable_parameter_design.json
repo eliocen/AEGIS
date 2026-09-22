@@ -1,0 +1,62 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP3B_SD14_RELIABILITY_HEAD_TARGET_LOSS_TRAINABLE_PARAMETER_DESIGN_V1",
+    "parent_step3a_commit":  "a341a9956465d7b52ba7c90bb0738f45327f4715",
+    "shared_backbone":  "timm/vit_small_patch16_224.dino",
+    "A1":  {
+               "representation":  "384D_CLS_OR_BACKBONE_GLOBAL_FEATURE",
+               "authenticity_head":  {
+                                         "topology":  "LINEAR_384_TO_1",
+                                         "loss":  "BCE_WITH_LOGITS",
+                                         "output":  "sigmoid_authenticity_probability"
+                                     },
+               "reliability_head":  {
+                                        "topology":  "MLP_384_TO_128_GELU_DROPOUT_0.1_TO_1",
+                                        "target":  "DETACHED_PER_SAMPLE_AUTHENTICITY_CORRECTNESS_PROBABILITY_PROXY",
+                                        "target_definition":  "1 IF THRESHOLDED AUTHENTICITY PREDICTION MATCHES LABEL ELSE 0; COMPUTED FROM DETACHED AUTHENTICITY LOGIT",
+                                        "loss":  "BCE_WITH_LOGITS",
+                                        "output":  "sigmoid_reliability_probability",
+                                        "gradient_boundary":  "RELIABILITY TARGET AND AUTHENTICITY PREDICTION USED TO FORM TARGET ARE DETACHED; RELIABILITY LOSS TRAINS RELIABILITY HEAD ONLY BY DEFAULT",
+                                        "loss_weight":  0.25
+                                    },
+               "total_loss":  "L_auth + 0.25 * L_rel"
+           },
+    "B0":  {
+               "backbone":  "FROZEN",
+               "trainable":  "LINEAR_384_TO_1_AUTHENTICITY_HEAD_ONLY"
+           },
+    "B1":  {
+               "backbone":  "PARTIAL_FINE_TUNE_LAST_2_TRANSFORMER_BLOCKS_PLUS_FINAL_NORM",
+               "trainable":  "LAST_2_BLOCKS + FINAL_NORM + LINEAR_AUTHENTICITY_HEAD",
+               "earlier_blocks":  "FROZEN"
+           },
+    "A1_trainability":  {
+                            "backbone":  "SAME_AS_B1_FOR_CONTROLLED_COMPARISON",
+                            "trainable":  "LAST_2_BLOCKS + FINAL_NORM + AUTHENTICITY_HEAD + RELIABILITY_HEAD"
+                        },
+    "observability_requirements":  [
+                                       "RELIABILITY_PROBABILITY_STD",
+                                       "RELIABILITY_BRIER_SCORE",
+                                       "RELIABILITY_AUROC_FOR_CORRECT_VS_INCORRECT",
+                                       "MEAN_RELIABILITY_CORRECT",
+                                       "MEAN_RELIABILITY_INCORRECT",
+                                       "AUTHENTICITY_MACRO_F1",
+                                       "AUTHENTICITY_BALANCED_ACCURACY",
+                                       "AUTHENTICITY_AUROC"
+                                   ],
+    "safeguard":  "NO CLAIM OF USEFUL RELIABILITY UNLESS OUTPUT DISCRIMINATION AND CALIBRATION ARE EMPIRICALLY DEMONSTRATED; OPTIMIZATION SIGNAL ALONE IS INSUFFICIENT",
+    "unresolved_before_implementation":  [
+                                             "LOCAL TIMM VERSION/WEIGHT VERIFICATION",
+                                             "EXACT TRAINING AUGMENTATION",
+                                             "OPTIMIZER/SCHEDULER/BATCH/ACCUMULATION/AMP POLICY",
+                                             "CHECKPOINT SELECTION RULE"
+                                         ],
+    "prohibitions":  [
+                         "NO_MODEL_DOWNLOAD_BY_THIS STEP",
+                         "NO_MODEL_EXECUTION",
+                         "NO_IMPLEMENTATION",
+                         "NO_TRAINING",
+                         "NO_FORMAL_EVALUATION",
+                         "NO_OFFICIAL_TEST_ACCESS"
+                     ],
+    "next":  "STEP3C_INPUT_AUGMENTATION_AND_TRAINING_COMPUTE_DESIGN"
+}
