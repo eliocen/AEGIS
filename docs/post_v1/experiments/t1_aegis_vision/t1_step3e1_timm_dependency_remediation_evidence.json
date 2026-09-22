@@ -1,0 +1,22 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP3E1_TIMM_DEPENDENCY_REMEDIATION_EVIDENCE_V1",
+    "parent_step3e_commit":  "fb46fa8fab20d6120badca2e6ef3a6b13533f049",
+    "observed_environment":  {
+                                 "python":  "3.10.11",
+                                 "torch":  "2.13.0+cu132",
+                                 "torchvision":  "0.28.0+cu132",
+                                 "timm":  "1.0.29",
+                                 "cuda_runtime":  "13.2",
+                                 "cuda_available":  true,
+                                 "gpu":  "NVIDIA GeForce GTX 1660 SUPER"
+                             },
+    "remediation_result":  "SUPPORTED",
+    "torch_preserved":  true,
+    "torchvision_preserved":  true,
+    "cuda_preserved":  true,
+    "timm_installed":  "1.0.29",
+    "repository_tracked_files_mutated_by_install":  false,
+    "weight_acquisition":  "NOT_YET_AUTHORIZED",
+    "model_execution":  "NOT_AUTHORIZED",
+    "next":  "STEP3F_DINO_WEIGHT_ACQUISITION_EXECUTION_AUTHORIZATION"
+}
