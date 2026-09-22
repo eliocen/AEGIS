@@ -1,0 +1,51 @@
+{
+    "schema":  "AEGIS_T1_STEP7H_PRETRAINING_READINESS_EVIDENCE_V1",
+    "lineage":  "POST_V1_T1_AEGIS_VISION",
+    "branch":  "research/post-v1-t1-aegis-vision",
+    "source_commit":  "c21b4bbd32db846e9283905d071ca094767b53b6",
+    "runner_git_blob":  "05c037acc8ea4a3fef5db4dee6e7b04e5864420f",
+    "runner_sha256":  "A3668032EEE50711030BEE7A2F659EC70FBC018C7AA414EC41E7D200C1FC73AE",
+    "execution_contract_test_sha256":  "836B81938C3BBB80C6534C7B60B44B31783DD9FC3676244B2F6A2BB76FFE4EF4",
+    "step7_protocol":  {
+                           "path":  "docs/post_v1/experiments/t1_aegis_vision/t1_step7_prospective_training_protocol.json",
+                           "sha256":  "464D1E2F03AE51007CA49CD0FD0933D5F3BA462DC8F5A4D672C2D1150C475465",
+                           "git_blob":  "1991145d1cde3e52f1dc5b563bfcd35d1dad3ab3"
+                       },
+    "step7d_execution_semantics":  {
+                                       "path":  "docs/post_v1/experiments/t1_aegis_vision/t1_step7d_training_execution_semantics.json",
+                                       "sha256":  "9EECC2909F6386E75AB68996D85B8F6FC6372057B56EAA757AC6D5BC7379569D",
+                                       "git_blob":  "c5c30b1304f52fcbfc92ca64c5f4a8b6022e61c6"
+                                   },
+    "focused_tests_passed":  17,
+    "dry_contract":  {
+                         "variants":  [
+                                          "B0",
+                                          "B1",
+                                          "A1"
+                                      ],
+                         "seeds":  [
+                                       42,
+                                       43,
+                                       44
+                                   ],
+                         "formal_runs":  9,
+                         "optimizer":  "AdamW",
+                         "backbone_lr":  1E-05,
+                         "head_lr":  0.0001,
+                         "weight_decay":  0.05,
+                         "physical_batch":  16,
+                         "gradient_accumulation":  4,
+                         "effective_batch":  64,
+                         "gradient_clip_norm":  1,
+                         "reliability_weight":  0.25,
+                         "optimizer_steps":  0,
+                         "training_authorized":  false
+                     },
+    "execution_lock_verified":  true,
+    "amp_scheduler_advances_only_on_successful_optimizer_update":  true,
+    "training_performed":  false,
+    "optimizer_step_performed":  false,
+    "formal_evaluation_performed":  false,
+    "official_test_accessed":  false,
+    "disposition":  "STEP7_PRETRAINING_READINESS_VERIFIED_STEP8_AUTHORIZATION_ADMISSIBLE_BUT_NOT_GRANTED"
+}
