@@ -1,0 +1,19 @@
+{
+    "schema":  "AEGIS_T1_STEP8E_FAILED_ATTEMPT_RESTART_CLEARANCE_V1",
+    "variant":  "B0",
+    "seed":  42,
+    "failed_attempt_classification":  "PRE_OPTIMIZER_EXECUTION_FAILURE",
+    "optimizer_steps":  0,
+    "completed_formal_run":  false,
+    "original_run_root":  "artifacts/post_v1/t1_aegis_vision/training/B0/seed_42",
+    "original_provenance_sha256":  "3FD880587FF30263566FFE43D5CFDB04F7B773DF2ACE7C54C81E0002CE44ACAF",
+    "preserved_archive_path":  "artifacts/post_v1/t1_aegis_vision/failed_attempts/B0/seed_42/pre_optimizer_cuda_transfer_failure_provenance.json",
+    "preserved_archive_sha256":  "3FD880587FF30263566FFE43D5CFDB04F7B773DF2ACE7C54C81E0002CE44ACAF",
+    "formal_run_root_cleared_only_after_byte_identical_archive":  true,
+    "corrected_runner_git_blob":  "aaa82f0261681cc3036714777bd662f0dd81be57",
+    "authorization_sha256":  "22A351E83AF40EC2982A13DA35F14007A73EAB80543BDF61AFB118AF5B567453",
+    "step8d_evidence_sha256":  "B2EAD504DFF5FC96C7702CD558DC37DD0E0179AE390C9BFE2E632E484AC8F56B",
+    "restart_authorized":  true,
+    "formal_evaluation_authorized":  false,
+    "official_test_access_authorized":  false
+}
