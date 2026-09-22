@@ -40,3 +40,14 @@ def test_authorization_rejects_wrong_runner(tmp_path):
     p=tmp_path/"a.json"
     p.write_text('{"schema":"AEGIS_T1_STEP8_TRAINING_AUTHORIZATION_V1","training_authorized":true,"runner_commit":"wrong","step7d_commit":"3cc77b075793568a93784be21eb8ae56225c079f"}')
     with pytest.raises(RuntimeError):R.validate_authorization(p,"right")
+def test_reliability_degenerate_metrics_are_json_safe():
+    m=R.reliability_metrics([0,1],[-1,1],[2,2])
+    assert m["correctness_auroc"] is None
+    assert m["mean_incorrect"] is None
+    import json
+    json.dumps(m,allow_nan=False)
+
+def test_authorization_accepts_frozen_runner_blob_identity(tmp_path):
+    p=tmp_path/"a.json"
+    p.write_text('{"schema":"AEGIS_T1_STEP8_TRAINING_AUTHORIZATION_V1","training_authorized":true,"runner_commit":"runner-blob-id","step7d_commit":"3cc77b075793568a93784be21eb8ae56225c079f"}')
+    assert R.validate_authorization(p,"runner-blob-id")["training_authorized"] is True

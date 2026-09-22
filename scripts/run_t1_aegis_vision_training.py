@@ -91,10 +91,11 @@ def reliability_metrics(labels,auth_logits,rel_logits):
     y=np.asarray(labels,dtype=np.int64); a=np.asarray(auth_logits,dtype=np.float64)
     r=np.asarray(rel_logits,dtype=np.float64); pred=(a>=0).astype(np.int64); correct=(pred==y).astype(np.int64)
     prob=1.0/(1.0+np.exp(-np.clip(r,-80,80)))
+    auc=binary_auroc(correct,prob)
     return {"std":float(prob.std()),"brier":float(np.mean((prob-correct)**2)),
-            "correctness_auroc":binary_auroc(correct,prob),
-            "mean_correct":float(prob[correct==1].mean()) if (correct==1).any() else float("nan"),
-            "mean_incorrect":float(prob[correct==0].mean()) if (correct==0).any() else float("nan")}
+            "correctness_auroc":None if not math.isfinite(auc) else float(auc),
+            "mean_correct":float(prob[correct==1].mean()) if (correct==1).any() else None,
+            "mean_incorrect":float(prob[correct==0].mean()) if (correct==0).any() else None}
 
 def checkpoint_key(metrics,epoch):
     return (-float(metrics["macro_f1"]),float(metrics["bce"]),int(epoch))
@@ -243,9 +244,9 @@ def main():
     if not a.authorization_file: raise SystemExit("REFUSED: missing --authorization-file")
     if a.variant is None or a.seed is None: raise SystemExit("REFUSED: execute-training requires one explicit --variant and --seed")
     if a.num_workers<0: raise SystemExit("REFUSED: num-workers must be >=0")
-    head=git_head(); validate_authorization(a.authorization_file,head)
+    runner_commit=subprocess.check_output(["git","rev-parse","HEAD:scripts/run_t1_aegis_vision_training.py"],text=True).strip(); validate_authorization(a.authorization_file,runner_commit)
     if sha256(a.manifest)!=MANIFEST_SHA: raise SystemExit("REFUSED: manifest SHA mismatch")
     if sha256(a.weight)!=WEIGHT_SHA: raise SystemExit("REFUSED: weight SHA mismatch")
-    train_one_run(a.variant,a.seed,a,head)
+    train_one_run(a.variant,a.seed,a,runner_commit)
 
 if __name__=="__main__": main()
