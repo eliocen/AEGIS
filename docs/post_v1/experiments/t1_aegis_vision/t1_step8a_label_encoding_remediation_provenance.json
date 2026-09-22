@@ -1,0 +1,29 @@
+{
+    "schema":  "AEGIS_T1_STEP8A_LABEL_ENCODING_REMEDIATION_PROVENANCE_V1",
+    "lineage":  "POST_V1_T1_AEGIS_VISION",
+    "original_step8_authorization_sha256":  "6FC398DCE62A47EB8313ACED473AF45E9A61057CACF628B93A57A638849D2547",
+    "failed_run":  {
+                       "run_root_items":  0,
+                       "optimizer_steps":  0,
+                       "classification":  "PRE_OPTIMIZER_DATASET_CONSTRUCTION_FAILURE",
+                       "defect":  "loader attempted float(mapped_label) while frozen manifest stores semantic labels",
+                       "seed":  42,
+                       "variant":  "B0"
+                   },
+    "frozen_manifest_sha256":  "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+    "semantic_mapping":  {
+                             "AUTHENTIC":  0,
+                             "MANIPULATED_AI_GENERATED":  1
+                         },
+    "remediation_commit":  "36e66945b76acfe2a8c7aa11d4d99f3e4b020326",
+    "corrected_data_module_git_blob":  "fefea34eb0eebc0fb8ec1b2b58cc6fa161a6bb67",
+    "corrected_data_module_sha256":  "33D17D0B69F9B249497C6091C36F62FC0D5CFD9ECCBC06D2CB87559AFBCDEB45",
+    "frozen_runner_git_blob":  "05c037acc8ea4a3fef5db4dee6e7b04e5864420f",
+    "scientific_contract_changed":  false,
+    "hyperparameters_changed":  false,
+    "dataset_population_changed":  false,
+    "runner_changed":  false,
+    "formal_evaluation_performed":  false,
+    "official_test_accessed":  false,
+    "disposition":  "PRETRAINING_IMPLEMENTATION_DEFECT_REMEDIATED_SUPERSEDING_AUTHORIZATION_REQUIRED"
+}

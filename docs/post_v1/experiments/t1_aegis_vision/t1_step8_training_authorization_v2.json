@@ -1,0 +1,28 @@
+{
+    "schema":  "AEGIS_T1_STEP8_TRAINING_AUTHORIZATION_V2",
+    "lineage":  "POST_V1_T1_AEGIS_VISION",
+    "supersedes_authorization_sha256":  "6FC398DCE62A47EB8313ACED473AF45E9A61057CACF628B93A57A638849D2547",
+    "authorization_source_commit":  "36e66945b76acfe2a8c7aa11d4d99f3e4b020326",
+    "runner_commit":  "05c037acc8ea4a3fef5db4dee6e7b04e5864420f",
+    "corrected_data_module_git_blob":  "fefea34eb0eebc0fb8ec1b2b58cc6fa161a6bb67",
+    "corrected_data_module_sha256":  "33D17D0B69F9B249497C6091C36F62FC0D5CFD9ECCBC06D2CB87559AFBCDEB45",
+    "manifest_sha256":  "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+    "step7d_commit":  "3cc77b075793568a93784be21eb8ae56225c079f",
+    "training_authorized":  true,
+    "authorized_variants":  [
+                                "B0",
+                                "B1",
+                                "A1"
+                            ],
+    "authorized_seeds":  [
+                             42,
+                             43,
+                             44
+                         ],
+    "authorized_formal_runs":  9,
+    "official_test_access_authorized":  false,
+    "formal_evaluation_authorized":  false,
+    "protocol_change_authorized":  false,
+    "runner_change_authorized":  false,
+    "disposition":  "STEP8_FORMAL_TRAINING_REAUTHORIZED_AFTER_PRETRAINING_LABEL_ENCODING_REMEDIATION"
+}
