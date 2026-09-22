@@ -29,3 +29,8 @@ def test_t1_manifest_semantic_label_encoding(tmp_path):
         w.writerow({"relative_path":"c.jpg","native_split":"val","mapped_label":"AUTHENTIC"})
     ds = UsablePopulationDataset(manifest, tmp_path, "train", lambda x:x)
     assert ds.rows == [("a.jpg",0.0),("b.png",1.0)]
+def test_t1_runner_target_transfer_uses_to_for_dtype():
+    from pathlib import Path
+    src = Path("scripts/run_t1_aegis_vision_training.py").read_text(encoding="utf-8")
+    assert 'y=y.to(device="cuda",dtype=torch.float32,non_blocking=True)' in src
+    assert 'y=y.cuda(non_blocking=True,dtype=torch.float32)' not in src

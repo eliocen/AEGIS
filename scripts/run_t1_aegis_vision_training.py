@@ -183,7 +183,7 @@ def train_one_run(variant,seed,args,runner_commit):
     for epoch in range(1,cfg.max_epochs+1):
         model.train(); optimizer.zero_grad(set_to_none=True); accum_samples=0; epoch_loss_sum=0.0; epoch_samples=0
         for micro,(x,y) in enumerate(train_loader,1):
-            x=x.cuda(non_blocking=True); y=y.cuda(non_blocking=True,dtype=torch.float32); bs=int(y.numel())
+            x=x.cuda(non_blocking=True); y=y.to(device="cuda",dtype=torch.float32,non_blocking=True); bs=int(y.numel())
             with torch.amp.autocast("cuda",dtype=torch.float16):
                 out=model(x); losses=compute_losses(out,y,cfg.reliability_weight); mean_loss=losses["total"]
             if not torch.isfinite(mean_loss): raise RuntimeError(f"non-finite loss epoch={epoch} microbatch={micro}")
