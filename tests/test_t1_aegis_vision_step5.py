@@ -11,3 +11,9 @@ def test_reliability_loss_does_not_flow_via_target():
 def test_frozen_config():
     c=TrainingConfig(); assert c.physical_batch*c.grad_accumulation==64
     assert c.seeds==(42,43,44) and c.reliability_weight==0.25
+def test_a1_reliability_representation_is_detached_from_shared_encoder_source():
+    """Frozen Step3B: reliability loss trains the reliability head only by default."""
+    import inspect
+    from aegis.vision.model import AegisVisionModel
+    src = inspect.getsource(AegisVisionModel.forward)
+    assert "self.reliability_head(z.detach())" in src

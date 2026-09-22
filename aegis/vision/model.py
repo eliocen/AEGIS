@@ -12,7 +12,7 @@ class AegisVisionModel(nn.Module):
     def forward(self,x):
         z=self.encoder.forward_features(x)
         if z.ndim==3: z=z[:,0]
-        return {"authenticity_logit":self.authenticity_head(z).squeeze(-1),"reliability_logit":None if self.reliability_head is None else self.reliability_head(z).squeeze(-1)}
+        return {"authenticity_logit":self.authenticity_head(z).squeeze(-1),"reliability_logit":None if self.reliability_head is None else self.reliability_head(z.detach()).squeeze(-1)}
 def _load_encoder(weight_path):
     enc=timm.create_model(MODEL_NAME,pretrained=False,num_classes=0)
     state=load_file(str(Path(weight_path)))
