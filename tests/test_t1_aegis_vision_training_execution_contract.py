@@ -51,3 +51,12 @@ def test_authorization_accepts_frozen_runner_blob_identity(tmp_path):
     p=tmp_path/"a.json"
     p.write_text('{"schema":"AEGIS_T1_STEP8_TRAINING_AUTHORIZATION_V1","training_authorized":true,"runner_commit":"runner-blob-id","step7d_commit":"3cc77b075793568a93784be21eb8ae56225c079f"}')
     assert R.validate_authorization(p,"runner-blob-id")["training_authorized"] is True
+def test_runner_source_advances_schedule_only_on_successful_amp_step():
+    import inspect
+    src=inspect.getsource(R.train_one_run)
+    assert "candidate_update=global_update+1" in src
+    assert "scale_before=scaler.get_scale()" in src
+    assert "scale_after=scaler.get_scale()" in src
+    assert "if scale_after>=scale_before:" in src
+    assert "global_update=candidate_update" in src
+    assert "global_update+=1" not in src

@@ -194,8 +194,14 @@ def train_one_run(variant,seed,args,runner_commit):
                 for p in model.parameters():
                     if p.grad is not None:p.grad.div_(accum_samples)
                 torch.nn.utils.clip_grad_norm_([p for p in model.parameters() if p.requires_grad],cfg.grad_clip)
-                global_update+=1; apply_lr(optimizer,global_update,warmup_updates,total_updates)
-                scaler.step(optimizer); scaler.update(); optimizer.zero_grad(set_to_none=True); accum_samples=0
+                candidate_update=global_update+1
+                apply_lr(optimizer,candidate_update,warmup_updates,total_updates)
+                scale_before=scaler.get_scale()
+                scaler.step(optimizer); scaler.update()
+                scale_after=scaler.get_scale()
+                if scale_after>=scale_before:
+                    global_update=candidate_update
+                optimizer.zero_grad(set_to_none=True); accum_samples=0
         metrics=validate(model,val_loader,variant,torch.device("cuda"))
         if not all(math.isfinite(float(metrics[k])) for k in ("macro_f1","balanced_accuracy","auroc","bce")):
             raise RuntimeError(f"non-finite authenticity validation metric epoch={epoch}: {metrics}")
