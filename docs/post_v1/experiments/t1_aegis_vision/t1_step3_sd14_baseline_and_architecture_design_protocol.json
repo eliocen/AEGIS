@@ -1,0 +1,58 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP3_SD14_BASELINE_ARCHITECTURE_DESIGN_PROTOCOL_V1",
+    "parent_dataset_provenance_commit":  "630fc4141bec47dbfcb1b93456f20c6b2e78d73c",
+    "population":  {
+                       "manifest_sha256":  "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+                       "train":  323997,
+                       "validation":  11983
+                   },
+    "task":  "BINARY_IMAGE_AUTHENTICITY_AUTHENTIC_VS_AI_GENERATED",
+    "design_objective":  "ESTABLISH_COMPUTE_FEASIBLE BASELINES AND AN AEGIS-SPECIFIC VISION DETECTOR WITH EXPLICIT RELIABILITY EVIDENCE",
+    "candidate_backbone_family":  "PRETRAINED_VISION_TRANSFORMER_OR_CONVNEXT_CLASS; EXACT BACKBONE TO BE SELECTED BEFORE IMPLEMENTATION",
+    "baseline_plan":  [
+                          "B0_FROZEN_PRETRAINED_BACKBONE_LINEAR_PROBE",
+                          "B1_END_TO_END_OR_PARAMETER_EFFICIENT_FINE_TUNED_VISUAL_CLASSIFIER",
+                          "A1_AEGIS_VISION_CLASSIFIER_PLUS_EXPLICIT_RELIABILITY_HEAD"
+                      ],
+    "aegis_vision":  {
+                         "inputs":  "DECODED_RGB_PIXELS_ONLY",
+                         "shared_encoder":  "PRETRAINED_VISUAL_ENCODER",
+                         "authenticity_head":  "BINARY_LOGIT",
+                         "reliability_head":  "PREDICTIVE_CONFIDENCE_OR_ERROR_RISK ESTIMATOR; TARGET AND LOSS MUST BE FROZEN BEFORE TRAINING",
+                         "evidence_outputs":  [
+                                                  "authenticity_probability",
+                                                  "reliability_score",
+                                                  "model_version",
+                                                  "input_transform_identity"
+                                              ],
+                         "prohibited_claims":  [
+                                                   "SOURCE_ATTRIBUTION",
+                                                   "GENERATOR_ATTRIBUTION",
+                                                   "SEMANTIC_MANIPULATION_LOCALIZATION",
+                                                   "DOMAIN_GENERAL_ROBUSTNESS",
+                                                   "PRODUCTION_READINESS"
+                                               ]
+                     },
+    "input_contract":  {
+                           "color":  "RGB",
+                           "geometry":  "224x224 CANDIDATE; FINAL RESIZE/CROP POLICY MUST BE FROZEN WITH EXACT BACKBONE",
+                           "normalization":  "BACKBONE_NATIVE NORMALIZATION",
+                           "prohibited_features":  [
+                                                       "file_extension",
+                                                       "container_format",
+                                                       "file_size",
+                                                       "filename",
+                                                       "path",
+                                                       "class_directory_tokens"
+                                                   ]
+                       },
+    "compute_constraint":  "NVIDIA_GEFORCE_GTX_1660_SUPER; DESIGN MUST SUPPORT SMALL-BATCH/MIXED-PRECISION OR FROZEN-BACKBONE EXECUTION",
+    "selection_requirements":  [
+                                   "NO MODEL EXECUTION IN STEP3",
+                                   "EXACT BACKBONE AND PRETRAINING SOURCE MUST BE PROVENANCE-FROZEN BEFORE IMPLEMENTATION",
+                                   "BASELINES MUST SHARE IDENTICAL USABLE POPULATION AND INPUT CONTRACT",
+                                   "NO OFFICIAL TEST ACCESS"
+                               ],
+    "status":  "DESIGN_PROTOCOL_ONLY",
+    "next":  "STEP3A_BACKBONE_BASELINE_SELECTION_AND_PROVENANCE_REVIEW"
+}
