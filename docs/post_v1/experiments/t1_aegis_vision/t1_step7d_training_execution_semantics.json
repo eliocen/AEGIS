@@ -1,0 +1,68 @@
+{
+  "schema": "AEGIS_T1_STEP7D_TRAINING_EXECUTION_SEMANTICS_V1",
+  "parent_step7_commit": "aadee8a0dab246049b5a5a97704377a56c615fd9",
+  "parent_runner_dry_contract_commit": "fe08747d413ab4ff4fc043ebd7f182517529e861",
+  "purpose": "Prospectively complete operational semantics left underspecified by Step7 without changing its scientific design.",
+  "scheduler": {
+    "type": "linear_warmup_then_cosine_decay",
+    "step_unit": "optimizer_update",
+    "warmup_epochs": 1,
+    "warmup_definition": "Linear multiplier from 1/warmup_updates through 1.0 across the first epoch optimizer updates.",
+    "cosine_definition": "After warmup, cosine decay from each parameter group's frozen base LR to 0.0 at the final planned optimizer update of max_epochs.",
+    "group_lr_ratio_preserved": true
+  },
+  "gradient_accumulation": {
+    "physical_batch": 16,
+    "accumulation_microbatches": 4,
+    "drop_last": false,
+    "method": "sample_weighted",
+    "rule": "Backpropagate each microbatch mean loss multiplied by its actual sample count; at each accumulation boundary unscale AMP gradients, divide gradients by the accumulated sample count, clip global norm to 1.0, then optimizer step.",
+    "rationale": "Preserves a true sample mean for the final partial accumulation window."
+  },
+  "optimizer": {
+    "type": "AdamW",
+    "weight_decay": 0.05,
+    "weight_decay_exemptions": "none",
+    "backbone_lr": 0.00001,
+    "head_lr": 0.0001
+  },
+  "early_stopping": {
+    "checkpoint_comparator": "lexicographic_exact_finite_float",
+    "order": ["highest_validation_authenticity_macro_f1", "lowest_validation_authenticity_bce", "earliest_epoch"],
+    "minimum_epochs": 5,
+    "patience": 4,
+    "rule": "Track lexicographic improvement from epoch 1; an improvement resets the no-improvement counter. Do not stop before 5 completed epochs. At or after epoch 5, stop when 4 consecutive completed epochs have produced no lexicographic improvement.",
+    "reliability_metrics_select_checkpoint": false
+  },
+  "metrics": {
+    "authenticity_threshold": "logit >= 0",
+    "macro_f1": "binary two-class macro mean with zero division mapped to 0",
+    "balanced_accuracy": "mean of per-class recalls with both classes required by frozen population",
+    "auroc": "deterministic rank-based AUROC with average ranks for ties",
+    "bce": "sample-weighted mean BCEWithLogits",
+    "reliability_probability": "sigmoid(reliability_logit)",
+    "reliability_correctness_target": "detached authenticity correctness at logit >= 0"
+  },
+  "reproducibility": {
+    "train_shuffle": true,
+    "validation_shuffle": false,
+    "train_generator_seed": "formal run seed",
+    "worker_seed": "derived from torch.initial_seed modulo 2^32",
+    "drop_last": false,
+    "record_actual_num_workers": true
+  },
+  "execution_lock": {
+    "training_remains_authorized": false,
+    "required_future_authorization": "separate Step8 training authorization",
+    "runner_must_refuse_training_without_exact authorization token/commit contract": true
+  },
+  "prohibitions": [
+    "no training in Step7D",
+    "no optimizer step in Step7D",
+    "no official test access",
+    "no formal evaluation",
+    "no silent batch-size change",
+    "no silent hyperparameter change",
+    "no sample dropping to make accumulation divisible"
+  ]
+}
