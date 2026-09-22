@@ -1,0 +1,42 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP2D12_SD14_AUDIT_EVIDENCE_ANOMALY_DISPOSITION_PROTOCOL_V1",
+    "parent_authorization_commit":  "9b5df075317608f96cb79b44e0c7e804b0688980",
+    "manifest_sha256":  "D06AF407F08B0839FB7BDA28FF324293F2F0A418DB434DDA620BC5100BE31D2D",
+    "summary_sha256":  "9E3F50136FB8FBE558F5C0D778A7320F83FA5D193082BF7F23ACE188931AE750",
+    "observed":  {
+                     "files":  336000,
+                     "duplicate_hash_groups":  120,
+                     "cross_class_duplicate_groups":  0,
+                     "cross_split_duplicate_groups":  17,
+                     "decode_errors":  3,
+                     "format_shortcut":  {
+                                             "ai":  ".png/PNG",
+                                             "nature":  ".jpeg/JPEG",
+                                             "status":  "PERFECT_CLASS_CORRELATION_OBSERVED"
+                                         },
+                     "size_shortcut":  {
+                                           "train_ai_median":  460668,
+                                           "train_nature_median":  107535,
+                                           "val_ai_median":  458176,
+                                           "val_nature_median":  127222,
+                                           "status":  "STRONG_CLASS_ASSOCIATION_OBSERVED"
+                                       }
+                 },
+    "prospective_disposition":  {
+                                    "raw_dataset":  "IMMUTABLE",
+                                    "decode_failures":  "EXCLUDE_FROM_USABLE_TRAINING_POPULATION_BY_MANIFEST_ONLY",
+                                    "cross_split_exact_duplicates":  "REMOVE_VALIDATION_OCCURRENCES_FROM_USABLE_VALIDATION_POPULATION_BY_MANIFEST_ONLY; PRESERVE_TRAIN_OCCURRENCES",
+                                    "other_same_split_duplicates":  "RETAIN_PENDING_SEPARATE_NEAR_DUPLICATE_OR_SAMPLING_DECISION",
+                                    "format_and_size_shortcuts":  "MUST_BE_CONTROLLED_BY_A_PROSPECTIVELY_FROZEN_INPUT_STANDARDIZATION_AND_SHORTCUT_MITIGATION_DESIGN_BEFORE_MODEL_TRAINING"
+                                },
+    "prohibitions":  [
+                         "NO_RAW_FILE_DELETION",
+                         "NO_SILENT_EXCLUSION",
+                         "NO_RELABELING",
+                         "NO_PREPROCESSING_EXECUTION",
+                         "NO_MODEL_EXECUTION",
+                         "NO_TRAINING",
+                         "NO_FORMAL_EVALUATION",
+                         "NO_OFFICIAL_TEST_ACCESS"
+                     ]
+}
