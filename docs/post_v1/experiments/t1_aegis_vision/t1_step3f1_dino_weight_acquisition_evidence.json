@@ -1,0 +1,19 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP3F1_DINO_WEIGHT_ACQUISITION_EVIDENCE_V1",
+    "parent_step3f_commit":  "f3a0cc46e597200f384c3e8c563e31eb77971958",
+    "artifact":  {
+                     "path":  "data/models/timm/vit_small_patch16_224.dino/model.safetensors",
+                     "bytes":  86676340,
+                     "sha256":  "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A",
+                     "expected_sha256":  "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A",
+                     "identity_verified":  true,
+                     "git_path_status":  "?? data/models/timm/vit_small_patch16_224.dino/model.safetensors"
+                 },
+    "acquisition_result":  "SUPPORTED",
+    "model_instantiated":  false,
+    "tensors_loaded":  false,
+    "state_dict_loaded":  false,
+    "forward_pass_performed":  false,
+    "note":  "Observed byte size is recorded from the acquired artifact; cryptographic identity is the acceptance criterion.",
+    "next":  "STEP3_FINAL_DESIGN_CLOSURE_REVIEW"
+}
