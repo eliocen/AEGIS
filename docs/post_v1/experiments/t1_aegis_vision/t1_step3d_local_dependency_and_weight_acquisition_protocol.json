@@ -1,0 +1,33 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP3D_LOCAL_DEPENDENCY_WEIGHT_ACQUISITION_PROTOCOL_V1",
+    "parent_step3c_commit":  "b20ef6773070b9263c7c2e4ea0b7058cf68a4119",
+    "observed_environment":  {
+                                 "python":  "3.10.11",
+                                 "torch":  "2.13.0+cu132",
+                                 "cuda_available":  true,
+                                 "cuda_runtime":  "13.2",
+                                 "gpu":  "NVIDIA GeForce GTX 1660 SUPER",
+                                 "torchvision":  "0.28.0+cu132",
+                                 "timm_error":  "ModuleNotFoundError(\"No module named \u0027timm\u0027\")"
+                             },
+    "selected_model":  "timm/vit_small_patch16_224.dino",
+    "expected_weight_sha256":  "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A",
+    "acquisition":  {
+                        "source":  "OFFICIAL_TIMM/HUGGING_FACE_MODEL_ARTIFACT_ONLY",
+                        "destination":  "data/models/timm/vit_small_patch16_224.dino/model.safetensors",
+                        "git_policy":  "DO_NOT_COMMIT_MODEL_WEIGHTS",
+                        "authorization":  "NOT_YET_AUTHORIZED; THIS STEP FREEZES THE PROBE AND ACQUISITION CONTRACT",
+                        "acceptance":  "EXACT SHA256 MATCH REQUIRED BEFORE ANY MODEL LOAD OR EXECUTION"
+                    },
+    "compatibility_gate":  "torch, torchvision and timm must import successfully in the project venv before acquisition execution authorization",
+    "prohibitions":  [
+                         "NO_WEIGHT_DOWNLOAD_BY_THIS STEP",
+                         "NO_MODEL_LOAD",
+                         "NO_FORWARD_PASS",
+                         "NO_IMPLEMENTATION",
+                         "NO_TRAINING",
+                         "NO_FORMAL_EVALUATION",
+                         "NO_OFFICIAL_TEST_ACCESS"
+                     ],
+    "next":  "STEP3E_DEPENDENCY_REMEDIATION_IF_REQUIRED_OR_WEIGHT_ACQUISITION_EXECUTION_AUTHORIZATION"
+}
