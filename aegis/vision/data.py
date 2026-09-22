@@ -12,7 +12,7 @@ class UsablePopulationDataset(Dataset):
         self.raw_root=Path(raw_root); self.transform=transform; self.rows=[]
         with open(manifest,newline="",encoding="utf-8") as f:
             for r in csv.DictReader(f):
-                if r["native_split"]==split:self.rows.append((r["relative_path"],float(r["mapped_label"])))
+                if r["native_split"]==split:self.rows.append((r["relative_path"],{"AUTHENTIC":0.0,"MANIPULATED_AI_GENERATED":1.0}[r["mapped_label"]]))
     def __len__(self):return len(self.rows)
     def __getitem__(self,i):
         rel,label=self.rows[i]

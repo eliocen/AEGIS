@@ -17,3 +17,15 @@ def test_a1_reliability_representation_is_detached_from_shared_encoder_source():
     from aegis.vision.model import AegisVisionModel
     src = inspect.getsource(AegisVisionModel.forward)
     assert "self.reliability_head(z.detach())" in src
+def test_t1_manifest_semantic_label_encoding(tmp_path):
+    import csv
+    from aegis.vision.data import UsablePopulationDataset
+    manifest = tmp_path / "m.csv"
+    with manifest.open("w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=["relative_path","native_split","mapped_label"])
+        w.writeheader()
+        w.writerow({"relative_path":"a.jpg","native_split":"train","mapped_label":"AUTHENTIC"})
+        w.writerow({"relative_path":"b.png","native_split":"train","mapped_label":"MANIPULATED_AI_GENERATED"})
+        w.writerow({"relative_path":"c.jpg","native_split":"val","mapped_label":"AUTHENTIC"})
+    ds = UsablePopulationDataset(manifest, tmp_path, "train", lambda x:x)
+    assert ds.rows == [("a.jpg",0.0),("b.png",1.0)]
