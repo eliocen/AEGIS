@@ -1,0 +1,48 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP6_PRETRAINING_VERIFICATION_EVIDENCE_V1",
+    "parent_commit":  "e7a15887f4229e67181a5d78b1b59a0bfd875dd9",
+    "protocol_commit":  "dcbe00aaacb2d5946a28b575768223363b27072f",
+    "implementation_remediation_commit":  "e7a15887f4229e67181a5d78b1b59a0bfd875dd9",
+    "disposition":  "STEP6_PRETRAINING_VERIFICATION_PASS",
+    "preserved_initial_execution":  {
+                                        "evidence_sha256":  "04A11AA57B5A18A3AF52F41ADD47E598F8B08D87912A8981D3063CEAADE1555F",
+                                        "population":  {
+                                                           "train":  323997,
+                                                           "validation":  11983,
+                                                           "total":  335980
+                                                       },
+                                        "full_pixel_load_failures":  0,
+                                        "raw_root":  "data/raw/genimage/stable_diffusion_v_1_4/extracted/imagenet_ai_0419_sdv4",
+                                        "model_variants":  [
+                                                               "B0",
+                                                               "B1",
+                                                               "A1"
+                                                           ],
+                                        "synthetic_forward_shapes_verified":  true,
+                                        "trainability_masks_verified":  true,
+                                        "config_verified":  true,
+                                        "optimizer_steps":  0,
+                                        "training_performed":  false,
+                                        "formal_evaluation_performed":  false,
+                                        "official_test_accessed":  false,
+                                        "qualification":  "Initial execution\u0027s reliability_gradient_isolation_verified field established authenticity-logit/target detachment only and was not accepted as proof of shared-encoder isolation."
+                                    },
+    "remediation":  {
+                        "reason":  "Frozen Step3B requires reliability loss to train reliability head only by default.",
+                        "change":  "A1 reliability head now consumes z.detach(), preventing reliability loss from updating the shared encoder.",
+                        "focused_tests_after_remediation":  "4 passed"
+                    },
+    "targeted_reverification":  {
+                                    "a1_reliability_only_backward":  {
+                                                                         "encoder_nonzero_grad_params":  0,
+                                                                         "auth_head_nonzero_grad_params":  0,
+                                                                         "reliability_head_nonzero_gradient":  true
+                                                                     },
+                                    "focused_tests":  "4 passed",
+                                    "optimizer_steps":  0,
+                                    "training_performed":  false
+                                },
+    "step6_conclusion":  "All frozen Step6 pre-training verification gates are satisfied after transparent remediation and targeted re-verification.",
+    "training_authorized":  false,
+    "next_step":  "STEP7_PROSPECTIVE_TRAINING_PROTOCOL"
+}
