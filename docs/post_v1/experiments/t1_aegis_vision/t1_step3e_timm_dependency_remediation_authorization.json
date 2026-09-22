@@ -1,0 +1,26 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP3E_TIMM_DEPENDENCY_REMEDIATION_AUTHORIZATION_V1",
+    "parent_step3d_commit":  "38059cd1dd9a33dbc845e70fdc29edfbb33c120b",
+    "observed":  {
+                     "python":  "3.10.11",
+                     "torch":  "2.13.0+cu132",
+                     "torchvision":  "0.28.0+cu132",
+                     "cuda":  "13.2",
+                     "gpu":  "NVIDIA GeForce GTX 1660 SUPER",
+                     "timm":  "NOT_INSTALLED"
+                 },
+    "remediation":  {
+                        "action":  "INSTALL_TIMM_IN_PROJECT_VENV_ONLY",
+                        "command":  "python -m pip install timm",
+                        "constraint":  "DO_NOT UPGRADE/DOWNGRADE torch OR torchvision as part of this remediation",
+                        "evidence_required":  [
+                                                  "installed timm version",
+                                                  "pip show timm",
+                                                  "successful import torch/torchvision/timm",
+                                                  "CUDA availability remains true"
+                                              ]
+                    },
+    "weight_acquisition":  "NOT_AUTHORIZED",
+    "model_execution":  "NOT_AUTHORIZED",
+    "next":  "EXECUTE_BOUNDED_TIMM_INSTALLATION_AND_FREEZE_COMPATIBILITY_EVIDENCE"
+}
