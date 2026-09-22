@@ -1,0 +1,68 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP2D15_SD14_USABLE_POPULATION_PROVENANCE_FREEZE_V1",
+    "parent_design_commit":  "c9261a150c3caabe53d8c7c588a8ac606b91c6af",
+    "source_audit_manifest_sha256":  "D06AF407F08B0839FB7BDA28FF324293F2F0A418DB434DDA620BC5100BE31D2D",
+    "usable_manifest":  {
+                            "path":  "data/manifests/genimage/t1_step2d14_sd14_usable_population/usable_population_manifest.csv",
+                            "sha256":  "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+                            "bytes":  53105058,
+                            "tracked_in_git":  false
+                        },
+    "derivation_evidence":  {
+                                "path":  {
+                                             "schema":  "AEGIS_T1_STEP2D14_SD14_USABLE_POPULATION_DERIVATION_V1",
+                                             "source_manifest_sha256":  "D06AF407F08B0839FB7BDA28FF324293F2F0A418DB434DDA620BC5100BE31D2D",
+                                             "usable_manifest_sha256":  "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+                                             "usable_counts":  {
+                                                                   "train":  323997,
+                                                                   "val":  11983
+                                                               },
+                                             "usable_total":  335980,
+                                             "excluded":  {
+                                                              "decode_failure":  [
+                                                                                     "train/ai/033_sdv4_00134.png",
+                                                                                     "train/ai/033_sdv4_00137.png",
+                                                                                     "train/ai/033_sdv4_00152.png"
+                                                                                 ],
+                                                              "cross_split_validation_occurrence":  [
+                                                                                                        "val/nature/ILSVRC2012_val_00002307.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00005887.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00009148.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00017021.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00021090.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00022378.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00031916.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00031920.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00034273.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00040229.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00040604.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00042975.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00043947.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00046775.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00047104.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00047508.JPEG",
+                                                                                                        "val/nature/ILSVRC2012_val_00049285.JPEG"
+                                                                                                    ]
+                                                          },
+                                             "raw_dataset_mutated":  false
+                                         },
+                                "sha256":  "57C56B438A6F325B206CBF822D57C6BFE25C9A3BB41D768FCBC52F69D415E46D",
+                                "tracked_in_git":  false
+                            },
+    "population":  {
+                       "train":  323997,
+                       "validation":  11983,
+                       "total":  335980,
+                       "decode_exclusions":  3,
+                       "cross_split_validation_exclusions":  17
+                   },
+    "raw_dataset_mutated":  false,
+    "status":  "USABLE_POPULATION_PROVENANCE_FROZEN_BY_CRYPTOGRAPHIC_IDENTITY",
+    "next":  "T1_STEP3_BASELINE_AND_ARCHITECTURE_DESIGN_FREEZE",
+    "prohibitions":  [
+                         "NO_MODEL_EXECUTION",
+                         "NO_TRAINING",
+                         "NO_FORMAL_EVALUATION",
+                         "NO_OFFICIAL_TEST_ACCESS"
+                     ]
+}
