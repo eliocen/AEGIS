@@ -1,0 +1,67 @@
+{
+    "schema":  "AEGIS_POST_V1_T1_STEP3A_SD14_BACKBONE_BASELINE_SELECTION_PROVENANCE_V1",
+    "parent_step3_commit":  "19aabea1699ba464eae4ca06a7ffbe5e9cb8a3b0",
+    "usable_manifest_sha256":  "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+    "selected_backbone":  {
+                              "identifier":  "timm/vit_small_patch16_224.dino",
+                              "architecture":  "vit_small_patch16_224",
+                              "pretraining":  "DINO_SELF_SUPERVISED_IMAGENET1K",
+                              "parameters_millions":  21.7,
+                              "features":  384,
+                              "patch_size":  16,
+                              "input_size":  [
+                                                 3,
+                                                 224,
+                                                 224
+                                             ],
+                              "interpolation":  "bicubic",
+                              "crop_pct":  0.9,
+                              "crop_mode":  "center",
+                              "mean":  [
+                                           0.485,
+                                           0.456,
+                                           0.406
+                                       ],
+                              "std":  [
+                                          0.229,
+                                          0.224,
+                                          0.225
+                                      ],
+                              "license":  "Apache-2.0",
+                              "weights_sha256":  "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A",
+                              "provenance_status":  "REMOTE_MODEL_CARD_AND_WEIGHT_IDENTITY_RECORDED; LOCAL_ACQUISITION_NOT_AUTHORIZED_BY_THIS STEP"
+                          },
+    "rationale":  [
+                      "21.7M parameter / 4.3 GMAC scale is materially more feasible than ViT-Base for GTX 1660 SUPER",
+                      "224x224 fixed input matches frozen candidate geometry",
+                      "self-supervised DINO representation provides a neutral visual feature backbone rather than a detector pretrained on synthetic-image labels",
+                      "384-dimensional representation supports lightweight AEGIS authenticity and reliability heads"
+                  ],
+    "baselines":  {
+                      "B0":  "FROZEN_DINO_VITS16_ENCODER_PLUS_LINEAR_BINARY_HEAD",
+                      "B1":  "DINO_VITS16_WITH_PARAMETER_EFFICIENT_OR_CONTROLLED_PARTIAL_FINE_TUNING; EXACT TRAINABLE LAYERS TO BE FROZEN BEFORE TRAINING",
+                      "A1":  "DINO_VITS16_SHARED_ENCODER_PLUS_AUTHENTICITY_HEAD_PLUS_EXPLICIT_RELIABILITY_HEAD"
+                  },
+    "input_transform":  {
+                            "decode":  "PIL/IMAGE DECODER TO RGB PIXELS",
+                            "evaluation":  "RESIZE ACCORDING TO BACKBONE CONFIG; CENTER CROP 224; BICUBIC; TO TENSOR; IMAGENET NORMALIZATION",
+                            "training":  "CLASS-INDEPENDENT 224-PIXEL TRANSFORM; EXACT AUGMENTATION POLICY NOT YET AUTHORIZED"
+                        },
+    "unresolved_before_implementation":  [
+                                             "LOCAL LIBRARY COMPATIBILITY AND EXACT TIMM VERSION",
+                                             "LOCAL WEIGHT ACQUISITION AND SHA256 VERIFICATION",
+                                             "RELIABILITY TARGET AND LOSS",
+                                             "A1 HEAD TOPOLOGY",
+                                             "B1 EXACT TRAINABLE LAYER POLICY",
+                                             "TRAINING AUGMENTATION POLICY"
+                                         ],
+    "prohibitions":  [
+                         "NO_MODEL_DOWNLOAD_BY_THIS STEP",
+                         "NO_MODEL_EXECUTION",
+                         "NO_IMPLEMENTATION",
+                         "NO_TRAINING",
+                         "NO_FORMAL_EVALUATION",
+                         "NO_OFFICIAL_TEST_ACCESS"
+                     ],
+    "next":  "STEP3B_RELIABILITY_HEAD_TARGET_LOSS_AND_TRAINABLE_PARAMETER_DESIGN"
+}
