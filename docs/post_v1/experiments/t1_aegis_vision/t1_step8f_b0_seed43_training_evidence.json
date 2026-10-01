@@ -1,0 +1,42 @@
+{
+  "artifact_sha256": {
+    "best.json": "4BDC97AD4BDA9C04E0F338FAB3AE0CB44B82DDA982B9C3E852CD298966B9121A",
+    "best.pt": "DCF9566C4BDB2BC887A012CFDD408F6EBB74701C7759175615A656C7822DE9A0",
+    "final_summary.json": "F41A5E771CB51ED43F13569511CF4DBE1A4DA6BC5320B804667738157F334DAE",
+    "history.json": "CDDA8AB501D362F3E12002CD15F496E38B225BE30A6A2475B26DF10BCD944212",
+    "provenance.json": "174E6D6E17CB66E5A1B4B34B175B7956D0E2C49EAF3D13B69190BBF5E42FDB7E"
+  },
+  "best_checkpoint": {
+    "auroc": 0.973475305030921,
+    "balanced_accuracy": 0.9186995515070477,
+    "bce": 0.20748938448546198,
+    "epoch": 6,
+    "macro_f1": 0.9187012389598499,
+    "selection_exposed_validation": true
+  },
+  "early_stopping": {
+    "final_stale_epochs": 4,
+    "patience": 4
+  },
+  "epochs_completed": 10,
+  "provenance": {
+    "grad_accumulation": 4,
+    "manifest_sha256": "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+    "num_workers": 4,
+    "physical_batch": 16,
+    "runner_git_blob": "aaa82f0261681cc3036714777bd662f0dd81be57",
+    "train_samples": 323997,
+    "validation_samples": 11983,
+    "weight_sha256": "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A"
+  },
+  "schema": "AEGIS_T1_STEP8F_FORMAL_TRAINING_EVIDENCE_V1",
+  "scientific_boundary": {
+    "formal_evaluation_authorized": false,
+    "interpretation": "Training/checkpoint-selection evidence only; validation is selection-exposed.",
+    "official_test_accessed": false
+  },
+  "seed": 43,
+  "successful_optimizer_updates": 50605,
+  "training_performed": true,
+  "variant": "B0"
+}
