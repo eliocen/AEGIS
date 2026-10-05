@@ -1,0 +1,82 @@
+{
+  "aggregate": {
+    "auroc": {
+      "max": 0.9736502590673575,
+      "mean": 0.9735101259123071,
+      "min": 0.9734048136386428,
+      "range": 0.00024544542871463015,
+      "sample_std": 0.00012637339496352816
+    },
+    "balanced_accuracy": {
+      "max": 0.9196150342637472,
+      "mean": 0.9190599522721785,
+      "min": 0.9186995515070477,
+      "range": 0.0009154827566995039,
+      "sample_std": 0.0004878040122826467
+    },
+    "bce": {
+      "max": 0.20792069652574863,
+      "mean": 0.2074323477796936,
+      "min": 0.2068869623278702,
+      "range": 0.0010337341978784165,
+      "sample_std": 0.0005192220019601577
+    },
+    "macro_f1": {
+      "max": 0.9196150820691267,
+      "mean": 0.9190608286577454,
+      "min": 0.9187012389598499,
+      "range": 0.0009138431092767796,
+      "sample_std": 0.0004870295454119691
+    }
+  },
+  "disposition": "B0_THREE_SEED_FORMAL_TRAINING_COMPLETE_AND_CHARACTERIZED",
+  "runs": [
+    {
+      "auroc": 0.9736502590673575,
+      "balanced_accuracy": 0.9188652710457407,
+      "bce": 0.2068869623278702,
+      "best_epoch": 8,
+      "epochs_completed": 12,
+      "macro_f1": 0.9188661649442598,
+      "seed": 42,
+      "successful_optimizer_updates": 60725
+    },
+    {
+      "auroc": 0.973475305030921,
+      "balanced_accuracy": 0.9186995515070477,
+      "bce": 0.20748938448546198,
+      "best_epoch": 6,
+      "epochs_completed": 10,
+      "macro_f1": 0.9187012389598499,
+      "seed": 43,
+      "successful_optimizer_updates": 50605
+    },
+    {
+      "auroc": 0.9734048136386428,
+      "balanced_accuracy": 0.9196150342637472,
+      "bce": 0.20792069652574863,
+      "best_epoch": 3,
+      "epochs_completed": 7,
+      "macro_f1": 0.9196150820691267,
+      "seed": 44,
+      "successful_optimizer_updates": 35420
+    }
+  ],
+  "schema": "AEGIS_T1_STEP8G_B0_THREE_SEED_TRAINING_CHARACTERIZATION_V1",
+  "scientific_boundary": {
+    "formal_evaluation_authorized": false,
+    "interpretation": "Descriptive three-seed characterization of frozen B0 training/checkpoint-selection evidence only; not formal evaluation, official-test evidence, or a domain-general claim.",
+    "official_test_accessed": false,
+    "selection_exposed_validation": true
+  },
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "source_schema_handling": {
+    "seed42": "AEGIS_T1_STEP8F_B0_SEED42_FORMAL_TRAINING_EVIDENCE_V1",
+    "seed43_44": "AEGIS_T1_STEP8F_FORMAL_TRAINING_EVIDENCE_V1"
+  },
+  "variant": "B0"
+}
