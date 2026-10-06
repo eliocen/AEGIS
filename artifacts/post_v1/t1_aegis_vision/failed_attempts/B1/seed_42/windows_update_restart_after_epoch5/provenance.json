@@ -1,0 +1,13 @@
+{
+  "grad_accumulation": 4,
+  "manifest_sha256": "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+  "num_workers": 4,
+  "physical_batch": 16,
+  "runner_commit": "aaa82f0261681cc3036714777bd662f0dd81be57",
+  "seed": 42,
+  "step7d_commit": "3cc77b075793568a93784be21eb8ae56225c079f",
+  "train_samples": 323997,
+  "validation_samples": 11983,
+  "variant": "B1",
+  "weight_sha256": "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A"
+}

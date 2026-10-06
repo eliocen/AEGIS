@@ -1,0 +1,41 @@
+﻿{
+    "schema":  "AEGIS_T1_STEP8H_B1_SEED42_INTERRUPTED_ATTEMPT_RESTART_CLEARANCE_V1",
+    "variant":  "B1",
+    "seed":  42,
+    "interruption_class":  "EXTERNAL_SYSTEM_RESTART",
+    "interruption_cause":  "WINDOWS_UPDATE_SYSTEM_RESTART",
+    "completion_status":  "INTERRUPTED_FORMAL_TRAINING_ATTEMPT_NOT_COMPLETE",
+    "completed_epochs":  5,
+    "successful_optimizer_updates_at_last_completed_epoch":  25296,
+    "best_checkpoint_observed_before_interruption":  {
+                                                         "epoch":  5,
+                                                         "macro_f1":  0.98848363509458315,
+                                                         "balanced_accuracy":  0.98848271491447992,
+                                                         "auroc":  0.99922710178840046,
+                                                         "bce":  0.081343795017626438
+                                                     },
+    "final_summary_present":  false,
+    "resume_authorized":  false,
+    "restart_from_scratch_authorized":  true,
+    "interrupted_metrics_status":  "NON_FINAL_INTERRUPTED_RUN_OBSERVATIONS_NOT_FORMAL_RESULTS",
+    "source_provenance":  {
+                              "runner_git_blob":  "aaa82f0261681cc3036714777bd662f0dd81be57",
+                              "manifest_sha256":  "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+                              "pretrained_weight_sha256":  "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A"
+                          },
+    "archived_artifact_sha256":  {
+                                     "best.json":  "090D25011FF23C9F27D1C46012DAF7F73654B0D13020B59386A62275B6B11920",
+                                     "best.pt":  "442FF7DE0B754171F9309BD3B755195FE98118FD8719EB61252071995C299206",
+                                     "history.json":  "A80C6C10C42E6A1419A574CC2D9907F8C996F0818B837DFD15798E4B4FEC914B",
+                                     "provenance.json":  "EE12BC314BD77AC10795AC6A1903774BE62D69A6D21267015DFDECB4B05F8B0B"
+                                 },
+    "archive_path":  "artifacts/post_v1/t1_aegis_vision/failed_attempts/B1/seed_42/windows_update_restart_after_epoch5",
+    "scientific_boundary":  {
+                                "formal_evaluation_authorized":  false,
+                                "official_test_access_authorized":  false,
+                                "protocol_change_authorized":  false,
+                                "hyperparameter_change_authorized":  false,
+                                "checkpoint_resume_authorized":  false
+                            },
+    "disposition":  "INTERRUPTED_ATTEMPT_ARCHIVED_CANONICAL_B1_SEED42_CLEARED_FOR_IDENTICAL_FROM_SCRATCH_RESTART"
+}
