@@ -1,0 +1,72 @@
+{
+  "artifact_bytes": {
+    "best.json": 268,
+    "best.pt": 86716853,
+    "final_summary.json": 431,
+    "history.json": 2779,
+    "provenance.json": 479
+  },
+  "artifact_sha256": {
+    "best.json": "EA14E609EF315E65EDE96F360BC6D538613AF0129B2183B9AA1B10D09F29BE6D",
+    "best.pt": "AB5B39E17860087C1E8E684DE324D55F274AC388D28FD43CD6E54FC137D999EB",
+    "final_summary.json": "D37C83D396EB954B5F45CAD5F680B28064DB1B7F2637851CB011363FA47C689F",
+    "history.json": "E2FE5F65F8C0A7788119C54816F437F6AAE5D904D9D18E6443865481D8EF3B81",
+    "provenance.json": "EE12BC314BD77AC10795AC6A1903774BE62D69A6D21267015DFDECB4B05F8B0B"
+  },
+  "best_checkpoint": {
+    "epoch": 4,
+    "key": [
+      -0.9884833668922375,
+      0.07042200261471039,
+      4
+    ],
+    "metrics": {
+      "auroc": 0.9991980611733244,
+      "balanced_accuracy": 0.9884782160566048,
+      "bce": 0.07042200261471039,
+      "macro_f1": 0.9884833668922375
+    }
+  },
+  "checkpoint_readability": {
+    "cpu_load_pass": true,
+    "epoch": 4,
+    "metadata_matches_best_json": true,
+    "model_state_present": true
+  },
+  "disposition": "B1_SEED42_FORMAL_TRAINING_COMPLETED_EVIDENCE_VERIFIED_FOR_REMOTE_FREEZE",
+  "early_stopping": {
+    "best_epoch": 4,
+    "final_epoch": 8,
+    "patience": 4,
+    "stale_epochs": 4
+  },
+  "epochs_completed": 8,
+  "interrupted_predecessor": {
+    "archival_commit": "721f444f73bc38e3d873df9222938c46e392fa89",
+    "disposition": "archived; not resumed; identical from-scratch restart"
+  },
+  "provenance": {
+    "grad_accumulation": 4,
+    "manifest_sha256": "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+    "num_workers": 4,
+    "physical_batch": 16,
+    "runner_commit": "aaa82f0261681cc3036714777bd662f0dd81be57",
+    "seed": 42,
+    "step7d_commit": "3cc77b075793568a93784be21eb8ae56225c079f",
+    "train_samples": 323997,
+    "validation_samples": 11983,
+    "variant": "B1",
+    "weight_sha256": "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A"
+  },
+  "schema": "AEGIS_T1_STEP8I_B1_SEED42_FORMAL_TRAINING_EVIDENCE_V1",
+  "scientific_boundary": {
+    "formal_evaluation_authorized": false,
+    "generalization_claim_authorized": false,
+    "official_test_accessed": false,
+    "validation_selection_exposed": true
+  },
+  "seed": 42,
+  "successful_optimizer_updates": 40479,
+  "training_performed": true,
+  "variant": "B1"
+}
