@@ -1,0 +1,67 @@
+{
+  "schema": "AEGIS_T1_STEP8J_B1_SEED43_FORMAL_TRAINING_EVIDENCE_V1",
+  "variant": "B1",
+  "seed": 43,
+  "training_performed": true,
+  "provenance": {
+    "grad_accumulation": 4,
+    "manifest_sha256": "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+    "num_workers": 4,
+    "physical_batch": 16,
+    "runner_commit": "aaa82f0261681cc3036714777bd662f0dd81be57",
+    "seed": 43,
+    "step7d_commit": "3cc77b075793568a93784be21eb8ae56225c079f",
+    "train_samples": 323997,
+    "validation_samples": 11983,
+    "variant": "B1",
+    "weight_sha256": "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A"
+  },
+  "artifact_sha256": {
+    "best.json": "0AB018A57E237F7872DCC4A1580268021F03DE2100A90412F18B725EF2DF7878",
+    "best.pt": "B375F4927F893D89FB029E4A73B77557C5AAFB101E18BBA7A5F9A45AD231CE82",
+    "final_summary.json": "C87F1C6E633351534F05C34669E9FF9C0F4E2E6291352433C633FFA4CDA40BDF",
+    "history.json": "21BDEEEBBAE822CA3AF3B89F0185F8191579F902C3FB8C0163A8085D7BFB8AB0",
+    "provenance.json": "7FC200D0F4B0090F489AE891B295F336A3B88173837D7A91A8FF458A828DBAAF"
+  },
+  "artifact_bytes": {
+    "best.json": 264,
+    "best.pt": 86716853,
+    "final_summary.json": 428,
+    "history.json": 3815,
+    "provenance.json": 479
+  },
+  "epochs_completed": 11,
+  "successful_optimizer_updates": 55660,
+  "early_stopping": {
+    "best_epoch": 7,
+    "final_epoch": 11,
+    "consecutive_nonimproving_epochs": 4,
+    "protocol_consistent": true
+  },
+  "best_checkpoint": {
+    "epoch": 7,
+    "key": [
+      -0.990486487525468,
+      0.0751951103544734,
+      7
+    ],
+    "metrics": {
+      "auroc": 0.9993739762660873,
+      "balanced_accuracy": 0.9904857930803945,
+      "bce": 0.0751951103544734,
+      "macro_f1": 0.990486487525468
+    }
+  },
+  "checkpoint_readability": {
+    "cpu_load": true,
+    "metadata_matches": true,
+    "model_state_finite": true
+  },
+  "scientific_boundary": {
+    "validation_selection_exposed": true,
+    "formal_evaluation_authorized": false,
+    "official_test_accessed": false,
+    "production_authorized": false
+  },
+  "disposition": "B1_SEED43_FORMAL_TRAINING_COMPLETED_EVIDENCE_FROZEN"
+}
