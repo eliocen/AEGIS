@@ -1,0 +1,27 @@
+{
+    "schema":  "AEGIS_T1_STEP8K_B1_SEED44_RESTART_CLEARANCE_V1",
+    "experiment":  "post_v1_t1_aegis_vision",
+    "variant":  "B1",
+    "seed":  44,
+    "baseline_commit":  "262d0e93489de7fb1de86568c24a6a75f8de2300",
+    "archive_directory":  "artifacts/post_v1/t1_aegis_vision/failed_attempts/B1/seed_44/provenance_only_before_step8k_restart",
+    "archived_file":  "artifacts/post_v1/t1_aegis_vision/failed_attempts/B1/seed_44/provenance_only_before_step8k_restart/provenance.json",
+    "archived_provenance_sha256":  "ABB705C9B81F6091D7C7E040FCAE4C0BFD40B1019259219FBCE5B9BF05F26F95",
+    "observed_archive_file_count":  1,
+    "canonical_run_root":  "artifacts/post_v1/t1_aegis_vision/training/B1/seed_44",
+    "canonical_run_root_empty_at_clearance":  true,
+    "active_training_process_at_clearance":  false,
+    "observed_artifacts_before_archive":  [
+                                              "provenance.json"
+                                          ],
+    "history_present_before_archive":  false,
+    "checkpoint_present_before_archive":  false,
+    "final_summary_present_before_archive":  false,
+    "disposition":  "INCOMPLETE_INITIALIZATION_STAGE",
+    "optimizer_steps":  "UNVERIFIED",
+    "resume_permitted":  false,
+    "restart_mode":  "FRESH_FROM_EPOCH_1",
+    "protocol_change_authorized":  false,
+    "official_test_access_authorized":  false,
+    "restart_authorized_only_after_remote_freeze":  true
+}
