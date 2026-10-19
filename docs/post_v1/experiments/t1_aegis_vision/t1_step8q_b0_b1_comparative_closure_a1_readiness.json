@@ -1,0 +1,67 @@
+{
+  "schema": "aegis_t1_step8q_b0_b1_comparative_closure_a1_readiness_v1",
+  "status": "READINESS_EVIDENCE_PREPARED_REMOTE_FREEZE_PENDING",
+  "scope": "Validation-only B0/B1 comparative closure and A1 pre-execution readiness; no training executed",
+  "parent_commit": "176197ef9af771cfc69e4115bae93f31c34b5264",
+  "branch": "research/post-v1-t1-aegis-vision",
+  "sources": {
+    "step8p_json": "docs/post_v1/experiments/t1_aegis_vision/t1_step8p_b1_three_seed_characterization.json",
+    "step8p_json_sha256": "85731B5D68BE14D875F4D29FDC507B89B87F2FC8C1374B1D0DDBD8EFD2D81FFE",
+    "authorization_file": "docs/post_v1/experiments/t1_aegis_vision/t1_step8_training_authorization_v3_runner_compat.json",
+    "authorization_sha256": "22A351E83AF40EC2982A13DA35F14007A73EAB80543BDF61AFB118AF5B567453",
+    "runner": "scripts/run_t1_aegis_vision_training.py",
+    "runner_git_blob": "aaa82f0261681cc3036714777bd662f0dd81be57",
+    "model_sha256": "7D4398739C28C3D9EFBDFA9F70017E799A85AF0A502A827BDA59C139E3177900",
+    "losses_sha256": "BC01D2752AA60E1CDD1D3C285DC0ECDC015B41984C36D87B54C02A95F13ADC86"
+  },
+  "validation_characterization": {
+    "seed_order": [
+      42,
+      43,
+      44
+    ],
+    "B0_macro_f1_per_seed": [
+      0.9188661649442598,
+      0.9187012389598499,
+      0.9196150820691267
+    ],
+    "B1_macro_f1_per_seed": [
+      0.9884833668922375,
+      0.990486487525468,
+      0.9907367159652278
+    ],
+    "B0_macro_f1_mean": 0.9190608286577454,
+    "B0_macro_f1_sample_sd": 0.0004870295454119691,
+    "B1_macro_f1_mean": 0.9899021901276445,
+    "B1_macro_f1_sample_sd": 0.0012350903197799518,
+    "B1_minus_B0_macro_f1_mean_delta": 0.07084136146989906,
+    "comparison_type": "descriptive_selection_exposed_validation_only"
+  },
+  "a1_implementation": {
+    "variant": "A1",
+    "head": "Linear(384,128) -> GELU -> Dropout(0.1) -> Linear(128,1)",
+    "reliability_feature_input": "z.detach() (no reliability-loss gradient to shared encoder)",
+    "target": "binary correctness of current authenticity-logit threshold prediction",
+    "loss": "authenticity BCE-with-logits + 0.25 * reliability BCE-with-logits",
+    "semantic_review": "source token checks plus prior human inspection; not an executable behavioral proof",
+    "run_roots": {
+      "42": "empty_or_absent",
+      "43": "empty_or_absent",
+      "44": "empty_or_absent"
+    }
+  },
+  "authorization_boundary": {
+    "a1_training_in_existing_authorization": true,
+    "a1_seed42_launch_authorized_by_this_evidence": false,
+    "formal_evaluation_authorized": false,
+    "official_test_accessed": false,
+    "next_action": "remote freeze Step8Q, then separate seed42 preflight"
+  },
+  "limitations": [
+    "Validation selection exposure; not independent test performance",
+    "A1 reliability target is dynamic correctness and is not inherently calibrated",
+    "A1 reliability loss does not directly update encoder because z.detach() is used",
+    "Generalization to unseen generators/domains is unestablished",
+    "A1 execution requires independent final preflight and verified remote freeze"
+  ]
+}
