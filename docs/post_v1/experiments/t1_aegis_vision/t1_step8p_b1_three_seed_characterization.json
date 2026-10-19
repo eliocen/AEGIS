@@ -1,0 +1,294 @@
+{
+  "schema": "aegis_t1_step8p_b1_three_seed_characterization_v1",
+  "status": "DESCRIPTIVE_VALIDATION_ONLY",
+  "parent_commit": "9c0b3416cd72159c4176ce1f54f22cd8db994137",
+  "frozen_step8o_json_sha256": "814B4F1AFC939006941F789E32439A29EFC322A37CFA77862435EB070C400F3C",
+  "scope": "B1 three-seed characterization and descriptive B0/B1 validation comparison",
+  "test_set_accessed": false,
+  "formal_evaluation_authorized": false,
+  "groups": {
+    "B0": [
+      {
+        "seed": 42,
+        "metrics": {
+          "macro_f1": 0.9188661649442598,
+          "balanced_accuracy": 0.9188652710457407,
+          "auroc": 0.9736502590673575,
+          "bce": 0.2068869623278702
+        },
+        "best_epoch": 8,
+        "epochs_completed": 12,
+        "optimizer_steps": 60725,
+        "artifact_sha256": {
+          "best.json": "A761408A176458C7AA29996FC231E37EC8E3788BEB673D73445E5DBBF7BDB460",
+          "best.pt": "D140F3D3E6DDC63F89C698072BA4E9538B9DA63A800ECC6C8F8348F99D902560",
+          "final_summary.json": "3966D8143EFB4EFD7696D6DF300D65500D96D90B0784AD63B08BA7A7ADCC36CF",
+          "history.json": "BF966A523E2DEBF7EEC4B3F0526B02ECCBA39575ED57A9B3EEF65D41E07AE950",
+          "provenance.json": "8261DA8B9D834F33C4D4789E9F43AABA1BF95420957553813FA252A62ABB9843"
+        },
+        "provenance": {
+          "grad_accumulation": 4,
+          "manifest_sha256": "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+          "num_workers": 4,
+          "physical_batch": 16,
+          "runner_commit": "aaa82f0261681cc3036714777bd662f0dd81be57",
+          "seed": 42,
+          "step7d_commit": "3cc77b075793568a93784be21eb8ae56225c079f",
+          "train_samples": 323997,
+          "validation_samples": 11983,
+          "variant": "B0",
+          "weight_sha256": "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A"
+        }
+      },
+      {
+        "seed": 43,
+        "metrics": {
+          "macro_f1": 0.9187012389598499,
+          "balanced_accuracy": 0.9186995515070477,
+          "auroc": 0.973475305030921,
+          "bce": 0.20748938448546198
+        },
+        "best_epoch": 6,
+        "epochs_completed": 10,
+        "optimizer_steps": 50605,
+        "artifact_sha256": {
+          "best.json": "4BDC97AD4BDA9C04E0F338FAB3AE0CB44B82DDA982B9C3E852CD298966B9121A",
+          "best.pt": "DCF9566C4BDB2BC887A012CFDD408F6EBB74701C7759175615A656C7822DE9A0",
+          "final_summary.json": "F41A5E771CB51ED43F13569511CF4DBE1A4DA6BC5320B804667738157F334DAE",
+          "history.json": "CDDA8AB501D362F3E12002CD15F496E38B225BE30A6A2475B26DF10BCD944212",
+          "provenance.json": "174E6D6E17CB66E5A1B4B34B175B7956D0E2C49EAF3D13B69190BBF5E42FDB7E"
+        },
+        "provenance": {
+          "grad_accumulation": 4,
+          "manifest_sha256": "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+          "num_workers": 4,
+          "physical_batch": 16,
+          "runner_commit": "aaa82f0261681cc3036714777bd662f0dd81be57",
+          "seed": 43,
+          "step7d_commit": "3cc77b075793568a93784be21eb8ae56225c079f",
+          "train_samples": 323997,
+          "validation_samples": 11983,
+          "variant": "B0",
+          "weight_sha256": "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A"
+        }
+      },
+      {
+        "seed": 44,
+        "metrics": {
+          "macro_f1": 0.9196150820691267,
+          "balanced_accuracy": 0.9196150342637472,
+          "auroc": 0.9734048136386428,
+          "bce": 0.20792069652574863
+        },
+        "best_epoch": 3,
+        "epochs_completed": 7,
+        "optimizer_steps": 35420,
+        "artifact_sha256": {
+          "best.json": "26EAADE19353A2B929FD3B70010C4589006B7F0FCD082DD034A1C1BAEA9B90BD",
+          "best.pt": "143DC72EF30A01D57AA63A7F8279AF28694299368AB6D86A269224F5F4443AA7",
+          "final_summary.json": "9646CADF771D1A94B43899BE50F262C089422992D1BE66489312B195108D59F8",
+          "history.json": "A33FE445496ADC2432D3E50B3FBC9C9D1DFA4D48FB864C157EB74BDD3B2109BE",
+          "provenance.json": "9A3AF493D4C5637608EC47EFBDFE12200878DE0B66349240307A3157FBF3EC6A"
+        },
+        "provenance": {
+          "grad_accumulation": 4,
+          "manifest_sha256": "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+          "num_workers": 4,
+          "physical_batch": 16,
+          "runner_commit": "aaa82f0261681cc3036714777bd662f0dd81be57",
+          "seed": 44,
+          "step7d_commit": "3cc77b075793568a93784be21eb8ae56225c079f",
+          "train_samples": 323997,
+          "validation_samples": 11983,
+          "variant": "B0",
+          "weight_sha256": "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A"
+        }
+      }
+    ],
+    "B1": [
+      {
+        "seed": 42,
+        "metrics": {
+          "macro_f1": 0.9884833668922375,
+          "balanced_accuracy": 0.9884782160566048,
+          "auroc": 0.9991980611733244,
+          "bce": 0.07042200261471039
+        },
+        "best_epoch": 4,
+        "epochs_completed": 8,
+        "optimizer_steps": 40479,
+        "artifact_sha256": {
+          "best.json": "EA14E609EF315E65EDE96F360BC6D538613AF0129B2183B9AA1B10D09F29BE6D",
+          "best.pt": "AB5B39E17860087C1E8E684DE324D55F274AC388D28FD43CD6E54FC137D999EB",
+          "final_summary.json": "D37C83D396EB954B5F45CAD5F680B28064DB1B7F2637851CB011363FA47C689F",
+          "history.json": "E2FE5F65F8C0A7788119C54816F437F6AAE5D904D9D18E6443865481D8EF3B81",
+          "provenance.json": "EE12BC314BD77AC10795AC6A1903774BE62D69A6D21267015DFDECB4B05F8B0B"
+        },
+        "provenance": {
+          "grad_accumulation": 4,
+          "manifest_sha256": "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+          "num_workers": 4,
+          "physical_batch": 16,
+          "runner_commit": "aaa82f0261681cc3036714777bd662f0dd81be57",
+          "seed": 42,
+          "step7d_commit": "3cc77b075793568a93784be21eb8ae56225c079f",
+          "train_samples": 323997,
+          "validation_samples": 11983,
+          "variant": "B1",
+          "weight_sha256": "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A"
+        }
+      },
+      {
+        "seed": 43,
+        "metrics": {
+          "macro_f1": 0.990486487525468,
+          "balanced_accuracy": 0.9904857930803945,
+          "auroc": 0.9993739762660873,
+          "bce": 0.0751951103544734
+        },
+        "best_epoch": 7,
+        "epochs_completed": 11,
+        "optimizer_steps": 55660,
+        "artifact_sha256": {
+          "best.json": "0AB018A57E237F7872DCC4A1580268021F03DE2100A90412F18B725EF2DF7878",
+          "best.pt": "B375F4927F893D89FB029E4A73B77557C5AAFB101E18BBA7A5F9A45AD231CE82",
+          "final_summary.json": "C87F1C6E633351534F05C34669E9FF9C0F4E2E6291352433C633FFA4CDA40BDF",
+          "history.json": "21BDEEEBBAE822CA3AF3B89F0185F8191579F902C3FB8C0163A8085D7BFB8AB0",
+          "provenance.json": "7FC200D0F4B0090F489AE891B295F336A3B88173837D7A91A8FF458A828DBAAF"
+        },
+        "provenance": {
+          "grad_accumulation": 4,
+          "manifest_sha256": "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+          "num_workers": 4,
+          "physical_batch": 16,
+          "runner_commit": "aaa82f0261681cc3036714777bd662f0dd81be57",
+          "seed": 43,
+          "step7d_commit": "3cc77b075793568a93784be21eb8ae56225c079f",
+          "train_samples": 323997,
+          "validation_samples": 11983,
+          "variant": "B1",
+          "weight_sha256": "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A"
+        }
+      },
+      {
+        "seed": 44,
+        "metrics": {
+          "macro_f1": 0.9907367159652278,
+          "balanced_accuracy": 0.9907329516964734,
+          "auroc": 0.9995577469496908,
+          "bce": 0.0972379927280295
+        },
+        "best_epoch": 17,
+        "epochs_completed": 20,
+        "optimizer_steps": 101209,
+        "artifact_sha256": {
+          "best.json": "21F0D42E1BDE38184CF1EF29B2F6EE8571E67822E081047E4480E9CFBCF44422",
+          "best.pt": "E7D6B3ECD6D8D03FBED7D00585E0E6BB83DC0AC82D39A82867325B943FD5AFC5",
+          "final_summary.json": "2B5AFE3223627FFBF924F72E2B137B2474FA8B3A8BEC0D5D624D1342C8243AC1",
+          "history.json": "0EBCD6B7191CA2D22AC3507133E96B31B6B4D93557CDE3C09D9B99DF4AC60DE6",
+          "provenance.json": "ABB705C9B81F6091D7C7E040FCAE4C0BFD40B1019259219FBCE5B9BF05F26F95"
+        },
+        "provenance": {
+          "grad_accumulation": 4,
+          "manifest_sha256": "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+          "num_workers": 4,
+          "physical_batch": 16,
+          "runner_commit": "aaa82f0261681cc3036714777bd662f0dd81be57",
+          "seed": 44,
+          "step7d_commit": "3cc77b075793568a93784be21eb8ae56225c079f",
+          "train_samples": 323997,
+          "validation_samples": 11983,
+          "variant": "B1",
+          "weight_sha256": "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A"
+        }
+      }
+    ]
+  },
+  "aggregate": {
+    "B0": {
+      "macro_f1": {
+        "mean": 0.9190608286577454,
+        "sample_sd": 0.0004870295454119691,
+        "min": 0.9187012389598499,
+        "max": 0.9196150820691267
+      },
+      "balanced_accuracy": {
+        "mean": 0.9190599522721785,
+        "sample_sd": 0.0004878040122826467,
+        "min": 0.9186995515070477,
+        "max": 0.9196150342637472
+      },
+      "auroc": {
+        "mean": 0.9735101259123071,
+        "sample_sd": 0.00012637339496352816,
+        "min": 0.9734048136386428,
+        "max": 0.9736502590673575
+      },
+      "bce": {
+        "mean": 0.2074323477796936,
+        "sample_sd": 0.0005192220019601577,
+        "min": 0.2068869623278702,
+        "max": 0.20792069652574863
+      }
+    },
+    "B1": {
+      "macro_f1": {
+        "mean": 0.9899021901276445,
+        "sample_sd": 0.0012350903197799518,
+        "min": 0.9884833668922375,
+        "max": 0.9907367159652278
+      },
+      "balanced_accuracy": {
+        "mean": 0.9898989869444909,
+        "sample_sd": 0.001236614039332395,
+        "min": 0.9884782160566048,
+        "max": 0.9907329516964734
+      },
+      "auroc": {
+        "mean": 0.9993765947963675,
+        "sample_sd": 0.0001798571848875905,
+        "min": 0.9991980611733244,
+        "max": 0.9995577469496908
+      },
+      "bce": {
+        "mean": 0.0809517018990711,
+        "sample_sd": 0.014304827545199808,
+        "min": 0.07042200261471039,
+        "max": 0.0972379927280295
+      }
+    }
+  },
+  "b1_minus_b0_mean_delta": {
+    "macro_f1": 0.07084136146989906,
+    "balanced_accuracy": 0.07083903467231234,
+    "auroc": 0.025866468884060412,
+    "bce": -0.12648064588062252
+  },
+  "per_seed_b1_minus_b0": {
+    "42": {
+      "macro_f1": 0.06961720194797771,
+      "balanced_accuracy": 0.06961294501086412,
+      "auroc": 0.025547802105966966,
+      "bce": -0.1364649597131598
+    },
+    "43": {
+      "macro_f1": 0.07178524856561808,
+      "balanced_accuracy": 0.07178624157334679,
+      "auroc": 0.025898671235166315,
+      "bce": -0.13229427413098857
+    },
+    "44": {
+      "macro_f1": 0.07112163389610116,
+      "balanced_accuracy": 0.07111791743272611,
+      "auroc": 0.026152933311047954,
+      "bce": -0.11068270379771913
+    }
+  },
+  "limitations": [
+    "Validation metrics were used for checkpoint selection; these are selection-exposed results.",
+    "No independent test performance or cross-generator generalization is established.",
+    "The comparison is descriptive, not a preregistered significance test.",
+    "Dataset-specific generator/compression artifacts remain a potential confound.",
+    "B1/seed44 ran to the 20-epoch maximum; the other runs ended earlier."
+  ]
+}
