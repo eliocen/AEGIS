@@ -1,0 +1,62 @@
+{
+    "schema":  "aegis_t1_step8o_b1_seed44_training_evidence_v1",
+    "status":  "LOCAL_EVIDENCE_PREPARED_REMOTE_FREEZE_PENDING",
+    "parent_commit":  "70eca8b82fe59f3b220402e46f15aaf6b7123ad2",
+    "branch":  "research/post-v1-t1-aegis-vision",
+    "phase":  "T1 Step8 B1 seed44 training",
+    "classification":  "completed_training_validation_selection_exposed_not_formal_test",
+    "summary":  {
+                    "variant":  "B1",
+                    "seed":  44,
+                    "training_performed":  true,
+                    "epochs_completed":  20,
+                    "optimizer_steps":  101209,
+                    "best_epoch":  17,
+                    "best_validation_macro_f1":  0.9907367159652278,
+                    "best_validation_balanced_accuracy":  0.9907329516964734,
+                    "best_validation_auroc":  0.9995577469496908,
+                    "best_validation_bce":  0.0972379927280295,
+                    "last_stale_epochs":  3
+                },
+    "provenance":  {
+                       "runner_blob":  "aaa82f0261681cc3036714777bd662f0dd81be57",
+                       "step7d_commit":  "3cc77b075793568a93784be21eb8ae56225c079f",
+                       "manifest_sha256":  "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+                       "weight_sha256":  "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A",
+                       "train_samples":  323997,
+                       "validation_samples":  11983,
+                       "physical_batch":  16,
+                       "grad_accumulation":  4,
+                       "num_workers":  4,
+                       "authorization_sha256":  "22A351E83AF40EC2982A13DA35F14007A73EAB80543BDF61AFB118AF5B567453"
+                   },
+    "artifacts":  [
+                      {
+                          "path":  "artifacts/post_v1/t1_aegis_vision/training/B1/seed_44/best.json",
+                          "sha256":  "21F0D42E1BDE38184CF1EF29B2F6EE8571E67822E081047E4480E9CFBCF44422"
+                      },
+                      {
+                          "path":  "artifacts/post_v1/t1_aegis_vision/training/B1/seed_44/best.pt",
+                          "sha256":  "E7D6B3ECD6D8D03FBED7D00585E0E6BB83DC0AC82D39A82867325B943FD5AFC5"
+                      },
+                      {
+                          "path":  "artifacts/post_v1/t1_aegis_vision/training/B1/seed_44/final_summary.json",
+                          "sha256":  "2B5AFE3223627FFBF924F72E2B137B2474FA8B3A8BEC0D5D624D1342C8243AC1"
+                      },
+                      {
+                          "path":  "artifacts/post_v1/t1_aegis_vision/training/B1/seed_44/history.json",
+                          "sha256":  "0EBCD6B7191CA2D22AC3507133E96B31B6B4D93557CDE3C09D9B99DF4AC60DE6"
+                      },
+                      {
+                          "path":  "artifacts/post_v1/t1_aegis_vision/training/B1/seed_44/provenance.json",
+                          "sha256":  "ABB705C9B81F6091D7C7E040FCAE4C0BFD40B1019259219FBCE5B9BF05F26F95"
+                      }
+                  ],
+    "checkpoint_integrity":  "PASS_user_reported_python_read_only_verification",
+    "restrictions":  [
+                         "Validation metrics are checkpoint-selection-exposed, not independent test performance",
+                         "Official test set remains sealed",
+                         "No formal evaluation authorized",
+                         "No A1 run authorized by this evidence record"
+                     ]
+}
