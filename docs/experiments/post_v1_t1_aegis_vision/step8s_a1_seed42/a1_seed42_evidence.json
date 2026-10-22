@@ -1,0 +1,96 @@
+{
+  "artifact_files": {
+    "best.json": {
+      "bytes": 510,
+      "path": "artifacts/post_v1/t1_aegis_vision/training/A1/seed_42/best.json",
+      "sha256": "19ECAE8C886B9E371695E6C5B29954A14A0A28CE014190303BAEFBACDDFEC435"
+    },
+    "best.pt": {
+      "bytes": 86915937,
+      "path": "artifacts/post_v1/t1_aegis_vision/training/A1/seed_42/best.pt",
+      "sha256": "E90DA739B19DF6D409D078F736EA525276890488D4762DE4B39D9ADE90C55BD6"
+    },
+    "final_summary.json": {
+      "bytes": 689,
+      "path": "artifacts/post_v1/t1_aegis_vision/training/A1/seed_42/final_summary.json",
+      "sha256": "8492BF92401C62D51E7E1041BF6DB77D4EFBA27D01D227E808064D1508D372CE"
+    },
+    "history.json": {
+      "bytes": 12008,
+      "path": "artifacts/post_v1/t1_aegis_vision/training/A1/seed_42/history.json",
+      "sha256": "C67A0C90FDE53A644F412837AF32D479221407EFA26AA44F3EA4EFDE458AF8BC"
+    },
+    "provenance.json": {
+      "bytes": 479,
+      "path": "artifacts/post_v1/t1_aegis_vision/training/A1/seed_42/provenance.json",
+      "sha256": "7B1A42AF13B5391346B7F20AF08DE3AC65C664BF80F80D82C7093A92C314D1CC"
+    }
+  },
+  "best_epoch": 19,
+  "best_validation_metrics": {
+    "auroc": 0.9994344810295838,
+    "balanced_accuracy": 0.9908977241071926,
+    "bce": 0.11206307901741655,
+    "macro_f1": 0.9909034874270015,
+    "reliability": {
+      "brier": 0.009050359841276993,
+      "correctness_auroc": 0.9678362098672143,
+      "mean_correct": 0.9999462458016056,
+      "mean_incorrect": 0.9973565957337539,
+      "std": 0.0014913723679214424
+    }
+  },
+  "checkpoint_state_entries": 156,
+  "created_utc": "2026-10-22T08:17:11.768290+00:00",
+  "epochs_completed": 20,
+  "limitations": [
+    "Validation metrics are selection-exposed.",
+    "Single synthetic generator family.",
+    "Reliability predictions remain highly confident on errors.",
+    "No independent test performance is claimed.",
+    "No completed multimodal MDMH classification is claimed."
+  ],
+  "manifest_sha256": "09CF00DB0B3217677B615DA8E38B706A270B8EFA4FBF39F8A6EA0747C6C7161F",
+  "model_compatibility": {
+    "authenticity_output_shape": [
+      1
+    ],
+    "checkpoint_state_entries": 156,
+    "load_strict": true,
+    "model_class": "AegisVisionModel",
+    "output_keys": [
+      "authenticity_logit",
+      "reliability_logit"
+    ],
+    "reliability_output_shape": [
+      1
+    ],
+    "synthetic_batch_size": 1
+  },
+  "optimizer_steps": 101213,
+  "repository_head": "671d6a8675d9fdb18d9cc485f4be557ca498c424",
+  "runner_blob": "aaa82f0261681cc3036714777bd662f0dd81be57",
+  "schema": "AEGIS_T1_STEP8S_A1_SEED42_EVIDENCE_V1",
+  "scope": "Validation-selected image authenticity experiment",
+  "seed": 42,
+  "status": "training_and_architecture_evidence_verified",
+  "step7d_commit": "3cc77b075793568a93784be21eb8ae56225c079f",
+  "train_samples": 323997,
+  "validation_samples": 11983,
+  "variant": "A1",
+  "verification": {
+    "all_model_tensors_finite": true,
+    "checkpoint_metadata_consistent": true,
+    "checkpoint_safe_load": true,
+    "full_model_state_load": true,
+    "history_consecutive": true,
+    "independent_test_evaluation": false,
+    "missing_state_keys": 0,
+    "runner_blob_consistent": true,
+    "selection_consistent": true,
+    "strict_state_dict_load": true,
+    "synthetic_forward_pass": true,
+    "unexpected_state_keys": 0
+  },
+  "weight_sha256": "8D4795B8E4E327C6D841E15A2E3E6D88C45346256A43F8CDAE8C26D92C806F7A"
+}
